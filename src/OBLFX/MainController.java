@@ -26,7 +26,7 @@ public class MainController {
 		LoginFormController loginFormController = loader.getController();
 			
 		Scene scene = new Scene(root);			
-		scene.getStylesheets().add(getClass().getResource("/OBLFX/LoginForm.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("/OBLFX/LoginForm.css").toExternalForm());
 			
 		primaryStage.setScene(scene);		
 		primaryStage.show();
