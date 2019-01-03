@@ -45,6 +45,7 @@ public class CreateDatabase {
 			"  `AvailableCopies` INT NULL,\r\n" + 
 			"  `ShelfLocation` VARCHAR(45) NULL,\r\n" + 
 			"  `EditionNumber` VARCHAR(45) NULL,\r\n" + 
+			"  `isWanted` tinyint(4) DEFAULT '0',\\r\\n" +
 			"  PRIMARY KEY (`CatalogNumber`),\r\n" + 
 			"  UNIQUE INDEX `CatalogNumber_UNIQUE` (`CatalogNumber` ASC) VISIBLE);";
 	
@@ -66,12 +67,23 @@ public class CreateDatabase {
 			"  `SubscriberID` varchar(10) NOT NULL,\r\n" + 
 			"  `bookCatalogNumber` varchar(45) NOT NULL,\r\n" + 
 			"  `OrderDate` datetime NOT NULL,\r\n" + 
-			"  `BookArrived` tinyint(4) NOT NULL DEFAULT '0',\r\n" + 
+			"  `BookArrivedTime` datetime DEFAULT NULL,\r\n" + 
 			"  KEY `SubscriberID_idx` (`SubscriberID`),\r\n" + 
 			"  KEY `CatalogNumber_idx` (`bookCatalogNumber`),\r\n" + 
 			"  CONSTRAINT `orderBookCN` FOREIGN KEY (`SubscriberID`) REFERENCES `subscriber` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 
 			"  CONSTRAINT `orderSubscriberID` FOREIGN KEY (`bookCatalogNumber`) REFERENCES `book` (`catalognumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			") ;";
+	
+	final static String bookcopyTable = "CREATE TABLE IF NOT EXISTS `bookcopy` (\r\n" + 
+			"  `CopyID` VARCHAR(45) NOT NULL,\r\n" + 
+			"  `BookCatalogNumber` VARCHAR(45) NULL,\r\n" + 
+			"  PRIMARY KEY (`copyID`),\r\n" + 
+			"  INDEX `copyCatalogNumber_idx` (`bookCatalogNumber` ASC) VISIBLE,\r\n" + 
+			"  CONSTRAINT `copyCatalogNumber`\r\n" + 
+			"    FOREIGN KEY (`bookCatalogNumber`)\r\n" + 
+			"    REFERENCES `book` (`CatalogNumber`)\r\n" + 
+			"    ON DELETE CASCADE\r\n" + 
+			"    ON UPDATE CASCADE);";
 	
 	
 }

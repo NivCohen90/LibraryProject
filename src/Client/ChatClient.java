@@ -2,11 +2,14 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-package App;
+package Client;
 
 import ocsf.client.*;
 import java.io.*;
 import java.util.ArrayList;
+
+import App.MainController;
+import App.Student;
 
 /**
  * This class overrides some of the methods defined in the abstract superclass

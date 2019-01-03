@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import App.ChatClient;
+import Client.ChatClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +31,8 @@ public class MainController implements Initializable {
 
 	boolean ConnectedFlag = false;
 	
-	static ObservableList<Student> ObservableStudentList = FXCollections.observableArrayList();
-	static Student staticStudent;
+	public static ObservableList<Student> ObservableStudentList = FXCollections.observableArrayList();
+	public static Student staticStudent;
 	public static String updateStudent = "";
 	
 	@FXML

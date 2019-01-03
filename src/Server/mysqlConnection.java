@@ -36,6 +36,7 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.bookTable);
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
+			createdb.executeQuery(CreateDatabase.bookcopyTable);
 
 			return "SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").";
 		} catch (SQLException ex) {/* handle any errors */
