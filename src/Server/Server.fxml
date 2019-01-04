@@ -23,7 +23,7 @@
             <Image url="@../Images/braude.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="697.0" layoutY="65.0" prefHeight="275.0" prefWidth="298.0" style="-fx-border-color: GREY;" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="697.0" layoutY="51.0" prefHeight="297.0" prefWidth="276.0" style="-fx-border-color: GREY;" AnchorPane.rightAnchor="0.0">
          <children>
             <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="272.0" prefWidth="258.0">
                <children>
@@ -49,7 +49,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="717.0" layoutY="340.0" prefHeight="260.0" prefWidth="298.0" style="-fx-border-color: GREY;">
+      <AnchorPane layoutX="739.0" layoutY="347.0" prefHeight="329.0" prefWidth="276.0" style="-fx-border-color: GREY;">
          <children>
             <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="272.0" prefWidth="258.0">
                <children>
@@ -71,6 +71,7 @@
                   <Button fx:id="ConnectToDatabaseBtn" mnemonicParsing="false" onAction="#SetConnectionToDB" prefHeight="25.0" prefWidth="204.0" text="Connect" />
                   <Label />
                   <Button fx:id="DataBaseDisconnectionBtn" disable="true" mnemonicParsing="false" onAction="#StopConnectionWithDatabase" prefHeight="25.0" prefWidth="204.0" text="Disconnected" />
+                  <Label />
                   <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="40.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
                      <font>
                         <Font size="14.0" />
@@ -80,20 +81,20 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Label alignment="CENTER" blendMode="MULTIPLY" layoutX="229.0" layoutY="66.0" prefHeight="53.0" prefWidth="488.0" style="-fx-border-color: GREY;" text="Server Log" underline="true">
-         <font>
-            <Font name="System Bold Italic" size="14.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="-2.0" layoutY="119.0" prefHeight="509.0" prefWidth="204.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="0.0">
+      <AnchorPane layoutX="-2.0" layoutY="52.0" prefHeight="624.0" prefWidth="232.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="0.0">
          <children>
-            <Label alignment="CENTER" layoutY="14.0" prefHeight="20.0" prefWidth="230.0" text="Information" underline="true">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <VBox layoutX="14.0" layoutY="34.0" prefHeight="495.0" prefWidth="204.0">
+            <VBox layoutX="14.0" prefHeight="624.0" prefWidth="204.0">
                <children>
+                  <TextField fx:id="Cloack" alignment="CENTER" blendMode="MULTIPLY" editable="false" prefHeight="65.0" prefWidth="204.0" promptText="Cloack">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="230.0" text="Information" underline="true">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
                   <Label prefHeight="24.0" prefWidth="209.0" text="Server Status:" />
                   <TextField fx:id="ServerStatus" editable="false" style="-fx-background-color: RED;" text="Dissconnected" />
                   <Label />
@@ -102,22 +103,30 @@
                   <Label />
                   <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="204.0" text="Server Up Time:" />
                   <TextField fx:id="ServerRunTime" blendMode="MULTIPLY" editable="false" />
+                  <Label />
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="204.0" text="Current Clients:" />
+                  <TextField fx:id="NumberOfClients" blendMode="MULTIPLY" editable="false" text="0" />
                </children>
             </VBox>
          </children>
       </AnchorPane>
-      <TextField fx:id="Cloack" alignment="CENTER" blendMode="MULTIPLY" editable="false" layoutY="65.0" prefHeight="53.0" prefWidth="230.0" promptText="Cloack" style="-fx-border-color: GREY;">
-         <font>
-            <Font name="System Bold Italic" size="24.0" />
-         </font></TextField>
-      <TableView fx:id="ServerLogTable" layoutX="232.0" layoutY="118.0" prefHeight="534.0" prefWidth="488.0">
-        <columns>
-          <TableColumn fx:id="LogTime" prefWidth="101.0" text="Time" />
-          <TableColumn fx:id="LogMsg" prefWidth="385.0" text="Msg" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+      <VBox layoutX="232.0" layoutY="51.0" prefHeight="624.0" prefWidth="507.0">
+         <children>
+            <Label alignment="CENTER" blendMode="MULTIPLY" prefHeight="45.0" prefWidth="507.0" style="-fx-border-color: GREY;" text="Server Log" underline="true">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TableView fx:id="ServerLogTable" prefHeight="579.0" prefWidth="507.0">
+              <columns>
+                <TableColumn fx:id="LogTime" prefWidth="99.0" text="Time" />
+                <TableColumn fx:id="LogMsg" prefWidth="406.0" text="Msg" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

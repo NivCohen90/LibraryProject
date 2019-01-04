@@ -27,7 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import Server.Log;
 
 public class ServerController implements Initializable {
-	
+
 	/*************************************************************
 	 * 
 	 * Description: Variables
@@ -46,7 +46,8 @@ public class ServerController implements Initializable {
 	public static int ServerStopListening = 0;
 	@SuppressWarnings("deprecation")
 	public static Time time = new Time(0, 0, 0);
-	Timeline ServerLogTimeLine = new Timeline();
+
+	Timeline NumberofClients = new Timeline();
 	Timeline ServerRunTimeLine = new Timeline();
 	Timeline CloackTimeLine = new Timeline();
 
@@ -56,7 +57,7 @@ public class ServerController implements Initializable {
 	 *
 	 *
 	 ************************************************************/
-	
+
 	@FXML
 	private TextField ServerPortTextField;
 
@@ -110,14 +111,14 @@ public class ServerController implements Initializable {
 
 	@FXML
 	private TableColumn<Log, String> LogMsg;
-	
-    @FXML
-    private Button DataBaseDisconnectionBtn;
-	
+
+	@FXML
+	private Button DataBaseDisconnectionBtn;
+
 	/*************************************************************
 	 * 
-	 * Description: Data base Connection Methods.
-	 * Methods:	SetConnectionToDB, StopConnectionWithDatabase
+	 * Description: Data base Connection Methods. Methods: SetConnectionToDB,
+	 * StopConnectionWithDatabase
 	 *
 	 ************************************************************/
 
@@ -139,10 +140,10 @@ public class ServerController implements Initializable {
 			ConnectionMessage1.setText("One or more fields are wrong.");
 		}
 	}
-	
+
 	@FXML
 	void StopConnectionWithDatabase(ActionEvent event) {
-		if(mysqlConnection.StopConnectionWithDatabase()) {
+		if (mysqlConnection.CloseDBConnection()) {
 			DataBaseDisconnectionBtn.setDisable(true);
 			ConnectToDatabaseBtn.setDisable(false);
 			DataBaseSHostName.setEditable(true);
@@ -152,19 +153,19 @@ public class ServerController implements Initializable {
 			ConnectionMessage1.setText("You Have to Connect to the Database.");
 			DatabaseStatus.setText("Disconnected");
 			DatabaseStatus.setStyle(RED_COLOR);
-		}
-		else {
+		} else {
 			ConnectionMessage1.setText("Can not disconnected from the database");
 		}
 	}
-	
+
 	/*************************************************************
 	 * 
-	 * Description: Server Connection Methods.
-	 * Methods:	SetConnectionToServer, StopConnectionWithServer
+	 * Description: Server Connection Methods. Methods: SetConnectionToServer,
+	 * StopConnectionWithServer
 	 *
 	 ************************************************************/
 
+	@SuppressWarnings("deprecation")
 	@FXML
 	void SetConnectionToServer(ActionEvent event) {
 		if (ServerStopListening == 0) {
@@ -198,10 +199,14 @@ public class ServerController implements Initializable {
 			DissconnectFromServerBtn.setDisable(false);
 
 		} catch (Exception ex) {
+			ServerRunTimeLine.pause();
+			time.setHours(0);
+			time.setMinutes(0);
+			time.setSeconds(0);
 			updateLog("ERROR - Could not listen for clients!");
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@FXML
 	void StopConnectionWithServer(ActionEvent event) throws IOException {
@@ -218,24 +223,21 @@ public class ServerController implements Initializable {
 		time.setMinutes(0);
 		time.setSeconds(0);
 	}
-	
+
 	/*************************************************************
 	 * 
-	 * Description: TimeLines Threads.
-	 * Threads: ServerRunTimeLine, CloackTimeLine.
+	 * Description: TimeLines Threads. Threads: ServerRunTimeLine, CloackTimeLine.
 	 *
 	 ************************************************************/
 
 	@SuppressWarnings("deprecation")
 	private void setTimeLines() {
 
-//		ServerLogTimeLine.setCycleCount(Timeline.INDEFINITE);
-//		ServerLogTimeLine.getKeyFrames().add(
-//	            new KeyFrame(Duration.seconds(1),
-//						(EventHandler<ActionEvent>) LogEvent -> {
-//							//ServerLog.setText(Log);	//Update The Server Log Every 1 Sec.
-//						}));
-//		ServerLogTimeLine.playFromStart();
+		NumberofClients.setCycleCount(Timeline.INDEFINITE);
+		NumberofClients.getKeyFrames().add(new KeyFrame(Duration.seconds(1), (EventHandler<ActionEvent>) LogEvent -> {
+			NumberOfClients.setText(Integer.toString(sv.getNumberOfClients()));
+		}));
+		NumberofClients.playFromStart();
 
 		ServerRunTimeLine.setCycleCount(Timeline.INDEFINITE);
 		ServerRunTimeLine.getKeyFrames()
@@ -278,7 +280,7 @@ public class ServerController implements Initializable {
 		String formattedDate = dateFormat.format(date);
 		return formattedDate;
 	}
-	
+
 	/*************************************************************
 	 * 
 	 * Description: Log Method.
@@ -289,14 +291,14 @@ public class ServerController implements Initializable {
 	public static void updateLog(String log) {
 		ObservableLogList.add(new Log(getCurrentTimeUsingCalendar(), log));
 	}
-	
+
 	/*************************************************************
 	 * 
 	 * Description: Initialize.
 	 * 
 	 *
 	 ************************************************************/
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableLogList = FXCollections.observableArrayList();

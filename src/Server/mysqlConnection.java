@@ -51,13 +51,13 @@ public class mysqlConnection {
 		}
 		
 	}
-	public static boolean StopConnectionWithDatabase() {
+	public static boolean CloseDBConnection() {
 		try {
 			conn.close();
-			ServerController.updateLog("SQL disconnected.");
+			ServerController.updateLog("Connection Stopped with Database");
 			return true;
 		} catch (SQLException e) {
-			ServerController.updateLog(e.getMessage().toString());
+			ServerController.updateLog(e.getMessage());
 			return false;
 		}
 	}
@@ -117,15 +117,6 @@ public class mysqlConnection {
 
 	}
 	
-	public static boolean CloseDBConnection() {
-		try {
-			conn.close();
-			ServerController.updateLog("Connection Stopped with Database");
-			return true;
-		} catch (SQLException e) {
-			ServerController.updateLog(e.getMessage());
-			return false;
-		}
-	}
+
 	
 }
