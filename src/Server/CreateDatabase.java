@@ -45,7 +45,7 @@ public class CreateDatabase {
 			"  `AvailableCopies` INT NULL,\r\n" + 
 			"  `ShelfLocation` VARCHAR(45) NULL,\r\n" + 
 			"  `EditionNumber` VARCHAR(45) NULL,\r\n" + 
-			"  `isWanted` tinyint(4) DEFAULT '0',\\r\\n" +
+			"  `isWanted` tinyint(4) DEFAULT '0',\r\n" +
 			"  PRIMARY KEY (`CatalogNumber`),\r\n" + 
 			"  UNIQUE INDEX `CatalogNumber_UNIQUE` (`CatalogNumber` ASC) VISIBLE);";
 	

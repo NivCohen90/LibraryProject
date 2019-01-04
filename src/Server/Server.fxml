@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1015.0" style="-fx-background-color: B1DAFE;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Server.ServerController">
+<AnchorPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1015.0" style="-fx-background-color: B1DAFE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Server.ServerController">
    <children>
       <Label alignment="CENTER" layoutY="-1.0" prefHeight="45.0" prefWidth="1015.0" text="Server Connection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -62,15 +62,15 @@
                   <Label text="Host Name" />
                   <TextField fx:id="DataBaseSHostName" text="localhost" />
                   <Label text="Scheme Name" />
-                  <TextField fx:id="DataBaseSchemeName" text="libraryserver" />
+                  <TextField fx:id="DataBaseSchemeName" text="OBL" />
                   <Label text="User Name" />
                   <TextField fx:id="DataBaseUserNameTextField" text="root" />
                   <Label text="Password" />
-                  <TextField fx:id="DatabsePasswordTextField" text="admin" />
+                  <TextField fx:id="DatabsePasswordTextField" text="Aa123456" />
                   <Label />
                   <Button fx:id="ConnectToDatabaseBtn" mnemonicParsing="false" onAction="#SetConnectionToDB" prefHeight="25.0" prefWidth="204.0" text="Connect" />
                   <Label />
-                  <Button fx:id="DissconnectFromDatabase" disable="true" mnemonicParsing="false" onAction="#StopConnectionWithDatabase" prefHeight="25.0" prefWidth="204.0" text="Disconnected" />
+                  <Button fx:id="DataBaseDisconnectionBtn" disable="true" mnemonicParsing="false" onAction="#StopConnectionWithDatabase" prefHeight="25.0" prefWidth="204.0" text="Disconnected" />
                   <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="40.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
                      <font>
                         <Font size="14.0" />

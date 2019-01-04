@@ -24,7 +24,7 @@ public class mysqlConnection {
 			String Connection = "jdbc:mysql://";
 			Connection = Connection + DatabaseIP;
 			//Connection = Connection + "/" + SchemeName;
-			Connection = Connection + "?serverTimezone=UTC";
+			//Connection = Connection + "?serverTimezone=UTC";
 			conn = DriverManager.getConnection(Connection, UserName, Password);
 			Statement createdb = conn.createStatement();
 			createdb.execute("CREATE DATABASE IF NOT EXISTS " + SchemeName + ";");
@@ -36,9 +36,9 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.bookTable);
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
-			createdb.executeQuery(CreateDatabase.bookcopyTable);
-
-			return "SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").";
+			createdb.execute(CreateDatabase.bookcopyTable);
+			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").");
+			return "succeed";
 		} catch (SQLException ex) {/* handle any errors */
 			ex.printStackTrace();
 			String Error = "SQLException: " + ex.getMessage();
@@ -46,9 +46,20 @@ public class mysqlConnection {
 			Error = Error + "SQLState: " + ex.getSQLState();
 			Error = Error + "\n";
 			Error = Error + "VendorError: " + ex.getErrorCode();
-			return Error;
+			ServerController.updateLog(Error);
+			return "Error";
 		}
 		
+	}
+	public static boolean StopConnectionWithDatabase() {
+		try {
+			conn.close();
+			ServerController.updateLog("SQL disconnected.");
+			return true;
+		} catch (SQLException e) {
+			ServerController.updateLog(e.getMessage().toString());
+			return false;
+		}
 	}
 
 	public static void insertToDB(Student s) throws SQLException {
@@ -116,4 +127,5 @@ public class mysqlConnection {
 			return false;
 		}
 	}
+	
 }

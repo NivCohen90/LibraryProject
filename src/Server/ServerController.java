@@ -27,6 +27,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import Server.Log;
 
 public class ServerController implements Initializable {
+	
+	/*************************************************************
+	 * 
+	 * Description: Variables
+	 *
+	 *
+	 ************************************************************/
 
 	final public static int DEFAULT_PORT = 5555;
 	public static EchoServer sv;
@@ -43,10 +50,13 @@ public class ServerController implements Initializable {
 	Timeline ServerRunTimeLine = new Timeline();
 	Timeline CloackTimeLine = new Timeline();
 
-	// private TimeChangeRequest selectedTCR = null;
-	// private ArrayList<TimeChangeRequest> requests = new
-	// ArrayList<TimeChangeRequest>();
-
+	/*************************************************************
+	 * 
+	 * Description: FXML Variables
+	 *
+	 *
+	 ************************************************************/
+	
 	@FXML
 	private TextField ServerPortTextField;
 
@@ -102,7 +112,14 @@ public class ServerController implements Initializable {
 	private TableColumn<Log, String> LogMsg;
 	
     @FXML
-    private Button DissconnectFromDatabase;
+    private Button DataBaseDisconnectionBtn;
+	
+	/*************************************************************
+	 * 
+	 * Description: Data base Connection Methods.
+	 * Methods:	SetConnectionToDB, StopConnectionWithDatabase
+	 *
+	 ************************************************************/
 
 	@FXML
 	void SetConnectionToDB(ActionEvent event) {
@@ -110,6 +127,7 @@ public class ServerController implements Initializable {
 				DataBaseUserNameTextField.getText(), DatabsePasswordTextField.getText());
 		if (Result.contains("succeed")) {
 			ConnectToDatabaseBtn.setDisable(true);
+			DataBaseDisconnectionBtn.setDisable(false);
 			DataBaseSHostName.setEditable(false);
 			DataBaseSchemeName.setEditable(false);
 			DataBaseUserNameTextField.setEditable(false);
@@ -120,8 +138,32 @@ public class ServerController implements Initializable {
 		} else {
 			ConnectionMessage1.setText("One or more fields are wrong.");
 		}
-		updateLog(Result);
 	}
+	
+	@FXML
+	void StopConnectionWithDatabase(ActionEvent event) {
+		if(mysqlConnection.StopConnectionWithDatabase()) {
+			DataBaseDisconnectionBtn.setDisable(true);
+			ConnectToDatabaseBtn.setDisable(false);
+			DataBaseSHostName.setEditable(true);
+			DataBaseSchemeName.setEditable(true);
+			DataBaseUserNameTextField.setEditable(true);
+			DatabsePasswordTextField.setEditable(true);
+			ConnectionMessage1.setText("You Have to Connect to the Database.");
+			DatabaseStatus.setText("Disconnected");
+			DatabaseStatus.setStyle(RED_COLOR);
+		}
+		else {
+			ConnectionMessage1.setText("Can not disconnected from the database");
+		}
+	}
+	
+	/*************************************************************
+	 * 
+	 * Description: Server Connection Methods.
+	 * Methods:	SetConnectionToServer, StopConnectionWithServer
+	 *
+	 ************************************************************/
 
 	@FXML
 	void SetConnectionToServer(ActionEvent event) {
@@ -159,6 +201,30 @@ public class ServerController implements Initializable {
 			updateLog("ERROR - Could not listen for clients!");
 		}
 	}
+	
+	@SuppressWarnings("deprecation")
+	@FXML
+	void StopConnectionWithServer(ActionEvent event) throws IOException {
+		ServerStatus.setText("Dissconnected");
+		ServerStatus.setStyle(RED_COLOR);
+		sv.close();
+		ServerStopListening = 1;
+		updateLog("Server has stopped listening for connections.");
+		ConnectionMessage.setText(ServerErrorConnection);
+		ConnectToServerBtn.setDisable(false);
+		DissconnectFromServerBtn.setDisable(true);
+		ServerRunTimeLine.pause();
+		time.setHours(0);
+		time.setMinutes(0);
+		time.setSeconds(0);
+	}
+	
+	/*************************************************************
+	 * 
+	 * Description: TimeLines Threads.
+	 * Threads: ServerRunTimeLine, CloackTimeLine.
+	 *
+	 ************************************************************/
 
 	@SuppressWarnings("deprecation")
 	private void setTimeLines() {
@@ -198,22 +264,12 @@ public class ServerController implements Initializable {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@FXML
-	void StopConnectionWithServer(ActionEvent event) throws IOException {
-		ServerStatus.setText("Dissconnected");
-		ServerStatus.setStyle(RED_COLOR);
-		sv.close();
-		ServerStopListening = 1;
-		updateLog("Server has stopped listening for connections.");
-		ConnectionMessage.setText(ServerErrorConnection);
-		ConnectToServerBtn.setDisable(false);
-		DissconnectFromServerBtn.setDisable(true);
-		ServerRunTimeLine.pause();
-		time.setHours(0);
-		time.setMinutes(0);
-		time.setSeconds(0);
-	}
+	/*************************************************************
+	 * 
+	 * Description: Cloak method.
+	 * 
+	 *
+	 ************************************************************/
 
 	public static String getCurrentTimeUsingCalendar() {
 		Calendar cal = Calendar.getInstance();
@@ -222,11 +278,25 @@ public class ServerController implements Initializable {
 		String formattedDate = dateFormat.format(date);
 		return formattedDate;
 	}
+	
+	/*************************************************************
+	 * 
+	 * Description: Log Method.
+	 * 
+	 *
+	 ************************************************************/
 
 	public static void updateLog(String log) {
 		ObservableLogList.add(new Log(getCurrentTimeUsingCalendar(), log));
 	}
-
+	
+	/*************************************************************
+	 * 
+	 * Description: Initialize.
+	 * 
+	 *
+	 ************************************************************/
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableLogList = FXCollections.observableArrayList();
