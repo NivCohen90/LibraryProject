@@ -38,13 +38,14 @@ public class CreateDatabase {
 	
 	final static String bookTable = "CREATE TABLE IF NOT EXISTS `book` (\r\n" + 
 			"  `CatalogNumber` VARCHAR(45) NOT NULL,\r\n" + 
-			"  `BookName` VARCHAR(45) NOT NULL,\r\n" + 
-			"  `AuthorName` VARCHAR(45) NULL,\r\n" + 
-			"  `Subject` VARCHAR(45) NULL,\r\n" + 
+			"  `BookName` VARCHAR(255) NOT NULL,\r\n" + 
+			"  `AuthorName` VARCHAR(255) NULL,\r\n" + 
+			"  `Subject` VARCHAR(255) NULL,\r\n" + 
 			"  `NumberOfCopies` INT NULL,\r\n" + 
 			"  `AvailableCopies` INT NULL,\r\n" + 
 			"  `ShelfLocation` VARCHAR(45) NULL,\r\n" + 
 			"  `EditionNumber` VARCHAR(45) NULL,\r\n" + 
+			"  `PrintDate` VARCHAR(45) DEFAULT NULL,\r\n" + 
 			"  `isWanted` tinyint(4) DEFAULT '0',\r\n" +
 			"  PRIMARY KEY (`CatalogNumber`),\r\n" + 
 			"  UNIQUE INDEX `CatalogNumber_UNIQUE` (`CatalogNumber` ASC) VISIBLE);";
