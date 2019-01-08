@@ -5,13 +5,23 @@ public class Loan {
 
 	private Date StartDate;
 	private Date ReturnDate; 
-	private static int LoanID; 
+	private String LoanID; 
+	private String SubscriberID;
+	private String BookCatalogNumber;
+	private String CopyID;
+	private String LoanStatus;
 	
-	public Loan(Date startDate, Date returnDate, int loanID) {
+	public Loan(Date startDate, Date returnDate, String loanID, String subscriberID, String bookCatalogNumber,
+			String copyID, String loanStatus) {
 		StartDate = startDate; //צריך לעדכן שיקבל את התאריך הנוכחי
 		ReturnDate= returnDate;//צריך לדאוג שהסרבר יחשב את זה בהתאם לביקוש הספר
 		LoanID = loanID;
+		SubscriberID = subscriberID;
+		BookCatalogNumber = bookCatalogNumber;
+		CopyID = copyID;
+		LoanStatus = loanStatus;
 	}
+	
 	public Date getStartDate() {
 		return StartDate;
 	}
@@ -24,11 +34,35 @@ public class Loan {
 	public void setReturnDate(Date returnDate) {
 		ReturnDate = returnDate;
 	}
-	public int getLoanID() {
+	public String getLoanID() {
 		return LoanID;
 	}
-	public void setLoanID(int loanID) {
+	public void setLoanID(String loanID) {
 		LoanID = loanID;
+	}
+	public String getSubscriberID() {
+		return SubscriberID;
+	}
+	public void setSubscriberID(String subscriberID) {
+		SubscriberID = subscriberID;
+	}
+	public String getBookCatalogNumber() {
+		return BookCatalogNumber;
+	}
+	public void setBookCatalogNumber(String bookCatalogNumber) {
+		BookCatalogNumber = bookCatalogNumber;
+	}
+	public String getCopyID() {
+		return CopyID;
+	}
+	public void setCopyID(String copyID) {
+		CopyID = copyID;
+	}
+	public String getLoanStatus() {
+		return LoanStatus;
+	}
+	public void setLoanStatus(String loanStatus) {
+		LoanStatus = loanStatus;
 	}
 	
 	

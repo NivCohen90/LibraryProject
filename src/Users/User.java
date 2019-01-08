@@ -7,14 +7,17 @@ public abstract class User {
 	private String Email;
 	private String ID;
 	private String Password;
-	
-	public User(String firstName, String lastName, String email, String iD, String password) {
+	int level;
+	//0-user, 1-subscriber, 2-librarian
+
+	public User(String firstName, String lastName, String email, String iD, String password, int level) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
 		Email = email;
 		ID = iD;
 		Password=password;
+		this.level = level;
 	}
 	
 	
@@ -51,6 +54,13 @@ public abstract class User {
 	public void setID(String iD) {
 		ID = iD;
 	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	
 	
 	//public Book Search(String SearchField)(){}
 	
