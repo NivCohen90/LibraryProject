@@ -12,7 +12,7 @@ public class Subscriber extends User{
 		
 	
 	public Subscriber(String firstName, String lastName, String email, String iD, String password, String status,String phoneNumber, String subscriberNumber) {
-		super(firstName, lastName, email, iD, password);
+		super(firstName, lastName, email, iD, password,1);
 		Status = status;
 		PhoneNumber = phoneNumber;
 		SubscriberNumber = subscriberNumber;

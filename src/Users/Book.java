@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class Book {
 
+	private String CatalogNumber;
 	private String BookName;
 	private ArrayList<String> AuthorName;
-	private String CatalogNumber;
-	private String ShelfLoaction;
+	private String Subject;
+	private int NumberOfCopies;
 	private int AvailableCopies;
-	private int NumberOfLibraryCopies;
-	private String Description;
-	private String subject;
-	private String ContextTable;
+	private int NumberOfOrders;//
+	private String ShelfLoaction;
 	private String EditionNumber;
 	private Date purchesDate;
+	private boolean isWanted;//
+	private String Description;
+	private String ContextTable;
 	private ArrayList<Loan> Loaners;
 	
 	public Book(String bookName, String catalogNumber, String shelfLoaction, int availableCopies, int numberOfLibraryCopies, String description, String subject, String contextTable, String editionNumber, Date purchesDate) {
@@ -23,13 +25,15 @@ public class Book {
 		CatalogNumber = catalogNumber;
 		ShelfLoaction = shelfLoaction;
 		AvailableCopies = availableCopies;
-		NumberOfLibraryCopies = numberOfLibraryCopies;
+		NumberOfCopies = numberOfLibraryCopies;
 		Description = description;
-		this.subject = subject;
+		this.Subject = subject;
 		ContextTable = contextTable;
 		EditionNumber = editionNumber;
 		this.purchesDate = purchesDate;
 		Loaners = new ArrayList<Loan>();
+		NumberOfOrders=0;
+		isWanted=false;
 	}
 
 	public String getBookName() {
@@ -73,11 +77,11 @@ public class Book {
 	}
 
 	public int getNumberOfLibraryCopies() {
-		return NumberOfLibraryCopies;
+		return NumberOfCopies;
 	}
 
 	public void setNumberOfLibraryCopies(int numberOfLibraryCopies) {
-		NumberOfLibraryCopies = numberOfLibraryCopies;
+		NumberOfCopies = numberOfLibraryCopies;
 	}
 
 	public String getDescription() {
@@ -89,11 +93,11 @@ public class Book {
 	}
 
 	public String getSubject() {
-		return subject;
+		return Subject;
 	}
 
 	public void setSubject(String subject) {
-		this.subject = subject;
+		this.Subject = subject;
 	}
 
 	public String getContextTable() {
@@ -126,6 +130,22 @@ public class Book {
 
 	public void setLoaners(ArrayList<Loan> loaners) {
 		Loaners = loaners;
+	}
+	
+	public void setNumberOfOrders(int orders) {
+		NumberOfOrders = orders;
+	}
+	
+	public int getNumberOfOrders() {
+		return NumberOfOrders;
+	}
+	
+	public void setIsWanted(boolean isWanted) {
+		this.isWanted = isWanted;
+	}
+	
+	public boolean getIsWanted() {
+		return isWanted;
 	}
 		
 }

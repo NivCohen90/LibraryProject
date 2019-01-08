@@ -31,6 +31,7 @@ public class CreateDatabase {
 			"		  CONSTRAINT `LibrarinID` FOREIGN KEY (`ID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
 	
+
 	final static String bookTable = "CREATE TABLE  IF NOT EXISTS `book` (\r\n" + 
 			"		  `CatalogNumber` varchar(45) NOT NULL,\r\n" + 
 			"		  `BookName` varchar(500) NOT NULL,\r\n" + 
@@ -48,6 +49,7 @@ public class CreateDatabase {
 			"		  PRIMARY KEY (`CatalogNumber`),\r\n" + 
 			"		  UNIQUE KEY `CatalogNumber_UNIQUE` (`CatalogNumber`)\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+
 	
 	final static String loanTable = "CREATE TABLE IF NOT EXISTS `loan` (\r\n" + 
 			"		  `LoanID` varchar(45) NOT NULL,\r\n" + 

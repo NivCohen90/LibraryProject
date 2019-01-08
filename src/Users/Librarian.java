@@ -5,7 +5,7 @@ public class Librarian extends User{
 	private String Affiliation;
 
 	public Librarian(String firstName, String lastName, String email, String iD, String password, String affiliation) {
-		super(firstName, lastName, email, iD, password);
+		super(firstName, lastName, email, iD, password,2);
 		Affiliation=affiliation;
 	}
 
