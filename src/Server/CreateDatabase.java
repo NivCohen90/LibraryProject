@@ -10,7 +10,7 @@ public class CreateDatabase {
 			"  `PhoneNumber` VARCHAR(20) NULL,\r\n" + 
 			"  `Password` VARCHAR(20) NULL,\r\n" + 
 			"  PRIMARY KEY (`ID`),\r\n" + 
-			"  UNIQUE KEY `Subcriber_Id_UNIQUE` (`ID`)\r\n" + 
+			"  UNIQUE KEY `Subcriber_ID_UNIQUE` (`ID`)\r\n" + 
 			"  );";
 	
 	final static String subscriberTable = "CREATE TABLE IF NOT EXISTS `subscriber` (\r\n" + 
@@ -26,7 +26,7 @@ public class CreateDatabase {
 			"		    ON UPDATE CASCADE);";
 	
 	final static String librarianTable = "CREATE TABLE IF NOT EXISTS `librarian` (\r\n" + 
-			"  `Id` VARCHAR(10) NOT NULL,\r\n" + 
+			"  `ID` VARCHAR(10) NOT NULL,\r\n" + 
 			"  `Affiliation` VARCHAR(45) NULL,\r\n" + 
 			"  `isManager` tinyint(4) DEFAULT '0',\r\n" + 
 			"  PRIMARY KEY (`ID`),\r\n" + 

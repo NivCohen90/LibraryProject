@@ -2,13 +2,13 @@ package Server;
 
 public class LoadDataBase {
 	final static String userTable = "LOAD DATA LOCAL INFILE  \r\n" + 
-			"'c:/temp/some-file.csv'\r\n" + 
+			"'..\\CSV\\user.csv\r\n" + 
 			"INTO TABLE 'userTable'  \r\n" + 
 			"FIELDS TERMINATED BY ',' \r\n" + 
 			"ENCLOSED BY '\"'\r\n" + 
 			"LINES TERMINATED BY '\\n'\r\n" + 
 			"IGNORE 1 ROWS\r\n" + 
-			"(field_1,field_2 , field_3);";
+			"(ID,FirstName,LastName,Email,PhoneNumber,Password);";
 			
 	final static String subscriberTable = "LOAD DATA LOCAL INFILE  \r\n" + 
 			"'c:/temp/some-file.csv'\r\n" + 

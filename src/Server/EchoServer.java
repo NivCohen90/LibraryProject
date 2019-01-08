@@ -1,14 +1,9 @@
 package Server;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import App.*;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-import Server.mysqlConnection;
+
 import ocsf.server.*;
 
 /**
@@ -54,45 +49,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client The connection from which the message originated.
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		if (msg.equals(getStudents)) {
-			try {
-				ArrayList<Student> Students = mysqlConnection.getAllStudents();
-				client.sendToClient(Students);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else if (msg instanceof Student) {
-			if (((Student)msg).commend == 1) {
-				try {
-					mysqlConnection.insertToDB((Student) msg);
-					client.sendToClient("Added Succesfully");
-					ServerController.updateLog(((Student) msg).toString() + ": " + "Added Succesfully");
-				} catch (SQLException | IOException e) {
-					try {
-						client.sendToClient("Cannot Add Student");
-					} catch (IOException e1) {
-						ServerController.updateLog(e1.getMessage());
-					}
-					e.printStackTrace();
-				}
-			}
-			else if(((Student)msg).commend == 2){
-				try {
-					ArrayList<Student> Students = mysqlConnection.UpdateStudentInformation((Student) msg);
-					ServerController.updateLog("Students Loaded Succesfuly.");
-					client.sendToClient(Students);
-				} catch (SQLException | IOException e) {
-					try {
-						client.sendToClient("Cannot Update Student");
-						ServerController.updateLog(e.getMessage());
-					} catch (IOException e1) {
-						ServerController.updateLog(e.getMessage());
-						e1.printStackTrace();
-					}
-					e.printStackTrace();
-				}
-			}
-		}
+		
 	}
 
 	/**

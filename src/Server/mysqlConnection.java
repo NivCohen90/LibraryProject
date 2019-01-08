@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import App.*;
-
 public class mysqlConnection {
 
 	static Connection conn;
@@ -37,6 +35,7 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
 			createdb.execute(CreateDatabase.bookcopyTable);
+			createdb.execute(LoadDataBase.userTable);
 			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").");
 			return "succeed";
 		} catch (SQLException ex) {/* handle any errors */
@@ -62,7 +61,7 @@ public class mysqlConnection {
 		}
 	}
 
-	public static void insertToDB(Student s) throws SQLException {
+	/*public static void insertToDB(Student s) throws SQLException {
 		PreparedStatement Statment = conn.prepareStatement(SqlQuerys.addStudent());
 		// String query = "INSERT INTO users VALUES ('" + data[0] + "', '" + data[1] +
 		// "', '"+data[2]+"', '"+data[3]+"');";
@@ -89,9 +88,9 @@ public class mysqlConnection {
 		Statment.executeUpdate();
 		ServerController.updateLog("StudentID: " + s.getStudentID() +  " Updated Succesfuly.");
 		return getAllStudents();
-	}
+	}*/
 
-	public static ArrayList<Student> getAllStudents() {
+	/*public static ArrayList<Student> getAllStudents() {
 
 		try {
 			
@@ -115,7 +114,7 @@ public class mysqlConnection {
 		}
 		return null;
 
-	}
+	}*/
 	
 
 	

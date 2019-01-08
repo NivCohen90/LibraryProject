@@ -8,8 +8,6 @@ import ocsf.client.*;
 import java.io.*;
 import java.util.ArrayList;
 
-import App.MainController;
-import App.Student;
 
 /**
  * This class overrides some of the methods defined in the abstract superclass
@@ -51,24 +49,8 @@ public class ChatClient extends AbstractClient {
 	 * @param msg The message from the server.
 	 */
 	@SuppressWarnings("unchecked")
-	public void handleMessageFromServer(Object msg) {
-		if (msg instanceof ArrayList<?>) {
-			MainController.ObservableStudentList.clear();
-			for (Student student : (ArrayList<Student>) msg) {
-				// System.out.println(student);
-				MainController.ObservableStudentList.add(student);
-			}
-
-		}
-		else if(msg instanceof String) {
-			if(msg.equals("Added Succesfully")) {
-				MainController.ObservableStudentList.add(MainController.staticStudent);
-			}
-			else if(msg.equals("Cannot Add Student")) {
-				System.out.println("Cant Add Student..");
-			}
-		}
-			
+	public void handleMessageFromServer(Object Command) {
+		
 	}
 
 	/**
@@ -76,10 +58,11 @@ public class ChatClient extends AbstractClient {
 	 *
 	 * @param message The message from the UI.
 	 */
-	public void handleMessageFromClientUI(String message) {
+	public void handleMessageFromClientUI(String Command) {
 		try {
-			sendToServer(message);
+			sendToServer(Command);
 		} catch (IOException e) {
+			
 		}
 	}
 

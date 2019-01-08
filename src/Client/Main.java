@@ -1,4 +1,4 @@
-package App;
+package Client;
 
 
 import javafx.application.Application;
@@ -7,8 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
-public class Main extends Application {//Heyyyyyyyyyy
-///////////dfsf/sdf/s/dfs/df/s
+public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
