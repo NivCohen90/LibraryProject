@@ -2,17 +2,20 @@ package Server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+
 
 public class mysqlConnection {
 
 	static Connection conn;
+	static String DataBase;
  
-	public static String SetmysqlConnection(String DatabaseIP, String SchemeName, String UserName, String Password) {
+	@SuppressWarnings("deprecation")
+	public static boolean SetmysqlConnection(String DatabaseIP, String SchemeName, String UserName, String Password) {
+		System.out.println(SchemeName);
+		DataBase = SchemeName;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 		} catch (Exception ex) {
@@ -35,9 +38,8 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
 			createdb.execute(CreateDatabase.bookcopyTable);
-			createdb.execute(LoadDataBase.userTable);
 			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").");
-			return "succeed";
+			return true;
 		} catch (SQLException ex) {/* handle any errors */
 			ex.printStackTrace();
 			String Error = "SQLException: " + ex.getMessage();
@@ -46,9 +48,65 @@ public class mysqlConnection {
 			Error = Error + "\n";
 			Error = Error + "VendorError: " + ex.getErrorCode();
 			ServerController.updateLog(Error);
-			return "Error";
+			return false;
 		}
 		
+	}
+	
+	public static boolean LoadDataFromCSV(String Path) {
+		Statement createdb;
+		try {
+			String PathFixed = "";
+			System.out.println(Path);
+		      for (String retval : Path.split("\\\\")) {
+		          PathFixed += retval + "/";
+		       }
+			createdb = conn.createStatement();
+			createdb.execute(LoadDataBase.Path +  PathFixed + LoadDataBase.userTableStart + DataBase + LoadDataBase.userTable);
+			ServerController.updateLog("SQL Loaded userTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.subscriberTableStart + DataBase +  LoadDataBase.subscriberTable);
+			ServerController.updateLog("SQL Loaded subscriberTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.librarianTableStart + DataBase +  LoadDataBase.librarianTable);
+			ServerController.updateLog("SQL Loaded librarianTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookTableStart + DataBase +  LoadDataBase.bookTable);
+			ServerController.updateLog("SQL Loaded bookTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookcopyTableStart + DataBase +  LoadDataBase.bookcopyTable);
+			ServerController.updateLog("SQL Loaded bookcopyTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.loanTableStart + DataBase +  LoadDataBase.loanTable);
+			ServerController.updateLog("SQL Loaded loanTable successfuly.");
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.orderTableStart + DataBase +  LoadDataBase.orderTable);
+			ServerController.updateLog("SQL Loaded orderTable successfuly.");
+			ServerController.updateLog("SQL Load " + DataBase + "tables data succeed.");
+			return true;
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			String Error = "SQLException: " + e.getMessage();
+			Error = Error + "\n";
+			Error = Error + "SQLState: " + e.getSQLState();
+			Error = Error + "\n";
+			Error = Error + "VendorError: " + e.getErrorCode();
+			ServerController.updateLog(Error);
+			try {
+				Statement dropdb = conn.createStatement();
+				dropdb.execute("DROP DATABASE " + DataBase);
+				ServerController.updateLog("DATABASE " + DataBase + " Dropped");
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				String Error1 = "SQLException: " + e1.getMessage();
+				Error1 = Error1 + "\n";
+				Error1 = Error1 + "SQLState: " + e1.getSQLState();
+				Error1 = Error1 + "\n";
+				Error1 = Error1 + "VendorError: " + e1.getErrorCode();
+				ServerController.updateLog(Error);
+				ServerController.updateLog("DATABASE " + DataBase + " Failed to Drop");
+			}
+			return false;
+		}
+
 	}
 	public static boolean CloseDBConnection() {
 		try {

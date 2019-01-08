@@ -23,9 +23,9 @@
             <Image url="@../Images/braude.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="697.0" layoutY="51.0" prefHeight="297.0" prefWidth="276.0" style="-fx-border-color: GREY;" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="697.0" layoutY="51.0" prefHeight="216.0" prefWidth="276.0" style="-fx-border-color: GREY;" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="272.0" prefWidth="258.0">
+            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="226.0" prefWidth="258.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="258.0" text="Connect to Server" underline="true">
                      <font>
@@ -49,11 +49,11 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="739.0" layoutY="347.0" prefHeight="329.0" prefWidth="276.0" style="-fx-border-color: GREY;">
+      <AnchorPane layoutX="739.0" layoutY="280.0" prefHeight="438.0" prefWidth="276.0" style="-fx-border-color: GREY;">
          <children>
-            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="272.0" prefWidth="258.0">
+            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="393.0" prefWidth="258.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="258.0" text="Connect to Database" underline="true">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="258.0" text="Connect to Database" underline="true">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -71,8 +71,12 @@
                   <Button fx:id="ConnectToDatabaseBtn" mnemonicParsing="false" onAction="#SetConnectionToDB" prefHeight="25.0" prefWidth="204.0" text="Connect" />
                   <Label />
                   <Button fx:id="DataBaseDisconnectionBtn" disable="true" mnemonicParsing="false" onAction="#StopConnectionWithDatabase" prefHeight="25.0" prefWidth="204.0" text="Disconnected" />
+                  <Label text="Path:" />
+                  <TextField fx:id="CSVPath" prefHeight="32.0" prefWidth="200.0" text="..//CSV//" />
+                  <Button mnemonicParsing="false" onAction="#ChangeCSVPath" text="Change Path" />
                   <Label />
-                  <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="40.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
+                  <Button fx:id="LoadDataFromCSV" disable="true" mnemonicParsing="false" onAction="#LoadDataFromCSV" prefHeight="25.0" prefWidth="204.0" text="LoadDataFromCSV" />
+                  <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>

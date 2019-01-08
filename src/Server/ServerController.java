@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
@@ -24,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Window;
 import Server.Log;
 
 public class ServerController implements Initializable {
@@ -102,6 +105,9 @@ public class ServerController implements Initializable {
 
 	@FXML
 	private TextField Cloack;
+	
+    @FXML
+    private TextField CSVPath;
 
 	@FXML
 	private TableView<Log> ServerLogTable;
@@ -114,19 +120,23 @@ public class ServerController implements Initializable {
 
 	@FXML
 	private Button DataBaseDisconnectionBtn;
+	
+    @FXML
+    private Button LoadDataFromCSV;
 
 	/*************************************************************
 	 * 
 	 * Description: Data base Connection Methods. Methods: SetConnectionToDB,
-	 * StopConnectionWithDatabase
+	 * StopConnectionWithDatabase, LoadDataFromCSV
 	 *
 	 ************************************************************/
 
 	@FXML
 	void SetConnectionToDB(ActionEvent event) {
-		String Result = mysqlConnection.SetmysqlConnection(DataBaseSHostName.getText(), DataBaseSchemeName.getText(),
+		boolean Result = mysqlConnection.SetmysqlConnection(DataBaseSHostName.getText(), DataBaseSchemeName.getText(),
 				DataBaseUserNameTextField.getText(), DatabsePasswordTextField.getText());
-		if (Result.contains("succeed")) {
+		if (Result) {
+			LoadDataFromCSV.setDisable(false);
 			ConnectToDatabaseBtn.setDisable(true);
 			DataBaseDisconnectionBtn.setDisable(false);
 			DataBaseSHostName.setEditable(false);
@@ -144,6 +154,7 @@ public class ServerController implements Initializable {
 	@FXML
 	void StopConnectionWithDatabase(ActionEvent event) {
 		if (mysqlConnection.CloseDBConnection()) {
+			LoadDataFromCSV.setDisable(true);
 			DataBaseDisconnectionBtn.setDisable(true);
 			ConnectToDatabaseBtn.setDisable(false);
 			DataBaseSHostName.setEditable(true);
@@ -157,6 +168,28 @@ public class ServerController implements Initializable {
 			ConnectionMessage1.setText("Can not disconnected from the database");
 		}
 	}
+
+	@FXML
+	void LoadDataFromCSV(ActionEvent event) {
+		if (mysqlConnection.LoadDataFromCSV(CSVPath.getText())){
+			LoadDataFromCSV.setDisable(true);
+		}
+		else {
+			ConnectionMessage1.setText("Could not load the data from CSV");
+		}
+	}
+	
+    @FXML
+    void ChangeCSVPath(ActionEvent event) {
+        final DirectoryChooser directoryChooser =
+                new DirectoryChooser();
+            Window stage = null;
+			final File selectedDirectory =
+                    directoryChooser.showDialog(stage);
+            if (selectedDirectory != null) {
+            	CSVPath.setText(selectedDirectory.getAbsolutePath());
+            }
+    }
 
 	/*************************************************************
 	 * 
@@ -226,7 +259,8 @@ public class ServerController implements Initializable {
 
 	/*************************************************************
 	 * 
-	 * Description: TimeLines Threads. Threads: ServerRunTimeLine, CloackTimeLine.
+	 * Description: TimeLines Threads. 
+	 * Threads: ServerRunTimeLine, CloackTimeLine.
 	 *
 	 ************************************************************/
 
