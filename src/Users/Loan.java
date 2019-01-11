@@ -1,7 +1,8 @@
 package Users;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Loan {
+public class Loan implements Serializable{
 
 	private Date StartDate;
 	private Date ReturnDate; 
@@ -10,6 +11,8 @@ public class Loan {
 	private String BookCatalogNumber;
 	private String CopyID;
 	private String LoanStatus;
+	
+	public Loan() {}
 	
 	public Loan(Date startDate, Date returnDate, String loanID, String subscriberID, String bookCatalogNumber,
 			String copyID, String loanStatus) {

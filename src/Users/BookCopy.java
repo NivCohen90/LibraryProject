@@ -1,12 +1,15 @@
 package Users;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BookCopy extends Book {
+public class BookCopy extends Book implements Serializable{
 	
 private String CopyID;
 private String CatalogNumber;
 private boolean Loan;
+
+public BookCopy() {}
 
 public BookCopy(String bookName, String catalogNumber, String shelfLoaction, int availableCopies, int numberOfLibraryCopies, String description, String subject, String contextTable, String editionNumber, Date purchesDate,String CopyID,String CatalogNumber)
 {
