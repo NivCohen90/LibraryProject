@@ -1,12 +1,20 @@
 package Users;
 
-public class Librarian extends User {
+
+public class Librarian extends User{
+
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String Affiliation;
+	
+	public Librarian() {}
 
 	public Librarian(String firstName, String lastName, String email, String iD, String password, String affiliation) {
 		super(firstName, lastName, email, iD, password,2);
-		Affiliation=affiliation;
+		Affiliation=affiliation; 
 	}
 
 	public String getAffiliation() {

@@ -12,6 +12,8 @@ public abstract class User implements Serializable{
 	int level;
 	//0-user, 1-subscriber, 2-librarian
 
+	protected User() {}
+	
 	public User(String firstName, String lastName, String email, String iD, String password, int level) {
 		super();
 		this.firstName = firstName;

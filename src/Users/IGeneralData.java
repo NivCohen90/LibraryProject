@@ -8,4 +8,13 @@ public interface IGeneralData{
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
 		changeSubscriberStatus, watchEmployeesData, createReports;
 	};
+	
+	enum operationsReturn {
+		returnSubscriber, returnLibrarian, returnBook, returnBookCopy, returnLoan, returnOrder,
+		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray;		
+	};
+	
+	enum subscriberSearchFields {IDField, subscriberNumberField, emailField, fullNameField}; 
+	enum bookSearchFields {bookNameField, authorNameField, subjectField, freeTextField};
+	
 }
