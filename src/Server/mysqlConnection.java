@@ -14,7 +14,6 @@ public class mysqlConnection {
  
 	@SuppressWarnings("deprecation")
 	public static boolean SetmysqlConnection(String DatabaseIP, String SchemeName, String UserName, String Password) {
-		System.out.println(SchemeName);
 		DataBase = SchemeName;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -57,7 +56,6 @@ public class mysqlConnection {
 		Statement createdb;
 		try {
 			String PathFixed = "";
-			System.out.println(Path);
 		      for (String retval : Path.split("\\\\")) {
 		          PathFixed += retval + "/";
 		       }

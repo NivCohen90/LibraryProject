@@ -6,7 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Server<JFXDatePicker> extends Application {
+import javafx.scene.input.KeyCode;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+
+
+public class Server extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {

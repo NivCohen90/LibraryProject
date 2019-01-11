@@ -1,8 +1,9 @@
 package Users;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Book {
+public class Book implements Serializable{
 
 	private String CatalogNumber;
 	private String BookName;
@@ -10,11 +11,11 @@ public class Book {
 	private String Subject;
 	private int NumberOfCopies;
 	private int AvailableCopies;
-	private int NumberOfOrders;//
+	private int NumberOfOrders;
 	private String ShelfLoaction;
 	private String EditionNumber;
 	private Date purchesDate;
-	private boolean isWanted;//
+	private boolean isWanted;
 	private String Description;
 	private String ContextTable;
 	private ArrayList<Loan> Loaners;

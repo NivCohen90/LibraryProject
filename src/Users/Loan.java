@@ -1,7 +1,8 @@
 package Users;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Loan {
+public class Loan implements Serializable{
 
 	private Date StartDate;
 	private Date ReturnDate; 

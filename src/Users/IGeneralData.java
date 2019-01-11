@@ -1,6 +1,6 @@
 package Users;
 
-public interface IGeneralData {
+public interface IGeneralData{
 
 	enum operations {
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription,

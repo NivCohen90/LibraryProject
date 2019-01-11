@@ -1,6 +1,6 @@
 package Users;
 
-public class Librarian extends User{
+public class Librarian extends User {
 	
 	private String Affiliation;
 

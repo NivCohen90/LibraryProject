@@ -1,5 +1,6 @@
 package Users;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class BookCopy extends Book {
