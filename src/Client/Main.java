@@ -10,10 +10,11 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
+		//System.out.println(getClass().getResource("/FXML/MainScreen.fxml"));
 		try {
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Main.fxml"));
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/FXML/MainScreen.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
