@@ -1,5 +1,6 @@
 package Controllers;
 
+// Matan working here!
 
 import java.io.IOException;
 
@@ -60,11 +61,6 @@ public class LoginPageController {
 		}
 		else 
 		{
-			try {
-				ChatClient client = new ChatClient("localhost", 5555);
-			} catch (IOException e) {
-				WrongData.setText("Cannot Connect to Server..");
-			}
 			PasswordLabel.clear();
 			UserNameLabel.clear();
 			WrongData.setText("");
