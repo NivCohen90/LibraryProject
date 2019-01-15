@@ -17,4 +17,6 @@ public interface IGeneralData{
 	enum subscriberSearchFields {IDField, subscriberNumberField, emailField, fullNameField}; 
 	enum bookSearchFields {bookNameField, authorNameField, subjectField, freeTextField};
 	
+	enum Menuicons {search, power, account, add, book, collectionbook, librarybooks, portrait, supervisor};
+	
 }

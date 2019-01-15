@@ -26,22 +26,27 @@ public class Server extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.show();
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			    public void handle(WindowEvent t) {
-			    	Alert alert = new Alert(AlertType.CONFIRMATION);
-			    	alert.setTitle("Confirmation Dialog");
-			    	alert.setHeaderText("You sure you want to Exit?");
-			    	alert.setContentText("Click OK to EXIT.");
-			    	Optional<ButtonType> result = alert.showAndWait();
-			    	if (result.get() == ButtonType.OK){
-				        Platform.exit();
-				        System.exit(0);
-			    	}
-			    }
+				public void handle(WindowEvent t) {
+					t.consume();
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("EXIT Program");
+					alert.setHeaderText("You sure you want to Exit?");
+					alert.setContentText("Click OK to EXIT.");
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == ButtonType.OK) {
+						Platform.exit();
+						System.exit(0);
+					}
+				}
 			});
-		} catch (Exception e) {
+			
+		} catch (Exception e) 
+		{
 			e.printStackTrace();
+			String Error = "SQLException: " + e.getMessage();
+			ServerController.updateLog(Error);
 		}
-		
+
 	}
 
 	public static void main(String[] args) {
