@@ -1,18 +1,16 @@
 package Client;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 
 public class Start extends Application{
-
+	public static ChatClient client;
 	public static void main(String[] args) {
 		launch(args);
 
@@ -27,6 +25,7 @@ public class Start extends Application{
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			client = new ChatClient("localhost", 5555);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

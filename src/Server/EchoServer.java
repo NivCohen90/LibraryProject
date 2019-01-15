@@ -49,7 +49,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client The connection from which the message originated.
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		
+		client.sendToClient(msg);
 	}
 
 	/**

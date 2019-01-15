@@ -9,3 +9,4 @@ public interface IGeneralData{
 		changeSubscriberStatus, watchEmployeesData, createReports;
 	};
 }
+// Login (UserName,Password) search(Text,op)
