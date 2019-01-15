@@ -1,15 +1,10 @@
 package Client;
 
 import Users.ServerData;
-import Users.Subscriber;
-
 import java.io.IOException;
-
-import javax.management.OperationsException;
 
 import OBLFX.IGUIcontroller;
 import Users.IGeneralData.operations;
-import Users.IGeneralData.operationsReturn;
 import Users.Book;
 import Users.IGeneralData.bookSearchFields;;
 

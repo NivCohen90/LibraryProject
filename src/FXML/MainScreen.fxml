@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="519.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.MainController">
+<AnchorPane prefHeight="519.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.MainController">
    <children>
       <ImageView fitHeight="519.0" fitWidth="791.0">
          <image>
@@ -55,11 +55,6 @@
             </RadioButton>
          </children>
       </Group>
-      <Button fx:id="LoginButton" layoutX="679.0" layoutY="14.0" mnemonicParsing="false" onAction="#LoginScreen" prefHeight="42.0" prefWidth="98.0" stylesheets="@WelcomeScreen.css" text="Login">
-         <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font>
-      </Button>
       <TextField fx:id="txtInput" alignment="TOP_LEFT" layoutX="111.0" layoutY="195.0" prefHeight="129.0" prefWidth="492.0" text="Enter your text here..." />
       <Label contentDisplay="CENTER" layoutX="338.0" layoutY="14.0" prefHeight="105.0" prefWidth="156.0" text="OBL" textAlignment="CENTER" textFill="#d32617">
          <font>

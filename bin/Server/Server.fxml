@@ -18,14 +18,14 @@
             <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <ImageView fitHeight="85.0" fitWidth="258.0" layoutX="766.0" layoutY="719.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ImageView fitHeight="53.0" fitWidth="248.0" layoutX="766.0" layoutY="719.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
          <image>
             <Image url="@../Images/braude.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="697.0" layoutY="51.0" prefHeight="216.0" prefWidth="276.0" style="-fx-border-color: GREY;" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="226.0" prefWidth="258.0">
+            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="215.0" prefWidth="258.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="258.0" text="Connect to Server" underline="true">
                      <font>
@@ -49,9 +49,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="739.0" layoutY="280.0" prefHeight="438.0" prefWidth="276.0" style="-fx-border-color: GREY;">
+      <AnchorPane layoutX="739.0" layoutY="268.0" prefHeight="470.0" prefWidth="276.0" style="-fx-border-color: GREY;">
          <children>
-            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="1.0" prefHeight="393.0" prefWidth="258.0">
+            <VBox blendMode="MULTIPLY" layoutX="16.0" layoutY="-2.0" prefHeight="470.0" prefWidth="258.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="258.0" text="Connect to Database" underline="true">
                      <font>
@@ -72,11 +72,11 @@
                   <Label />
                   <Button fx:id="DataBaseDisconnectionBtn" disable="true" mnemonicParsing="false" onAction="#StopConnectionWithDatabase" prefHeight="25.0" prefWidth="204.0" text="Disconnected" />
                   <Label text="Path:" />
-                  <TextField fx:id="CSVPath" prefHeight="32.0" prefWidth="200.0" text="..//CSV//" />
+                  <TextField fx:id="CSVPath" prefHeight="32.0" prefWidth="200.0" text="C:\ProgramData\MySQL\MySQL Server 8.0\Uploads" />
                   <Button mnemonicParsing="false" onAction="#ChangeCSVPath" text="Change Path" />
                   <Label />
                   <Button fx:id="LoadDataFromCSV" disable="true" mnemonicParsing="false" onAction="#LoadDataFromCSV" prefHeight="25.0" prefWidth="204.0" text="LoadDataFromCSV" />
-                  <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="39.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
+                  <Label fx:id="ConnectionMessage1" alignment="TOP_LEFT" prefHeight="49.0" prefWidth="257.0" text="You Have to Connect to the Database." textFill="RED" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -85,7 +85,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-2.0" layoutY="52.0" prefHeight="624.0" prefWidth="232.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="0.0">
+      <AnchorPane layoutX="-2.0" layoutY="52.0" prefHeight="626.0" prefWidth="226.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="0.0">
          <children>
             <VBox layoutX="14.0" prefHeight="624.0" prefWidth="204.0">
                <children>
@@ -114,17 +114,17 @@
             </VBox>
          </children>
       </AnchorPane>
-      <VBox layoutX="232.0" layoutY="51.0" prefHeight="624.0" prefWidth="507.0">
+      <VBox layoutX="227.0" layoutY="51.0" prefHeight="688.0" prefWidth="512.0">
          <children>
-            <Label alignment="CENTER" blendMode="MULTIPLY" prefHeight="45.0" prefWidth="507.0" style="-fx-border-color: GREY;" text="Server Log" underline="true">
+            <Label alignment="CENTER" blendMode="MULTIPLY" prefHeight="44.0" prefWidth="513.0" style="-fx-border-color: GREY;" text="Server Log" underline="true">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <TableView fx:id="ServerLogTable" prefHeight="579.0" prefWidth="507.0">
+            <TableView fx:id="ServerLogTable" prefHeight="645.0" prefWidth="512.0">
               <columns>
-                <TableColumn fx:id="LogTime" prefWidth="99.0" text="Time" />
-                <TableColumn fx:id="LogMsg" prefWidth="406.0" text="Msg" />
+                <TableColumn fx:id="LogTime" prefWidth="90.0" text="Time" />
+                <TableColumn fx:id="LogMsg" maxWidth="415.0" minWidth="415.0" prefWidth="415.0" text="Msg" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

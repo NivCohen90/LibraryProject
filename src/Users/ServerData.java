@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class ServerData implements IGeneralData, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	operations operation; 
 	operationsReturn operationReturn;
 	private ArrayList<Object> dataMsg;

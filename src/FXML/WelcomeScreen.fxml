@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="569.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="569.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="569.0" fitWidth="721.0">
          <image>
-            <Image url="@WelcomePic.jpg" />
+            <Image url="@../Images/WelcomePic.jpg" />
          </image>
       </ImageView>
       <Label layoutX="99.0" layoutY="203.0" text="Ort Braude Library" textAlignment="JUSTIFY" textFill="#da1641">

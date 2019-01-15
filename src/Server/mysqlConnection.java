@@ -10,11 +10,18 @@ import java.sql.Statement;
 public class mysqlConnection {
 
 	static Connection conn;
-	static String DataBase;
+	static String DB_SchemeName;
+	static boolean DB_Dropped;
+	static String DB_IP;
+	static String DB_UserName;
+	static String DB_Password;
  
 	@SuppressWarnings("deprecation")
 	public static boolean SetmysqlConnection(String DatabaseIP, String SchemeName, String UserName, String Password) {
-		DataBase = SchemeName;
+		DB_SchemeName = SchemeName;
+		DB_IP = DatabaseIP;
+		DB_UserName = UserName;
+		DB_Password = Password;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 		} catch (Exception ex) {
@@ -23,11 +30,10 @@ public class mysqlConnection {
 		try {
 			String Connection = "jdbc:mysql://";
 			Connection = Connection + DatabaseIP;
-			//Connection = Connection + "/" + SchemeName;
-			//Connection = Connection + "?serverTimezone=UTC";
+			Connection = Connection + "?useSSL=false";
 			conn = DriverManager.getConnection(Connection, UserName, Password);
 			Statement createdb = conn.createStatement();
-			createdb.execute("CREATE DATABASE IF NOT EXISTS " + SchemeName + ";");
+			createdb.execute("CREATE DATABASE IF NOT EXISTS " + DB_SchemeName + ";");
 			createdb.execute("SHOW DATABASES;");
 			createdb.execute("USE " + SchemeName + ";");
 			createdb.execute(CreateDatabase.userTable);
@@ -37,7 +43,8 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
 			createdb.execute(CreateDatabase.bookcopyTable);
-			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + "Database (IP: " + DatabaseIP + ").");
+			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + " Database (IP: " + DatabaseIP + ").");
+			DB_Dropped = false;
 			return true;
 		} catch (SQLException ex) {/* handle any errors */
 			ex.printStackTrace();
@@ -59,22 +66,27 @@ public class mysqlConnection {
 		      for (String retval : Path.split("\\\\")) {
 		          PathFixed += retval + "/";
 		       }
+		      if(DB_Dropped) {
+		    	  SetmysqlConnection(DB_IP, DB_SchemeName, DB_UserName, DB_Password);
+		    	  DB_Dropped = false;
+		      }
 			createdb = conn.createStatement();
-			createdb.execute(LoadDataBase.Path +  PathFixed + LoadDataBase.userTableStart + DataBase + LoadDataBase.userTable);
+			ServerController.updateLog("Load Data from path:\n" + PathFixed + "\ninto " + DB_SchemeName + " Database");
+			createdb.execute(LoadDataBase.Path +  PathFixed + LoadDataBase.userTableStart + DB_SchemeName + LoadDataBase.userTable);
 			ServerController.updateLog("SQL Loaded userTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.subscriberTableStart + DataBase +  LoadDataBase.subscriberTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.subscriberTableStart + DB_SchemeName +  LoadDataBase.subscriberTable);
 			ServerController.updateLog("SQL Loaded subscriberTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.librarianTableStart + DataBase +  LoadDataBase.librarianTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.librarianTableStart + DB_SchemeName +  LoadDataBase.librarianTable);
 			ServerController.updateLog("SQL Loaded librarianTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookTableStart + DataBase +  LoadDataBase.bookTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookTableStart + DB_SchemeName +  LoadDataBase.bookTable);
 			ServerController.updateLog("SQL Loaded bookTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookcopyTableStart + DataBase +  LoadDataBase.bookcopyTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.bookcopyTableStart + DB_SchemeName +  LoadDataBase.bookcopyTable);
 			ServerController.updateLog("SQL Loaded bookcopyTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.loanTableStart + DataBase +  LoadDataBase.loanTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.loanTableStart + DB_SchemeName +  LoadDataBase.loanTable);
 			ServerController.updateLog("SQL Loaded loanTable successfuly.");
-			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.orderTableStart + DataBase +  LoadDataBase.orderTable);
+			createdb.execute(LoadDataBase.Path + PathFixed + LoadDataBase.orderTableStart + DB_SchemeName +  LoadDataBase.orderTable);
 			ServerController.updateLog("SQL Loaded orderTable successfuly.");
-			ServerController.updateLog("SQL Load " + DataBase + "tables data succeed.");
+			ServerController.updateLog("SQL Loaded " + DB_SchemeName + " tables data successfuly.");
 			return true;
 			
 		} catch (SQLException e) {
@@ -88,19 +100,19 @@ public class mysqlConnection {
 			ServerController.updateLog(Error);
 			try {
 				Statement dropdb = conn.createStatement();
-				dropdb.execute("DROP DATABASE " + DataBase);
-				ServerController.updateLog("DATABASE " + DataBase + " Dropped");
+				dropdb.execute("DROP DATABASE " + DB_SchemeName);
+				DB_Dropped = true;
+				ServerController.updateLog("DATABASE " + DB_SchemeName + " Dropped");
 				
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				String Error1 = "SQLException: " + e1.getMessage();
 				Error1 = Error1 + "\n";
 				Error1 = Error1 + "SQLState: " + e1.getSQLState();
 				Error1 = Error1 + "\n";
 				Error1 = Error1 + "VendorError: " + e1.getErrorCode();
-				ServerController.updateLog(Error);
-				ServerController.updateLog("DATABASE " + DataBase + " Failed to Drop");
+				ServerController.updateLog(Error1);
+				ServerController.updateLog("DATABASE " + DB_SchemeName + " Failed to Drop");
 			}
 			return false;
 		}
@@ -112,7 +124,13 @@ public class mysqlConnection {
 			ServerController.updateLog("Connection Stopped with Database");
 			return true;
 		} catch (SQLException e) {
-			ServerController.updateLog(e.getMessage());
+			e.printStackTrace();
+			String Error = "SQLException: " + e.getMessage();
+			Error = Error + "\n";
+			Error = Error + "SQLState: " + e.getSQLState();
+			Error = Error + "\n";
+			Error = Error + "VendorError: " + e.getErrorCode();
+			ServerController.updateLog(Error);
 			return false;
 		}
 	}
