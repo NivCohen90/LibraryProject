@@ -63,7 +63,7 @@ public class MainController implements IGUIcontroller {
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		Pane root = loader.load(getClass().getResource("../FXML/LoginForm.fxml").openStream());
-		LoginFormController loginFormController = loader.getController();
+		//LoginFormController loginFormController = loader.getController();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("../CSS/LoginForm.css").toExternalForm());
 		primaryStage.setScene(scene);
@@ -110,6 +110,7 @@ public class MainController implements IGUIcontroller {
 
 	// calling to this method in IHandler class
 	// how to display message from server in GUI
+	@SuppressWarnings("unchecked")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 
