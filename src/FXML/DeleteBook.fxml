@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="222.0" layoutY="6.0" text="Delete Book">
+         <font>
+            <Font name="System Bold Italic" size="26.0" />
+         </font>
+      </Label>
+      <Group layoutX="14.0" layoutY="-34.0">
+         <children>
+            <Label layoutY="120.0" text="Book Name :" />
+            <TextField editable="false" layoutX="105.0" layoutY="116.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Book Name" />
+            <Label layoutY="151.0" text="Author :" />
+            <TextField editable="false" layoutX="105.0" layoutY="147.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Author Name" />
+            <Label layoutY="180.0" text="Subject :" />
+            <Label layoutY="213.0" text="Place on Shelf : " />
+            <Label layoutX="298.0" layoutY="246.0" text="Context Table (.pdf):" />
+            <TextField editable="false" layoutX="105.0" layoutY="177.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Subject" />
+            <TextField editable="false" layoutX="105.0" layoutY="208.0" promptText="Fill Shelf Place" />
+            <Label layoutY="272.0" text="Description:" />
+            <Label layoutX="298.0" layoutY="212.0" text="Edition Number:" />
+            <TextField editable="false" layoutX="416.0" layoutY="208.0" promptText="Fill Edition" />
+            <Label layoutY="246.0" text="Purchase Date:" />
+            <TextField editable="false" layoutX="105.0" layoutY="242.0" promptText="Fill Purchase Date" />
+            <TextField layoutX="416.0" layoutY="242.0" prefHeight="25.0" prefWidth="148.0" promptText="Pdf File Name" />
+            <Label layoutY="92.0" text="Catalog Number:" />
+            <TextField editable="false" layoutX="105.0" layoutY="88.0" promptText="Fill Catalog Number" />
+            <Button layoutX="265.0" layoutY="88.0" mnemonicParsing="false" text="Get Book Details" />
+         </children>
+      </Group>
+      <TextArea editable="false" layoutX="13.0" layoutY="271.0" prefHeight="114.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
+      <Button layoutX="34.0" layoutY="394.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="114.0" text="Delete Book" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="26.0" layoutY="23.0" text="Return Book">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="77.0" text="Book Catalog Number:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="107.0" text="Book Name:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="137.0" text="Book Author:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="167.0" text="Book Edition:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="400.0" layoutY="78.0" text="Student ID:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="400.0" layoutY="107.0" text="Subscriber First Name:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="400.0" layoutY="137.0" text="Subscriber Last Name:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="183.0" layoutY="74.0" prefWidth="200.0" />
+      <TextField layoutX="183.0" layoutY="104.0" prefWidth="200.0" />
+      <TextField layoutX="183.0" layoutY="134.0" prefWidth="200.0" />
+      <TextField layoutX="183.0" layoutY="164.0" prefWidth="200.0" />
+      <TextField layoutX="562.0" layoutY="134.0" prefWidth="200.0" />
+      <TextField layoutX="562.0" layoutY="104.0" prefWidth="200.0" />
+      <TextField layoutX="562.0" layoutY="75.0" prefWidth="200.0" />
+      <Button layoutX="26.0" layoutY="208.0" mnemonicParsing="false" text="Return Book">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
