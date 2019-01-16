@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 
 public class SideMenu {
 	static VBox vbox;
-	final static String SearchFXML = "../FXML/MainScreen.fxml";
+	final static String SearchFXML = "../FXML/SearchBook.fxml";
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
 	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
 
