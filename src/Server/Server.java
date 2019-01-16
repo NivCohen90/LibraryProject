@@ -1,15 +1,18 @@
 package Server;
 
+import java.util.Optional;
+
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javafx.scene.input.KeyCode;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-
+import javafx.stage.WindowEvent;
 
 public class Server extends Application {
 
@@ -22,6 +25,19 @@ public class Server extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			    public void handle(WindowEvent t) {
+			    	Alert alert = new Alert(AlertType.CONFIRMATION);
+			    	alert.setTitle("Confirmation Dialog");
+			    	alert.setHeaderText("You sure you want to Exit?");
+			    	alert.setContentText("Click OK to EXIT.");
+			    	Optional<ButtonType> result = alert.showAndWait();
+			    	if (result.get() == ButtonType.OK){
+				        Platform.exit();
+				        System.exit(0);
+			    	}
+			    }
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

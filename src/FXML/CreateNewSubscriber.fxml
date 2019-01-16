@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.AddNewSubscriberController">
+   <children>
+      <TextField fx:id="EmailTextFiled" layoutX="260.0" layoutY="197.0" prefWidth="160.0" promptText="Fill Email" />
+      <Label layoutX="36.0" layoutY="25.0" text="New Subscriber">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="110.0" text="ID:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="149.0" layoutY="140.0" text="First Name:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="170.0" text="Last Name:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="200.0" text="Email:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="260.0" text="Password:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="230.0" text="Phone Number:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="IDTextField" layoutX="260.0" layoutY="107.0" onKeyTyped="#CheckIDInput" prefWidth="160.0" promptText="Fill ID Number" />
+      <TextField fx:id="FirstNameTextFiled" layoutX="260.0" layoutY="137.0" prefWidth="160.0" promptText="Fill First Name" />
+      <TextField fx:id="LastNameTextFiled" layoutX="260.0" layoutY="167.0" prefWidth="160.0" promptText="Fill Last Name" />
+      <TextField fx:id="PhoneNumberTextFiled" layoutX="324.0" layoutY="227.0" onKeyTyped="#CheckPhoneNumber" prefHeight="26.0" prefWidth="97.0" promptText="Phone Number" />
+      <TextField fx:id="PasswordTextFiled" layoutX="260.0" layoutY="257.0" prefWidth="160.0" promptText="Fill Password" />
+      <Button fx:id="CreateNewSubscriberBTN" layoutX="266.0" layoutY="306.0" mnemonicParsing="false" onAction="#CreateNewSubscriberBtn" text="Create New Subscriber" />
+      <ComboBox fx:id="AreaCodeTextFiled" layoutX="260.0" layoutY="227.0" onShown="#CheckChoose" prefHeight="26.0" prefWidth="57.0" />
+      <Label fx:id="IDAlertLabel" layoutX="422.0" layoutY="111.0" prefHeight="18.0" prefWidth="130.0" textFill="RED" />
+      <Label fx:id="FirstNameLabel" layoutX="422.0" layoutY="140.0" prefHeight="18.0" prefWidth="144.0" textFill="RED" />
+      <Label fx:id="LastNameLabel" layoutX="421.0" layoutY="170.0" prefHeight="18.0" prefWidth="98.0" textFill="RED" />
+      <Label fx:id="EmailLabel" layoutX="421.0" layoutY="201.0" prefHeight="18.0" prefWidth="150.0" textFill="RED" />
+      <Label fx:id="PhoneNumberLabel" layoutX="421.0" layoutY="232.0" prefHeight="18.0" prefWidth="124.0" textFill="RED" />
+      <Label fx:id="PasswordLabel" layoutX="424.0" layoutY="262.0" prefHeight="18.0" prefWidth="115.0" textFill="RED" />
+      <Label fx:id="ErrorAtCreatSubscriberLabel" layoutX="266.0" layoutY="344.0" prefHeight="18.0" prefWidth="130.0" textFill="RED" />
+   </children>
+</AnchorPane>

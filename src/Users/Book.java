@@ -1,6 +1,7 @@
 package Users;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Book implements Serializable{
@@ -19,6 +20,8 @@ public class Book implements Serializable{
 	private String Description;
 	private String ContextTable;
 	private ArrayList<Loan> Loaners;
+	
+	public Book() {}
 	
 	public Book(String bookName, String catalogNumber, String shelfLoaction, int availableCopies, int numberOfLibraryCopies, String description, String subject, String contextTable, String editionNumber, Date purchesDate) {
 		BookName = bookName;
@@ -49,8 +52,8 @@ public class Book implements Serializable{
 		return AuthorName;
 	}
 
-	public void setAuthorName(ArrayList<String> authorName) {
-		AuthorName = authorName;
+	public void setAuthorName(String[] authorNames) {
+		AuthorName = new ArrayList<>(Arrays.asList(authorNames));
 	}
 
 	public String getCatalogNumber() {

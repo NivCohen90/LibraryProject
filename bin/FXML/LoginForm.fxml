@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@LoginForm.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.LoginFormController">
    <children>
       <Label layoutX="167.0" layoutY="160.0" text="User Name(ID):" AnchorPane.leftAnchor="167.0">
          <font>
@@ -19,7 +19,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="UserNameLabel" layoutX="281.0" layoutY="158.0" onKeyTyped="#CheckUserNameInput" AnchorPane.leftAnchor="281.0" />
+      <TextField fx:id="UserNameText" layoutX="281.0" layoutY="158.0" onKeyTyped="#CheckUserNameInput" AnchorPane.leftAnchor="281.0" />
       <Button fx:id="LoginButton" layoutX="271.0" layoutY="260.0" mnemonicParsing="false" onAction="#Login" text="Login">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -30,12 +30,12 @@
             <Font name="System Bold Italic" size="48.0" />
          </font>
       </Label>
-      <PasswordField fx:id="PasswordLabel" layoutX="281.0" layoutY="205.0" AnchorPane.leftAnchor="281.0" />
       <Label fx:id="UserNameAlertLabel" layoutX="430.0" layoutY="158.0" prefHeight="25.0" prefWidth="155.0" textFill="RED" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="15.0" />
       <Label fx:id="WrongData" layoutX="174.0" layoutY="299.0" prefHeight="25.0" prefWidth="288.0" textFill="RED" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="138.0">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Label>
+      <PasswordField fx:id="PasswordText" layoutX="281.0" layoutY="206.0" />
    </children>
 </AnchorPane>

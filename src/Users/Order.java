@@ -10,6 +10,8 @@ public class Order implements Serializable{
 	private String SubscriberID;
 	private String BookCatalogNumber;
 	
+	public Order() {}
+	
 	public Order(Date orderDate, Date bookArrivedTime, String subscriberID, String bookCatalogNumber) {
 		this.OrderDate = orderDate;
 		this.BookArrivedTime = bookArrivedTime;

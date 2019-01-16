@@ -1,5 +1,7 @@
 package Server;
 
+import Users.ServerData;
+
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -17,10 +19,9 @@ import ocsf.server.*;
  * @version July 2000
  * @param <Student>
  */
+
 public class EchoServer extends AbstractServer {
 
-	String getStudents = "getAllStudents";
-	String addStudent = "addStudent";
 	// Class variables *************************************************
 
 	/**
@@ -49,7 +50,8 @@ public class EchoServer extends AbstractServer {
 	 * @param client The connection from which the message originated.
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		client.sendToClient(msg);
+		ServerController.updateLog("Request from:\n" +client.getInetAddress().getHostName() + "\nCommand: " + ((ServerData)msg).getOperation());
+
 	}
 
 	/**

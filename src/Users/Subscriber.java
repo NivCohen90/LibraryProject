@@ -1,8 +1,9 @@
 package Users;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Subscriber extends User{
-	
+public class Subscriber extends User implements Serializable{
+	private static int SubscriberCounter;
 	private String Status;
 	private String PhoneNumber;
 	private String SubscriberNumber;
@@ -10,6 +11,7 @@ public class Subscriber extends User{
 	private ArrayList<Loan> ActivityHistory;
 	private int fellonyNumber;
 		
+	public Subscriber() {}
 	
 	public Subscriber(String firstName, String lastName, String email, String iD, String password, String status,String phoneNumber, String subscriberNumber) {
 		super(firstName, lastName, email, iD, password,1);
