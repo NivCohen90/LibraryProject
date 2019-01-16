@@ -10,9 +10,9 @@ public interface IGeneralData{
 	};
 	
 	enum operationsReturn {
-		returnSubscriber, returnLibrarian, returnBook, returnBookCopy, returnLoan, returnOrder,
-		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray;		
-	};
+		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
+		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,returnError};		
+
 	
 	enum subscriberSearchFields {IDField, subscriberNumberField, emailField, fullNameField}; 
 	enum bookSearchFields {bookNameField, authorNameField, subjectField, freeTextField};
@@ -20,3 +20,4 @@ public interface IGeneralData{
 	enum Menuicons {search, power, account, add, book, collectionbook, librarybooks, portrait, supervisor};
 	
 }
+// Login (UserName,Password) search(Text,op)

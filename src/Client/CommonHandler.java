@@ -2,10 +2,12 @@ package Client;
 
 import Users.ServerData;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import OBLFX.IGUIcontroller;
 import Users.IGeneralData.operations;
 import Users.Book;
+import Users.IGeneralData;
 import Users.IGeneralData.bookSearchFields;;
 
 public class CommonHandler extends IHandler{
@@ -52,7 +54,24 @@ public class CommonHandler extends IHandler{
 		}
 	}
 
-	public void loginUser(String ID, String Password){ }
+	public void loginUser(String ID, String Password)
+	{
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(ID);
+    	List.add(Password);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.Login,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }

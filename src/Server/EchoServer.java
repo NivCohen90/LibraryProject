@@ -51,6 +51,7 @@ public class EchoServer extends AbstractServer {
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		ServerController.updateLog("Request from:\n" +client.getInetAddress().getHostName() + "\nCommand: " + ((ServerData)msg).getOperation());
+
 	}
 
 	/**

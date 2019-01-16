@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Subscriber extends User implements Serializable{
-	
+	private static int SubscriberCounter;
 	private String Status;
 	private String PhoneNumber;
 	private String SubscriberNumber;

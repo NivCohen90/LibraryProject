@@ -58,6 +58,7 @@ public class ChatClient extends AbstractClient {
 	 */
 	public void handleMessageFromClientUI(String Command) {
 		try {
+			
 			sendToServer(Command);
 		} catch (IOException e) {
 			

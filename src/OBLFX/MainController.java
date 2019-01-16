@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 import Client.CommonHandler;
 import Users.Book;
-import Users.IGeneralData;
-import Users.ServerData;
+import Users.Subscriber;
 import Users.IGeneralData.operationsReturn;
+import Users.Librarian;
+import Users.IGeneralData.bookSearchFields;
 import OBLFX.IGUIcontroller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -26,7 +28,8 @@ public class MainController implements IGUIcontroller {
 
 	// create CommonHandler object to use in controller
 	private CommonHandler commonClient;
-
+	public Subscriber subscriberConnect;
+	public Librarian librarianConnect;
 	@FXML
 	public void initialize() {
 		try 
@@ -72,16 +75,16 @@ public class MainController implements IGUIcontroller {
 
 	@FXML
 	void searchBook(ActionEvent event) {
-		try {
-			String searchInput = txtInput.getText();
-			ArrayList<Object> List = new ArrayList<Object>();
-			List.add(searchInput);
-			ServerData a = new ServerData(List, IGeneralData.operations.searchByBookName);
-			commonClient.sendToServer(a);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		/*
+//		try {
+//			String searchInput = txtInput.getText();
+//			ArrayList<Object> List = new ArrayList<Object>();
+//			List.add(searchInput);
+//			ServerData a = new ServerData(List, IGeneralData.operations.searchByBookName);
+//			commonClient.sendToServer(a);
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+
 		// get input from GUI
 		String searchInput = txtInput.getText();
 		String selectedType = ((RadioButton) searchType.getSelectedToggle()).getText();
@@ -92,8 +95,7 @@ public class MainController implements IGUIcontroller {
 			commonClient.searchBookInServer(searchInput, bookSearchFields.bookNameField);
 		}
 		// more search types...
-		 * 
-		*/
+
 	}
 
 	// showing book results in GUI
