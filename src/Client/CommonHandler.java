@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import OBLFX.IGUIcontroller;
-import Users.IGeneralData.operations;
-import Users.Book;
 import Users.IGeneralData;
-import Users.IGeneralData.bookSearchFields;;
 
 public class CommonHandler extends IHandler{
 	

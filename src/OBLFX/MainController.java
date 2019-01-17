@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import Client.CommonHandler;
 import Users.Book;
 import Users.IGeneralData;
-import Users.ServerData;
 import Users.IGeneralData.operationsReturn;
-import Users.IGeneralData.bookSearchFields;
 import OBLFX.IGUIcontroller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -108,17 +106,6 @@ public class MainController implements IGUIcontroller {
 			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
 			break;
 		}
-
-		/*
-		 * // get input from GUI String searchInput = txtInput.getText(); String
-		 * selectedType = ((RadioButton) searchType.getSelectedToggle()).getText();
-		 * 
-		 * // check what kind of search was selected // call to method from handler,
-		 * handler will send input to server if (selectedType.contains("Name")) {
-		 * commonClient.searchBookInServer(searchInput, bookSearchFields.bookNameField);
-		 * } // more search types...
-		 * 
-		 */
 	}
 
 	// showing book results in GUI
