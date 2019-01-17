@@ -54,7 +54,7 @@ public class LoginFormController implements IGUIcontroller{
 	
 	void CheckUserNameInput(KeyEvent event) {
     	WrongData.setText("");
-    	IGUIcontroller.CheckID(UserNameText, UserNameAlertLabel);
+    	IGUIcontroller.CheckOnlyNumbers(UserNameText, UserNameAlertLabel,9,UserNameErrorDigits);
 	}
 	@FXML
 	void Login(ActionEvent event) {

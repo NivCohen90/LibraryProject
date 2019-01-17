@@ -28,7 +28,7 @@ public class Main extends Application {
 		try {
 	        //remove window decoration
 	        primaryStage.initStyle(StageStyle.UNDECORATED);
-			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
+			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.MainMenu);
 			root = new BorderPane();
 			root.setLeft(SideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource("../FXML/WelcomeScreen.fxml"));

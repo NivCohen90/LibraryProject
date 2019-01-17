@@ -46,8 +46,8 @@
          </font>
       </Label>
       <TextField fx:id="IDTextField" layoutX="315.0" layoutY="129.0" onKeyTyped="#CheckIDInput" prefWidth="185.0" promptText="Fill ID Number" />
-      <TextField fx:id="FirstNameTextFiled" layoutX="315.0" layoutY="159.0" prefWidth="185.0" promptText="Fill First Name" />
-      <TextField fx:id="LastNameTextFiled" layoutX="315.0" layoutY="189.0" prefWidth="185.0" promptText="Fill Last Name" />
+      <TextField fx:id="FirstNameTextFiled" layoutX="315.0" layoutY="159.0" onKeyTyped="#CheckFirstName" prefWidth="185.0" promptText="Fill First Name" />
+      <TextField fx:id="LastNameTextFiled" layoutX="315.0" layoutY="189.0" onKeyTyped="#CheckLastName" prefWidth="185.0" promptText="Fill Last Name" />
       <TextField fx:id="PhoneNumberTextFiled" layoutX="402.0" layoutY="250.0" onKeyTyped="#CheckPhoneNumber" prefHeight="26.0" prefWidth="98.0" promptText="Phone Number" />
       <TextField fx:id="PasswordTextFiled" layoutX="315.0" layoutY="279.0" prefWidth="185.0" promptText="Fill Password" />
       <Button fx:id="CreateNewSubscriberBTN" layoutX="321.0" layoutY="328.0" mnemonicParsing="false" onAction="#CreateNewSubscriberBtn" text="Create New Subscriber" />
