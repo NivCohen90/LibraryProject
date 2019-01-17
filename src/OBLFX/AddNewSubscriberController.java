@@ -20,7 +20,7 @@ import javafx.scene.layout.Region;
 
 public class AddNewSubscriberController implements IGUIcontroller, Initializable {
 
-	final static String PhoneNumberErrorDigits = "PhoneNumber contains 10 digits.";
+	
 	final static String AreaCodeError = "Please choose area phone code.";
 	final static String fillThisArea = " Fill this Area";
 	private String PhoneNum;
@@ -76,23 +76,31 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 	private void CheckChoose(ActionEvent event) {
 		AreaCodeFlag = true;
 	}
+    @FXML
+    void CheckFirstName(KeyEvent event) {
+    	IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled,FirstNameLabel);
+    }
 
+
+    @FXML
+    void CheckLastName(KeyEvent event) {
+    	IGUIcontroller.CheckOnlyLetter(LastNameTextFiled,LastNameLabel);
+    }
 	@FXML
 	void CheckIDInput(KeyEvent event) {
-		IGUIcontroller.CheckID(IDTextField, IDAlertLabel);
+		IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel,9,UserNameErrorDigits);
 	}
 
 	@FXML
 	private void CheckPhoneNumber(KeyEvent event) {
-		CheckPhone();
+		IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled,PhoneNumberLabel,7,PhoneNumberErrorDigits);
 	}
 
 	@FXML
 	private void CreateNewSubscriberBtn(ActionEvent event) {
 		int counter = 0;
-		if (IGUIcontroller.CheckID(IDTextField, IDAlertLabel)) {
+		if (IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel,9,UserNameErrorDigits)) {
 			counter++;
-			IDAlertLabel.setText("");
 		} else {
 			IDAlertLabel.setText(fillThisArea);
 		}
@@ -117,7 +125,7 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 		} else {
 			EmailLabel.setText(fillThisArea);
 		}
-		if (CheckPhone()) {
+		if (IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled,PhoneNumberLabel,7,PhoneNumberErrorDigits)) {
 			counter++;
 		} else {
 			PhoneNumberLabel.setText(fillThisArea);
@@ -142,22 +150,6 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 
 	}
 
-	private boolean CheckPhone() {
-		if (PhoneNumberTextFiled.getText().length() > 7 || PhoneNumberTextFiled.getText().length() == 0) {
-
-			PhoneNumberLabel.setText(PhoneNumberErrorDigits);
-			return false;
-
-		} else if (!PhoneNumberTextFiled.getText().matches(OnlyNumbers)) {
-
-			PhoneNumberLabel.setText(UserNameErrorNumebrs);
-			return false;
-
-		} else {
-			PhoneNumberLabel.setText("");
-			return true;
-		}
-	}
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
