@@ -23,33 +23,27 @@ public class CommonHandler extends IHandler{
 	 * @param fieldInput the input text in search
 	 * @param searchType what kind of search the server will do
 	 */
-	public void searchBookInServer(String fieldInput, bookSearchFields searchType)
+	public void searchBookInServer(String fieldInput, IGeneralData.operations searchType)
 	{
-		ServerData serverData = null;
-		
-		switch(searchType)	//switch between different search types
-		{
-			case bookNameField:
-			{
-				//book object to add to array in serverData object
-				Book bookData = new Book();
-				bookData.setBookName(fieldInput);
-				
-				//create serverData to send to server
-				serverData = new ServerData(operations.searchByBookName, bookData);		
-			}
+		ServerData serverData;
+		switch (searchType) {
+		case searchByBookName:
+		case searchByBookAuthor:
+		case searchByBookSubject:
+			serverData = new ServerData(searchType, fieldInput);
+			break;
+		case searchByBookDescription:
+			//smart search
+			serverData = new ServerData(searchType, fieldInput);
+			break;
 		default:
+			serverData = new ServerData(searchType, fieldInput);
 			break;
 		}
-		try
-		{
-			//sending serverData to server, checking it's not null
-			if(serverData!=null)
-				sendToServer(serverData);
-			else
-				throw new Exception("serverData is null");
-		}
-		catch (Exception e) {
+		try {
+			sendToServer(serverData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
