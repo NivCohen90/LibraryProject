@@ -11,12 +11,11 @@ public interface IGeneralData{
 	
 	enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
-		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,returnError};		
+		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,returnError};	
 
 	
 	enum subscriberSearchFields {IDField, subscriberNumberField, emailField, fullNameField}; 
 	enum bookSearchFields {bookNameField, authorNameField, subjectField, freeTextField};
-	
 	enum Menuicons {Nothing, Login, SearchBook, SearchLibrarian, SearchSubscriber, SubscriberCard, ManagerCard, LibrarianCard, Exit, History, Report, catalog, CreateLoan, ReturnBook, CreateSubscriber, ChangeSubscriberStatus, Statistics, Connection};
 	enum MenuType {MainMenu, SubscriberMenu, LibrarianMenu, LibrarianManagerMenu};
 	

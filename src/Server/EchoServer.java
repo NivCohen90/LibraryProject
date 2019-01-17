@@ -51,9 +51,49 @@ public class EchoServer extends AbstractServer {
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		ServerController.updateLog("Request from:\n" +client.getInetAddress().getHostName() + "\nCommand: " + ((ServerData)msg).getOperation());
-
+		switch(((ServerData)msg).getOperation()) {
+		case Login:
+			break;
+		case searchByBookName:
+			
+			break;
+		case searchByBookAuthor:
+			break;
+		case searchByBookSubject:
+			break;
+		case searchByBookDescription:
+			break;
+		case updatePersonalDetails:
+			break;
+		case orderBook:
+			break;
+		case extandLoan:
+			break;
+		case viewActiveLoans:
+			break;
+		case viewActivityHistory:
+			break;
+		case updateReturnDateManualy:
+			break;
+		case returnBook:
+			break;
+		case watchReadersCard:
+			break;
+		case CreateNewSubscriber:
+			break;
+		case ManageCatalog:
+			break;
+		case changeSubscriberStatus:
+			break;
+		case watchEmployeesData:
+			break;
+		case createReports:
+			break;
+		default:
+			break;
+		
+		}
 	}
-
 	/**
 	 * This method overrides the one in the superclass. Called when the server
 	 * starts listening for connections.
