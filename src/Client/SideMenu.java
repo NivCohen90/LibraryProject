@@ -31,6 +31,7 @@ public class SideMenu {
 	final static String SearchSubscriberFXML = "../FXML/SearchSubscriber.fxml";
 	final static String SearchLibrarianFXML = "../FXML/SearchLibrarian.fxml";
 	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
+	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
 	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
 	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
 	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
@@ -190,7 +191,7 @@ public class SideMenu {
 			break;
 		case Report:
 			btn.setText("Report Fault");
-			RightSideBtnHandler(btn, CreateReportFXML, IconName);
+			RightSideBtnHandler(btn, ReportFaultFXML, IconName);
 			break;
 		case catalog:
 			btn.setText("Manage Catalog");
