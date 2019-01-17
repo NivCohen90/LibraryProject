@@ -1,6 +1,8 @@
 package Client;
 
 import Client.SideMenu;
+import Users.IGeneralData;
+
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,19 +28,21 @@ public class Main extends Application {
 		try {
 	        //remove window decoration
 	        primaryStage.initStyle(StageStyle.UNDECORATED);
-			SideMenu sideMenu = new SideMenu();
+			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
 			root = new BorderPane();
 			root.setLeft(SideMenu.getVBox());
-			root.setRight((AnchorPane) FXMLLoader.load(getClass().getResource("../FXML/WelcomeScreen.fxml")));
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource("../FXML/WelcomeScreen.fxml"));
+			pane.setStyle("-fx-border-width: 2;");
+			pane.setStyle("-fx-border-color: grey;");
+			root.setRight(pane);		
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("../CSS/WelcomeScreen.css").toExternalForm());
 	        ToolBar toolBar = new ToolBar();
-
 	        int height = 25;
 	        toolBar.setPrefHeight(height);
 	        toolBar.setMinHeight(height);
 	        toolBar.setMaxHeight(height);
-	        toolBar.getItems().add(new WindowButtons(toolBar, primaryStage));
+	        new WindowButtons(toolBar, primaryStage);
 	        root.setTop(toolBar);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);

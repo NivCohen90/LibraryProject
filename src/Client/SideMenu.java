@@ -1,12 +1,15 @@
 package Client;
 
 import Users.IGeneralData;
+import Users.IGeneralData.MenuType;
+import Users.IGeneralData.Menuicons;
 
 import java.io.IOException;
 import java.util.Optional;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -23,14 +26,68 @@ public class SideMenu {
 	final static String SearchFXML = "../FXML/SearchBook.fxml";
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
 	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
+	final static String SubscriberHistoryFXML = "../FXML/SubscriberHistory.fxml";
+	final static String ReaderCardFXML = "../FXML/ReaderCard.fxml";
+	final static String SearchSubscriberFXML = "../FXML/SearchSubscriber.fxml";
+	final static String SearchLibrarianFXML = "../FXML/SearchLibrarian.fxml";
+	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
+	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
+	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
+	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
+	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
+	final static String UpdateSubscriberStatusFXML = "../FXML/UpdateSubscriberStatus.fxml";
+	final static String StatisticsFXML = "../FXML/CreateReport.fxml";
+	final static String ConnectionSettingsFXML = "../FXML/ConnectionSettings.fxml";
 
-	public SideMenu() {
+	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
+	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
+	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
+
+	static Menuicons clicked = Menuicons.Nothing;
+
+	public SideMenu(MenuType menuType) {
 		SideMenu.vbox = new VBox();
-		vbox.setPrefWidth(100);
-		vbox.getChildren().add(Item(IGeneralData.Menuicons.account));
-		vbox.getChildren().add(Item(IGeneralData.Menuicons.search));
-		vbox.getChildren().add(Item(IGeneralData.Menuicons.power));
 		vbox.setStyle("-fx-background-color:#F0F8FF");
+		vbox.setPrefWidth(200);
+		switch (menuType) {
+		case MainMenu:
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Login));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Connection));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			break;
+		case SubscriberMenu:
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SubscriberCard));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.History));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			break;
+		case LibrarianMenu:
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.LibrarianCard));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchSubscriber));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateLoan));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.ReturnBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Report));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateSubscriber));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.catalog));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			break;
+		case LibrarianManagerMenu:
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.ManagerCard));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchLibrarian));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchSubscriber));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateLoan));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.ReturnBook));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Report));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateSubscriber));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.catalog));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.ChangeSubscriberStatus));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Statistics));
+			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			break;
+		}
 
 	}
 
@@ -39,13 +96,13 @@ public class SideMenu {
 		ImageView imageView = new ImageView(image);
 		Button btn = new Button();
 		btn.setGraphic(imageView);
-		btn.setText(icon.toString());
-		btn.setPrefSize(95, 50);
-		btn.setStyle("-fx-background-color:#F0F8FF");
+		btn.setAlignment(Pos.CENTER_LEFT);
+		btn.setPrefSize(195, 50);
+		btn.setStyle(BackgroundStyle);
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
-		paneIndicator.setStyle("-fx-background-color:#F0F8FF");
+		paneIndicator.setStyle(BackgroundStyle);
 		menuDecorator(btn, paneIndicator);
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
@@ -53,12 +110,12 @@ public class SideMenu {
 
 	private void menuDecorator(Button btn, Pane pane) {
 		btn.setOnMouseEntered(value -> {
-			btn.setStyle("-fx-background-color:#F0FFFF");
-			pane.setStyle("-fx-background-color:#00FFFF");
+			btn.setStyle(ClickedBackgroundStyle);
+			pane.setStyle(BlueBackgroundStyle);
 		});
 		btn.setOnMouseExited(value -> {
-			btn.setStyle("-fx-background-color:#F0F8FF");
-			pane.setStyle("-fx-background-color:#F0F8FF");
+			btn.setStyle(BackgroundStyle);
+			pane.setStyle(BackgroundStyle);
 		});
 	}
 
@@ -76,36 +133,93 @@ public class SideMenu {
 		});
 	}
 
-	private void RightSideBtnHandler(Button btn, String FXMLpath) {
-		if (FXMLpath.equals(LoginFXML)) {
-			btn.setOnMouseClicked(search -> {
-				try {
-					Main.root.setRight((AnchorPane) FXMLLoader.load(getClass().getResource(CreateNewSubscriberFXML)));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
-		} else {
-			btn.setOnMouseClicked(search -> {
-				try {
-					Main.root.setRight((AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath)));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
-		}
+	private void RightSideBtnHandler(Button btn, String FXMLpath, Menuicons IconName) {
+		btn.setOnMouseClicked(search -> {
+			try {
+				if (!(clicked.equals(IconName))) {
+				AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath));
+				pane.setStyle("-fx-border-width: 2;");
+				pane.setStyle("-fx-border-color: grey;");
+				Main.root.setRight(pane);
+				clicked = IconName;
+			}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
-	private void buttonHandler(IGeneralData.Menuicons IconName, Button btn) {
+	private void buttonHandler(Menuicons IconName, Button btn) {
 		switch (IconName) {
-		case search:
-			RightSideBtnHandler(btn, SearchFXML);
+		case Exit:
+				btn.setText("Exit Program");
+				PowerBtnHandler(btn);
 			break;
-		case power:
-			PowerBtnHandler(btn);
+		case Login:
+				btn.setText("Login");
+				RightSideBtnHandler(btn, LoginFXML, IconName);
 			break;
-		case account:
-			RightSideBtnHandler(btn, LoginFXML);
+		case History:
+				btn.setText("History");
+				RightSideBtnHandler(btn, SubscriberHistoryFXML, IconName);
+			break;
+		case SearchBook:
+				btn.setText("Search Book");
+				RightSideBtnHandler(btn, SearchFXML, IconName);
+			break;
+		case SearchLibrarian:
+				btn.setText("Search Librarian");
+				RightSideBtnHandler(btn, SearchLibrarianFXML, IconName);
+
+			break;
+		case SearchSubscriber:
+				btn.setText("Search Subscriber");
+				RightSideBtnHandler(btn, SearchSubscriberFXML, IconName);
+			break;
+		case SubscriberCard:
+				btn.setText("Reader Card");
+				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+				break;
+		case LibrarianCard:
+				btn.setText("Librarian Details");
+				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+				break;
+		case ManagerCard:
+				btn.setText("Manager Details");
+				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+			break;
+		case Report:
+			btn.setText("Report Fault");
+			RightSideBtnHandler(btn, ReportFaultFXML, IconName);
+			break;
+		case catalog:
+			btn.setText("Manage Catalog");
+			RightSideBtnHandler(btn, CreateReportFXML, IconName);
+			break;
+		case CreateSubscriber:
+			btn.setText("Create New Subscriber");
+			RightSideBtnHandler(btn, CreateNewSubscriberFXML, IconName);
+			break;
+		case ReturnBook:
+			btn.setText("Return Book");
+			RightSideBtnHandler(btn, ReturnBookFXML, IconName);
+			break;
+		case CreateLoan:
+			btn.setText("Create Loan Book");
+			RightSideBtnHandler(btn, NewLoanFXML, IconName);
+			break;
+		case ChangeSubscriberStatus:
+			btn.setText("Update Subscriber Status");
+			RightSideBtnHandler(btn, UpdateSubscriberStatusFXML, IconName);
+			break;
+		case Statistics:
+			btn.setText("Create Report");
+			RightSideBtnHandler(btn, StatisticsFXML, IconName);
+			break;
+		case Connection:
+			btn.setText("Connection Settings");
+			RightSideBtnHandler(btn, ConnectionSettingsFXML, IconName);
 			break;
 		default:
 			break;
