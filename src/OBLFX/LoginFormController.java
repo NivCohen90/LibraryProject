@@ -1,17 +1,31 @@
 package OBLFX;
 
 
+import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import java.io.IOException;
+
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import Client.CommonHandler;
+import Client.Main;
+import Client.SideMenu;
+import Client.WindowButtons;
 import OBLFX.IGUIcontroller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class LoginFormController implements IGUIcontroller{
 	
@@ -78,6 +92,9 @@ public class LoginFormController implements IGUIcontroller{
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
 		case returnSubscriber:
+			Platform.runLater(new Runnable() { @Override public void run() {
+				SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
+				Main.root.setLeft(sideMenu.getVBox());}});
 			break;
 		case returnLibrarian:
 			break;

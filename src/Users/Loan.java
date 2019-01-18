@@ -14,8 +14,7 @@ public class Loan implements Serializable{
 	
 	public Loan() {}
 	
-	public Loan(Date startDate, Date returnDate, String loanID, String subscriberID, String bookCatalogNumber,
-			String copyID, String loanStatus) {
+	public Loan(String loanID, String subscriberID, String bookCatalogNumber, String copyID, Date startDate, Date returnDate, String loanStatus) {
 		StartDate = startDate;
 		ReturnDate= returnDate;
 		LoanID = loanID;

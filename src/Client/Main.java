@@ -21,33 +21,33 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 
-	static BorderPane root;
+	public static BorderPane root;
+	public static Stage PrimaryStage;
+	public static SideMenu sideMenu;
+	public static  ToolBar toolBar;
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-	        //remove window decoration
-	        primaryStage.initStyle(StageStyle.UNDECORATED);
-			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.MainMenu);
+			PrimaryStage = primaryStage;
+			PrimaryStage.initStyle(StageStyle.UNDECORATED);
+			sideMenu = new SideMenu(IGeneralData.MenuType.MainMenu);
 			root = new BorderPane();
-			root.setLeft(SideMenu.getVBox());
+			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource("../FXML/WelcomeScreen.fxml"));
 			pane.setStyle("-fx-border-width: 2;");
 			pane.setStyle("-fx-border-color: grey;");
+			pane.setStyle("-fx-background-color:#F0F8FF");
 			root.setRight(pane);		
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("../CSS/WelcomeScreen.css").toExternalForm());
-	        ToolBar toolBar = new ToolBar();
-	        int height = 25;
-	        toolBar.setPrefHeight(height);
-	        toolBar.setMinHeight(height);
-	        toolBar.setMaxHeight(height);
-	        new WindowButtons(toolBar, primaryStage);
+	        toolBar = new ToolBar();
+	        new WindowButtons(toolBar, PrimaryStage);
 	        root.setTop(toolBar);
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.show();
-			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	        PrimaryStage.setScene(scene);
+	        PrimaryStage.setResizable(false);
+	        PrimaryStage.show();
+	        PrimaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent t) {
 					t.consume();
 					Alert alert = new Alert(AlertType.CONFIRMATION);

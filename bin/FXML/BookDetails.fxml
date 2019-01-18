@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Downloads/OBL/OBL/src/application/OBLStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="22.0" layoutY="25.0" text="Book Detalis">
+         <font>
+            <Font name="System Bold Italic" size="26.0" />
+         </font>
+      </Label>
+      <TextField editable="false" layoutX="123.0" layoutY="86.0" prefHeight="25.0" prefWidth="460.0" promptText="Book Name" />
+      <Label layoutX="20.0" layoutY="90.0" text="Book Name :" />
+      <Label layoutX="20.0" layoutY="119.0" text="Author :" />
+      <Label layoutX="20.0" layoutY="149.0" text="Subject :" />
+      <Label layoutX="20.0" layoutY="180.0" text="Place on Shelf : " />
+      <Label layoutX="20.0" layoutY="210.0" text="Catalog Number:" />
+      <TextField editable="false" layoutX="123.0" layoutY="115.0" prefHeight="25.0" prefWidth="460.0" promptText="Author Name" />
+      <TextField editable="false" layoutX="123.0" layoutY="145.0" prefHeight="25.0" prefWidth="460.0" promptText="Subject" />
+      <TextField editable="false" layoutX="123.0" layoutY="176.0" promptText="Place On Shelf" />
+      <TextField editable="false" layoutX="123.0" layoutY="206.0" promptText="Catalog Number" />
+      <Label layoutX="20.0" layoutY="240.0" text="Purchase Date:" />
+      <TextField editable="false" layoutX="123.0" layoutY="236.0" promptText="Purchase Date" />
+      <Label layoutX="20.0" layoutY="270.0" text="Available Copies:" />
+      <TextField editable="false" layoutX="123.0" layoutY="266.0" promptText="Available copies" />
+      <Label layoutX="310.0" layoutY="180.0" text="Number of Copies:" />
+      <TextField editable="false" layoutX="434.0" layoutY="176.0" promptText="Number Of Copies" />
+      <Label layoutX="310.0" layoutY="210.0" text="Edition Number:" />
+      <TextField editable="false" layoutX="434.0" layoutY="206.0" promptText="Edition Number" />
+      <Label layoutX="310.0" layoutY="240.0" text="Context Table (.pdf):" />
+      <Button layoutX="434.0" layoutY="235.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Open File" />
+      <Button layoutX="280.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Order Book" />
+      <Label layoutX="22.0" layoutY="316.0" text="Description:" />
+      <Button mnemonicParsing="false" text="Order Book" visible="false" />
+      <TextArea editable="false" layoutX="32.0" layoutY="346.0" prefHeight="200.0" prefWidth="565.0" wrapText="true" />
+   </children>
+</AnchorPane>

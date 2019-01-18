@@ -2,6 +2,9 @@ package Server;
 
 import Users.ServerData;
 
+import java.io.IOException;
+
+import Server.LoginQueris;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -53,9 +56,15 @@ public class EchoServer extends AbstractServer {
 		ServerController.updateLog("Request from:\n" +client.getInetAddress().getHostName() + "\nCommand: " + ((ServerData)msg).getOperation());
 		switch(((ServerData)msg).getOperation()) {
 		case Login:
+			LoginQueris login = new LoginQueris(((String)((ServerData)msg).getDataMsg().get(0)), ((String)((ServerData)msg).getDataMsg().get(1)));	
+			ServerData result = LoginQueris.Login(login);
+			try {
+				client.sendToClient(result);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 		case searchByBookName:
-			
 			break;
 		case searchByBookAuthor:
 			break;

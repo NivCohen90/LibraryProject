@@ -50,12 +50,13 @@ public class CommonHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(ID);
     	List.add(Password);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.Login,List);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.Login, ID, Password);
 		try
 		{
 			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
+			if(loginInfo!=null) {
 				sendToServer(loginInfo);
+			}
 			else
 				throw new Exception("loginInfo is null");
 		}

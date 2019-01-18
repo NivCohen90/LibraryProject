@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Subscriber extends User implements Serializable{
-	private static int SubscriberCounter;
 	private String Status;
 	private String PhoneNumber;
 	private String SubscriberNumber;
@@ -13,14 +12,22 @@ public class Subscriber extends User implements Serializable{
 		
 	public Subscriber() {}
 	
-	public Subscriber(String firstName, String lastName, String email, String iD, String password, String status,String phoneNumber, String subscriberNumber) {
+	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password) {
 		super(firstName, lastName, email, iD, password,1);
-		Status = status;
 		PhoneNumber = phoneNumber;
-		SubscriberNumber = subscriberNumber;
 		Loans = new ArrayList<Loan>();
 		ActivityHistory = new ArrayList<Loan>();
 		fellonyNumber = 0;
+		
+	}
+	
+	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password, String status) {
+		super(firstName, lastName, email, iD, password,1);
+		PhoneNumber = phoneNumber;
+		Loans = new ArrayList<Loan>();
+		ActivityHistory = new ArrayList<Loan>();
+		fellonyNumber = 0;
+		Status = status;
 		
 	}
 	public String getStatus() {

@@ -18,13 +18,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-class WindowButtons extends HBox {
+public class WindowButtons extends HBox {
 
 	final static String CloseIcon = "/MenuIcons/Close.png";
 	final static String minimizeIcon = "/MenuIcons/Minimize.png";
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
 	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
+	public final static int height = 25;
+	
     public WindowButtons(ToolBar toolbar, Stage primaryStage) {
+    	toolbar.setPrefHeight(height);
+    	toolbar.setMinHeight(height);
+    	toolbar.setMaxHeight(height);
     	toolbar.setStyle("-fx-background-color:#F0F8FF");
         Button closeBtn = new Button();
         createNewButton(closeBtn, CloseIcon, toolbar);

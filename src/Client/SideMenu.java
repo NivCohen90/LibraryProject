@@ -22,7 +22,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class SideMenu {
-	static VBox vbox;
+	private VBox vbox;
+	private Menuicons clicked;
 	final static String SearchFXML = "../FXML/SearchBook.fxml";
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
 	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
@@ -43,10 +44,9 @@ public class SideMenu {
 	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
 	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
 
-	static Menuicons clicked = Menuicons.Nothing;
-
 	public SideMenu(MenuType menuType) {
-		SideMenu.vbox = new VBox();
+		clicked = Menuicons.Nothing;
+		vbox = new VBox();
 		vbox.setStyle("-fx-background-color:#F0F8FF");
 		vbox.setPrefWidth(200);
 		switch (menuType) {
@@ -227,7 +227,7 @@ public class SideMenu {
 
 	}
 
-	public static VBox getVBox() {
-		return SideMenu.vbox;
+	public VBox getVBox() {
+		return vbox;
 	}
 }
