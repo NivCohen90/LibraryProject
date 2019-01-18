@@ -45,11 +45,13 @@ public interface IGUIcontroller {
 			return true;
 		}
 	}
-	public static void CheckIfUserPutInput(TextField ID, Label Alert) {
+	public static boolean CheckIfUserPutInput(TextField ID, Label Alert) {
 		if (ID.getText().length() == 0){
-			Alert.setText(fillThisArea);			
+			Alert.setText(fillThisArea);
+			return false;
 		} else {
-			Alert.setText("");			
+			Alert.setText("");		
+			return true;
 		}
 	}
 }
