@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import OBLFX.IGUIcontroller;
+import Users.Book;
 import Users.IGeneralData;
 import Users.ServerData;
 import Users.Subscriber;
@@ -27,7 +28,7 @@ public class LibrarianHandler extends IHandler{
 	
 	public void returnBook() {}
 	
-	public void createNewSubscriber(Subscriber newSub,Librarian librarian) {
+	public  void createNewSubscriber(Subscriber newSub,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(newSub);
     	List.add(librarian);
@@ -57,7 +58,24 @@ public class LibrarianHandler extends IHandler{
 	
 	/*manage catalog*/
 	
-	public void addBookToCatalog() {}
+	public void addBookToCatalog(Book book,Librarian librarian) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(book);
+    	List.add(librarian);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public void removeBookFromCatalog() {}
 	

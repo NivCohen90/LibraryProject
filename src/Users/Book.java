@@ -8,7 +8,7 @@ public class Book implements Serializable{
 
 	private String CatalogNumber;
 	private String BookName;
-	private ArrayList<String> AuthorName;
+	private String AuthorName;
 	private String Subject;
 	private int NumberOfCopies;
 	private int AvailableCopies;
@@ -21,11 +21,12 @@ public class Book implements Serializable{
 	private String ContextTable;
 	private ArrayList<Loan> Loaners;
 	
-	public Book() {}
 	
-	public Book(String bookName, String catalogNumber, String shelfLoaction, int availableCopies, int numberOfLibraryCopies, String description, String subject, String contextTable, String editionNumber, Date purchesDate) {
+	
+
+		public Book(String catalogNumber,String bookName,String authorName,String subject,int numberOfLibraryCopies,int availableCopies,int NumberOfOrders,String shelfLoaction,String editionNumber,Date purchesDate,boolean iswant,String description,String contextTable) {
 		BookName = bookName;
-		AuthorName = new ArrayList<String>();
+		AuthorName = authorName;
 		CatalogNumber = catalogNumber;
 		ShelfLoaction = shelfLoaction;
 		AvailableCopies = availableCopies;
@@ -48,12 +49,12 @@ public class Book implements Serializable{
 		BookName = bookName;
 	}
 
-	public ArrayList<String> getAuthorName() {
+	public String getAuthorName() {
 		return AuthorName;
 	}
 
-	public void setAuthorName(String[] authorNames) {
-		AuthorName = new ArrayList<>(Arrays.asList(authorNames));
+	public void setAuthorName(String authorNames) {
+		AuthorName = authorNames;
 	}
 
 	public String getCatalogNumber() {
