@@ -11,6 +11,10 @@ public interface IGUIcontroller {
 	final static String OnlyNumbers = "^[0-9]*$";
 	final static String OnlyLetters = "^[a-zA-Z]*$";
 	final static String OnlyLetterError = "Only Letters allowed";
+	final static String OnlyThisLetterError = "Only Letters and , allowed";
+	final static String fillThisArea = " Fill this Area";
+	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
+	
 	
 	public void receiveMassageFromServer(Object msg, operationsReturn op);
 	public static boolean CheckOnlyNumbers(TextField ID, Label Alert,int size,String error) {
@@ -30,14 +34,23 @@ public interface IGUIcontroller {
 		return false;
 	}
 
-	public static boolean CheckOnlyLetter(TextField ID, Label Alert) {
+	public static boolean CheckOnlyLetter(TextField ID, Label Alert,String LettersAllowed,String Error) {
 		
 
-		if (!ID.getText().matches(OnlyLetters)){
-			Alert.setText(OnlyLetterError);
+		if (!ID.getText().matches(LettersAllowed)){
+			Alert.setText(Error);
 				return false;
 		} else {
 			Alert.setText("");
+			return true;
+		}
+	}
+	public static boolean CheckIfUserPutInput(TextField ID, Label Alert) {
+		if (ID.getText().length() == 0){
+			Alert.setText(fillThisArea);
+			return false;
+		} else {
+			Alert.setText("");		
 			return true;
 		}
 	}

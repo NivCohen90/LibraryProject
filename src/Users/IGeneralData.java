@@ -6,7 +6,7 @@ public interface IGeneralData{
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription,
 		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createReports;
+		changeSubscriberStatus, watchEmployeesData, createReports,AddBooK;
 	};
 	
 	enum operationsReturn {

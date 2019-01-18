@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.AddNewSubscriberController">
    <children>
-      <TextField fx:id="EmailTextField" layoutX="315.0" layoutY="219.0" prefWidth="185.0" promptText="Fill Email" />
+      <TextField fx:id="EmailTextField" layoutX="315.0" layoutY="219.0" onKeyTyped="#CheckEmail" prefWidth="185.0" promptText="Fill Email" />
       <Label layoutX="286.0" layoutY="37.0" text="New Subscriber">
          <font>
             <Font name="System Bold Italic" size="24.0" />
@@ -49,7 +49,7 @@
       <TextField fx:id="FirstNameTextFiled" layoutX="315.0" layoutY="159.0" onKeyTyped="#CheckFirstName" prefWidth="185.0" promptText="Fill First Name" />
       <TextField fx:id="LastNameTextFiled" layoutX="315.0" layoutY="189.0" onKeyTyped="#CheckLastName" prefWidth="185.0" promptText="Fill Last Name" />
       <TextField fx:id="PhoneNumberTextFiled" layoutX="402.0" layoutY="250.0" onKeyTyped="#CheckPhoneNumber" prefHeight="26.0" prefWidth="98.0" promptText="Phone Number" />
-      <TextField fx:id="PasswordTextFiled" layoutX="315.0" layoutY="279.0" prefWidth="185.0" promptText="Fill Password" />
+      <TextField fx:id="PasswordTextFiled" layoutX="315.0" layoutY="279.0" onKeyTyped="#CheckPassword" prefWidth="185.0" promptText="Fill Password" />
       <Button fx:id="CreateNewSubscriberBTN" layoutX="321.0" layoutY="328.0" mnemonicParsing="false" onAction="#CreateNewSubscriberBtn" text="Create New Subscriber" />
       <ComboBox fx:id="AreaCodeTextFiled" layoutX="315.0" layoutY="249.0" onAction="#CheckChoose" prefHeight="26.0" prefWidth="82.0" promptText="Choose" />
       <Label fx:id="IDAlertLabel" layoutX="517.0" layoutY="129.0" prefHeight="25.0" prefWidth="250.0" textFill="RED" />

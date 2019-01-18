@@ -3,8 +3,11 @@ package OBLFX;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+import Client.LibrarianHandler;
 import Users.Subscriber;
 import Users.IGeneralData.operationsReturn;
+import Users.Librarian;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,15 +17,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
+
 
 public class AddNewSubscriberController implements IGUIcontroller, Initializable {
 
-	
 	final static String AreaCodeError = "Please choose area phone code.";
-	final static String fillThisArea = " Fill this Area";
+	private LibrarianHandler librarianClient;
 	private String PhoneNum;
 	boolean AreaCodeFlag = false;
 	private static ObservableList<String> List;
@@ -77,29 +78,39 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 		AreaCodeFlag = true;
 	}
     @FXML
-    void CheckFirstName(KeyEvent event) {
-    	IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled,FirstNameLabel);
+    void CheckEmail(KeyEvent event) {
+    	IGUIcontroller.CheckIfUserPutInput(EmailTextField,EmailLabel);
     }
 
+	@FXML
+	void CheckFirstName(KeyEvent event) {
+		IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled, FirstNameLabel, OnlyLetters, OnlyLetterError);
+		IGUIcontroller.CheckIfUserPutInput(FirstNameTextFiled, FirstNameLabel);
+	}
 
+	@FXML
+	void CheckLastName(KeyEvent event) {
+		IGUIcontroller.CheckOnlyLetter(LastNameTextFiled, LastNameLabel, OnlyLetters, OnlyLetterError);
+		IGUIcontroller.CheckIfUserPutInput(LastNameTextFiled, LastNameLabel);
+	}
     @FXML
-    void CheckLastName(KeyEvent event) {
-    	IGUIcontroller.CheckOnlyLetter(LastNameTextFiled,LastNameLabel);
+    void CheckPassword(KeyEvent event) {
+    	IGUIcontroller.CheckIfUserPutInput(PasswordTextFiled,PasswordLabel);
     }
 	@FXML
 	void CheckIDInput(KeyEvent event) {
-		IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel,9,UserNameErrorDigits);
+		IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel, 9, UserNameErrorDigits);
 	}
 
 	@FXML
 	private void CheckPhoneNumber(KeyEvent event) {
-		IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled,PhoneNumberLabel,7,PhoneNumberErrorDigits);
+		IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled, PhoneNumberLabel, 7, PhoneNumberErrorDigits);
 	}
 
 	@FXML
 	private void CreateNewSubscriberBtn(ActionEvent event) {
 		int counter = 0;
-		if (IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel,9,UserNameErrorDigits)) {
+		if (IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel, 9, UserNameErrorDigits)) {
 			counter++;
 		} else {
 			IDAlertLabel.setText(fillThisArea);
@@ -125,7 +136,7 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 		} else {
 			EmailLabel.setText(fillThisArea);
 		}
-		if (IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled,PhoneNumberLabel,7,PhoneNumberErrorDigits)) {
+		if (IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled, PhoneNumberLabel, 7, PhoneNumberErrorDigits)) {
 			counter++;
 		} else {
 			PhoneNumberLabel.setText(fillThisArea);
@@ -140,7 +151,7 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 			if (counter == 6) {
 				PhoneNum = "" + AreaCodeTextFiled.getPromptText() + PhoneNumberTextFiled.getText();
 				Subscriber sub = new Subscriber(IDTextField.getText(), FirstNameTextFiled.getText(), LastNameTextFiled.getText(), EmailTextField.getText(), PhoneNum, PasswordTextFiled.getText(), "Active");
-//createNewSubscriber(Subscriber sub,Librarian Me);
+				librarianClient.createNewSubscriber(sub,new Librarian()); // have to be changed.
 
 			}
 		} else
@@ -148,17 +159,9 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 
 	}
 
-
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		switch (op) {
-		case returnError:
-			ErrorAtCreatSubscriberLabel.setText((String) msg);
-			break;
-		default:
-
-		}
-
+		ErrorAtCreatSubscriberLabel.setText((String) msg);
 	}
 
 	/*************************************************************

@@ -9,11 +9,11 @@ private String CopyID;
 private String CatalogNumber;
 private boolean Loan;
 
-public BookCopy() {}
 
-public BookCopy(String bookName, String catalogNumber, String shelfLoaction, int availableCopies, int numberOfLibraryCopies, String description, String subject, String contextTable, String editionNumber, Date purchesDate,String CopyID,String CatalogNumber)
+
+public BookCopy(String catalogNumber,String bookName,String authorName,String subject,int numberOfLibraryCopies,int availableCopies,int NumberOfOrders,String shelfLoaction,String editionNumber,Date purchesDate,boolean bool,String description, String contextTable,String CopyID)
 {
-	super(bookName,catalogNumber,shelfLoaction,availableCopies,numberOfLibraryCopies,description,subject,contextTable,editionNumber,purchesDate);
+	super(catalogNumber,bookName,authorName,subject,numberOfLibraryCopies,availableCopies,NumberOfOrders,shelfLoaction,editionNumber,purchesDate,bool,description,contextTable);
 	this.CopyID=CopyID;
 	this.CatalogNumber=CatalogNumber;
 	Loan=false;
