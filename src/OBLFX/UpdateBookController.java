@@ -6,6 +6,7 @@ import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Users.Librarian;
 import Users.Book;
+import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,7 +112,8 @@ private static Book book;
     void GetBookDetailsAction(ActionEvent event) {
     	if(IGUIcontroller.CheckOnlyLetter(CatalogTextField,CatalogNumberLabel,OnlyNumbers,UserNameErrorNumebrs) && IGUIcontroller.CheckIfUserPutInput(CatalogTextField,CatalogNumberLabel)) {
     		 catalogNumberSearch=CatalogTextField.getText();
-    	//	commonClient.addBookToCatalog(catalogNumberSearch,new Librarian());
+ 
+    		 commonClient.searchBookInServer(catalogNumberSearch,IGeneralData.operations.searchByCatalogNumber);
     	}
     }
 

@@ -3,6 +3,7 @@ package OBLFX;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Users.Book;
+import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
@@ -98,19 +99,19 @@ private Label CopyNumberLabel;
     	CopyNumberLabel.setText("");
     	if(IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField,CatalogNumberLabel,OnlyNumbers,UserNameErrorNumebrs) && IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField,CatalogNumberLabel)) {
    		 catalogNumberSearch=CatalogNumberTextField.getText();
-   	//	commonClient.addBookToCatalog(catalogNumberSearch,new Librarian());
-   	}
+   		commonClient.searchBookInServer(catalogNumberSearch,IGeneralData.operations.searchByCatalogNumber);   
+   		}
     }
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 			CopyNumberLabel.setText((String) msg);
-			BookNameTextField.setText(book.getBookName());
-		    AuthorTextField.setText(book.getAuthorName());
-		    SubjectTextField.setText(book.getSubject());
-		    CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
-		    AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
-			DescripitionAreaField.setText(book.getDescription());
+		//	BookNameTextField.setText(book.getBookName());
+		  //  AuthorTextField.setText(book.getAuthorName());
+		  //  SubjectTextField.setText(book.getSubject());
+		 //   CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
+		//    AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
+		//	DescripitionAreaField.setText(book.getDescription());
 			
 			
 
