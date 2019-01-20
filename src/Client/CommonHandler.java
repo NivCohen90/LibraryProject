@@ -1,6 +1,8 @@
 package Client;
 
 import Users.ServerData;
+import Users.IGeneralData.operations;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,31 +22,14 @@ public class CommonHandler extends IHandler{
 	 * @param fieldInput the input text in search
 	 * @param searchType what kind of search the server will do
 	 */
-	public void searchBookInServer(String fieldInput, IGeneralData.operations searchType)
-	{
-		ServerData serverData;
-		switch (searchType) {
-		case searchByBookName:
-		case searchByBookAuthor:
-		case searchByBookSubject:
-			serverData = new ServerData(searchType, fieldInput);
-			break;
-		case searchByBookDescription:
-			//smart search
-			serverData = new ServerData(searchType, fieldInput);
-			break;
-		default:
-			serverData = new ServerData(searchType, fieldInput);
-			break;
-		}
+	public void searchInServer(String searchInput, operations searchType) {
+		ServerData serverData = new ServerData(searchType, searchInput);
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	public void loginUser(String ID, String Password)
 	{
 		ArrayList<Object> List = new ArrayList<Object>();

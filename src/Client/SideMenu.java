@@ -23,14 +23,12 @@ import javafx.scene.layout.VBox;
 
 public class SideMenu {
 	private VBox vbox;
-	private Menuicons clicked;
-	final static String SearchFXML = "../FXML/SearchBook.fxml";
+	public static Menuicons clicked;
+	final static String SearchFXML = "../FXML/SearchPages.fxml";
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
 	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
 	final static String SubscriberHistoryFXML = "../FXML/SubscriberHistory.fxml";
 	final static String ReaderCardFXML = "../FXML/ReaderCard.fxml";
-	final static String SearchSubscriberFXML = "../FXML/SearchSubscriber.fxml";
-	final static String SearchLibrarianFXML = "../FXML/SearchLibrarian.fxml";
 	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
 	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
 	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
@@ -137,11 +135,11 @@ public class SideMenu {
 		btn.setOnMouseClicked(search -> {
 			try {
 				if (!(clicked.equals(IconName))) {
+				clicked = IconName;
 				AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath));
 				pane.setStyle("-fx-border-width: 2;");
 				pane.setStyle("-fx-border-color: grey;");
 				Main.root.setRight(pane);
-				clicked = IconName;
 			}
 				
 			} catch (IOException e) {
@@ -170,12 +168,12 @@ public class SideMenu {
 			break;
 		case SearchLibrarian:
 				btn.setText("Search Librarian");
-				RightSideBtnHandler(btn, SearchLibrarianFXML, IconName);
+				RightSideBtnHandler(btn, SearchFXML, IconName);
 
 			break;
 		case SearchSubscriber:
 				btn.setText("Search Subscriber");
-				RightSideBtnHandler(btn, SearchSubscriberFXML, IconName);
+				RightSideBtnHandler(btn, SearchFXML, IconName);
 			break;
 		case SubscriberCard:
 				btn.setText("Reader Card");

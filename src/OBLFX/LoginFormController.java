@@ -92,9 +92,8 @@ public class LoginFormController implements IGUIcontroller{
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
 		case returnSubscriber:
-			Platform.runLater(new Runnable() { @Override public void run() {
-				SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
-				Main.root.setLeft(sideMenu.getVBox());}});
+			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
+			Main.root.setLeft(sideMenu.getVBox());
 			break;
 		case returnLibrarian:
 			break;

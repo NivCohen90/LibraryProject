@@ -16,7 +16,7 @@ public interface IGUIcontroller {
 	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
 	
 	
-	public void receiveMassageFromServer(Object msg, operationsReturn op);
+	public <T> void receiveMassageFromServer(T msg, operationsReturn op);
 	public static boolean CheckOnlyNumbers(TextField ID, Label Alert,int size,String error) {
 		if (ID.getText().length() > size || ID.getText().length() == 0) {
 
