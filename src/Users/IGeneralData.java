@@ -5,12 +5,12 @@ public interface IGeneralData{
 	enum operations {
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription,
 		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
-		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createReports,AddBooK;
+		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, deleteBooK,
+		changeSubscriberStatus, watchEmployeesData, createReports,AddBooK,getBookDetails;
 	};
 	
 	enum operationsReturn {
-		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
+		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook,returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,returnError};		
 
 	

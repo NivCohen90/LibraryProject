@@ -77,9 +77,45 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
-	public void removeBookFromCatalog() {}
+	public void removeBookFromCatalog(String catalogNumber,String CopyNumber,Librarian librarian) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(catalogNumber);
+    	List.add(CopyNumber);
+    	List.add(librarian);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.deleteBooK,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public void updateBookinCatalog() {}
+	public void updateBookinCatalog(Book book,Librarian librarian) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(book);
+    	List.add(librarian);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.getBookDetails,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		
+		
+	}
 	
 	public void addBookCopyToCatalog() {}
 	
