@@ -83,7 +83,7 @@ public class MainController implements IGUIcontroller {
 		primaryStage.show();
 	}
 
-	@FXML
+	/*@FXML
 	void searchBook(ActionEvent event) {
 		String searchInput = txtInput.getText();
 		String selectedType = ((RadioButton) searchType.getSelectedToggle()).getText();
@@ -106,7 +106,7 @@ public class MainController implements IGUIcontroller {
 			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
 			break;
 		}
-	}
+	}*/
 
 	// showing book results in GUI
 	private void displayBookResults(ArrayList<Book> bookList) {

@@ -3,17 +3,19 @@ package Users;
 public interface IGeneralData {
 
 	enum operations {
-		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription,
-		searchByCatalogNumber, updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory,
-		CreateNewLoan, updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, deleteBooK,
-		changeSubscriberStatus, watchEmployeesData, createReports, AddBooK, getBookDetails, ManageCatalog;
+		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber,
+		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
+		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
+		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
+		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
+		changeSubscriberStatus, watchEmployeesData, createReports,AddBooK, deleteBook, getBookDetails;
 	};
-
+	
 	enum operationsReturn {
-		returnSubscriber, returnLibrarian, returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
-		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray,
-		returnOrderArray, returnError
-	};
+		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
+		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
+		returnSuccessMsg, returnError};	
+
 
 	enum subscriberSearchFields {
 		IDField, subscriberNumberField, emailField, fullNameField

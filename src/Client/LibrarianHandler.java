@@ -124,7 +124,7 @@ public class LibrarianHandler extends IHandler{
     	List.add(catalogNumber);
     	List.add(CopyNumber);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.deleteBooK,List);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.deleteBook,List);
 		try
 		{
 			//sending serverData to server, checking it's not null
