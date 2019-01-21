@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UpdateBookController">
    <children>
       <Label layoutX="222.0" layoutY="6.0" text="Update Book">
          <font>
@@ -18,27 +18,29 @@
       <Group layoutX="14.0" layoutY="-34.0">
          <children>
             <Label layoutY="120.0" text="Book Name :" />
-            <TextField editable="false" layoutX="105.0" layoutY="116.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Book Name" />
+            <TextField fx:id="BookNameTextField" editable="false" layoutX="105.0" layoutY="116.0" onKeyTyped="#FlagBookName" prefHeight="25.0" prefWidth="460.0" promptText="Fill Book Name" />
             <Label layoutY="151.0" text="Author :" />
-            <TextField editable="false" layoutX="105.0" layoutY="147.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Author Name" />
+            <TextField fx:id="AuthorTextField" editable="false" layoutX="105.0" layoutY="147.0" onKeyTyped="#CheckAuthorName" prefHeight="25.0" prefWidth="460.0" promptText="Fill Author Name" />
             <Label layoutY="180.0" text="Subject :" />
             <Label layoutY="213.0" text="Place on Shelf : " />
-            <Label layoutX="298.0" layoutY="246.0" text="Context Table (.pdf):" />
-            <TextField editable="false" layoutX="105.0" layoutY="177.0" prefHeight="25.0" prefWidth="460.0" promptText="Fill Subject" />
-            <TextField editable="false" layoutX="105.0" layoutY="208.0" promptText="Fill Shelf Place" />
-            <Label layoutY="272.0" text="Description:" />
+            <TextField fx:id="SubjectTextField" editable="false" layoutX="105.0" layoutY="177.0" onKeyTyped="#CheckSubject" prefHeight="25.0" prefWidth="460.0" promptText="Fill Subject" />
+            <TextField fx:id="PlaceOnShelfTextField" editable="false" layoutX="105.0" layoutY="208.0" onKeyTyped="#FlagShelf" prefHeight="25.0" prefWidth="121.0" promptText="Fill Shelf Place" />
+            <Label layoutX="2.0" layoutY="241.0" text="Description:" />
             <Label layoutX="298.0" layoutY="212.0" text="Edition Number:" />
-            <TextField editable="false" layoutX="416.0" layoutY="208.0" promptText="Fill Edition" />
-            <Label layoutY="246.0" text="Purchase Date:" />
-            <TextField editable="false" layoutX="105.0" layoutY="242.0" promptText="Fill Purchase Date" />
-            <TextArea editable="false" layoutY="297.0" prefHeight="114.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
-            <TextField layoutX="416.0" layoutY="242.0" prefHeight="25.0" prefWidth="82.0" />
-            <Button layoutX="502.0" layoutY="242.0" mnemonicParsing="false" text="open file" />
+            <TextField fx:id="EditionNumberTextField" editable="false" layoutX="416.0" layoutY="208.0" onKeyTyped="#CheckEditionNumber" promptText="Fill Edition" />
+            <TextArea fx:id="DescriptionTextField" editable="false" layoutY="258.0" prefHeight="139.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
             <Label layoutY="92.0" text="Catalog Number:" />
-            <TextField editable="false" layoutX="105.0" layoutY="88.0" promptText="Fill Catalog Number" />
-            <Button layoutX="265.0" layoutY="88.0" mnemonicParsing="false" text="Get Book Details" />
+            <TextField fx:id="CatalogTextField" layoutX="105.0" layoutY="88.0" onKeyTyped="#CheckCatalogNumber" promptText="Fill Catalog Number" />
+            <Button fx:id="GetBookDetailsBTN" layoutX="265.0" layoutY="88.0" mnemonicParsing="false" onAction="#GetBookDetailsAction" text="Get Book Details" />
+            <Label fx:id="CatalogNumberLabel" layoutX="369.0" layoutY="90.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
+            <Label fx:id="PlaceOnShelfLabel" layoutX="222.0" layoutY="208.0" prefHeight="25.0" prefWidth="78.0" textFill="RED" />
          </children>
       </Group>
-      <Button layoutX="14.0" layoutY="393.0" mnemonicParsing="false" text="Update Book" />
+      <Button fx:id="UpdateBookBTN" layoutX="14.0" layoutY="363.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Update Book" />
+      <Label fx:id="BookNameLabel" layoutX="580.0" layoutY="81.0" prefHeight="26.0" prefWidth="114.0" textFill="RED" />
+      <Label fx:id="AuthorLabel" layoutX="575.0" layoutY="114.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
+      <Label fx:id="EditionNumberLabel" layoutX="580.0" layoutY="173.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
+      <Label fx:id="SubjectLabel" layoutX="580.0" layoutY="140.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
+      <Label fx:id="RetriveMSGLabel" layoutX="100.0" layoutY="362.0" prefHeight="26.0" prefWidth="266.0" textFill="RED" />
    </children>
 </AnchorPane>

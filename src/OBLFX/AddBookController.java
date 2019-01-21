@@ -1,10 +1,6 @@
 package OBLFX;
 
 import Users.Librarian;
-import Users.Subscriber;
-import java.util.ArrayList;
-import java.util.Date;
-
 import Client.LibrarianHandler;
 import Users.Book;
 import Users.IGeneralData.operationsReturn;

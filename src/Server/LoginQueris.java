@@ -30,8 +30,6 @@ public class LoginQueris {
 			ResultSet rs = s.executeQuery(query);
 			while (rs.next()) {
 				if (rs.getString(7).equals("0")) {
-					System.out.println(rs.getString(1) + "\n" + rs.getString(2) + "\n" + rs.getString(3) + "\n"
-							+ rs.getString(4) + "\n" + rs.getString(5) + "\n" + rs.getString(6));
 					Subscriber Sub = new Subscriber(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 							rs.getString(5), rs.getString(6));
 					String getsubquery = "SELECT * FROM obl.subscriber WHERE ID = '" + Sub.getID() + "';";
@@ -67,14 +65,17 @@ public class LoginQueris {
 				}
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			ArrayList<Object> Error = new ArrayList<Object>();
-			Error.add(e.getStackTrace());
+			Error.add(e.getMessage());
 			ServerData result = new ServerData(Error, operationsReturn.returnError);
 			return result;
 		}
-		return null;
+		ArrayList<Object> Error = new ArrayList<Object>();
+		Error.add("Can't Login - the Username/Password are wrong.");
+		ServerData result = new ServerData(Error, operationsReturn.returnError);
+		return result;
 	}
 
 	public String getUserName() {

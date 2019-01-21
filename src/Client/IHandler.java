@@ -16,115 +16,103 @@ import Users.Order;
 public abstract class IHandler extends AbstractClient {
 
 	/*
-	 * Variables
-	 * IGUIcontroller - controller input was sent from
+	 * Variables IGUIcontroller - controller input was sent from
 	 */
 	protected IGUIcontroller currentControllerGUIobj;
-	
-	public IHandler() throws IOException
-	{
-		super("localhost",5555);
+
+	public IHandler() throws IOException {
+		super("localhost", 5555);
 		openConnection();
 	}
 
-	
-	//how this handler respond to massage from server
-	//will convert massage from server and pass it to the GUI controller that called
+	// how this handler respond to massage from server
+	// will convert massage from server and pass it to the GUI controller that
+	// called
 	@Override
-	protected void handleMessageFromServer(Object msg)
-	{			
-		ServerData serverMsg = (ServerData)msg;
+	protected void handleMessageFromServer(Object msg) {
+		ServerData serverMsg = (ServerData) msg;
 		ArrayList<Object> arrayMsg = serverMsg.getDataMsg();
-	
-		//switch between different return massages from server
-		//convert data from server and send to GUI controller
-		switch(serverMsg.getOperationReturn())	
-		{
-			case returnSubscriber :
-			{
-				Subscriber subscriberData = convertMsgFromServer(arrayMsg, Subscriber.class);
-				currentControllerGUIobj.receiveMassageFromServer(subscriberData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnLibrarian :
-			{
-				Librarian librarianData = convertMsgFromServer(arrayMsg, Librarian.class);
-				currentControllerGUIobj.receiveMassageFromServer(librarianData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnBook :
-			{
-				Book bookData = convertMsgFromServer(arrayMsg, Book.class);
-				currentControllerGUIobj.receiveMassageFromServer(bookData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnBookCopy :
-			{
-				BookCopy bookCopyData = convertMsgFromServer(arrayMsg, BookCopy.class);
-				currentControllerGUIobj.receiveMassageFromServer(bookCopyData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnLoan :
-			{
-				Loan loanData = convertMsgFromServer(arrayMsg, Loan.class);
-				currentControllerGUIobj.receiveMassageFromServer(loanData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnOrder :
-			{
-				Order orderData = convertMsgFromServer(arrayMsg, Order.class);
-				currentControllerGUIobj.receiveMassageFromServer(orderData, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnSubscriberArray :
-			{
-				ArrayList<Subscriber> subscriberList = convertArrayMsgFromServer(arrayMsg, Subscriber.class);
-				currentControllerGUIobj.receiveMassageFromServer(subscriberList, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnLibrarianArray :
-			{
-				ArrayList<Librarian> librarianList = convertArrayMsgFromServer(arrayMsg, Librarian.class);
-				currentControllerGUIobj.receiveMassageFromServer(librarianList, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnBookArray : 
-			{
-				ArrayList<Book> bookList = convertArrayMsgFromServer(arrayMsg, Book.class);
-				currentControllerGUIobj.receiveMassageFromServer(bookList, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnBookCopyArray : 
-			{
-				ArrayList<BookCopy> bookcopyList = convertArrayMsgFromServer(arrayMsg, BookCopy.class);
-				currentControllerGUIobj.receiveMassageFromServer(bookcopyList, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnLoanArray : 
-			{
-				ArrayList<Loan> loanList = convertArrayMsgFromServer(arrayMsg, Loan.class);
-				currentControllerGUIobj.receiveMassageFromServer(loanList, serverMsg.getOperationReturn());
-				break;
-			}
-			case returnOrderArray :
-			{
-				ArrayList<Order> orderList = convertArrayMsgFromServer(arrayMsg, Order.class);
-				currentControllerGUIobj.receiveMassageFromServer(orderList, serverMsg.getOperationReturn());
-				break;
-			}
-			default:;
+
+		// switch between different return massages from server
+		// convert data from server and send to GUI controller
+		switch (serverMsg.getOperationReturn()) {
+		case returnError:	
+			currentControllerGUIobj.receiveMassageFromServer(((ServerData)msg).getDataMsg().get(0).toString(), serverMsg.getOperationReturn());
+			break;
+		case returnSubscriber:
+			//Subscriber subscriberData = convertMsgFromServer(arrayMsg, Subscriber.class);
+			currentControllerGUIobj.receiveMassageFromServer(((ServerData)msg).getDataMsg().get(0), serverMsg.getOperationReturn());
+			//currentControllerGUIobj.receiveMassageFromServer(subscriberData, serverMsg.getOperationReturn());
+			break;
+
+		case returnLibrarian:
+			Librarian librarianData = convertMsgFromServer(arrayMsg, Librarian.class);
+			currentControllerGUIobj.receiveMassageFromServer(librarianData, serverMsg.getOperationReturn());
+			break;
+
+		case returnBook:
+			Book bookData = convertMsgFromServer(arrayMsg, Book.class);
+			currentControllerGUIobj.receiveMassageFromServer(bookData, serverMsg.getOperationReturn());
+			break;
+
+		case returnBookCopy:
+			BookCopy bookCopyData = convertMsgFromServer(arrayMsg, BookCopy.class);
+			currentControllerGUIobj.receiveMassageFromServer(bookCopyData, serverMsg.getOperationReturn());
+			break;
+
+		case returnLoan:
+			Loan loanData = convertMsgFromServer(arrayMsg, Loan.class);
+			currentControllerGUIobj.receiveMassageFromServer(loanData, serverMsg.getOperationReturn());
+			break;
+
+		case returnOrder:
+			Order orderData = convertMsgFromServer(arrayMsg, Order.class);
+			currentControllerGUIobj.receiveMassageFromServer(orderData, serverMsg.getOperationReturn());
+			break;
+
+		case returnSubscriberArray:
+			ArrayList<Subscriber> subscriberList = convertArrayMsgFromServer(arrayMsg, Subscriber.class);
+			currentControllerGUIobj.receiveMassageFromServer(subscriberList, serverMsg.getOperationReturn());
+			break;
+
+		case returnLibrarianArray:
+			ArrayList<Librarian> librarianList = convertArrayMsgFromServer(arrayMsg, Librarian.class);
+			currentControllerGUIobj.receiveMassageFromServer(librarianList, serverMsg.getOperationReturn());
+			break;
+
+		case returnBookArray:
+			ArrayList<Book> bookList = convertArrayMsgFromServer(arrayMsg, Book.class);
+			currentControllerGUIobj.receiveMassageFromServer(bookList, serverMsg.getOperationReturn());
+			break;
+
+		case returnBookCopyArray:
+			ArrayList<BookCopy> bookcopyList = convertArrayMsgFromServer(arrayMsg, BookCopy.class);
+			currentControllerGUIobj.receiveMassageFromServer(bookcopyList, serverMsg.getOperationReturn());
+			break;
+
+		case returnLoanArray:
+			ArrayList<Loan> loanList = convertArrayMsgFromServer(arrayMsg, Loan.class);
+			currentControllerGUIobj.receiveMassageFromServer(loanList, serverMsg.getOperationReturn());
+			break;
+
+		case returnOrderArray:
+			ArrayList<Order> orderList = convertArrayMsgFromServer(arrayMsg, Order.class);
+			currentControllerGUIobj.receiveMassageFromServer(orderList, serverMsg.getOperationReturn());
+			break;
+
+		default:
+			break;
 		}
-		
+
 	}
 
-	//return arrayMsg as classType array list
+	// return arrayMsg as classType array list
 	private <T> ArrayList<T> convertArrayMsgFromServer(ArrayList<Object> arrayMsg, Class<T> classType) {
 		ArrayList<T> array = new ArrayList<>();
 		T temp;
-		for(Object dataMsgi: arrayMsg)
-		{
+		for (Object dataMsgi : arrayMsg) {
 			temp = convertMsgFromServer(dataMsgi, classType);
-			if(temp!=null)
+			if (temp != null)
 				array.add(temp);
 			else
 				return null;
@@ -132,24 +120,21 @@ public abstract class IHandler extends AbstractClient {
 		return array;
 	}
 
-	//return msg as classType object
+	// return msg as classType object
 	public <T> T convertMsgFromServer(Object msg, Class<T> classType) {
-	    if(classType.isInstance(msg))
-	    	return classType.cast(msg);
-	    return null;
+		if (classType.isInstance(msg))
+			return classType.cast(msg);
+		return null;
 	}
-	
+
 	/**
 	 * This method terminates the client.
 	 */
-	public void quit()
-	{
-		try
-		{
+	public void quit() {
+		try {
 			closeConnection();
+		} catch (IOException e) {
 		}
-		catch (IOException e)
-		{ }
 		System.exit(0);
 	}
 

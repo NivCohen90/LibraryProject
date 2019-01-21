@@ -20,34 +20,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import OBLFX.FXMLpathAndStyle;
+import OBLFX.IAlert;
 
 public class SideMenu {
 	private VBox vbox;
 	private Menuicons clicked;
-	final static String SearchFXML = "../FXML/SearchBook.fxml";
-	final static String LoginFXML = "../FXML/LoginForm.fxml";
-	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
-	final static String SubscriberHistoryFXML = "../FXML/SubscriberHistory.fxml";
-	final static String ReaderCardFXML = "../FXML/ReaderCard.fxml";
-	final static String SearchSubscriberFXML = "../FXML/SearchSubscriber.fxml";
-	final static String SearchLibrarianFXML = "../FXML/SearchLibrarian.fxml";
-	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
-	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
-	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
-	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
-	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
-	final static String UpdateSubscriberStatusFXML = "../FXML/UpdateSubscriberStatus.fxml";
-	final static String StatisticsFXML = "../FXML/CreateReport.fxml";
-	final static String ConnectionSettingsFXML = "../FXML/ConnectionSettings.fxml";
-
-	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
-	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
-	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
 
 	public SideMenu(MenuType menuType) {
 		clicked = Menuicons.Nothing;
 		vbox = new VBox();
-		vbox.setStyle("-fx-background-color:#F0F8FF");
+		vbox.setStyle(FXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
 		switch (menuType) {
 		case MainMenu:
@@ -98,11 +81,11 @@ public class SideMenu {
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
-		btn.setStyle(BackgroundStyle);
+		btn.setStyle(FXMLpathAndStyle.BackgroundStyle);
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
-		paneIndicator.setStyle(BackgroundStyle);
+		paneIndicator.setStyle(FXMLpathAndStyle.BackgroundStyle);
 		menuDecorator(btn, paneIndicator);
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
@@ -110,42 +93,35 @@ public class SideMenu {
 
 	private void menuDecorator(Button btn, Pane pane) {
 		btn.setOnMouseEntered(value -> {
-			btn.setStyle(ClickedBackgroundStyle);
-			pane.setStyle(BlueBackgroundStyle);
+			btn.setStyle(FXMLpathAndStyle.ClickedBackgroundStyle);
+			pane.setStyle(FXMLpathAndStyle.BlueBackgroundStyle);
 		});
 		btn.setOnMouseExited(value -> {
-			btn.setStyle(BackgroundStyle);
-			pane.setStyle(BackgroundStyle);
+			btn.setStyle(FXMLpathAndStyle.BackgroundStyle);
+			pane.setStyle(FXMLpathAndStyle.BackgroundStyle);
 		});
 	}
 
 	private void PowerBtnHandler(Button btn) {
 		btn.setOnMouseClicked(power -> {
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Confirmation Dialog");
-			alert.setHeaderText("You sure you want to Exit?");
-			alert.setContentText("Click OK to EXIT.");
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				Platform.exit();
-				System.exit(0);
-			}
+			IAlert.showExitAlert();
 		});
+
 	}
 
 	private void RightSideBtnHandler(Button btn, String FXMLpath, Menuicons IconName) {
 		btn.setOnMouseClicked(search -> {
 			try {
 				if (!(clicked.equals(IconName))) {
-				AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath));
-				pane.setStyle("-fx-border-width: 2;");
-				pane.setStyle("-fx-border-color: grey;");
-				Main.root.setRight(pane);
-				clicked = IconName;
-			}
-				
-			} catch (IOException e) {
-				e.printStackTrace();
+					AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath));
+					pane.setStyle(FXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(pane);
+					clicked = IconName;
+				}
+
+			} catch (Exception e) {
+				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
+						e.getMessage());
 			}
 		});
 	}
@@ -153,73 +129,73 @@ public class SideMenu {
 	private void buttonHandler(Menuicons IconName, Button btn) {
 		switch (IconName) {
 		case Exit:
-				btn.setText("Exit Program");
-				PowerBtnHandler(btn);
+			btn.setText("Exit Program");
+			PowerBtnHandler(btn);
 			break;
 		case Login:
-				btn.setText("Login");
-				RightSideBtnHandler(btn, LoginFXML, IconName);
+			btn.setText("Login");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.LoginFXML, IconName);
 			break;
 		case History:
-				btn.setText("History");
-				RightSideBtnHandler(btn, SubscriberHistoryFXML, IconName);
+			btn.setText("History");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.SubscriberHistoryFXML, IconName);
 			break;
 		case SearchBook:
-				btn.setText("Search Book");
-				RightSideBtnHandler(btn, SearchFXML, IconName);
+			btn.setText("Search Book");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchFXML, IconName);
 			break;
 		case SearchLibrarian:
-				btn.setText("Search Librarian");
-				RightSideBtnHandler(btn, SearchLibrarianFXML, IconName);
+			btn.setText("Search Librarian");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchLibrarianFXML, IconName);
 
 			break;
 		case SearchSubscriber:
-				btn.setText("Search Subscriber");
-				RightSideBtnHandler(btn, SearchSubscriberFXML, IconName);
+			btn.setText("Search Subscriber");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchSubscriberFXML, IconName);
 			break;
 		case SubscriberCard:
-				btn.setText("Reader Card");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
-				break;
+			btn.setText("Reader Card");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
+			break;
 		case LibrarianCard:
-				btn.setText("Librarian Details");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
-				break;
+			btn.setText("Librarian Details");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
+			break;
 		case ManagerCard:
-				btn.setText("Manager Details");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+			btn.setText("Manager Details");
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
 			break;
 		case Report:
 			btn.setText("Report Fault");
-			RightSideBtnHandler(btn, ReportFaultFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ReportFaultFXML, IconName);
 			break;
 		case catalog:
 			btn.setText("Manage Catalog");
-			RightSideBtnHandler(btn, CreateReportFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.CreateReportFXML, IconName);
 			break;
 		case CreateSubscriber:
 			btn.setText("Create New Subscriber");
-			RightSideBtnHandler(btn, CreateNewSubscriberFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.CreateNewSubscriberFXML, IconName);
 			break;
 		case ReturnBook:
 			btn.setText("Return Book");
-			RightSideBtnHandler(btn, ReturnBookFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ReturnBookFXML, IconName);
 			break;
 		case CreateLoan:
 			btn.setText("Create Loan Book");
-			RightSideBtnHandler(btn, NewLoanFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.NewLoanFXML, IconName);
 			break;
 		case ChangeSubscriberStatus:
 			btn.setText("Update Subscriber Status");
-			RightSideBtnHandler(btn, UpdateSubscriberStatusFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.UpdateSubscriberStatusFXML, IconName);
 			break;
 		case Statistics:
 			btn.setText("Create Report");
-			RightSideBtnHandler(btn, StatisticsFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.StatisticsFXML, IconName);
 			break;
 		case Connection:
 			btn.setText("Connection Settings");
-			RightSideBtnHandler(btn, ConnectionSettingsFXML, IconName);
+			RightSideBtnHandler(btn, FXMLpathAndStyle.ConnectionSettingsFXML, IconName);
 			break;
 		default:
 			break;
@@ -229,5 +205,13 @@ public class SideMenu {
 
 	public VBox getVBox() {
 		return vbox;
+	}
+
+	public Menuicons getclicked() {
+		return clicked;
+	}
+
+	public void setclicked(Menuicons status) {
+		clicked = status;
 	}
 }

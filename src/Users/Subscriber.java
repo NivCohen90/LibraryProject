@@ -3,12 +3,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Subscriber extends User implements Serializable{
-	private String Status;
-	private String PhoneNumber;
-	private String SubscriberNumber;
-	private ArrayList<Loan> Loans;
-	private ArrayList<Loan> ActivityHistory;
-	private int fellonyNumber;
+	public String Status;
+	public String PhoneNumber;
+	public String SubscriberNumber;
+	public ArrayList<Loan> Loans;
+	public ArrayList<Loan> ActivityHistory;
+	public int fellonyNumber;
 		
 	public Subscriber() {}
 	
