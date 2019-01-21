@@ -9,7 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-
+////
 public class NewLoanController implements IGUIcontroller {
 boolean StartFlag=false;
 boolean ReturnFlag=false;
