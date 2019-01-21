@@ -37,9 +37,6 @@ import javafx.stage.Stage;
 
 public class LoginFormController implements IGUIcontroller {
 
-	final static String UserNameErrorNumebrs = "Only numbers allowed.";
-	final static String UserNameErrorDigits = "ID contains 9 digits.";
-	final static String OnlyNumbers = "^[0-9]*$";
 	final static String WrongDataMsg = "wrong User Name or Password.";
 	private String UserName;
 	private String Password;

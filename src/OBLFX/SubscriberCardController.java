@@ -1,11 +1,12 @@
 package OBLFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import Client.Main;
+import Client.CommonHandler;
 import Users.Loan;
 import Users.LoansTable;
 import Users.Order;
@@ -21,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
-public class SubscriberCardController implements Initializable {
+public class SubscriberCardController {//implements Initializable {
 
 	static ObservableList<LoansTable> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
@@ -92,8 +93,8 @@ public class SubscriberCardController implements Initializable {
 		});
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	@FXML
+	public void initialize() {
 		ObservableLoansList = FXCollections.observableArrayList();
 		ObservableOrdersList = FXCollections.observableArrayList();
 		ActiveLoansTable.setItems(ObservableLoansList);
@@ -102,14 +103,17 @@ public class SubscriberCardController implements Initializable {
 		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
 		ALoansStartLoanDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
 		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("EndDate"));
-
 		ActiveOrdersTable.setItems(ObservableOrdersList);
 		ActiveOrdersTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
 		AOrdersBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
 		AOrdersAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
 		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
-
 	}
+//	@Override
+//	public void initialize(URL arg0, ResourceBundle arg1) {
+//
+//
+//	}
 
 }
