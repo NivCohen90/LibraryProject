@@ -278,14 +278,18 @@ public class SearchPagesController implements IGUIcontroller {
 				Controller.setBookToDisplay((Book)choosenResult);
 				primaryStage.setTitle(((Book)choosenResult).getBookName());
 			}
+			if(choosenResult instanceof Subscriber)
+			{
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/UserDetails.fxml").openStream());
+				UserDetailsController Controller = (UserDetailsController) fxmlLoader.getController();
+				Controller.setUserToDisplay((Subscriber)choosenResult);
+			}
 			if(choosenResult instanceof Librarian)
 			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
-				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-				Controller.setBookToDisplay((Book)choosenResult);
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/UserDetails.fxml").openStream());
+				UserDetailsController Controller = (UserDetailsController) fxmlLoader.getController();
+				Controller.setUserToDisplay((Librarian)choosenResult);
 			}
-			
-			
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);

@@ -2,6 +2,8 @@ package Client;
 
 import Client.SideMenu;
 import Users.IGeneralData;
+import Users.Librarian;
+import Users.Subscriber;
 
 import java.util.Optional;
 import javafx.application.Application;
@@ -25,6 +27,8 @@ public class Main extends Application {
 	public static Stage PrimaryStage;
 	public static SideMenu sideMenu;
 	public static  ToolBar toolBar;
+	public static Subscriber userSubscriber = null;
+	public static Librarian userLibrarian = null;
 
 	@Override
 	public void start(Stage primaryStage) {

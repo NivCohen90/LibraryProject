@@ -28,7 +28,7 @@ public class SideMenu {
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
 	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
 	final static String SubscriberHistoryFXML = "../FXML/SubscriberHistory.fxml";
-	final static String ReaderCardFXML = "../FXML/ReaderCard.fxml";
+	final static String UserDetailsFXML = "../FXML/UserDetails.fxml";
 	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
 	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
 	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
@@ -177,15 +177,15 @@ public class SideMenu {
 			break;
 		case SubscriberCard:
 				btn.setText("Reader Card");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+				RightSideBtnHandler(btn, UserDetailsFXML, IconName);
 				break;
 		case LibrarianCard:
 				btn.setText("Librarian Details");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+				RightSideBtnHandler(btn, UserDetailsFXML, IconName);
 				break;
 		case ManagerCard:
 				btn.setText("Manager Details");
-				RightSideBtnHandler(btn, ReaderCardFXML, IconName);
+				RightSideBtnHandler(btn, UserDetailsFXML, IconName);
 			break;
 		case Report:
 			btn.setText("Report Fault");

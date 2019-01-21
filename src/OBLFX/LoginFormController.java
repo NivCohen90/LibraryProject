@@ -2,7 +2,10 @@ package OBLFX;
 
 
 import Users.IGeneralData;
+import Users.Subscriber;
 import Users.IGeneralData.operationsReturn;
+import Users.Librarian;
+
 import java.io.IOException;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
@@ -90,12 +93,18 @@ public class LoginFormController implements IGUIcontroller{
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		SideMenu sideMenu;
+		
 		switch (op) {
 		case returnSubscriber:
-			SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
+			sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
+			Main.userSubscriber = (Subscriber)msg;
 			Main.root.setLeft(sideMenu.getVBox());
 			break;
 		case returnLibrarian:
+			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
+			Main.userLibrarian = (Librarian)msg;
+			Main.root.setLeft(sideMenu.getVBox());
 			break;
 		case returnLibrarianManager:
 			break;

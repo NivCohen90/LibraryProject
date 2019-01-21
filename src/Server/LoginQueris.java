@@ -58,8 +58,8 @@ public class LoginQueris {
 							Loans.add(a);
 						}
 					}
-					Sub.setLoans(Loans);
-					Sub.setActivityHistory(ActivityHistory);
+					Sub.setActiveLoans(Loans);
+					Sub.setHistoryLoans(ActivityHistory);
 					ArrayList<Object> subs = new ArrayList<Object>();
 					subs.add(Sub);
 					ServerData result = new ServerData(subs, operationsReturn.returnSubscriber);
