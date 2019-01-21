@@ -1,6 +1,7 @@
 package Client;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import OBLFX.IGUIcontroller;
@@ -22,11 +23,52 @@ public class LibrarianHandler extends IHandler{
 
 	
 	
-	public void createNewLoan() {}
+	public void createNewLoan(String catalogNumber,String SubscriberID,Date Returndate,Date Startdate) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(catalogNumber);
+    	List.add(SubscriberID);
+    	List.add(Returndate);
+    	List.add(Startdate);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.CreateNewLoan,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		
+		
+		
+	}
 	
 	public void extendLoanByLibrarian() {}
 	
-	public void returnBook() {}
+	public void returnBook(String catalogNumber,String SubscriberID,Librarian librarian) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(catalogNumber);
+    	List.add(SubscriberID);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.returnBook,List);
+		try
+		{
+			//sending serverData to server, checking it's not null
+			if(loginInfo!=null)
+				sendToServer(loginInfo);
+			else
+				throw new Exception("loginInfo is null");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		
+		
+	}
 	
 	public  void createNewSubscriber(Subscriber newSub,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
