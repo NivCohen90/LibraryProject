@@ -64,9 +64,7 @@ public class User implements Serializable{
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public String getFullName() {
-		return firstName+" "+LastName;
-	}
+	
 	
 	//public Book Search(String SearchField)(){}
 	

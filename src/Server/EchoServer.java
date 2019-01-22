@@ -56,9 +56,9 @@ public class EchoServer extends AbstractServer {
 		ServerController.updateLog("Request from:\n" +client.getInetAddress().getHostName() + "\nCommand: " + ((ServerData)msg).getOperation());
 		switch(((ServerData)msg).getOperation()) {
 		case Login:
-			LoginQueris login = new LoginQueris(((String)((ServerData)msg).getDataMsg().get(0)), ((String)((ServerData)msg).getDataMsg().get(1)));	
-			ServerData result = LoginQueris.Login(login);
 			try {
+				LoginQueris login = new LoginQueris(((String)((ServerData)msg).getDataMsg().get(0)), ((String)((ServerData)msg).getDataMsg().get(1)));	
+				ServerData result = LoginQueris.Login(login);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				e.printStackTrace();

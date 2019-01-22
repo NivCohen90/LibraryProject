@@ -1,5 +1,6 @@
 package OBLFX;
 
+import Client.CommonHandler;
 import Users.IGeneralData.operationsReturn;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +15,7 @@ public interface IGUIcontroller {
 	final static String OnlyThisLetterError = "Only Letters and , allowed";
 	final static String fillThisArea = " Fill this Area";
 	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
+	public static CommonHandler commonClient = null;
 	
 	
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op);
@@ -54,4 +56,7 @@ public interface IGUIcontroller {
 			return true;
 		}
 	}
+	
+	public void setConnection();
+	public void closeConnection();
 }

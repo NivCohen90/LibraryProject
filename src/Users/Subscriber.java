@@ -3,24 +3,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Subscriber extends User implements Serializable{
-	private String Status;
-	private String PhoneNumber;
-	private String SubscriberNumber;
-	private ArrayList<Loan> ActiveLoans;
-	private ArrayList<Order> ActiveOrders;
-	private ArrayList<Loan> HistoryLoans;
-	private ArrayList<Order> HistoryOrders;
-	private int fellonyNumber;
+	public String Status;
+	public String PhoneNumber;
+	public String SubscriberNumber;
+	public ArrayList<Loan> Loans;
+	public ArrayList<Order> Orders;
+	public ArrayList<Loan> ActivityHistory;
+	public int fellonyNumber;
 		
 	public Subscriber() {}
 	
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password) {
 		super(firstName, lastName, email, iD, password,1);
 		PhoneNumber = phoneNumber;
-		ActiveLoans = new ArrayList<Loan>();
-		HistoryLoans = new ArrayList<Loan>();
-		ActiveOrders = new ArrayList<Order>();
-		HistoryOrders = new ArrayList<Order>();
+		Loans = new ArrayList<Loan>();
+		ActivityHistory = new ArrayList<Loan>();
 		fellonyNumber = 0;
 		
 	}
@@ -28,10 +25,9 @@ public class Subscriber extends User implements Serializable{
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password, String status) {
 		super(firstName, lastName, email, iD, password,1);
 		PhoneNumber = phoneNumber;
-		ActiveLoans = new ArrayList<Loan>();
-		HistoryLoans = new ArrayList<Loan>();
-		ActiveOrders = new ArrayList<Order>();
-		HistoryOrders = new ArrayList<Order>();
+		Loans = new ArrayList<Loan>();
+		Orders = new ArrayList<Order>();
+		ActivityHistory = new ArrayList<Loan>();
 		fellonyNumber = 0;
 		Status = status;
 		
@@ -54,32 +50,17 @@ public class Subscriber extends User implements Serializable{
 	public void setSubscriberNumber(String subscriberNumber) {
 		SubscriberNumber = subscriberNumber;
 	}
-	public ArrayList<Loan> getActiveLoans() {
-		return ActiveLoans;
+	public ArrayList<Loan> getLoans() {
+		return Loans;
 	}
-	public void setActiveLoans(ArrayList<Loan> loans) {
-		ActiveLoans = loans;
+	public void setLoans(ArrayList<Loan> loans) {
+		Loans = loans;
 	}
-	public ArrayList<Loan> getHistoryLoans() {
-		return HistoryLoans;
+	public ArrayList<Loan> getActivityHistory() {
+		return ActivityHistory;
 	}
-	public void setHistoryLoans(ArrayList<Loan> activityHistory) {
-		HistoryLoans = activityHistory;
-	}
-	public ArrayList<Order> getActiveOrders() {
-		return ActiveOrders;
-	}
-
-	public void setActiveOrders(ArrayList<Order> activeOrders) {
-		ActiveOrders = activeOrders;
-	}
-
-	public ArrayList<Order> getHistoryOrders() {
-		return HistoryOrders;
-	}
-
-	public void setHistoryOrders(ArrayList<Order> historyOrders) {
-		HistoryOrders = historyOrders;
+	public void setActivityHistory(ArrayList<Loan> activityHistory) {
+		ActivityHistory = activityHistory;
 	}
 	public int getFellonyNumber() {
 		return fellonyNumber;
@@ -88,6 +69,11 @@ public class Subscriber extends User implements Serializable{
 		this.fellonyNumber = fellonyNumber;
 	}
 	
-	
+	public void setOrders(ArrayList<Order> orders) {
+		Orders = orders;
+	}
+	public ArrayList<Order> getOrders() {
+		return Orders;
+	}
 
 }

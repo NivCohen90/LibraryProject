@@ -42,8 +42,6 @@ public class SearchPagesController implements IGUIcontroller {
 	private SearchOption currentSearch;
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
 	private CommonHandler commonClient;
-	private LibrarianHandler librarianClient;
-
 	@FXML
 	public void initialize() {
 		switch(SideMenu.clicked)
@@ -58,12 +56,6 @@ public class SearchPagesController implements IGUIcontroller {
 				setLabelsSearchBook();
 		}
 		tblResults.setItems(ObservableColumnData);
-		try {
-			commonClient = new CommonHandler(this);
-			librarianClient = new LibrarianHandler(this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
         tblResults.setRowFactory(tv -> {
             TableRow<Object> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -278,18 +270,14 @@ public class SearchPagesController implements IGUIcontroller {
 				Controller.setBookToDisplay((Book)choosenResult);
 				primaryStage.setTitle(((Book)choosenResult).getBookName());
 			}
-			if(choosenResult instanceof Subscriber)
-			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/UserDetails.fxml").openStream());
-				UserDetailsController Controller = (UserDetailsController) fxmlLoader.getController();
-				Controller.setUserToDisplay((Subscriber)choosenResult);
-			}
 			if(choosenResult instanceof Librarian)
 			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/UserDetails.fxml").openStream());
-				UserDetailsController Controller = (UserDetailsController) fxmlLoader.getController();
-				Controller.setUserToDisplay((Librarian)choosenResult);
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
+				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
+				Controller.setBookToDisplay((Book)choosenResult);
 			}
+			
+			
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
@@ -303,6 +291,16 @@ public class SearchPagesController implements IGUIcontroller {
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		displayResults((ArrayList<T>) msg);
+	}
+
+	@Override
+	public void setConnection() {
+		commonClient = new CommonHandler(this);	
+	}
+
+	@Override
+	public void closeConnection() {
+		commonClient.quit();	
 	}
 
 }

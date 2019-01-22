@@ -1,16 +1,11 @@
 package Client;
 
-import java.util.Optional;
-
-import javafx.application.Platform;
+import OBLFX.IAlert;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToolBar;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -53,16 +48,8 @@ public class WindowButtons extends HBox {
             @Override
             public void handle(ActionEvent actionEvent) {
             	actionEvent.consume();
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Confirmation Dialog");
-				alert.setHeaderText("You sure you want to Exit?");
-				alert.setContentText("Click OK to EXIT.");
-				Optional<ButtonType> result = alert.showAndWait();
-				if (result.get() == ButtonType.OK) {
-					Platform.exit();
-					System.exit(0);
-				}
-            }
+            	IAlert.showExitAlert();
+           }
         });
 
         this.getChildren().add(closeBtn);
