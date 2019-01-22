@@ -1,5 +1,6 @@
 package OBLFX;
 
+import Users.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -7,7 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ReportFaultController {
+public class ReportFaultController implements IGUIcontroller {
 
     @FXML
     private TextField IDTextField;
@@ -28,6 +29,24 @@ public class ReportFaultController {
     void CommitReport(ActionEvent event) {
 
     }
+
+	@Override
+	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 

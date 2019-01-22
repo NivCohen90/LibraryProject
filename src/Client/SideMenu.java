@@ -17,19 +17,26 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IGUIcontroller;
 import OBLFX.LoginFormController;
+import OBLFX.NewLoanController;
+import OBLFX.ReportFaultController;
+import OBLFX.ReturnBookController;
 import OBLFX.SearchPagesController;
 import OBLFX.SubscriberCardController;
+import OBLFX.UpdateSubscriberStatusController;
 import OBLFX.AddBookController;
 import OBLFX.AddNewSubscriberController;
+import OBLFX.ConnectionSettingsController;
 import OBLFX.CreateReportController;
 import OBLFX.IAlert;
 
 public class SideMenu {
 	private VBox vbox;
-	public static Menuicons clicked;
+	public static Menuicons clicked=Menuicons.Nothing;
 
 	/**
 	 * each AnchorPane described a page.
@@ -139,39 +146,59 @@ public class SideMenu {
 	private void loadAllFXMLAnchorPanes() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			Pane p = fxmlLoader.load(getClass().getResource("foo.fxml"));
 			//FooController fooController = (FooController) fxmlLoader.getController();
 			APSearchFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchFXML).openStream());
 			controllerArray.add((SearchPagesController)fxmlLoader.getController());
-			APLoginFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.LoginFXML));
+			
+			APLoginFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.LoginFXML).openStream());
 			controllerArray.add((LoginFormController)fxmlLoader.getController());
+			
 			APCreateNewSubscriberFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML));
+					.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML).openStream());
 			controllerArray.add((AddNewSubscriberController)fxmlLoader.getController());
+			
 			APSubscriberHistoryFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML));
-			APReaderCardFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
+					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML).openStream());
 			controllerArray.add((SubscriberCardController)fxmlLoader.getController());
+			
+			APReaderCardFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML).openStream());
+			controllerArray.add((SubscriberCardController)fxmlLoader.getController());
+			
 			APSearchSubscriberFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.SearchSubscriberFXML));
+					.load(getClass().getResource(IFXMLpathAndStyle.SearchSubscriberFXML).openStream());
 			controllerArray.add((SearchPagesController)fxmlLoader.getController());
+			
 			APSearchLibrarianFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.SearchLibrarianFXML));
+					.load(getClass().getResource(IFXMLpathAndStyle.SearchLibrarianFXML).openStream());
 			controllerArray.add((SearchPagesController)fxmlLoader.getController());
+			
 			APCreateReportFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML));
+					.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML).openStream());
 			controllerArray.add((CreateReportController)fxmlLoader.getController());
-			APReportFaultFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReportFaultFXML));
+			
+			APReportFaultFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.ReportFaultFXML).openStream());
+			controllerArray.add((ReportFaultController)fxmlLoader.getController());
 			// APManageCatalogFXML = (AnchorPane)
 			// FXMLLoader.load(getClass().getResource(FXMLpathAndStyle.ManageCatalogFXML));
-			APReturnBookFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReturnBookFXML));
-			APNewLoanFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML));
-			APUpdateSubscriberStatusFXML = (AnchorPane) FXMLLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberStatusFXML));
-			APStatisticsFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML));
-			APConnectionSettingsFXML = (AnchorPane) FXMLLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML));
-			APWelcomeScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
+			APReturnBookFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.ReturnBookFXML).openStream());
+			controllerArray.add((ReturnBookController)fxmlLoader.getController());
+			
+			APNewLoanFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML).openStream());
+			controllerArray.add((NewLoanController)fxmlLoader.getController());
+			
+			APUpdateSubscriberStatusFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberStatusFXML).openStream());
+			controllerArray.add((UpdateSubscriberStatusController)fxmlLoader.getController());
+			
+			APStatisticsFXML = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
+			controllerArray.add((CreateReportController)fxmlLoader.getController());
+			
+			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML).openStream());
+			controllerArray.add((ConnectionSettingsController)fxmlLoader.getController());
+			
+			APWelcomeScreen = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen).openStream());
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
