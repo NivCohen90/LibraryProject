@@ -1,20 +1,13 @@
 package Client;
 
 import Client.SideMenu;
-import OBLFX.FXMLpathAndStyle;
+import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IAlert;
 import Users.IGeneralData;
-
-import java.util.Optional;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
@@ -36,11 +29,11 @@ public class Main extends Application {
 			sideMenu = new SideMenu(IGeneralData.MenuType.MainMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
-			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpathAndStyle.WelcomeScreen));
-			pane.setStyle(FXMLpathAndStyle.BackgroundStyle);
+			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
+			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			root.setRight(pane);
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource(FXMLpathAndStyle.WelcomeScreenCSS).toExternalForm());
+			scene.getStylesheets().add(getClass().getResource(IFXMLpathAndStyle.WelcomeScreenCSS).toExternalForm());
 			toolBar = new ToolBar();
 			new WindowButtons(toolBar, PrimaryStage);
 			root.setTop(toolBar);
@@ -48,6 +41,7 @@ public class Main extends Application {
 			PrimaryStage.setResizable(false);
 			PrimaryStage.show();
 		} catch (Exception e) {
+			e.printStackTrace();
 			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(), e.getMessage());
 		}
 	}

@@ -7,6 +7,7 @@ public class Subscriber extends User implements Serializable{
 	public String PhoneNumber;
 	public String SubscriberNumber;
 	public ArrayList<Loan> Loans;
+	public ArrayList<Order> Orders;
 	public ArrayList<Loan> ActivityHistory;
 	public int fellonyNumber;
 		
@@ -25,6 +26,7 @@ public class Subscriber extends User implements Serializable{
 		super(firstName, lastName, email, iD, password,1);
 		PhoneNumber = phoneNumber;
 		Loans = new ArrayList<Loan>();
+		Orders = new ArrayList<Order>();
 		ActivityHistory = new ArrayList<Loan>();
 		fellonyNumber = 0;
 		Status = status;
@@ -67,6 +69,11 @@ public class Subscriber extends User implements Serializable{
 		this.fellonyNumber = fellonyNumber;
 	}
 	
-	
+	public void setOrders(ArrayList<Order> orders) {
+		Orders = orders;
+	}
+	public ArrayList<Order> getOrders() {
+		return Orders;
+	}
 
 }

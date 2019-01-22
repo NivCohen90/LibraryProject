@@ -20,7 +20,8 @@ public interface IAlert {
 		alert.setTitle(Title);
 		alert.setHeaderText(HeaderText);
 		alert.setContentText(ContentText);
-		Optional<ButtonType> result = alert.showAndWait();
+		alert.showAndWait();
+		//Optional<ButtonType> result = alert.showAndWait();
 	}
 
 	public static void showExitAlert() {

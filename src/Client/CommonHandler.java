@@ -38,12 +38,7 @@ public class CommonHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.Login, ID, Password);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null) {
-				sendToServer(loginInfo);
-			}
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

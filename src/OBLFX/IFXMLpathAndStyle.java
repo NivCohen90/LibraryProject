@@ -1,6 +1,6 @@
 package OBLFX;
 
-public interface FXMLpathAndStyle {
+public interface IFXMLpathAndStyle {
 
 	final static String SearchFXML = "../FXML/SearchBook.fxml";
 	final static String LoginFXML = "../FXML/LoginForm.fxml";
@@ -11,7 +11,7 @@ public interface FXMLpathAndStyle {
 	final static String SearchLibrarianFXML = "../FXML/SearchLibrarian.fxml";
 	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
 	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
-	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
+	//final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
 	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
 	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
 	final static String UpdateSubscriberStatusFXML = "../FXML/UpdateSubscriberStatus.fxml";
@@ -25,5 +25,4 @@ public interface FXMLpathAndStyle {
 	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
 	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
 	
-
 }

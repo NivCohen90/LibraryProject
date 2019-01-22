@@ -32,11 +32,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.CreateNewLoan,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -56,11 +52,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.returnBook,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -77,11 +69,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.CreateNewSubscriber,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -107,11 +95,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -127,11 +111,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.deleteBook,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -145,11 +125,7 @@ public class LibrarianHandler extends IHandler{
 		ServerData loginInfo = new ServerData(IGeneralData.operations.getBookDetails,List);
 		try
 		{
-			//sending serverData to server, checking it's not null
-			if(loginInfo!=null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

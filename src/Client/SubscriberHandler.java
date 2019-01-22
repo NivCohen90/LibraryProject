@@ -23,11 +23,7 @@ public class SubscriberHandler extends IHandler {
 		List.add(userEdit);
 		ServerData loginInfo = new ServerData(IGeneralData.operations.updatePersonalDetails, List);
 		try {
-			// sending serverData to server, checking it's not null
-			if (loginInfo != null)
-				sendToServer(loginInfo);
-			else
-				throw new Exception("loginInfo is null");
+			sendToServer(loginInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

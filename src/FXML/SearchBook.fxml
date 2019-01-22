@@ -7,27 +7,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="519.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.MainController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.MainController">
    <children>
-      <ImageView fitHeight="519.0" fitWidth="791.0">
-         <image>
-            <Image url="@MainPic.png" />
-         </image>
-         <effect>
-            <Lighting bumpInput="$null" diffuseConstant="2.0" specularConstant="0.95" specularExponent="21.95">
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
-      </ImageView>
       <RadioButton fx:id="toggleByName" layoutX="142.0" layoutY="145.0" mnemonicParsing="false" text="By Name">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -51,7 +35,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </RadioButton>
-      <TextField alignment="TOP_LEFT" layoutX="164.0" layoutY="199.0" prefHeight="66.0" prefWidth="400.0" text="Enter your text here..." />
+      <TextField fx:id="TextFieldArea" alignment="TOP_LEFT" layoutX="164.0" layoutY="199.0" prefHeight="66.0" prefWidth="400.0" text="Enter your text here..." />
       <Label contentDisplay="CENTER" layoutX="338.0" layoutY="14.0" prefHeight="105.0" prefWidth="156.0" text="OBL" textAlignment="CENTER" textFill="#d32617">
          <font>
             <Font name="System Bold" size="72.0" />

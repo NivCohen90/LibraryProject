@@ -14,35 +14,39 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import OBLFX.FXMLpathAndStyle;
+
+import java.io.IOException;
+
+import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IAlert;
 
-public class SideMenu {
+public class SideMenu{
 	private VBox vbox;
 	public static Menuicons clicked;
-	final static String SearchFXML = "../FXML/SearchPages.fxml";
-	final static String LoginFXML = "../FXML/LoginForm.fxml";
-	final static String CreateNewSubscriberFXML = "../FXML/CreateNewSubscriber.fxml";
-	final static String SubscriberHistoryFXML = "../FXML/SubscriberHistory.fxml";
-	final static String ReaderCardFXML = "../FXML/ReaderCard.fxml";
-	final static String CreateReportFXML = "../FXML/CreateReport.fxml";
-	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
-	final static String ManageCatalogFXML = "../FXML/ManageCatalog.fxml";
-	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
-	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
-	final static String UpdateSubscriberStatusFXML = "../FXML/UpdateSubscriberStatus.fxml";
-	final static String StatisticsFXML = "../FXML/CreateReport.fxml";
-	final static String ConnectionSettingsFXML = "../FXML/ConnectionSettings.fxml";
 
-	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
-	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
-	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
-
+	public static AnchorPane APSearchFXML;
+	public static AnchorPane APLoginFXML;
+	public static AnchorPane APCreateNewSubscriberFXML;
+	public static AnchorPane APSubscriberHistoryFXML;
+	public static AnchorPane APReaderCardFXML;
+	public static AnchorPane APSearchSubscriberFXML;
+	public static AnchorPane APSearchLibrarianFXML;
+	public static AnchorPane APCreateReportFXML;
+	public static AnchorPane APReportFaultFXML;
+	public static AnchorPane APManageCatalogFXML;
+	public static AnchorPane APReturnBookFXML;
+	public static AnchorPane APNewLoanFXML;
+	public static AnchorPane APUpdateSubscriberStatusFXML;
+	public 	static AnchorPane APStatisticsFXML;
+	public static AnchorPane APConnectionSettingsFXML;	
+	public static AnchorPane APWelcomeScreen;
+	
 	public SideMenu(MenuType menuType) {
 		clicked = Menuicons.Nothing;
 		vbox = new VBox();
-		vbox.setStyle(FXMLpathAndStyle.BackgroundStyle);
+		vbox.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
+		loadAllFXMLAnchorPanes();
 		switch (menuType) {
 		case MainMenu:
 			vbox.getChildren().add(Item(IGeneralData.Menuicons.Login));
@@ -92,24 +96,47 @@ public class SideMenu {
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
-		btn.setStyle(FXMLpathAndStyle.BackgroundStyle);
+		btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
-		paneIndicator.setStyle(FXMLpathAndStyle.BackgroundStyle);
+		paneIndicator.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		menuDecorator(btn, paneIndicator);
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
 	}
+	
+	private void loadAllFXMLAnchorPanes(){
+		try {
+			APSearchFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchFXML));
+			APLoginFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.LoginFXML));
+			APCreateNewSubscriberFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML));
+			APSubscriberHistoryFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML));
+			APReaderCardFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
+			APSearchSubscriberFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchSubscriberFXML));
+			APSearchLibrarianFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchLibrarianFXML));
+			APCreateReportFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML));
+			APReportFaultFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReportFaultFXML));
+			//APManageCatalogFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpathAndStyle.ManageCatalogFXML));
+			APReturnBookFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReturnBookFXML));
+			APNewLoanFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML));
+			APUpdateSubscriberStatusFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberStatusFXML));
+			APStatisticsFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML));
+			APConnectionSettingsFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML));	
+			APWelcomeScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void menuDecorator(Button btn, Pane pane) {
 		btn.setOnMouseEntered(value -> {
-			btn.setStyle(FXMLpathAndStyle.ClickedBackgroundStyle);
-			pane.setStyle(FXMLpathAndStyle.BlueBackgroundStyle);
+			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
 		});
 		btn.setOnMouseExited(value -> {
-			btn.setStyle(FXMLpathAndStyle.BackgroundStyle);
-			pane.setStyle(FXMLpathAndStyle.BackgroundStyle);
+			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		});
 	}
 
@@ -120,17 +147,17 @@ public class SideMenu {
 
 	}
 
-	private void RightSideBtnHandler(Button btn, String FXMLpath, Menuicons IconName) {
+	private void RightSideBtnHandler(Button btn, AnchorPane anchorPane, Menuicons IconName) {
 		btn.setOnMouseClicked(search -> {
 			try {
 				if (!(clicked.equals(IconName))) {
-					AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpath));
-					pane.setStyle(FXMLpathAndStyle.BackgroundStyle);
-					Main.root.setRight(pane);
+					anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(anchorPane);
 					clicked = IconName;
 				}
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
 						e.getMessage());
 			}
@@ -145,68 +172,68 @@ public class SideMenu {
 			break;
 		case Login:
 			btn.setText("Login");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.LoginFXML, IconName);
+			RightSideBtnHandler(btn, APLoginFXML, IconName);
 			break;
 		case History:
 			btn.setText("History");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.SubscriberHistoryFXML, IconName);
+			RightSideBtnHandler(btn, APSubscriberHistoryFXML, IconName);
 			break;
 		case SearchBook:
 			btn.setText("Search Book");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchFXML, IconName);
+			RightSideBtnHandler(btn, APSearchFXML, IconName);
 			break;
 		case SearchLibrarian:
 			btn.setText("Search Librarian");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchLibrarianFXML, IconName);
+			RightSideBtnHandler(btn, APSearchLibrarianFXML, IconName);
 
 			break;
 		case SearchSubscriber:
 			btn.setText("Search Subscriber");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.SearchSubscriberFXML, IconName);
+			RightSideBtnHandler(btn, APSearchSubscriberFXML, IconName);
 			break;
 		case SubscriberCard:
 			btn.setText("Reader Card");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
+			RightSideBtnHandler(btn, APReaderCardFXML, IconName);
 			break;
 		case LibrarianCard:
 			btn.setText("Librarian Details");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
+			RightSideBtnHandler(btn, APReaderCardFXML, IconName);
 			break;
 		case ManagerCard:
 			btn.setText("Manager Details");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ReaderCardFXML, IconName);
+			RightSideBtnHandler(btn, APReaderCardFXML, IconName);
 			break;
 		case Report:
 			btn.setText("Report Fault");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ReportFaultFXML, IconName);
+			RightSideBtnHandler(btn, APReportFaultFXML, IconName);
 			break;
 		case catalog:
 			btn.setText("Manage Catalog");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.CreateReportFXML, IconName);
+			//RightSideBtnHandler(btn, APCreateReportFXML, IconName);
 			break;
 		case CreateSubscriber:
 			btn.setText("Create New Subscriber");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.CreateNewSubscriberFXML, IconName);
+			RightSideBtnHandler(btn, APCreateNewSubscriberFXML, IconName);
 			break;
 		case ReturnBook:
 			btn.setText("Return Book");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ReturnBookFXML, IconName);
+			RightSideBtnHandler(btn, APReturnBookFXML, IconName);
 			break;
 		case CreateLoan:
 			btn.setText("Create Loan Book");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.NewLoanFXML, IconName);
+			RightSideBtnHandler(btn, APNewLoanFXML, IconName);
 			break;
 		case ChangeSubscriberStatus:
 			btn.setText("Update Subscriber Status");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.UpdateSubscriberStatusFXML, IconName);
+			RightSideBtnHandler(btn, APUpdateSubscriberStatusFXML, IconName);
 			break;
 		case Statistics:
 			btn.setText("Create Report");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.StatisticsFXML, IconName);
+			RightSideBtnHandler(btn, APStatisticsFXML, IconName);
 			break;
 		case Connection:
 			btn.setText("Connection Settings");
-			RightSideBtnHandler(btn, FXMLpathAndStyle.ConnectionSettingsFXML, IconName);
+			RightSideBtnHandler(btn, APConnectionSettingsFXML, IconName);
 			break;
 		default:
 			break;

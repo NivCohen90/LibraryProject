@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import Client.CommonHandler;
 import Client.SubscriberHandler;
 import Users.Book;
 import Users.IGeneralData.operationsReturn;
@@ -13,7 +11,6 @@ import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -123,6 +120,8 @@ public class BookDetailsController implements IGUIcontroller{
 				break;
 			case returnError:
 				//orderError, too many orders for book
+		default:
+			break;
 		}
 		
 	}

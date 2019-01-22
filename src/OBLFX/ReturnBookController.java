@@ -1,7 +1,6 @@
 package OBLFX;
 
 import Client.LibrarianHandler;
-import Users.Book;
 import Users.Librarian;
 import Users.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
@@ -12,9 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class ReturnBookController implements IGUIcontroller{
-	private LibrarianHandler librarianClient;
 	
-
+	private LibrarianHandler librarianClient;
 	
     @FXML
     private TextField CatalogNumberTextField;

@@ -1,28 +1,23 @@
 package OBLFX;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.ResourceBundle;
 
-import Client.CommonHandler;
+import Client.SideMenu;
 import Users.Loan;
 import Users.LoansTable;
 import Users.Order;
 import Users.OrdersTable;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
-public class SubscriberCardController {//implements Initializable {
+public class SubscriberCardController {
 
 	static ObservableList<LoansTable> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
@@ -77,20 +72,16 @@ public class SubscriberCardController {//implements Initializable {
 
 	public void setSubscriberCard(String FullName, String SubID, String Email, String Status, String SubNumber,
 			ArrayList<Loan> Loans, ArrayList<Order> Orders) {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				FullNameField.setText(FullName);
-				IDField.setText(SubID);
-				EmailField.setText(Email);
-				StatusField.setText(Status);
-				SubscriberNumberField.setText(SubNumber);
-				for (Loan iloan : Loans) {
-					LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
-					ObservableLoansList.add(loan);
-				}
-			}
-		});
+		FullNameField.setEditable(true);
+		FullNameField.setText(FullName);
+		IDField.setText(SubID);
+		EmailField.setText(Email);
+		StatusField.setText(Status);
+		SubscriberNumberField.setText(SubNumber);
+		for (Loan iloan : Loans) {
+			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
+			ObservableLoansList.add(loan);
+		}
 	}
 
 	@FXML
@@ -110,10 +101,5 @@ public class SubscriberCardController {//implements Initializable {
 		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
 	}
-//	@Override
-//	public void initialize(URL arg0, ResourceBundle arg1) {
-//
-//
-//	}
 
 }

@@ -14,12 +14,12 @@
          <children>
             <Group layoutX="13.0" layoutY="91.0">
                <children>
-                  <TextField fx:id="FullNameField" editable="false" layoutX="87.0" layoutY="-10.0" prefWidth="200.0" />
-                  <TextField fx:id="PhoneNumberField" editable="false" layoutX="456.0" layoutY="21.0" prefWidth="200.0" />
-                  <TextField fx:id="SubscriberNumberField" editable="false" layoutX="456.0" layoutY="-10.0" prefWidth="200.0" />
-                  <TextField fx:id="IDField" editable="false" layoutX="87.0" layoutY="21.0" prefWidth="200.0" />
-                  <TextField fx:id="StatusField" editable="false" layoutX="456.0" layoutY="52.0" prefWidth="200.0" />
-                  <TextField fx:id="EmailField" editable="false" layoutX="87.0" layoutY="52.0" prefWidth="200.0" />
+                  <TextField fx:id="FullNameField" disable="true" layoutX="87.0" layoutY="-10.0" prefWidth="200.0" />
+                  <TextField fx:id="PhoneNumberField" disable="true" layoutX="456.0" layoutY="21.0" prefWidth="200.0" />
+                  <TextField fx:id="SubscriberNumberField" disable="true" layoutX="456.0" layoutY="-10.0" prefWidth="200.0" />
+                  <TextField fx:id="IDField" disable="true" layoutX="87.0" layoutY="21.0" prefWidth="200.0" />
+                  <TextField fx:id="StatusField" disable="true" layoutX="456.0" layoutY="52.0" prefWidth="200.0" />
+                  <TextField fx:id="EmailField" disable="true" layoutX="87.0" layoutY="52.0" prefWidth="200.0" />
                   <Text layoutX="16.0" layoutY="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name:" />
                   <Text layoutX="16.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
                   <Text layoutX="15.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />

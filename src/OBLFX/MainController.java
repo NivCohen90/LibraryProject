@@ -37,6 +37,9 @@ public class MainController implements IGUIcontroller {
 		}
 	}
 
+    @FXML
+    private TextField TextFieldArea;
+    
 	@FXML
 	private Button LoginButton;
 
@@ -83,7 +86,7 @@ public class MainController implements IGUIcontroller {
 		primaryStage.show();
 	}
 
-	/*@FXML
+	@FXML
 	void searchBook(ActionEvent event) {
 		String searchInput = txtInput.getText();
 		String selectedType = ((RadioButton) searchType.getSelectedToggle()).getText();
@@ -91,22 +94,22 @@ public class MainController implements IGUIcontroller {
 		List.add(searchInput);
 		switch (selectedType) {
 		case "By Name":
-			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
-			break;
-		case "By Author":
-			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookAuthor);
-			break;
-		case "By Subject":
-			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookSubject);
-			break;
-		case "By Description":
-			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookDescription);
-			break;
-		default:
-			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
+//			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
+//			break;
+//		case "By Author":
+//			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookAuthor);
+//			break;
+//		case "By Subject":
+//			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookSubject);
+//			break;
+//		case "By Description":
+//			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookDescription);
+//			break;
+//		default:
+//			commonClient.searchBookInServer(searchInput, IGeneralData.operations.searchByBookName);
 			break;
 		}
-	}*/
+	}
 
 	// showing book results in GUI
 	private void displayBookResults(ArrayList<Book> bookList) {
