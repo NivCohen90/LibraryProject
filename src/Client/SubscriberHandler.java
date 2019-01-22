@@ -12,8 +12,8 @@ import Users.IGeneralData.operations;
 
 public class SubscriberHandler extends IHandler {
 
-	public SubscriberHandler(IGUIcontroller guiController) throws IOException {
-		super();
+	public SubscriberHandler(IGUIcontroller guiController){
+		super();	
 		currentControllerGUIobj = guiController;
 	}
 
@@ -29,7 +29,7 @@ public class SubscriberHandler extends IHandler {
 		}
 	}
 
-	public void extendLoad() {
+	public void extendLoan() {
 	}
 
 	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, String orderDate) {

@@ -24,11 +24,6 @@ public class BookDetailsController implements IGUIcontroller{
 
 	@FXML
 	public void initialize() {
-		try {
-			subscriberClient = new SubscriberHandler(this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
     @FXML
@@ -122,6 +117,23 @@ public class BookDetailsController implements IGUIcontroller{
 				//orderError, too many orders for book
 		default:
 			break;
+		}
+		
+	}
+
+	@Override
+	public void setConnection() {
+		subscriberClient = new SubscriberHandler(this);
+		
+	}
+
+	@Override
+	public void closeConnection() {
+		try {
+			subscriberClient.closeConnection();
+		} catch (IOException e) {
+			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			e.printStackTrace();
 		}
 		
 	}

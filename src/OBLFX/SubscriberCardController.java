@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Client.SideMenu;
+import Users.IGeneralData.operationsReturn;
 import Users.Loan;
 import Users.LoansTable;
 import Users.Order;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
-public class SubscriberCardController {
+public class SubscriberCardController implements IGUIcontroller {
 
 	static ObservableList<LoansTable> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
@@ -106,6 +107,24 @@ public class SubscriberCardController {
 		AOrdersAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
 		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
+	}
+
+	@Override
+	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeConnection() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

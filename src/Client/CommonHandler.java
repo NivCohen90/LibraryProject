@@ -11,8 +11,7 @@ import Users.IGeneralData;
 
 public class CommonHandler extends IHandler{
 	
-	public CommonHandler(IGUIcontroller guiController) throws IOException {
-		super();
+	public CommonHandler(IGUIcontroller guiController){
 		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
 		currentControllerGUIobj = guiController;	 
 	}

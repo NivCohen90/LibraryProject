@@ -23,6 +23,14 @@ public interface IAlert {
 		alert.showAndWait();
 		//Optional<ButtonType> result = alert.showAndWait();
 	}
+	
+	public static void ExceptionAlert(String HeaderText, String ContentText){
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(ExceptionErrorTitle);
+		alert.setHeaderText(HeaderText);
+		alert.setContentText(ContentText);
+		alert.showAndWait();
+	}
 
 	public static void showExitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);

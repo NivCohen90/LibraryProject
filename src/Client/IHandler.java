@@ -3,6 +3,7 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import OBLFX.IAlert;
 import OBLFX.IGUIcontroller;
 import Users.Book;
 import Users.BookCopy;
@@ -21,14 +22,23 @@ public abstract class IHandler extends AbstractClient {
 	 */
 	protected IGUIcontroller currentControllerGUIobj;
 
-	public IHandler() throws IOException {
+	public IHandler(){
 		super("localhost", 5555);
-		openConnection();
+		try {
+			openConnection();
+		} catch (IOException e) {
+			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
-	// how this handler respond to massage from server
-	// will convert massage from server and pass it to the GUI controller that
-	// called
+
+	/**
+	 * 	how this handler respond to massage from server
+	 *	will convert massage from server and pass it to the GUI controller that called.
+	 *	@author nivco
+	 *	@param
+	 */
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		ServerData serverMsg = (ServerData) msg;
@@ -139,8 +149,8 @@ public abstract class IHandler extends AbstractClient {
 		try {
 			closeConnection();
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
 		}
-		System.exit(0);
 	}
 
 }
