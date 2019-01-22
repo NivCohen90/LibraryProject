@@ -13,7 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-
+/**
+ * DeleteController controls DeleteBookFXML
+*/
 public class DeleteController implements IGUIcontroller {
 	private LibrarianHandler librarianClient;
 	private CommonHandler commonClient;
@@ -59,14 +61,20 @@ public class DeleteController implements IGUIcontroller {
 
 	@FXML
 	private Label CopyNumberLabel;
-
+    /**
+     * CheckCatalogNumber is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
 		CopyNumberLabel.setText("");
 		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
 	}
-
+    /**
+     * CheckCopy is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z,].
+    */
 	@FXML
 	void CheckCopy(KeyEvent event) {
 		CopyNumberLabel.setText("");
@@ -77,7 +85,9 @@ public class DeleteController implements IGUIcontroller {
 		}
 
 	}
-
+    /**
+     * DeleteAction is a method that check if all of the field is filled. if all fields filled its send to  the server a delete book request
+    */
 	@FXML
 	void DeleteAction(ActionEvent event) {
 		if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
@@ -96,7 +106,9 @@ public class DeleteController implements IGUIcontroller {
 			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(), new Librarian());
 		}
 	}
-
+    /**
+     * GetBookDetailsAction is a method that check if all of the field is filled. if all fields filled its send to  the server a request 
+    */
 	@FXML
 	void GetBookDetailsAction(ActionEvent event) {
 		CopyNumberLabel.setText("");
@@ -107,7 +119,9 @@ public class DeleteController implements IGUIcontroller {
 			commonClient.searchInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
 		}
 	}
-
+    /**
+     * Update User with the result
+    */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		CopyNumberLabel.setText((String) msg);

@@ -29,7 +29,7 @@ public class SubscriberHandler extends IHandler {
 		}
 	}
 
-	public void extendLoad() {
+	public void extendLoan() {
 	}
 
 	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, String orderDate) {

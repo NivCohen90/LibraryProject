@@ -27,7 +27,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-
+/**
+ * LoginFormController controls LoginFormFXML
+ */
 public class LoginFormController implements IGUIcontroller {
 
 	final static String WrongDataMsg = "wrong User Name or Password.";
@@ -60,12 +62,17 @@ public class LoginFormController implements IGUIcontroller {
 	private Label WrongData;
 
 	@FXML
-
+	   /**
+     * CheckUserNameInput is a method that check if the user put input,if he put input check if its exactly 9.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
 	void CheckUserNameInput(KeyEvent event) {
 		WrongData.setText("");
 		IGUIcontroller.CheckOnlyNumbers(UserNameText, UserNameAlertLabel, 9, UserNameErrorDigits);
 	}
-
+    /**
+     * Login is a method that check if all off the fields are filled
+    */
 	@FXML
 	void Login(ActionEvent event) {
 		if (UserNameText.getText().length() != 9 || !UserNameText.getText().matches(OnlyNumbers)
@@ -82,7 +89,9 @@ public class LoginFormController implements IGUIcontroller {
 
 		}
 	}
-
+    /**
+     * Update User with the result and update system with user details
+    */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {

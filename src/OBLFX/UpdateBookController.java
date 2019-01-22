@@ -14,7 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-
+/**
+ * UpdateBookController controls UpdateBookFXML
+ * @param all the booleans parameters are flags to notice if the user trying to change some data in his side.
+ */
 public class UpdateBookController implements IGUIcontroller {
 	boolean catalog = false, bookName = false, author = false, subject = false, placeOnShelf = false,
 			editionNumber = false, allFlagStatus = false;
@@ -71,43 +74,62 @@ public class UpdateBookController implements IGUIcontroller {
 
 	@FXML
 	private Label RetriveMSGLabel;
-
+    /**
+    * CheckAuthorName is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+    * this method also check that all this field only contains this letters[a-zA-Z,].
+    *and notice his flag
+    */
 	@FXML
 	void CheckAuthorName(KeyEvent event) {
 		IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError);
 		IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel);
 		author = true;
 	}
-
+    /**
+     * CheckCatalogNumber is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+      *and notice his flag
+     */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
 		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel);
 		catalog = true;
 	}
-
+    /**
+    *CheckEditionNumber method notice his flag
+    */
 	@FXML
 	void CheckEditionNumber(KeyEvent event) {
 		editionNumber = true;
 	}
-
+    /**
+     * CheckSubject is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z,].
+    */
 	@FXML
 	void CheckSubject(KeyEvent event) {
 		IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError);
 		IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel);
 		subject = true;
 	}
-
+    /**
+    *FlagBookName method notice his flag
+    */
 	@FXML
 	void FlagBookName(KeyEvent event) {
 		bookName = true;
 	}
-
+    /**
+    * FlagShelf method notice his flag
+    */
 	@FXML
 	void FlagShelf(KeyEvent event) {
 		placeOnShelf = true;
 	}
-
+/**
+* GetBookDetailsAction is a method that check if all off the fields are filled and if it filled right its send the server a book details request
+*/
 	@FXML
 	void GetBookDetailsAction(ActionEvent event) {
 		if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs)
@@ -117,7 +139,9 @@ public class UpdateBookController implements IGUIcontroller {
 			//commonClient.searchBookInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
 		}
 	}
-
+	   /**
+     * UpdateBookAction is a method that check if all off the fields are filled and if it filled right its send the server a update request
+    */
 	@FXML
 	void UpdateBookAction(ActionEvent event) {
 		if (catalog && !allFlagStatus) {
@@ -168,7 +192,9 @@ public class UpdateBookController implements IGUIcontroller {
 
 		}
 	}
-
+    /**
+     * Update User with the result
+    */  
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
@@ -191,7 +217,9 @@ public class UpdateBookController implements IGUIcontroller {
 		}
 
 	}
-
+    /**
+     * SetAllEditable is method that unlock all the text fields
+    */  
 	private void SetAllEditable() {
 		SetAllFlagFalse();
 		BookNameTextField.setEditable(true);
@@ -202,7 +230,9 @@ public class UpdateBookController implements IGUIcontroller {
 		allFlagStatus = true;
 
 	}
-
+    /**
+     * SetAllUnEditable is method that lock all the text fields
+    */ 
 	private void SetAllUnEditable() {
 		SetAllFlagFalse();
 		BookNameTextField.setEditable(false);
@@ -213,7 +243,9 @@ public class UpdateBookController implements IGUIcontroller {
 		allFlagStatus = false;
 
 	}
-
+    /**
+     * SetAllFlagFalse is method that notice all the flags.
+    */ 
 	private void SetAllFlagFalse() {
 		catalog = false;
 		bookName = false;

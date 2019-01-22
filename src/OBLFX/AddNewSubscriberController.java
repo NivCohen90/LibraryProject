@@ -19,7 +19,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-
+/**
+ * AddNewSubscriberController controls CreateNewSubscriberFXML
+ * @param AreaCodeFlag is a flag that show if the user pushed this Button
+ */
 public class AddNewSubscriberController implements IGUIcontroller, Initializable {
 
 	final static String AreaCodeError = "Please choose area phone code.";
@@ -72,41 +75,65 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 
 	@FXML
 	private Label ErrorAtCreatSubscriberLabel;
-
+    
+    /**
+     * this method update flag to notice that areacode was choose
+    */
 	@FXML
 	private void CheckChoose(ActionEvent event) {
 		AreaCodeFlag = true;
 	}
+    /**
+     * CheckEmail is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+    */
     @FXML
     void CheckEmail(KeyEvent event) {
     	IGUIcontroller.CheckIfUserPutInput(EmailTextField,EmailLabel);
     }
-
+    /**
+     * CheckFirstName is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z].
+    */
 	@FXML
 	void CheckFirstName(KeyEvent event) {
 		IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled, FirstNameLabel, OnlyLetters, OnlyLetterError);
 		IGUIcontroller.CheckIfUserPutInput(FirstNameTextFiled, FirstNameLabel);
 	}
-
+    /**
+     * CheckLastName is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z].
+    */
 	@FXML
 	void CheckLastName(KeyEvent event) {
 		IGUIcontroller.CheckOnlyLetter(LastNameTextFiled, LastNameLabel, OnlyLetters, OnlyLetterError);
 		IGUIcontroller.CheckIfUserPutInput(LastNameTextFiled, LastNameLabel);
 	}
+    /**
+     * CheckEmail is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+    */
     @FXML
     void CheckPassword(KeyEvent event) {
     	IGUIcontroller.CheckIfUserPutInput(PasswordTextFiled,PasswordLabel);
     }
+    /**
+     * CheckIDInput is a method that check if the user put input and if that the input length is 9.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
 	@FXML
 	void CheckIDInput(KeyEvent event) {
 		IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel, 9, UserNameErrorDigits);
 	}
-
+    /**
+     * CheckPhoneNumber is a method that check if the user put input and if that the input length is 7.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
 	@FXML
 	private void CheckPhoneNumber(KeyEvent event) {
 		IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled, PhoneNumberLabel, 7, PhoneNumberErrorDigits);
 	}
-
+    /**
+     * CreateNewSubscriberBtn is a method that check if all of the field is filled 
+    */
 	@FXML
 	private void CreateNewSubscriberBtn(ActionEvent event) {
 		int counter = 0;
@@ -158,7 +185,9 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 			PhoneNumberLabel.setText(AreaCodeError);
 
 	}
-
+    /**
+     * Update User with the result
+    */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		ErrorAtCreatSubscriberLabel.setText((String) msg);
@@ -170,6 +199,9 @@ public class AddNewSubscriberController implements IGUIcontroller, Initializable
 	 * 
 	 *
 	 ************************************************************/
+	/**
+	 * Add the code area to the list
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		List = FXCollections.observableArrayList();

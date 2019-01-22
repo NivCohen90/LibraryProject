@@ -1,5 +1,7 @@
 package OBLFX;
-
+/**
+ * 
+ */
 import Users.Librarian;
 import Client.LibrarianHandler;
 import Users.Book;
@@ -13,6 +15,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * AddBookController controls AddBookFXML
+ * @param Dates and OpenFile is a flag that show if the user pushed their Buttons
+ */
 public class AddBookController implements IGUIcontroller {
     private boolean Dates = false;
     private boolean OpenFile = false;	
@@ -89,7 +95,9 @@ public class AddBookController implements IGUIcontroller {
 
     @FXML
     private Label NumberOfCopiesLabel;
-
+    /**
+     * AddBookAction is a method that check if all off the fields are filled
+    */
     @FXML
     void AddBookAction(ActionEvent event) {
     	int counter = 0;
@@ -165,48 +173,73 @@ public class AddBookController implements IGUIcontroller {
     }
 
     @FXML
+    /**
+     * CheckBook is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+    */
     void CheckBook(KeyEvent event) {
     	IGUIcontroller.CheckIfUserPutInput(BookNameTextField,BookNameLabel);  
     }
+    /**
+     * AuthorCheck is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z,].
+    */
     @FXML
     void AuthorCheck(KeyEvent event) {
     	IGUIcontroller.CheckOnlyLetter(AuthorTextField,AuthorLabel,OnlyThisLetters,OnlyThisLetterError);
     	IGUIcontroller.CheckIfUserPutInput(AuthorTextField,AuthorLabel); 
     }
-
+    /**
+     * CatalogNumberCheck is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
     @FXML
     void CatalogNumberCheck(KeyEvent event) {
     	IGUIcontroller.CheckOnlyLetter(CatalogTextField,CatalogLabel,OnlyNumbers,UserNameErrorNumebrs);
     	IGUIcontroller.CheckIfUserPutInput(CatalogTextField,CatalogLabel); 
     }
-
+    /**
+     * CheckPlaceOnShelf is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+    */
     @FXML
     void CheckPlaceOnShelf(KeyEvent event) {
   	IGUIcontroller.CheckIfUserPutInput(PlaceOnShelfTextField,PlaceOnShelfLabel); 
     }
+    /**
+     * NumberOfCopiesCheck is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[0-9].
+    */
     @FXML
     void NumberOfCopiesCheck(KeyEvent event) {
     	IGUIcontroller.CheckOnlyLetter(NumberOfCopiesTextField,NumberOfCopiesLabel,OnlyNumbers,UserNameErrorNumebrs);
     	IGUIcontroller.CheckIfUserPutInput(NumberOfCopiesTextField,NumberOfCopiesLabel); 
     }
-    
+    /**
+     * this method assign a flag to notice that this button was pushed.
+    */  
 
     @FXML
     void OpenFileAction(ActionEvent event) {
     	OpenFile = true;
     }
-
+    /**
+     * this method assign a flag to notice that this button was pushed.
+    */  
     @FXML
     void PurchaceDateAction(ActionEvent event) {
     	Dates = true;
     }
-
+    /**
+     * SubjectCheck is a method that check if the user put input.,if he didn't gave input the method will alert the user.
+     * this method also check that all this field only contains this letters[a-zA-Z,].
+    */
     @FXML
     void SubjectCheck(KeyEvent event) {
     	IGUIcontroller.CheckOnlyLetter(SubjectTextField,SubjectLabel,OnlyThisLetters,OnlyThisLetterError);
     	IGUIcontroller.CheckIfUserPutInput(SubjectTextField,SubjectLabel);
     }
-
+    /**
+     * Update User with the result
+    */  
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {

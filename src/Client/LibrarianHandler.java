@@ -62,6 +62,11 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
+	/**
+	 * 
+	 * @param newSub
+	 * @param librarian
+	 */
 	public  void createNewSubscriber(Subscriber newSub,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(newSub);
@@ -79,6 +84,8 @@ public class LibrarianHandler extends IHandler{
 	}
 	
 	public void changeSubscriberStatus() {}
+	
+	public void FreezeSubscriber() {}
 	
 	public void createReports() {}
 	
