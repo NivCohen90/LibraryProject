@@ -69,6 +69,10 @@ public class User implements Serializable{
 	//public Book Search(String SearchField)(){}
 	
 	public void updatePersonalDetails() {}
+
+	public String getFullName() {
+		return firstName+" "+LastName;
+	}
 	
 	
 	

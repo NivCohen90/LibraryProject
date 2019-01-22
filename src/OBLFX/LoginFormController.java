@@ -104,8 +104,8 @@ public class LoginFormController implements IGUIcontroller {
 			String Status = ((Subscriber) msg).getStatus();
 			String SubNumber = ((Subscriber) msg).getSubscriberNumber();
 			String PhoneNumber = ((Subscriber) msg).getPhoneNumber();
-			ArrayList<Loan> loans = ((Subscriber) msg).getLoans();
-			ArrayList<Order> orders = ((Subscriber) msg).getOrders();
+			ArrayList<Loan> loans = ((Subscriber) msg).getActiveLoans();
+			ArrayList<Order> orders = ((Subscriber) msg).getActiveOrders();
 			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, null);
 			break;
 		case returnLibrarian:

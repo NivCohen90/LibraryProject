@@ -4,6 +4,8 @@ import Client.SideMenu;
 import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IAlert;
 import Users.IGeneralData;
+import Users.Librarian;
+import Users.Subscriber;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,6 +23,9 @@ public class Main extends Application {
 	public static SideMenu sideMenu;
 	public static ToolBar toolBar;
 
+	public static Subscriber userSubscriber=null;
+	public static Librarian userLibrarian=null;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
