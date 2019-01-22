@@ -153,12 +153,8 @@ public class LoginFormController implements IGUIcontroller {
 	
 	@Override
 	public void closeConnection() {	
-		try {
-			commonClient.closeConnection();
-		} catch (IOException e) {
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
-			e.printStackTrace();
-		}
+		if(commonClient!=null)
+			commonClient.quit();
 	}
 
 }

@@ -140,7 +140,8 @@ public class DeleteController implements IGUIcontroller {
 	}
 	@Override
 	public void closeConnection() {
-		commonClient.quit();
+		if(commonClient!=null)
+			commonClient.quit();
 	}
 
 }
