@@ -70,11 +70,17 @@ public class SubscriberCardController {
 	@FXML
 	private TableColumn<OrdersTable, Date> AOrdersArrivedDate;
 
-	public void setSubscriberCard(String FullName, String SubID, String Email, String Status, String SubNumber,
+	public void setSubscriberCard(String FullName, String PhoneNumber, String ID, String Email, String Status, String SubNumber,
 			ArrayList<Loan> Loans, ArrayList<Order> Orders) {
-		FullNameField.setEditable(true);
+		TextField FullNameField = (TextField) SideMenu.APReaderCardFXML.lookup("#FullNameField");
+		TextField PhoneNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField");
+		TextField IDField = (TextField) SideMenu.APReaderCardFXML.lookup("#IDField");
+		TextField EmailField = (TextField) SideMenu.APReaderCardFXML.lookup("#EmailField");
+		TextField StatusField = (TextField) SideMenu.APReaderCardFXML.lookup("#StatusField");
+		TextField SubscriberNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#SubscriberNumberField");
 		FullNameField.setText(FullName);
-		IDField.setText(SubID);
+		PhoneNumberField.setText(PhoneNumber);
+		IDField.setText(ID);
 		EmailField.setText(Email);
 		StatusField.setText(Status);
 		SubscriberNumberField.setText(SubNumber);

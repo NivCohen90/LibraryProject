@@ -2,9 +2,7 @@ package OBLFX;
 
 import Users.IGeneralData;
 import Users.Loan;
-import Users.LoansTable;
 import Users.Order;
-import Users.IGeneralData.Menuicons;
 import Users.IGeneralData.operationsReturn;
 import Users.Subscriber;
 
@@ -85,15 +83,11 @@ public class LoginFormController implements IGUIcontroller {
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		SideMenu sideMenu;
 		switch (op) {
 		case returnSubscriber:
-//			Platform.runLater(new Runnable() {
-//				@Override
-//				public void run() {
-					SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
-					sideMenu.setclicked(Menuicons.SubscriberCard);
+					sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
 					Main.root.setLeft(sideMenu.getVBox());
-//					SideMenu.APReaderCardFXML.setStyle(FXMLpathAndStyle.BackgroundStyle);
 					Main.root.setRight(SideMenu.APReaderCardFXML);
 					SubscriberCardController a = new SubscriberCardController();			
 					String FullName = ((Subscriber) msg).getFirstName() + " " + ((Subscriber) msg).getLastName();
@@ -104,50 +98,12 @@ public class LoginFormController implements IGUIcontroller {
 					String PhoneNumber = ((Subscriber) msg).getPhoneNumber();
 					ArrayList<Loan> loans = ((Subscriber) msg).getLoans();
 					ArrayList<Order> orders = ((Subscriber) msg).getOrders();
-					System.out.println(FullName);
-					System.out.println(ID);
-					System.out.println(Email);
-					System.out.println(Status);
-					System.out.println(SubNumber);
-					TextField FullNameField = (TextField) SideMenu.APReaderCardFXML.lookup("#FullNameField");
-					TextField PhoneNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField");
-					TextField IDField = (TextField) SideMenu.APReaderCardFXML.lookup("#IDField");
-					TextField EmailField = (TextField) SideMenu.APReaderCardFXML.lookup("#EmailField");
-					TextField StatusField = (TextField) SideMenu.APReaderCardFXML.lookup("#StatusField");
-					TextField SubscriberNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#SubscriberNumberField");
-					FullNameField.setText(FullName);
-					PhoneNumberField.setText(PhoneNumber);
-					IDField.setText(ID);
-					EmailField.setText(Email);
-					StatusField.setText(Status);
-					SubscriberNumberField.setText(SubNumber);
-					for (Loan iloan : loans) {
-						LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
-						a.ObservableLoansList.add(loan);
-					}
-					
-//				}
-//			});
+					a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, null);
 			break;
 		case returnLibrarian:
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-
-					try {
-						SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
-						sideMenu.setclicked(Menuicons.LibrarianCard);
-						Main.root.setLeft(sideMenu.getVBox());
-						AnchorPane pane;
-						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
-						pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-						Main.root.setRight(pane);
-					} catch (IOException e) {
-						IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
-								e.getMessage());
-					}
-				}
-			});
+					sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
+					Main.root.setLeft(sideMenu.getVBox());
+					Main.root.setRight(SideMenu.APReaderCardFXML);
 			break;
 		case returnLibrarianManager:
 			Platform.runLater(new Runnable() {
@@ -156,7 +112,6 @@ public class LoginFormController implements IGUIcontroller {
 
 					try {
 						SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
-						sideMenu.setclicked(Menuicons.ManagerCard);
 						Main.root.setLeft(sideMenu.getVBox());
 						AnchorPane pane;
 						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));

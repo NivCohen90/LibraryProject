@@ -1,6 +1,5 @@
 package Client;
 
-import Users.IGeneralData;
 import Users.IGeneralData.MenuType;
 import Users.IGeneralData.Menuicons;
 
@@ -20,7 +19,7 @@ import java.io.IOException;
 import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IAlert;
 
-public class SideMenu{
+public class SideMenu {
 	private VBox vbox;
 	public static Menuicons clicked;
 
@@ -37,59 +36,58 @@ public class SideMenu{
 	public static AnchorPane APReturnBookFXML;
 	public static AnchorPane APNewLoanFXML;
 	public static AnchorPane APUpdateSubscriberStatusFXML;
-	public 	static AnchorPane APStatisticsFXML;
-	public static AnchorPane APConnectionSettingsFXML;	
+	public static AnchorPane APStatisticsFXML;
+	public static AnchorPane APConnectionSettingsFXML;
 	public static AnchorPane APWelcomeScreen;
-	
+
 	public SideMenu(MenuType menuType) {
-		clicked = Menuicons.Nothing;
 		vbox = new VBox();
 		vbox.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
 		loadAllFXMLAnchorPanes();
 		switch (menuType) {
 		case MainMenu:
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Login));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Connection));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			vbox.getChildren().add(Item(Menuicons.Login));
+			vbox.getChildren().add(Item(Menuicons.SearchBook));
+			vbox.getChildren().add(Item(Menuicons.Connection));
+			vbox.getChildren().add(Item(Menuicons.Exit));
 			break;
 		case SubscriberMenu:
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SubscriberCard));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.History));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			vbox.getChildren().add(Item(Menuicons.SubscriberCard));
+			vbox.getChildren().add(Item(Menuicons.SearchBook));
+			vbox.getChildren().add(Item(Menuicons.History));
+			vbox.getChildren().add(Item(Menuicons.Exit));
 			break;
 		case LibrarianMenu:
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.LibrarianCard));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchSubscriber));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateLoan));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.ReturnBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Report));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateSubscriber));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.catalog));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			vbox.getChildren().add(Item(Menuicons.LibrarianCard));
+			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
+			vbox.getChildren().add(Item(Menuicons.SearchBook));
+			vbox.getChildren().add(Item(Menuicons.CreateLoan));
+			vbox.getChildren().add(Item(Menuicons.ReturnBook));
+			vbox.getChildren().add(Item(Menuicons.Report));
+			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
+			vbox.getChildren().add(Item(Menuicons.catalog));
+			vbox.getChildren().add(Item(Menuicons.Exit));
 			break;
 		case LibrarianManagerMenu:
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.ManagerCard));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchLibrarian));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchSubscriber));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.SearchBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateLoan));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.ReturnBook));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Report));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.CreateSubscriber));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.catalog));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.ChangeSubscriberStatus));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Statistics));
-			vbox.getChildren().add(Item(IGeneralData.Menuicons.Exit));
+			vbox.getChildren().add(Item(Menuicons.ManagerCard));
+			vbox.getChildren().add(Item(Menuicons.SearchLibrarian));
+			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
+			vbox.getChildren().add(Item(Menuicons.SearchBook));
+			vbox.getChildren().add(Item(Menuicons.CreateLoan));
+			vbox.getChildren().add(Item(Menuicons.ReturnBook));
+			vbox.getChildren().add(Item(Menuicons.Report));
+			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
+			vbox.getChildren().add(Item(Menuicons.catalog));
+			vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
+			vbox.getChildren().add(Item(Menuicons.Statistics));
+			vbox.getChildren().add(Item(Menuicons.Exit));
 			break;
 		}
 
 	}
 
-	private HBox Item(IGeneralData.Menuicons icon) {
+	private HBox Item(Menuicons icon) {
 		Image image = new Image(getClass().getResource("/MenuIcons/" + icon.toString() + ".png").toExternalForm());
 		ImageView imageView = new ImageView(image);
 		Button btn = new Button();
@@ -105,24 +103,32 @@ public class SideMenu{
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
 	}
-	
-	private void loadAllFXMLAnchorPanes(){
+
+	private void loadAllFXMLAnchorPanes() {
 		try {
 			APSearchFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchFXML));
 			APLoginFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.LoginFXML));
-			APCreateNewSubscriberFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML));
-			APSubscriberHistoryFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML));
+			APCreateNewSubscriberFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML));
+			APSubscriberHistoryFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML));
 			APReaderCardFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
-			APSearchSubscriberFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchSubscriberFXML));
-			APSearchLibrarianFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.SearchLibrarianFXML));
-			APCreateReportFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML));
+			APSearchSubscriberFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.SearchSubscriberFXML));
+			APSearchLibrarianFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.SearchLibrarianFXML));
+			APCreateReportFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML));
 			APReportFaultFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReportFaultFXML));
-			//APManageCatalogFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(FXMLpathAndStyle.ManageCatalogFXML));
+			// APManageCatalogFXML = (AnchorPane)
+			// FXMLLoader.load(getClass().getResource(FXMLpathAndStyle.ManageCatalogFXML));
 			APReturnBookFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReturnBookFXML));
 			APNewLoanFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML));
-			APUpdateSubscriberStatusFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberStatusFXML));
+			APUpdateSubscriberStatusFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberStatusFXML));
 			APStatisticsFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML));
-			APConnectionSettingsFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML));	
+			APConnectionSettingsFXML = (AnchorPane) FXMLLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML));
 			APWelcomeScreen = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -150,11 +156,11 @@ public class SideMenu{
 	private void RightSideBtnHandler(Button btn, AnchorPane anchorPane, Menuicons IconName) {
 		btn.setOnMouseClicked(search -> {
 			try {
-				if (!(clicked.equals(IconName))) {
-					anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-					Main.root.setRight(anchorPane);
-					clicked = IconName;
-				}
+				// if (!(clicked.equals(IconName))) {
+				anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+				Main.root.setRight(anchorPane);
+				// clicked = IconName;
+				// }
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -209,7 +215,7 @@ public class SideMenu{
 			break;
 		case catalog:
 			btn.setText("Manage Catalog");
-			//RightSideBtnHandler(btn, APCreateReportFXML, IconName);
+			// RightSideBtnHandler(btn, APCreateReportFXML, IconName);
 			break;
 		case CreateSubscriber:
 			btn.setText("Create New Subscriber");
@@ -243,13 +249,5 @@ public class SideMenu{
 
 	public VBox getVBox() {
 		return vbox;
-	}
-
-	public Menuicons getclicked() {
-		return clicked;
-	}
-
-	public void setclicked(Menuicons status) {
-		clicked = status;
 	}
 }
