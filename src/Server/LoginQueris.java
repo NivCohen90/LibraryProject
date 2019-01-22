@@ -43,7 +43,7 @@ public class LoginQueris {
 					String getSubLoansquery = "SELECT * FROM obl.loan WHERE SubscriberID = '"
 							+ Sub.getSubscriberNumber() + "';";
 					Statement getSubLoans = mysqlConnection.conn.createStatement();
-					ResultSet subLoansRes = getSub.executeQuery(getSubLoansquery);
+					ResultSet subLoansRes = getSubLoans.executeQuery(getSubLoansquery);
 					ArrayList<Loan> Loans = new ArrayList<Loan>();
 					ArrayList<Loan> ActivityHistory = new ArrayList<Loan>();
 					while (subLoansRes.next()) {
