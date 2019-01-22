@@ -17,7 +17,7 @@ import Users.Order;
 public abstract class IHandler extends AbstractClient {
 
 	/*
-	 * Variables IGUIcontroller - controller input was sent from
+	 * Variables IGUIcontroller - controller input was sent from 
 	 */
 	protected IGUIcontroller currentControllerGUIobj;
 
