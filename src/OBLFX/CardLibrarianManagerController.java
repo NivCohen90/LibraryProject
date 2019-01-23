@@ -173,10 +173,10 @@ public class CardLibrarianManagerController implements IGUIcontroller {
     	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
-		txtfldLbl1.setText(LibrarianToDisplay.getFirstName());
-		txtfldLbl2.setText(LibrarianToDisplay.getID());
-		txtfldLbl4.setText(LibrarianToDisplay.getLastName());
-		txtfldLbl5.setText(LibrarianToDisplay.getAffiliation());
+		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl1")).setText(LibrarianToDisplay.getFirstName());
+		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl2")).setText(LibrarianToDisplay.getID());
+		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl4")).setText(LibrarianToDisplay.getLastName());
+		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl5")).setText(LibrarianToDisplay.getAffiliation());
 		
     }
 

@@ -90,8 +90,8 @@ public class SubscriberHistoryController implements IGUIcontroller{
     {
     	ArrayList<Loan> listLoan = subscriber.getHistoryLoans();
     	ArrayList<Order> listOrder = subscriber.getHistoryOrders();
-    	setDataInTable(listLoan, ObservableColumnDataLoans, tblLoanHistory);
-    	setDataInTable(listOrder, ObservableColumnDataOrder, tblOrderHistory);
+    	setDataInTable(listLoan, ObservableColumnDataLoans, (TableView<Object>) SideMenu.APSubscriberHistoryFXML.lookup("#tblLoanHistory"));
+    	setDataInTable(listOrder, ObservableColumnDataOrder, (TableView<Object>) SideMenu.APSubscriberHistoryFXML.lookup("#tblOrderHistory"));
     }
     
 	private <T> void setDataInTable(ArrayList<T> list, ObservableList<Object> observablelist, TableView<Object> table) {
