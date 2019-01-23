@@ -21,33 +21,17 @@ import Client.LibrarianHandler;
 import Client.Main;
 import Client.SideMenu;
 import Users.*;
+import Users.IGeneralData.operationsReturn;
 
-public class UserDetailsController {
-
-	private enum UserOption {
-		SUBSCRIBER, LIBRARIAN
-	};
+public class CardLibrarianManagerController implements IGUIcontroller {
 	
-	private User displayedUser;
+	private User displayedLibrarian;
 	static ObservableList<Object> ObservableColumnDataTable1 = FXCollections.observableArrayList();
 	static ObservableList<Object> ObservableColumnDataTable2 = FXCollections.observableArrayList();
 	
 	@FXML
 	public void initialize() {
-		switch(SideMenu.clicked)
-		{
-			case SubscriberCard:
-				setLabelsSubscriber();
-				setUserToDisplay(Main.userSubscriber);
-				break;
-			case LibrarianCard:
-			case ManagerCard:
-				setLabelsLibrarian();
-				setUserToDisplay(Main.userLibrarian);
-				break;
-			default :
-				setLabelsSubscriber();
-		}
+		setLabelsLibrarian();
 		tbl1.setItems(ObservableColumnDataTable1);
 		tbl2.setItems(ObservableColumnDataTable2);
 		
@@ -148,48 +132,17 @@ public class UserDetailsController {
     @FXML
     private Text tableTitle2;
     
-    public void setLabelsSubscriber()
-    {
-    	this.title.setText("Reader Card");
-    	this.lbl1.setText("Full Name:");
-    	this.lbl2.setText("Student ID:");
-    	this.lbl3.setText("Email:");
-    	this.lbl4.setText("Subscriber ID:");
-    	this.lbl5.setText("Phone Number :");
-    	this.lbl6.setText("Status :");
-    	this.tableTitle1.setText("Active Loans");
-    	this.tbl1.setPlaceholder(new Label("No active loans"));
-    	this.tbl1col1.setText("Book Name");
-    	this.tbl1col2.setText("Author");
-    	this.tbl1col3.setText("Start Loan Date");
-    	this.tbl1col4.setText("End Loan Date");
-    	tbl1col1.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-    	tbl1col2.setCellValueFactory(new PropertyValueFactory<>("AuthorName"));
-    	tbl1col3.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-    	tbl1col4.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
-    	
-    	
-    	this.tableTitle2.setText("Active Orders");
-    	this.tbl2.setPlaceholder(new Label("No active orders"));
-    	this.tbl2col1.setText("Book Name");
-    	this.tbl2col2.setText("Author");
-    	this.tbl2col3.setText("Order Date");
-    	this.tbl2col4.setText("Book Arrived Date");
-    	tbl2col1.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-    	tbl2col2.setCellValueFactory(new PropertyValueFactory<>("AuthorName"));
-    	tbl2col3.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
-    	tbl2col4.setCellValueFactory(new PropertyValueFactory<>("BookArrivedTime"));
-    }
-    
     public void setLabelsLibrarian()
     {
-    	this.title.setText("Librarian Card");
-    	this.lbl1.setText("Full Name:");
+    	this.title.setText("Librarian Manager Card");
+    	this.lbl1.setText("First Name:");
+    	this.lbl4.setText("Last Name:");
     	this.lbl2.setText("Librarian ID:");
-    	this.lbl3.setText("Affiliation:");
-    	this.lbl4.setVisible(false);
-    	this.lbl5.setVisible(false);
+    	this.lbl5.setText("Affiliation:");
+    	this.lbl3.setVisible(false);
     	this.lbl6.setVisible(false);
+		txtfldLbl3.setVisible(false);
+		txtfldLbl6.setVisible(false);
     	this.tableTitle1.setText("Messages");
     	this.tbl1.setPlaceholder(new Label("No messages"));
     	this.tbl1col1.setText("Date");
@@ -214,32 +167,16 @@ public class UserDetailsController {
     	this.tbl2col4.setVisible(false);
     }
     
-    public void setUserToDisplay(User UserToDisplay)
+    public void setLibrarianToDisplay(Librarian LibrarianToDisplay)
     {
-    	this.displayedUser = UserToDisplay;
+    	this.displayedLibrarian = LibrarianToDisplay;
     	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
-		txtfldLbl1.setText(UserToDisplay.getFullName());
-		txtfldLbl2.setText(UserToDisplay.getID());
-		if(UserToDisplay instanceof Subscriber)
-		{
-			Subscriber sub = (Subscriber)UserToDisplay;
-			txtfldLbl3.setText(sub.getEmail());
-			txtfldLbl4.setText(sub.getSubscriberNumber());
-			txtfldLbl5.setText(sub.getPhoneNumber());
-			txtfldLbl6.setText(sub.getStatus());
-			setDataInTable(sub.getActiveLoans(), ObservableColumnDataTable1, tbl1);
-			setDataInTable(sub.getActiveOrders(), ObservableColumnDataTable2, tbl2);
-		}
-		if(UserToDisplay instanceof Librarian)
-		{
-			Librarian sub = (Librarian)UserToDisplay;
-			txtfldLbl3.setText(sub.getAffiliation());
-			txtfldLbl4.setVisible(false);
-			txtfldLbl5.setVisible(false);
-			txtfldLbl6.setVisible(false);
-		}
+		txtfldLbl1.setText(LibrarianToDisplay.getFirstName());
+		txtfldLbl2.setText(LibrarianToDisplay.getID());
+		txtfldLbl4.setText(LibrarianToDisplay.getLastName());
+		txtfldLbl5.setText(LibrarianToDisplay.getAffiliation());
 		
     }
 
@@ -251,5 +188,23 @@ public class UserDetailsController {
 				observablelist.add(Ti);
 		}
 		table.setVisible(true);
+	}
+
+	@Override
+	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeConnection() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,7 +1,5 @@
 package OBLFX;
 
-import java.awt.TextArea;
-
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Users.Librarian;
@@ -12,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
