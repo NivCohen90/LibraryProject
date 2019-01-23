@@ -33,6 +33,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * FXML controller for  search librarian
+ * @author ofir
+ *
+ */
 public class SearchLibrarianController implements IGUIcontroller {
 
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
@@ -105,6 +110,9 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
 
+    /**
+     * set labels for librarian search in FXML
+     */
 	public void setLabelsSearchLibrarian() {
 		title.setText("Search Librarian");
 		type1.setText("Librarian ID");
@@ -124,6 +132,10 @@ public class SearchLibrarianController implements IGUIcontroller {
 		col4.setCellValueFactory(new PropertyValueFactory<>("Email"));
 	}
 
+    /**
+     * request search librarian from client
+     * @param event
+     */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
 
@@ -145,6 +157,10 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	}
 
+    /**
+     * set data in FXML result table
+     * @param list ArrayList<T> with object list to add to table
+     */
 	private <T> void displayResults(ArrayList<T> list) {
 		ObservableColumnData.clear();
 		if(!list.isEmpty())
@@ -162,13 +178,21 @@ public class SearchLibrarianController implements IGUIcontroller {
 		lblResults.setVisible(true);
 	}
 	
+	/**
+	 * display error in FXML
+	 * @param msg error message
+	 */
 	private void displayError(Error msg) {
 
 		lblResults.setText(msg.getMessage());
 		lblResults.setVisible(true);
 		
 	}
-
+	
+	/**
+	 * open window with book details
+	 * @param choosenResult chosen librarian to display details
+	 */
 	private void openResultDetails(Object choosenResult)
 	{
     	Stage primaryStage = new Stage();
@@ -194,17 +218,25 @@ public class SearchLibrarianController implements IGUIcontroller {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		displayResults((ArrayList<T>) msg);
 	}
-
+	
+	/**
+	 * {@inheritDoc}}
+	 */
 	@Override
 	public void setConnection() {
 		commonClient = new CommonHandler(this);	
 	}
-
+	/**
+	 * {@inheritDoc}}
+	 */
 	@Override
 	public void closeConnection() {
 		if(commonClient!=null)

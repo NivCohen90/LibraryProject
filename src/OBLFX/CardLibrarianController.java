@@ -23,6 +23,11 @@ import Client.SideMenu;
 import Users.*;
 import Users.IGeneralData.operationsReturn;
 
+/**
+ * FXML controller for librarian card
+ * @author ofir
+ *
+ */
 public class CardLibrarianController implements IGUIcontroller {
 	
 	private User displayedLibrarian;
@@ -132,7 +137,10 @@ public class CardLibrarianController implements IGUIcontroller {
     @FXML
     private Text tableTitle2;
     
-    public void setLabelsLibrarian()
+    /**
+     * set labels for librarian card in FXML
+     */
+    private void setLabelsLibrarian()
     {
     	this.title.setText("Librarian Card");
     	this.lbl1.setText("First Name:");
@@ -167,6 +175,10 @@ public class CardLibrarianController implements IGUIcontroller {
     	this.tbl2col4.setVisible(false);
     }
     
+    /**
+     * set which {@link Librarian} object to display details of
+     * @param LibrarianToDisplay object to display
+     */
     public void setLibrarianToDisplay(Librarian LibrarianToDisplay)
     {
     	this.displayedLibrarian = LibrarianToDisplay;
@@ -179,6 +191,12 @@ public class CardLibrarianController implements IGUIcontroller {
 		((TextField) SideMenu.APCardLibrarianFXML.lookup("#txtfldLbl5")).setText(LibrarianToDisplay.getAffiliation());
     }
 
+    /**
+     * set data in FXML tables
+     * @param list ArrayList<T> with object list to add to table
+     * @param observablelist to add to, that is set to the table
+     * @param table	which table to add to
+     */
 	private <T> void setDataInTable(ArrayList<T> list, ObservableList<Object> observablelist, TableView<Object> table) {
 		observablelist.clear();
 		if(!list.isEmpty())
@@ -189,18 +207,27 @@ public class CardLibrarianController implements IGUIcontroller {
 		table.setVisible(true);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setConnection() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void closeConnection() {
 		// TODO Auto-generated method stub

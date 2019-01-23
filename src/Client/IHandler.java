@@ -16,6 +16,12 @@ import Users.Librarian;
 import Users.Loan;
 import Users.Order;
 
+/**
+ * interface class for clients, has method to parse massage from server to objects
+ * @author ofir
+ *
+ */
+
 public abstract class IHandler extends AbstractClient {
 
 	/*
@@ -127,6 +133,12 @@ public abstract class IHandler extends AbstractClient {
 		});
 	}
 
+	/**
+	 * convert ArrayList<T> to ArrayList<classType>, will be used to convert message of ArrayList<object> to different array list types
+	 * @param arrayMsg array list to convert form
+	 * @param classType class to convert objects to
+	 * @return array list of classType
+	 */
 	// return arrayMsg as classType array list
 	private <T> ArrayList<T> convertArrayMsgFromServer(ArrayList<Object> arrayMsg, Class<T> classType) {
 		ArrayList<T> array = new ArrayList<>();
@@ -141,6 +153,13 @@ public abstract class IHandler extends AbstractClient {
 		return array;
 	}
 
+	/**
+	 * convert Object to classType, will be used to convert single object message to different class
+	 * will return null if can't cast object to class
+	 * @param msg object to convert
+	 * @param classType class to convert object to
+	 * @return object as instance of classType
+	 */
 	// return msg as classType object
 	public <T> T convertMsgFromServer(Object msg, Class<T> classType) {
 		if (classType.isInstance(msg))

@@ -5,6 +5,11 @@ import Users.IGeneralData.operationsReturn;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * interface for all FXLM controllers, instances will be set to client and it will call to controller to display result from sever
+ * @author User
+ *
+ */
 public interface IGUIcontroller {
 	final static String PhoneNumberErrorDigits = "PhoneNumber contains 10 digits.";
 	final static String UserNameErrorNumebrs = "Only numbers allowed.";
@@ -17,8 +22,13 @@ public interface IGUIcontroller {
 	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
 	public static CommonHandler commonClient = null;
 	
-	
+	/**
+	 * how client send message that he got from server to GUI, each GUI implementing this method will display message according to GUI structure
+	 * @param msg message received from server in client
+	 * @param op what kind of object returned
+	 */
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op);
+	
 	public static boolean CheckOnlyNumbers(TextField ID, Label Alert,int size,String error) {
 		if (ID.getText().length() > size || ID.getText().length() == 0) {
 
@@ -57,6 +67,12 @@ public interface IGUIcontroller {
 		}
 	}
 	
+	/**
+	 * open client connection
+	 */
 	public void setConnection();
+	/**
+	 * close client connection
+	 */
 	public void closeConnection();
 }
