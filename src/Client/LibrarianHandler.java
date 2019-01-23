@@ -42,7 +42,12 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
-	public void extendLoanByLibrarian() {}
+	public void extendLoanByLibrarian(String bookCtalogNumber,Date newReturnDate) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(bookCtalogNumber);
+    	List.add(newReturnDate);
+		
+	}
 	
 	public void returnBook(String catalogNumber,String SubscriberID,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
