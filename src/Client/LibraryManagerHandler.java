@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
-import Users.Book;
-import Users.IGeneralData;
-import Users.ServerData;
+import SystemObjects.Book;
+import SystemObjects.IGeneralData;
+import SystemObjects.ServerData;
 import Users.Subscriber;
 import Users.Librarian;
 
@@ -26,5 +26,5 @@ public class LibraryManagerHandler extends IHandler{
 	}
 	
 	
-	
+	public 
 }

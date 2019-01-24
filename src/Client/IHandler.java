@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IAlert;
 import OBLFX.IGUIcontroller;
-import Users.Book;
-import Users.BookCopy;
-import Users.ServerData;
+import SystemObjects.Book;
+import SystemObjects.BookCopy;
+import SystemObjects.Loan;
+import SystemObjects.Order;
+import SystemObjects.ServerData;
 import Users.Subscriber;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import ocsf.client.AbstractClient;
 import Users.Librarian;
-import Users.Loan;
-import Users.Order;
 
 /**
  * interface class for clients, has method to parse massage from server to objects
@@ -152,6 +152,8 @@ public abstract class IHandler extends AbstractClient {
 					currentControllerGUIobj.receiveMassageFromServer(orderList, serverMsg.getOperationReturn());
 					break;
 				}
+				case returnReaportDataArray:
+					ArrayList<Double
 				default:
 					;
 				}

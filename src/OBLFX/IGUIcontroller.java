@@ -1,7 +1,7 @@
 package OBLFX;
 
 import Client.CommonHandler;
-import Users.IGeneralData.operationsReturn;
+import SystemObjects.IGeneralData.operationsReturn;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 

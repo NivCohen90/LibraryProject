@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
-import Users.Book;
-import Users.IGeneralData;
-import Users.ServerData;
+import SystemObjects.Book;
+import SystemObjects.IGeneralData;
+import SystemObjects.ServerData;
+import SystemObjects.IGeneralData.operations;
 import Users.Subscriber;
-import Users.IGeneralData.operations;
 
 /**
  * class client for subscriber methods

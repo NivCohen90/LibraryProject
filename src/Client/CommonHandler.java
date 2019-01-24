@@ -1,14 +1,13 @@
 package Client;
 
-import Users.ServerData;
-import Users.IGeneralData.operations;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
-import Users.IGeneralData;
+import SystemObjects.IGeneralData;
+import SystemObjects.ServerData;
+import SystemObjects.IGeneralData.operations;
 
 /**
  * class client for common methods for librarian and subscriber

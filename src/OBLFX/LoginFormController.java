@@ -1,9 +1,5 @@
 package OBLFX;
 
-import Users.IGeneralData;
-import Users.Loan;
-import Users.Order;
-import Users.IGeneralData.operationsReturn;
 import Users.Librarian;
 import Users.Subscriber;
 
@@ -14,6 +10,10 @@ import Client.CommonHandler;
 import Client.Main;
 import Client.SideMenu;
 import OBLFX.IGUIcontroller;
+import SystemObjects.IGeneralData;
+import SystemObjects.Loan;
+import SystemObjects.Order;
+import SystemObjects.IGeneralData.operationsReturn;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

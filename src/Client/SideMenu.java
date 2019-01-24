@@ -1,7 +1,5 @@
 package Client;
 
-import Users.IGeneralData.MenuType;
-import Users.IGeneralData.Menuicons;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -29,6 +27,8 @@ import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
 import OBLFX.UpdateSubscriberStatusController;
+import SystemObjects.IGeneralData.MenuType;
+import SystemObjects.IGeneralData.Menuicons;
 import OBLFX.AddBookController;
 import OBLFX.AddBookCopyController;
 import OBLFX.AddNewSubscriberController;

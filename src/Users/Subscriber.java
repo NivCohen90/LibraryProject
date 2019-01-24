@@ -2,6 +2,9 @@ package Users;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import SystemObjects.Loan;
+import SystemObjects.Order;
+
 public class Subscriber extends User implements Serializable{
 	/**
 	 * 

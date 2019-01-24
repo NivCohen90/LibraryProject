@@ -3,9 +3,9 @@ package OBLFX;
 import java.util.ArrayList;
 
 import Client.CommonHandler;
-import Users.Book;
-import Users.IGeneralData;
-import Users.IGeneralData.operationsReturn;
+import SystemObjects.Book;
+import SystemObjects.IGeneralData;
+import SystemObjects.IGeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
