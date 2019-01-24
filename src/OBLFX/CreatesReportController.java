@@ -77,6 +77,7 @@ public class CreatesReportController implements IGUIcontroller {
 			
 	}
 	
+    
 	@Override
 	public void setConnection() {	
 		commonClient = new LibraryManagerHandler(this);
