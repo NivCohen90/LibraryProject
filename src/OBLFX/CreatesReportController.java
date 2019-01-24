@@ -5,15 +5,20 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import Client.LibraryManagerHandler;
+
 import SystemObjects.IGeneralData;
 import SystemObjects.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class CreatesReportController implements IGUIcontroller {
 
@@ -57,6 +62,15 @@ public class CreatesReportController implements IGUIcontroller {
     }
     
     @FXML
+    void LoanLateReturnReport(ActionEvent event) {
+    	
+    	StartDateLabale.setVisible(false);
+		EndDateLable.setVisible(false);
+		startDateCombo.setVisible(false);
+		EndDateCombo.setVisible(false);
+    }
+    
+    @FXML
 	void createReport(ActionEvent event) {
 		
 		LocalDate currentDate= new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -77,6 +91,30 @@ public class CreatesReportController implements IGUIcontroller {
 			
 	}
 	
+//    private void openResultDetails(Object choosenReport)
+//	{
+//    	Stage primaryStage = new Stage();
+//    	FXMLLoader fxmlLoader = new FXMLLoader();
+//    	AnchorPane root = null;
+//    	Scene scene = null;
+//		try {
+//			
+//			if(choosenReport instanceof reportData)
+//			{
+//				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
+//				scene = new Scene(root);
+//				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
+//				Controller.setBookToDisplay((Book)choosenResult);
+//				primaryStage.setTitle(((Book)choosenResult).getBookName());
+//			}		
+//		
+//			primaryStage.setScene(scene);
+//			primaryStage.setResizable(false);
+//			primaryStage.show();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
     
 	@Override
 	public void setConnection() {	

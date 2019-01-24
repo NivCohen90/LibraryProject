@@ -24,7 +24,7 @@
          <toggleGroup>
             <ToggleGroup fx:id="Reports" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="loansReport" layoutX="165.0" layoutY="105.0" mnemonicParsing="false" text="Loans Report" toggleGroup="$Reports" />
-      <RadioButton fx:id="lateReturnReport" layoutX="299.0" layoutY="105.0" mnemonicParsing="false" text="Late Returns Report" toggleGroup="$Reports" />
+      <RadioButton fx:id="loansReport" layoutX="165.0" layoutY="105.0" mnemonicParsing="false" onAction="#LoanLateReturnReport" text="Loans Report" toggleGroup="$Reports" />
+      <RadioButton fx:id="lateReturnReport" layoutX="299.0" layoutY="105.0" mnemonicParsing="false" onAction="#LoanLateReturnReport" text="Late Returns Report" toggleGroup="$Reports" />
    </children>
 </AnchorPane>
