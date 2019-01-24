@@ -12,34 +12,40 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 
 public class CreatesReportController implements IGUIcontroller {
 
 	private LibraryManagerHandler commonClient;
 	
-    @FXML
-    private Text StartDateLabale;
+		@FXML
+	    private Text StartDateLabale;
 
-    @FXML
-    private Button CreateReportButton;
+	    @FXML
+	    private Button CreateReportButton;
 
-    @FXML
-    private Text EndDateLable;
+	    @FXML
+	    private Text EndDateLable;
 
-    @FXML
-    private DatePicker startDateCombo;
+	    @FXML
+	    private DatePicker startDateCombo;
 
-    @FXML
-    private DatePicker EndDateCombo;
-    @FXML
-    private RadioButton ActivityReport;
+	    @FXML
+	    private DatePicker EndDateCombo;
 
-    @FXML
-    private RadioButton loansReport;
+	    @FXML
+	    private RadioButton ActivityReport;
 
-    @FXML
-    private RadioButton lateReturnReport;
+	    @FXML
+	    private ToggleGroup Reports;
+
+	    @FXML
+	    private RadioButton loansReport;
+
+	    @FXML
+	    private RadioButton lateReturnReport;
+
     
     @FXML
     void ActivityReport(ActionEvent event) {
