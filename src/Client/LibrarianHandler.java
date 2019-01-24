@@ -11,7 +11,11 @@ import Users.ServerData;
 import Users.Subscriber;
 import Users.Librarian;
 
-
+/**
+ * class client for librarian methods
+ * @author ofir
+ *
+ */
 public class LibrarianHandler extends IHandler{
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	

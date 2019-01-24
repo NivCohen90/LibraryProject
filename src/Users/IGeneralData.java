@@ -43,7 +43,7 @@ public interface IGeneralData {
 	enum Menuicons {
 		Nothing, Login, SearchBook, SearchLibrarian, SearchSubscriber, SubscriberCard, ManagerCard, LibrarianCard, Exit,
 		History, Report, catalog, CreateLoan, ReturnBook, CreateSubscriber, ChangeSubscriberStatus, Statistics,
-		Connection
+		Connection, AddBook, AddBookCopy, UpdateBook, DeleteBook
 	};
 
 	/**

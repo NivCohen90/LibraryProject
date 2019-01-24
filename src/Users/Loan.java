@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class Loan implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date StartDate;
 	private Date ReturnDate; 
 	private String LoanID; 

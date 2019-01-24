@@ -4,7 +4,6 @@ import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Users.Book;
 import Users.IGeneralData;
-import Users.Librarian;
 import Users.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,8 +15,10 @@ import javafx.scene.input.KeyEvent;
  * AddBookCopyController controls AddnewcopyFXML
  */
 public class AddBookCopyController implements IGUIcontroller {
+	@SuppressWarnings("unused")
 	private LibrarianHandler librarianClient;
 	private CommonHandler commonClient;
+	@SuppressWarnings("unused")
 	private static Book book;
 
 	@FXML
@@ -99,6 +100,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	/**
 	 * Update User with the result
 	 */
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {

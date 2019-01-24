@@ -1,15 +1,11 @@
 package Server;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import Client.WindowButtons;
 import Users.Loan;
 import Users.ServerData;
 import Users.Subscriber;
-import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 
 public class LoginQueris {

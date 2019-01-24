@@ -10,6 +10,12 @@ import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
 import Users.IGeneralData;
 
+/**
+ * class client for common methods for librarian and subscriber
+ * will communicate with server
+ * @author ofir
+ */
+
 public class CommonHandler extends IHandler{
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
@@ -32,6 +38,11 @@ public class CommonHandler extends IHandler{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * send login request to server
+	 * @param ID id of user
+	 * @param Password password of user
+	 */
 	public void loginUser(String ID, String Password)
 	{
 		ArrayList<Object> List = new ArrayList<Object>();

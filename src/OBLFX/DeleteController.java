@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 public class DeleteController implements IGUIcontroller {
 	private LibrarianHandler librarianClient;
 	private CommonHandler commonClient;
+	@SuppressWarnings("unused")
 	private final static String Search = "Search for a book first";
 	private static String catalogNumberSearch;
 	private static Book book;

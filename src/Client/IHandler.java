@@ -2,7 +2,6 @@ package Client;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IAlert;
 import OBLFX.IGUIcontroller;
@@ -11,10 +10,17 @@ import Users.BookCopy;
 import Users.ServerData;
 import Users.Subscriber;
 import javafx.application.Platform;
+import javafx.scene.control.TextArea;
 import ocsf.client.AbstractClient;
 import Users.Librarian;
 import Users.Loan;
 import Users.Order;
+
+/**
+ * interface class for clients, has method to parse massage from server to objects
+ * @author ofir
+ *
+ */
 
 public abstract class IHandler extends AbstractClient {
 
@@ -26,14 +32,40 @@ public abstract class IHandler extends AbstractClient {
 	
 	public IHandler(String IPAddress, int port){
 		super(IPAddress, port);
+		String Error;
+		TextArea ExceptionMsg = (TextArea) SideMenu.APConnectionSettingsFXML.lookup("#ExceptionMsg");
+		ExceptionMsg.setEditable(false);
 		try {
 			openConnection();
 			conn.ConnectedFLAG = true;
 			conn.setConnection();
+			SideMenu.refuseConnection = false;
+			ExceptionMsg.setText("Connected Succesfull");
 		} catch (IOException e) {
+			Error = "Could not Connect to the server With: ";
+			Error = Error + "\n";
+			Error = Error + "IP Address: " + IPAddress;
+			Error = Error + "\n";
+			Error = Error + "Port: " + port;
+			Error = Error + "\n";
+			Error = Error + "\n";
+			Error = Error + "The Exception is:";
+			Error = Error + "\n";
+			Error = Error + e.getClass().getName();
+			Error = Error + "\n";
+			Error = Error + e.getMessage();
+			Error = Error + "\n";
+			Error = Error + "\n";
+			Error = Error + "Check if the server is listening..";
+			Error = Error + "\n";
+			Error = Error + "if the Server is Listening and IPAddress + Port are correct,";
+			Error = Error + "\n";
+			Error = Error + "Restart the server and the client.";
+			ExceptionMsg.setText(Error);
 			conn.ConnectedFLAG = false;
 			conn.setConnection();
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			SideMenu.refuseConnection = true;
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -127,6 +159,12 @@ public abstract class IHandler extends AbstractClient {
 		});
 	}
 
+	/**
+	 * convert ArrayList<T> to ArrayList<classType>, will be used to convert message of ArrayList<object> to different array list types
+	 * @param arrayMsg array list to convert form
+	 * @param classType class to convert objects to
+	 * @return array list of classType
+	 */
 	// return arrayMsg as classType array list
 	private <T> ArrayList<T> convertArrayMsgFromServer(ArrayList<Object> arrayMsg, Class<T> classType) {
 		ArrayList<T> array = new ArrayList<>();
@@ -141,6 +179,13 @@ public abstract class IHandler extends AbstractClient {
 		return array;
 	}
 
+	/**
+	 * convert Object to classType, will be used to convert single object message to different class
+	 * will return null if can't cast object to class
+	 * @param msg object to convert
+	 * @param classType class to convert object to
+	 * @return object as instance of classType
+	 */
 	// return msg as classType object
 	public <T> T convertMsgFromServer(Object msg, Class<T> classType) {
 		if (classType.isInstance(msg))
@@ -155,7 +200,7 @@ public abstract class IHandler extends AbstractClient {
 		try {
 			closeConnection();
 		} catch (IOException e) {
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			IAlert.ExceptionAlert(e);
 		}
 	}
 

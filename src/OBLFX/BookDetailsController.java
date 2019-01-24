@@ -1,6 +1,5 @@
 package OBLFX;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+/**
+ * FXML controller for displying book details
+ * @author ofir
+ *
+ */
 public class BookDetailsController implements IGUIcontroller{
 
 	private Book displayedBook;
@@ -68,11 +72,19 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     private Label OrderMsgText;
     
+    /**
+     * if there is logged in {@link Subscriber} save object data
+     * @param subscriber save which subscriber search
+     */
     public void setSubscriberThatSearched(Subscriber subscriber)
     {
     	this.subscriberThatSearched = subscriber;
     }
     
+    /**
+     * set fields in FXML with book details
+     * @param BookToDisplay which book to display details of
+     */
     public void setBookToDisplay(Book BookToDisplay)
     {
     	this.displayedBook = BookToDisplay;
@@ -95,6 +107,10 @@ public class BookDetailsController implements IGUIcontroller{
 	    DescriptionTextField.setText(BookToDisplay.getDescription());
     }
 
+    /**
+     * request order book from client
+     * @param event
+     */
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -105,6 +121,9 @@ public class BookDetailsController implements IGUIcontroller{
     void openPdfFile(ActionEvent event) {
     }
     
+    /**
+     * {@inheritDoc}}
+     */
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		switch(op)
@@ -121,12 +140,18 @@ public class BookDetailsController implements IGUIcontroller{
 		
 	}
 
+    /**
+     * {@inheritDoc}}
+     */
 	@Override
 	public void setConnection() {
 		subscriberClient = new SubscriberHandler(this);
 		
 	}
 
+    /**
+     * {@inheritDoc}}
+     */
 	@Override
 	public void closeConnection() {
 		if(subscriberClient!=null)

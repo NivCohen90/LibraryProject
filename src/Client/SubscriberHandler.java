@@ -11,6 +11,10 @@ import Users.ServerData;
 import Users.Subscriber;
 import Users.IGeneralData.operations;
 
+/**
+ * class client for subscriber methods
+ * @author ofir
+ */
 public class SubscriberHandler extends IHandler {
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 
@@ -34,6 +38,12 @@ public class SubscriberHandler extends IHandler {
 	public void extendLoan() {
 	}
 
+	/**
+	 * send order request to server
+	 * @param subscriberOrdered subscriber that make the order
+	 * @param orderedBook book subscriber ordered
+	 * @param orderDate	date order is made
+	 */
 	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, String orderDate) {
 		ServerData serverData = new ServerData(operations.orderBook, subscriberOrdered, orderedBook, orderDate);
 		try {

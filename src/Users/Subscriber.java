@@ -3,6 +3,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Subscriber extends User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String Status;
 	public String PhoneNumber;
 	public String SubscriberNumber;

@@ -4,6 +4,7 @@ import Users.IGeneralData;
 import Users.Loan;
 import Users.Order;
 import Users.IGeneralData.operationsReturn;
+import Users.Librarian;
 import Users.Subscriber;
 
 import java.io.IOException;
@@ -106,7 +107,11 @@ public class LoginFormController implements IGUIcontroller {
 			String PhoneNumber = ((Subscriber) msg).getPhoneNumber();
 			ArrayList<Loan> loans = ((Subscriber) msg).getActiveLoans();
 			ArrayList<Order> orders = ((Subscriber) msg).getActiveOrders();
-			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, null);
+			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, orders);
+			
+			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
+			subHistoryCon.setSubscriberHistory((Subscriber) msg);
+			
 			break;
 		case returnLibrarian:
 			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
@@ -125,6 +130,10 @@ public class LoginFormController implements IGUIcontroller {
 						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
 						pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 						Main.root.setRight(pane);
+						
+						CardLibrarianController librarianCon = new CardLibrarianController();
+						librarianCon.setLibrarianToDisplay((Librarian) msg);
+						
 					} catch (IOException e) {
 						IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
 								e.getMessage());

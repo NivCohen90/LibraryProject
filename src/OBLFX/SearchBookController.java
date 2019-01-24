@@ -1,23 +1,16 @@
 package OBLFX;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import Client.CommonHandler;
-import Client.LibrarianHandler;
-import Client.SideMenu;
 import Users.Book;
 import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
-import Users.Librarian;
-import Users.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,31 +23,20 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class SearchPagesController implements IGUIcontroller {
+/**
+ * FXML controller for search book 
+ * @author ofir
+ *
+ */
+public class SearchBookController implements IGUIcontroller {
 
-	private enum SearchOption {
-		BOOK, SUBSCRIBER, LIBRARIAN
-	};
-
-	private SearchOption currentSearch;
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
 	private CommonHandler commonClient;
 	@FXML
 	public void initialize() {
-		switch(SideMenu.clicked)
-		{
-			case SearchSubscriber:
-				setLabelsSearchSubscriber();
-				break;
-			case SearchLibrarian:
-				setLabelsSearchLibrarian();
-				break;
-			default :
-				setLabelsSearchBook();
-		}
+		setLabelsSearchBook();
 		tblResults.setItems(ObservableColumnData);
         tblResults.setRowFactory(tv -> {
             TableRow<Object> row = new TableRow<>();
@@ -118,12 +100,13 @@ public class SearchPagesController implements IGUIcontroller {
     @FXML
     private Label lblNoResult;
 
+	@SuppressWarnings("unused")
 	private TableView<Book> tblResultsBook = new TableView<>();
-	private TableView<Subscriber> tblResultsSubscriber = new TableView<>();
-	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
 
+    /**
+     * set labels for book search in FXML
+     */
 	public void setLabelsSearchBook() {
-		currentSearch = SearchOption.BOOK;
 		title.setText("Search Book");
 		type1.setText("Name");
 		type2.setText("Author");
@@ -141,47 +124,11 @@ public class SearchPagesController implements IGUIcontroller {
 		col3.setCellValueFactory(new PropertyValueFactory<>("Subject"));
 		col4.setCellValueFactory(new PropertyValueFactory<>("Description"));
 	}
-
-	public void setLabelsSearchSubscriber() {
-		currentSearch = SearchOption.SUBSCRIBER;
-		title.setText("Search Subscriber");
-		type1.setText("Student ID");
-		type2.setText("Subscriber ID");
-		type3.setText("Name");
-		type4.setText("Email");
-		col1.setText("Student ID");
-		col2.setText("Subscriber ID");
-		col3.setText("Full Name");
-		col4.setText("Email");
-		tblResults.setVisible(false);
-		lblResults.setVisible(false);
-
-		col1.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		col2.setCellValueFactory(new PropertyValueFactory<>("SubscriberNumber"));
-		col3.setCellValueFactory(new PropertyValueFactory<>("FullName"));
-		col4.setCellValueFactory(new PropertyValueFactory<>("Email"));
-	}
-
-	public void setLabelsSearchLibrarian() {
-		currentSearch = SearchOption.LIBRARIAN;
-		title.setText("Search Librarian");
-		type1.setText("Librarian ID");
-		type2.setText("Affiliation");
-		type3.setText("Name");
-		type4.setText("Email");
-		col1.setText("Librarian ID");
-		col2.setText("Affiliation");
-		col3.setText("Full Name");
-		col4.setText("Email");
-		tblResults.setVisible(false);
-		lblResults.setVisible(false);
-
-		col1.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		col2.setCellValueFactory(new PropertyValueFactory<>("Affiliation"));
-		col3.setCellValueFactory(new PropertyValueFactory<>("FullName"));
-		col4.setCellValueFactory(new PropertyValueFactory<>("Email"));
-	}
-
+	
+    /**
+     * request search book from client
+     * @param event
+     */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
 
@@ -191,45 +138,22 @@ public class SearchPagesController implements IGUIcontroller {
 		}
 		else {
 			emptyMsg.setVisible(false);
-			switch (currentSearch) {
-			case BOOK: {
-				if (type1.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookName);
-				if (type2.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookAuthor);
-				if (type3.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookSubject);
-				if (type4.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookDescription);
-				break;
-			}
-			case SUBSCRIBER: {
-				if (type1.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberStudentID);
-				if (type2.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberID);
-				if (type3.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberName);
-				if (type4.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberEmail);
-				break;
-			}
-			case LIBRARIAN: {
-				if (type1.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianID);
-				if (type2.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianAffiliation);
-				if (type3.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianName);
-				if (type4.isSelected())
-					commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianEmail);
-				break;
-			}
-			}
+			if (type1.isSelected())
+				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookName);
+			if (type2.isSelected())
+				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookAuthor);
+			if (type3.isSelected())
+				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookSubject);
+			if (type4.isSelected())
+				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookDescription);
 		}
 
 	}
 
+    /**
+     * set data in FXML result table
+     * @param list ArrayList<T> with object list to add to table
+     */
 	private <T> void displayResults(ArrayList<T> list) {
 		ObservableColumnData.clear();
 		if(!list.isEmpty())
@@ -247,6 +171,11 @@ public class SearchPagesController implements IGUIcontroller {
 		lblResults.setVisible(true);
 	}
 	
+	/**
+	 * display error in FXML
+	 * @param msg error message
+	 */
+	@SuppressWarnings("unused")
 	private void displayError(Error msg) {
 
 		lblResults.setText(msg.getMessage());
@@ -254,6 +183,10 @@ public class SearchPagesController implements IGUIcontroller {
 		
 	}
 
+	/**
+	 * open window with book details
+	 * @param choosenResult chosen book to display details
+	 */
 	private void openResultDetails(Object choosenResult)
 	{
     	Stage primaryStage = new Stage();
@@ -269,15 +202,7 @@ public class SearchPagesController implements IGUIcontroller {
 				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
 				Controller.setBookToDisplay((Book)choosenResult);
 				primaryStage.setTitle(((Book)choosenResult).getBookName());
-			}
-			if(choosenResult instanceof Librarian)
-			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
-				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-				Controller.setBookToDisplay((Book)choosenResult);
-			}
-			
-			
+			}		
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
@@ -287,17 +212,26 @@ public class SearchPagesController implements IGUIcontroller {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		displayResults((ArrayList<T>) msg);
 	}
 
+	/**
+	 * {@inheritDoc}}
+	 */
 	@Override
 	public void setConnection() {
 		commonClient = new CommonHandler(this);	
 	}
 
+	/**
+	 * {@inheritDoc}}
+	 */
 	@Override
 	public void closeConnection() {
 		if(commonClient!=null)

@@ -4,12 +4,13 @@ import Client.SideMenu;
 import Users.IGeneralData.operationsReturn;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 public class ConnectionSettingsController implements IGUIcontroller {
 
 	public static String GREEN_COLOR = "-fx-control-inner-background: #1AFE01";
 	public static String RED_COLOR = "-fx-control-inner-background: RED";
-	public static boolean ConnectedFLAG = false;
+	public boolean ConnectedFLAG = false;
 
 	@FXML
 	private TextField ServerIPAddress;
@@ -19,6 +20,9 @@ public class ConnectionSettingsController implements IGUIcontroller {
 
 	@FXML
 	private TextField ConnectionStatusTXTField;
+    
+    @FXML
+    private TextArea ExceptionMsg;
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
