@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IGUIcontroller;
+import OBLFX.CreatesReportController;
 import OBLFX.LoginFormController;
 import OBLFX.NewLoanController;
 import OBLFX.ReportFaultController;
@@ -35,7 +36,6 @@ import OBLFX.AddNewSubscriberController;
 import OBLFX.CardLibrarianController;
 import OBLFX.CardLibrarianManagerController;
 import OBLFX.ConnectionSettingsController;
-import OBLFX.CreateReportController;
 import OBLFX.DeleteController;
 import OBLFX.IAlert;
 
@@ -223,7 +223,7 @@ public class SideMenu {
 			fxmlLoader.setController(null);
 			APCreateReportFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML).openStream());
-			controllerMap.put(Menuicons.Report, (CreateReportController) fxmlLoader.getController());
+			controllerMap.put(Menuicons.Report, (CreatesReportController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
@@ -250,11 +250,11 @@ public class SideMenu {
 			controllerMap.put(Menuicons.ChangeSubscriberStatus,
 					(UpdateSubscriberStatusController) fxmlLoader.getController());
 
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APStatisticsFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
-			controllerMap.put(Menuicons.Statistics, (CreateReportController) fxmlLoader.getController());
+//			fxmlLoader.setRoot(null);
+//			fxmlLoader.setController(null);
+//			APStatisticsFXML = (AnchorPane) fxmlLoader
+//					.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
+//			controllerMap.put(Menuicons.Statistics, (CreateReportController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
@@ -450,7 +450,7 @@ public class SideMenu {
 			break;
 		case Statistics:
 			btn.setText("Create Report");
-			RightSideBtnHandler(btn, APStatisticsFXML, IconName);
+			RightSideBtnHandler(btn, APCreateReportFXML, IconName);
 			break;
 		case Connection:
 			btn.setText("Connection Settings");

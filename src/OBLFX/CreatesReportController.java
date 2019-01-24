@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-import Client.CommonHandler;
 import Client.LibraryManagerHandler;
 import SystemObjects.IGeneralData;
 import SystemObjects.IGeneralData.operationsReturn;
@@ -15,7 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 
-public class LibrarayManager_CreatesReportController implements IGUIcontroller {
+public class CreatesReportController implements IGUIcontroller {
 
 	private LibraryManagerHandler commonClient;
 	
@@ -42,17 +41,22 @@ public class LibrarayManager_CreatesReportController implements IGUIcontroller {
     @FXML
     private RadioButton lateReturnReport;
     
+    @FXML
+    void ActivityReport(ActionEvent event) {
+    	
+    	StartDateLabale.setVisible(true);
+		EndDateLable.setVisible(true);
+		startDateCombo.setVisible(true);
+		EndDateCombo.setVisible(true);
+    }
+    
+    @FXML
 	void createReport(ActionEvent event) {
 		
 		LocalDate currentDate= new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
 		if (ActivityReport.isSelected())
-		{
-			StartDateLabale.setVisible(true);
-			EndDateLable.setVisible(true);
-			startDateCombo.setVisible(true);
-			EndDateCombo.setVisible(true);
-				
+		{			
 			LocalDate sDate=startDateCombo.getValue();
 			LocalDate eDate=EndDateCombo.getValue();
 				
