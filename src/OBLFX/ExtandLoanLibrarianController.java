@@ -68,7 +68,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 		}
 		tblLoans.setItems(ObservableColumnData);
 		tblLoans.setVisible(true);
-	}//
+	}
 	
 	public void setSubscriberCard(ArrayList<Loan> Loans)
 	{
