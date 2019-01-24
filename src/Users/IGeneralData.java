@@ -24,7 +24,7 @@ public interface IGeneralData {
 	enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
-		returnSuccessMsg, returnError};	
+		returnSuccessMsg, returnError, returnReaportDataArray};	
 
 
 	enum subscriberSearchFields {
