@@ -153,7 +153,7 @@ public abstract class IHandler extends AbstractClient {
 					break;
 				}
 				case returnReaportDataArray:
-					ArrayList<Double
+					break;
 				default:
 					;
 				}

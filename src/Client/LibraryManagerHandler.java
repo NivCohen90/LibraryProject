@@ -24,7 +24,4 @@ public class LibraryManagerHandler extends IHandler{
 		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;
 	}
-	
-	
-	public 
 }
