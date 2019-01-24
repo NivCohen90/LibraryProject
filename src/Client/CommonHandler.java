@@ -6,13 +6,16 @@ import Users.IGeneralData.operations;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
 import Users.IGeneralData;
 
 public class CommonHandler extends IHandler{
+	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
 	public CommonHandler(IGUIcontroller guiController){
 		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
+		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;	 
 	}
 

@@ -129,12 +129,8 @@ public class BookDetailsController implements IGUIcontroller{
 
 	@Override
 	public void closeConnection() {
-		try {
-			subscriberClient.closeConnection();
-		} catch (IOException e) {
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
-			e.printStackTrace();
-		}
+		if(subscriberClient!=null)
+			subscriberClient.quit();
 		
 	}
 

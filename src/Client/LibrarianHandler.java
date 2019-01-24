@@ -3,6 +3,7 @@ package Client;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
 import Users.Book;
 import Users.IGeneralData;
@@ -12,9 +13,10 @@ import Users.Librarian;
 
 
 public class LibrarianHandler extends IHandler{
+	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
 	public LibrarianHandler(IGUIcontroller guiController){
-		super();
+		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;
 	}
 

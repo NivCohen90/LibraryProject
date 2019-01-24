@@ -3,6 +3,7 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import OBLFX.ConnectionSettingsController;
 import OBLFX.IGUIcontroller;
 import Users.Book;
 import Users.IGeneralData;
@@ -11,9 +12,10 @@ import Users.Subscriber;
 import Users.IGeneralData.operations;
 
 public class SubscriberHandler extends IHandler {
+	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 
-	public SubscriberHandler(IGUIcontroller guiController){
-		super();	
+	public SubscriberHandler(IGUIcontroller guiController) {
+		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;
 	}
 

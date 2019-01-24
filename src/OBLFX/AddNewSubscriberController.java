@@ -213,6 +213,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
 	}
 	@Override
 	public void closeConnection() {
-		librarianClient.quit();	
+		if(librarianClient!=null)
+			librarianClient.quit();	
 	}
 }

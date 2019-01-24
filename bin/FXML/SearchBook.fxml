@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.MainController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <RadioButton fx:id="toggleByName" layoutX="142.0" layoutY="145.0" mnemonicParsing="false" text="By Name">
          <font>
@@ -41,7 +41,7 @@
             <Font name="System Bold" size="72.0" />
          </font>
       </Label>
-      <Button layoutX="594.0" layoutY="217.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="26.0" prefWidth="77.0" text="Search">
+      <Button layoutX="594.0" layoutY="217.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Search">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

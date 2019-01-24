@@ -130,7 +130,8 @@ public class UpdatePersonalDataController implements IGUIcontroller {
 	}
 	@Override
 	public void closeConnection() {
-		SubClient.quit();
+		if(SubClient!=null)
+			SubClient.quit();
 	}
 
 }

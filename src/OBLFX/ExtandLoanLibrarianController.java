@@ -9,6 +9,7 @@ import Users.Book;
 import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import Users.Loan;
+import Users.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,11 +29,6 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 	private LibrarianHandler librarianClient;
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
 
-	
-	@FXML
-	public void initialize() {
-		//commonClient.searchInServer(searchInput, IGeneralData.operations.s);  ask for all loans
-	}
 	
     @FXML
     private TableView<?> curentLoansTable;
@@ -65,6 +61,25 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 		{			
 			for (T Ti : list)
 				ObservableColumnData.add(Ti);
+		}
+		else
+		{			
+			tblLoans.setPlaceholder(new Label(""));
+		}
+		tblLoans.setItems(ObservableColumnData);
+		tblLoans.setVisible(true);
+	}
+	
+	public void setSubscriberCard(ArrayList<Loan> Loans)
+	{
+		bookCatalogNumberCol.setCellValueFactory(new PropertyValueFactory<>("BookCatalogNumber"));
+		startLoanDateCol.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
+		returnedDateCol.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
+		ObservableColumnData.clear();
+		if(!Loans.isEmpty())
+		{			
+			for (Loan loansi : Loans)
+				ObservableColumnData.add(loansi);
 		}
 		else
 		{			

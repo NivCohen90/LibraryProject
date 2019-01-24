@@ -280,7 +280,8 @@ public class UpdateBookController implements IGUIcontroller {
 
 	@Override
 	public void closeConnection() {
-		librarianClient.quit();
+		if(librarianClient!=null)
+			librarianClient.quit();
 	}
 
 }

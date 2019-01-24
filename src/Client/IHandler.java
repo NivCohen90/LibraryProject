@@ -3,6 +3,7 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import OBLFX.ConnectionSettingsController;
 import OBLFX.IAlert;
 import OBLFX.IGUIcontroller;
 import Users.Book;
@@ -21,12 +22,17 @@ public abstract class IHandler extends AbstractClient {
 	 * Variables IGUIcontroller - controller input was sent from
 	 */
 	protected IGUIcontroller currentControllerGUIobj;
-
-	public IHandler(){
-		super("localhost", 5555);
+	public static ConnectionSettingsController conn = new ConnectionSettingsController();
+	
+	public IHandler(String IPAddress, int port){
+		super(IPAddress, port);
 		try {
 			openConnection();
+			conn.ConnectedFLAG = true;
+			conn.setConnection();
 		} catch (IOException e) {
+			conn.ConnectedFLAG = false;
+			conn.setConnection();
 			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
 			e.printStackTrace();
 		}
