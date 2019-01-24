@@ -2,11 +2,13 @@ package OBLFX;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 import Client.LibraryManagerHandler;
-
+import SystemObjects.IGeneralData.reportsType;
 import SystemObjects.IGeneralData;
+import SystemObjects.ReportData;
 import SystemObjects.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,114 +25,138 @@ import javafx.stage.Stage;
 public class CreatesReportController implements IGUIcontroller {
 
 	private LibraryManagerHandler commonClient;
-	
-		@FXML
-	    private Text StartDateLabale;
 
-	    @FXML
-	    private Button CreateReportButton;
+	@FXML
+	private Text StartDateLabale;
 
-	    @FXML
-	    private Text EndDateLable;
+	@FXML
+	private Button CreateReportButton;
 
-	    @FXML
-	    private DatePicker startDateCombo;
+	@FXML
+	private Text EndDateLable;
 
-	    @FXML
-	    private DatePicker EndDateCombo;
+	@FXML
+	private DatePicker startDateCombo;
 
-	    @FXML
-	    private RadioButton ActivityReport;
+	@FXML
+	private DatePicker EndDateCombo;
 
-	    @FXML
-	    private ToggleGroup Reports;
+	@FXML
+	private RadioButton ActivityReport;
 
-	    @FXML
-	    private RadioButton loansReport;
+	@FXML
+	private ToggleGroup Reports;
 
-	    @FXML
-	    private RadioButton lateReturnReport;
+	@FXML
+	private RadioButton loansReport;
 
-    
-    @FXML
-    void ActivityReport(ActionEvent event) {
-    	
-    	StartDateLabale.setVisible(true);
+	@FXML
+	private RadioButton lateReturnReport;
+
+	@FXML
+	void activityReport(ActionEvent event) {
+
+		StartDateLabale.setVisible(true);
 		EndDateLable.setVisible(true);
 		startDateCombo.setVisible(true);
 		EndDateCombo.setVisible(true);
-    }
-    
-    @FXML
-    void LoanLateReturnReport(ActionEvent event) {
-    	
-    	StartDateLabale.setVisible(false);
+	}
+
+	@FXML
+	void LoanLateReturnReport(ActionEvent event) {
+
+		StartDateLabale.setVisible(false);
 		EndDateLable.setVisible(false);
 		startDateCombo.setVisible(false);
 		EndDateCombo.setVisible(false);
-    }
-    
-    @FXML
+	}
+
+	@FXML
 	void createReport(ActionEvent event) {
-		
-		LocalDate currentDate= new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		if (ActivityReport.isSelected())
-		{			
-			LocalDate sDate=startDateCombo.getValue();
-			LocalDate eDate=EndDateCombo.getValue();
-				
+
+		LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		if (ActivityReport.isSelected()) {
+			LocalDate sDate = startDateCombo.getValue();
+			LocalDate eDate = EndDateCombo.getValue();
+
 			commonClient.createReport(sDate, eDate, IGeneralData.operations.createActivityReport);
 		}
-		
+
 		else if (loansReport.isSelected())
-				commonClient.createReport(currentDate, null,  IGeneralData.operations.createLoansReport);
-		
+			commonClient.createReport(currentDate, null, IGeneralData.operations.createLoansReport);
+
 		else if (lateReturnReport.isSelected())
-			commonClient.createReport(currentDate, null,  IGeneralData.operations.createLateReturnsReport);
-			
+			commonClient.createReport(currentDate, null, IGeneralData.operations.createLateReturnsReport);
+
 	}
-	
-//    private void openResultDetails(Object choosenReport)
-//	{
-//    	Stage primaryStage = new Stage();
-//    	FXMLLoader fxmlLoader = new FXMLLoader();
-//    	AnchorPane root = null;
-//    	Scene scene = null;
-//		try {
-//			
-//			if(choosenReport instanceof reportData)
-//			{
-//				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
-//				scene = new Scene(root);
-//				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-//				Controller.setBookToDisplay((Book)choosenResult);
-//				primaryStage.setTitle(((Book)choosenResult).getBookName());
-//			}		
-//		
-//			primaryStage.setScene(scene);
-//			primaryStage.setResizable(false);
-//			primaryStage.show();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-    
+
+	private void openResultDetails(Object reportData, reportsType reportType) {
+		Stage primaryStage = new Stage();
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		AnchorPane root = null;
+		Scene scene = null;
+		ReportDiaplayController Controller = (ReportDiaplayController) fxmlLoader.getController();
+		try {
+
+			switch (reportType) {
+
+			case loansReport: {
+				root = (AnchorPane) fxmlLoader
+						.load(getClass().getResource("../FXML/LoanReportDiaplay.fxml").openStream());
+				scene = new Scene(root);
+
+				primaryStage.setScene(scene);
+				primaryStage.setResizable(false);
+				primaryStage.show();
+				break;
+				}
+			case lateReturnsReport: {
+				root = (AnchorPane) fxmlLoader
+						.load(getClass().getResource("../FXML/LateReturnReportDiaplay.fxml").openStream());
+				scene = new Scene(root);
+
+				primaryStage.setScene(scene);
+				primaryStage.setResizable(false);
+				primaryStage.show();
+				break;
+			}
+			case activityReport: {
+				root = (AnchorPane) fxmlLoader
+						.load(getClass().getResource("../FXML/ActivityReportDiaplay.fxml").openStream());
+				scene = new Scene(root);
+
+				primaryStage.setScene(scene);
+				primaryStage.setResizable(false);
+				primaryStage.show();
+				break;
+			}
+			default:
+				break;
+			}
+			
+			Controller.setReportDataToDisplay((ArrayList<ReportData>) reportData, reportType);
+			
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
-	public void setConnection() {	
+	public void setConnection() {
 		commonClient = new LibraryManagerHandler(this);
 	}
-	
+
 	@Override
-	public void closeConnection() {	
-		if(commonClient!=null)
+	public void closeConnection() {
+		if (commonClient != null)
 			commonClient.quit();
 	}
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		
-		
+
 	}
 }
-
