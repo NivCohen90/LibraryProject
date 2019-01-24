@@ -9,6 +9,7 @@ import SystemObjects.Book;
 import SystemObjects.BookCopy;
 import SystemObjects.Loan;
 import SystemObjects.Order;
+import SystemObjects.ReportData;
 import SystemObjects.ServerData;
 import Users.Subscriber;
 import javafx.application.Platform;
@@ -152,8 +153,16 @@ public abstract class IHandler extends AbstractClient {
 					currentControllerGUIobj.receiveMassageFromServer(orderList, serverMsg.getOperationReturn());
 					break;
 				}
-				case returnReaportDataArray:
+				
+				case returnReaportDataArray:{
+					ArrayList<ReportData> reportList = convertArrayMsgFromServer(arrayMsg, ReportData.class);
+					currentControllerGUIobj.receiveMassageFromServer(reportList, serverMsg.getOperationReturn());
 					break;
+				}
+				case returnActivityReportData:{
+
+					break;
+				}
 				default:
 					;
 				}
