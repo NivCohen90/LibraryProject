@@ -1,14 +1,12 @@
 package Server;
 
-import Users.ServerData;
-
 import java.io.IOException;
 
 import Server.LoginQueris;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-
+import SystemObjects.ServerData;
 import ocsf.server.*;
 
 /**

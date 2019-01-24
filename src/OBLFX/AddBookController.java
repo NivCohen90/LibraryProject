@@ -5,8 +5,8 @@ package OBLFX;
 import Users.Librarian;
 
 import Client.LibrarianHandler;
-import Users.Book;
-import Users.IGeneralData.operationsReturn;
+import SystemObjects.Book;
+import SystemObjects.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

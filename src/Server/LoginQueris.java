@@ -3,10 +3,11 @@ package Server;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import Users.Loan;
-import Users.ServerData;
+
+import SystemObjects.Loan;
+import SystemObjects.ServerData;
+import SystemObjects.IGeneralData.operationsReturn;
 import Users.Subscriber;
-import Users.IGeneralData.operationsReturn;
 
 public class LoginQueris {
 	private String userName;

@@ -1,7 +1,7 @@
 package OBLFX;
 
 import Client.SubscriberHandler;
-import Users.IGeneralData.operationsReturn;
+import SystemObjects.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
