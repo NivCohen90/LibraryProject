@@ -139,7 +139,7 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(book);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.getBookDetails,List);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
 		try
 		{
 			sendToServer(loginInfo);
@@ -152,7 +152,20 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
-	public void addBookCopyToCatalog() {}
+	public void addBookCopyToCatalog(String Catalog,String numberToAdd,Librarian librarian) {
+		ArrayList<Object> List = new ArrayList<Object>();
+    	List.add(Catalog);
+    	List.add(numberToAdd);
+    	List.add(librarian);
+		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
+		try
+		{
+			sendToServer(loginInfo);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 	
 	public void removeBookCopyFromCatalog() {}
 	

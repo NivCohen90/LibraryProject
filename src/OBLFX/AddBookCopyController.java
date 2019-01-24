@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * @author Matan
  * AddBookCopyController controls AddnewcopyFXML
  */
 public class AddBookCopyController implements IGUIcontroller {
@@ -125,7 +126,6 @@ public class AddBookCopyController implements IGUIcontroller {
 	@Override
 	public void closeConnection() {
 		// TODO Auto-generated method stub
-
 	}
 
 }
