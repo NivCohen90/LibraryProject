@@ -63,12 +63,40 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 		case searchByBookName:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.BookName);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 		case searchByBookAuthor:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.AuthorName);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 		case searchByBookSubject:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Subject);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 		case searchByBookDescription:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Description);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 			break;
 		case updatePersonalDetails:
 			break;
