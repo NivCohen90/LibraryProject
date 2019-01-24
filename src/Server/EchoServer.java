@@ -94,7 +94,11 @@ public class EchoServer extends AbstractServer {
 			break;
 		case watchEmployeesData:
 			break;
-		case createReports:
+		case createActivityReport: 
+			break;
+		case createLoansReport:
+			break;
+		case createLateReturnsReport:
 			break;
 		default:
 			break;

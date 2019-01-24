@@ -13,7 +13,7 @@ public interface IGeneralData {
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
 		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createReports,AddBooK, deleteBook, getBookDetails;
+		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBooK, deleteBook, getBookDetails;
 	};
 	
 	/**
@@ -24,7 +24,7 @@ public interface IGeneralData {
 	enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
-		returnSuccessMsg, returnError, returnReaportDataArray};	
+		returnSuccessMsg, returnError, returnReaportDataArray, returnActivityReportData};	
 
 
 	enum subscriberSearchFields {
@@ -34,7 +34,10 @@ public interface IGeneralData {
 	enum bookSearchFields {
 		bookNameField, authorNameField, subjectField, freeTextField
 	};
-
+	
+	enum reportsType {
+		activityReport, loansReport, lateReturnsReport
+	};
 	/**
 	 * can indicate the sideMenu which icon to load for each button.
 	 * @author nivco
@@ -54,6 +57,6 @@ public interface IGeneralData {
 	enum MenuType {
 		MainMenu, SubscriberMenu, LibrarianMenu, LibrarianManagerMenu
 	};
-
+	
 }
 // Login (UserName,Password) search(Text,op)

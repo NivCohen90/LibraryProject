@@ -9,6 +9,7 @@ import SystemObjects.IGeneralData;
 import SystemObjects.ServerData;
 import SystemObjects.IGeneralData.operations;
 
+
 /**
  * class client for common methods for librarian and subscriber
  * will communicate with server
@@ -16,8 +17,8 @@ import SystemObjects.IGeneralData.operations;
  */
 
 public class CommonHandler extends IHandler{
-	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
+	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	public CommonHandler(IGUIcontroller guiController){
 		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
 		super(conn.getServerIPAddress(), conn.getPort());
@@ -37,6 +38,7 @@ public class CommonHandler extends IHandler{
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * send login request to server
 	 * @param ID id of user
