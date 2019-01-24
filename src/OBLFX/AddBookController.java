@@ -86,6 +86,7 @@ public class AddBookController implements IGUIcontroller {
     private Label RetriveMSG;
     @FXML
     private Label NumberOfCopiesTitle;
+   
 
     @FXML
     private TextField NumberOfCopiesTextField;

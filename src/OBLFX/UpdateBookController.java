@@ -136,7 +136,7 @@ public class UpdateBookController implements IGUIcontroller {
 				&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel)) {
 			catalogNumberSearch = CatalogTextField.getText();
 
-			//commonClient.searchBookInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
 		}
 	}
 	   /**
