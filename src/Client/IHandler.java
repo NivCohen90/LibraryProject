@@ -152,6 +152,8 @@ public abstract class IHandler extends AbstractClient {
 					currentControllerGUIobj.receiveMassageFromServer(orderList, serverMsg.getOperationReturn());
 					break;
 				}
+				case returnReaportDataArray:
+					ArrayList<Double
 				default:
 					;
 				}
