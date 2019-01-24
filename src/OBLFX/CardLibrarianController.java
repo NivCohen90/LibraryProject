@@ -5,20 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import Client.CommonHandler;
-import Client.LibrarianHandler;
-import Client.Main;
 import Client.SideMenu;
 import Users.*;
 import Users.IGeneralData.operationsReturn;
@@ -30,6 +24,7 @@ import Users.IGeneralData.operationsReturn;
  */
 public class CardLibrarianController implements IGUIcontroller {
 	
+	@SuppressWarnings("unused")
 	private User displayedLibrarian;
 	static ObservableList<Object> ObservableColumnDataTable1 = FXCollections.observableArrayList();
 	static ObservableList<Object> ObservableColumnDataTable2 = FXCollections.observableArrayList();
@@ -183,6 +178,7 @@ public class CardLibrarianController implements IGUIcontroller {
     {
     	this.displayedLibrarian = LibrarianToDisplay;
     	
+		@SuppressWarnings("unused")
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
 		((TextField) SideMenu.APCardLibrarianFXML.lookup("#txtfldLbl1")).setText(LibrarianToDisplay.getFirstName());
@@ -197,6 +193,7 @@ public class CardLibrarianController implements IGUIcontroller {
      * @param observablelist to add to, that is set to the table
      * @param table	which table to add to
      */
+	@SuppressWarnings("unused")
 	private <T> void setDataInTable(ArrayList<T> list, ObservableList<Object> observablelist, TableView<Object> table) {
 		observablelist.clear();
 		if(!list.isEmpty())

@@ -2,7 +2,6 @@ package Client;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import OBLFX.ConnectionSettingsController;
 import OBLFX.IAlert;
 import OBLFX.IGUIcontroller;
@@ -11,6 +10,7 @@ import Users.BookCopy;
 import Users.ServerData;
 import Users.Subscriber;
 import javafx.application.Platform;
+import javafx.scene.control.TextArea;
 import ocsf.client.AbstractClient;
 import Users.Librarian;
 import Users.Loan;
@@ -32,14 +32,40 @@ public abstract class IHandler extends AbstractClient {
 	
 	public IHandler(String IPAddress, int port){
 		super(IPAddress, port);
+		String Error;
+		TextArea ExceptionMsg = (TextArea) SideMenu.APConnectionSettingsFXML.lookup("#ExceptionMsg");
+		ExceptionMsg.setEditable(false);
 		try {
 			openConnection();
 			conn.ConnectedFLAG = true;
 			conn.setConnection();
+			SideMenu.refuseConnection = false;
+			ExceptionMsg.setText("Connected Succesfull");
 		} catch (IOException e) {
+			Error = "Could not Connect to the server With: ";
+			Error = Error + "\n";
+			Error = Error + "IP Address: " + IPAddress;
+			Error = Error + "\n";
+			Error = Error + "Port: " + port;
+			Error = Error + "\n";
+			Error = Error + "\n";
+			Error = Error + "The Exception is:";
+			Error = Error + "\n";
+			Error = Error + e.getClass().getName();
+			Error = Error + "\n";
+			Error = Error + e.getMessage();
+			Error = Error + "\n";
+			Error = Error + "\n";
+			Error = Error + "Check if the server is listening..";
+			Error = Error + "\n";
+			Error = Error + "if the Server is Listening and IPAddress + Port are correct,";
+			Error = Error + "\n";
+			Error = Error + "Restart the server and the client.";
+			ExceptionMsg.setText(Error);
 			conn.ConnectedFLAG = false;
 			conn.setConnection();
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			SideMenu.refuseConnection = true;
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -174,7 +200,7 @@ public abstract class IHandler extends AbstractClient {
 		try {
 			closeConnection();
 		} catch (IOException e) {
-			IAlert.ExceptionAlert(e.getClass().getName(), e.getMessage());
+			IAlert.ExceptionAlert(e);
 		}
 	}
 

@@ -230,8 +230,7 @@ public class ServerController implements Initializable {
 		if (ServerStopListening == 0) {
 
 			int port = 0;
-			if ((Integer.parseInt(ServerPortTextField.getText()) / 1000) < 10
-					&& (Integer.parseInt(ServerPortTextField.getText()) / 1000) >= 0) {
+			if ((Integer.parseInt(ServerPortTextField.getText()) / 1000) < 10) {
 				port = Integer.parseInt(ServerPortTextField.getText());
 			}
 

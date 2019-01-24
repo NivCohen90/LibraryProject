@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1015.0" style="-fx-background-color: B1DAFE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Server.ServerController">
+<AnchorPane blendMode="MULTIPLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1015.0" style="-fx-background-color: B1DAFE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Server.ServerController">
    <children>
       <Label alignment="CENTER" layoutY="-1.0" prefHeight="45.0" prefWidth="1015.0" text="Server Connection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <ImageView fitHeight="53.0" fitWidth="248.0" layoutX="766.0" layoutY="719.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+      <ImageView fitHeight="72.0" fitWidth="204.0" layoutX="11.0" layoutY="678.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.210372924804688" AnchorPane.rightAnchor="800.0">
          <image>
             <Image url="@../Images/braude.jpg" />
          </image>

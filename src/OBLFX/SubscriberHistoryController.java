@@ -8,7 +8,6 @@ import Users.IGeneralData.operationsReturn;
 import Users.Loan;
 import Users.Order;
 import Users.Subscriber;
-import Users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -95,7 +94,8 @@ public class SubscriberHistoryController implements IGUIcontroller{
      * set subscriber history data
      * @param subscriber subscriber to get data from
      */
-    public void setSubscriberHistory(Subscriber subscriber)
+    @SuppressWarnings("unchecked")
+	public void setSubscriberHistory(Subscriber subscriber)
     {
     	ArrayList<Loan> listLoan = subscriber.getHistoryLoans();
     	ArrayList<Order> listOrder = subscriber.getHistoryOrders();

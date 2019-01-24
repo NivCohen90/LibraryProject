@@ -7,7 +7,6 @@ import Users.IGeneralData.operationsReturn;
 import Users.Librarian;
 import Users.Subscriber;
 
-import java.applet.AppletStub;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -108,7 +107,7 @@ public class LoginFormController implements IGUIcontroller {
 			String PhoneNumber = ((Subscriber) msg).getPhoneNumber();
 			ArrayList<Loan> loans = ((Subscriber) msg).getActiveLoans();
 			ArrayList<Order> orders = ((Subscriber) msg).getActiveOrders();
-			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, null);
+			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, orders);
 			
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);

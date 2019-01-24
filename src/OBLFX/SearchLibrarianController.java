@@ -1,23 +1,16 @@
 package OBLFX;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import Client.CommonHandler;
-import Client.LibrarianHandler;
-import Client.SideMenu;
 import Users.Book;
 import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import Users.Librarian;
-import Users.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,7 +23,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -108,6 +100,7 @@ public class SearchLibrarianController implements IGUIcontroller {
     @FXML
     private Label lblNoResult;
 
+	@SuppressWarnings("unused")
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
 
     /**
@@ -182,6 +175,7 @@ public class SearchLibrarianController implements IGUIcontroller {
 	 * display error in FXML
 	 * @param msg error message
 	 */
+	@SuppressWarnings("unused")
 	private void displayError(Error msg) {
 
 		lblResults.setText(msg.getMessage());

@@ -2,7 +2,6 @@ package Client;
 
 import Users.IGeneralData.MenuType;
 import Users.IGeneralData.Menuicons;
-
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,11 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 import OBLFX.IFXMLpathAndStyle;
 import OBLFX.IGUIcontroller;
@@ -45,9 +40,11 @@ import OBLFX.DeleteController;
 import OBLFX.IAlert;
 
 public class SideMenu {
+	
 	private VBox vbox;
 	public static Menuicons clicked = Menuicons.Nothing;
-
+	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
+	public static boolean refuseConnection = false;
 	/**
 	 * each AnchorPane described a page.
 	 * 
@@ -76,7 +73,6 @@ public class SideMenu {
 	public static AnchorPane APStatisticsFXML;
 	public static AnchorPane APConnectionSettingsFXML;
 	public static AnchorPane APWelcomeScreen;
-	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
 
 	/**
 	 * Create new menu inorder to menuType.
@@ -88,6 +84,7 @@ public class SideMenu {
 		controllerMap = new HashMap<>();
 		vbox.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
+
 		loadAllFXMLAnchorPanes();
 		switch (menuType) {
 		case MainMenu:
@@ -203,13 +200,13 @@ public class SideMenu {
 			APCardLibrarianFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CardLibrarianFXML).openStream());
 			controllerMap.put(Menuicons.LibrarianCard, (CardLibrarianController) fxmlLoader.getController());
-			
+
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
 			APCardLibrarianManagerFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CardLibrarianManagerFXML).openStream());
 			controllerMap.put(Menuicons.ManagerCard, (CardLibrarianManagerController) fxmlLoader.getController());
-			
+
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
 			APSearchSubscriberFXML = (AnchorPane) fxmlLoader
@@ -287,9 +284,9 @@ public class SideMenu {
 			fxmlLoader.setController(null);
 			APDeleteBookFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.DeleteBookFXML).openStream());
+			
 			controllerMap.put(Menuicons.DeleteBook, (DeleteController) fxmlLoader.getController());
 
-			
 			// fxmlLoader.setRoot(null);
 			// fxmlLoader.setController(null);
 			// APWelcomeScreen = (AnchorPane)
@@ -350,8 +347,14 @@ public class SideMenu {
 							controllerMap.get(icon).closeConnection();
 					}
 				}
-				anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-				Main.root.setRight(anchorPane);
+				if (!refuseConnection) {
+					anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(anchorPane);
+				} else {
+					APConnectionSettingsFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(APConnectionSettingsFXML);
+				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),

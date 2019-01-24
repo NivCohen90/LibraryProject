@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -17,5 +18,7 @@
       <TextField fx:id="Port" layoutX="164.0" layoutY="114.0" promptText="portTXTField" text="5555" />
       <TextField fx:id="ConnectionStatusTXTField" disable="true" editable="false" layoutX="164.0" layoutY="142.0" text="Disconnected" />
       <Label layoutX="58.0" layoutY="141.0" prefHeight="27.0" prefWidth="112.0" text="Connection Status:" />
+      <Label layoutX="58.0" layoutY="187.0" text="Exception Message:" />
+      <TextArea fx:id="ExceptionMsg" layoutX="170.0" layoutY="187.0" prefHeight="349.0" prefWidth="574.0" />
    </children>
 </AnchorPane>
