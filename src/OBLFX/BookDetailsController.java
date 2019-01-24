@@ -3,6 +3,8 @@ package OBLFX;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import Client.Main;
 import Client.SubscriberHandler;
 import SystemObjects.Book;
 import SystemObjects.IGeneralData.operationsReturn;
@@ -99,7 +101,7 @@ public class BookDetailsController implements IGUIcontroller{
 	    PurchaseDateTextField.setText(dateFormat.format(BookToDisplay.getPurchesDate()));
 	    AvailibaleCopiesTextField.setText(String.valueOf(BookToDisplay.getAvailableCopies()));
 	    NumberOfCopiesTextField.setText(String.valueOf(BookToDisplay.getNumberOfLibraryCopies()));
-	    if(BookToDisplay.getAvailableCopies()==0)
+	    if(BookToDisplay.getAvailableCopies()==0 && Main.userSubscriber!=null)
 	    	OrderBookBTN.setVisible(true);
 	    else
 	    	OrderBookBTN.setVisible(false);
@@ -114,7 +116,7 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	subscriberClient.orderBook(this.subscriberThatSearched, this.displayedBook, dateFormat.format(new Date()));
+    	subscriberClient.orderBook(Main.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
     }
     
     @FXML
@@ -133,7 +135,8 @@ public class BookDetailsController implements IGUIcontroller{
 				OrderMsgText.setVisible(true);
 				break;
 			case returnError:
-				//orderError, too many orders for book
+				OrderMsgText.setText(((Exception)msg).getMessage());
+				OrderMsgText.setVisible(true);
 		default:
 			break;
 		}
