@@ -42,7 +42,7 @@ import OBLFX.IAlert;
 public class SideMenu {
 	
 	private VBox vbox;
-	public static Menuicons clicked = Menuicons.Nothing;
+	public static Menuicons clicked = Menuicons.Nothing; // not in use
 	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
 	public static boolean refuseConnection = false;
 	/**
