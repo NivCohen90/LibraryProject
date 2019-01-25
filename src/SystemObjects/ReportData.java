@@ -3,7 +3,6 @@ package SystemObjects;
 public class ReportData {
 
 	private String reference;
-	private String BookName;
 	private double avg;
 	private double median;
 	private double distribution;
@@ -17,27 +16,6 @@ public class ReportData {
 		this.avg = avg;
 		this.median = median;
 		this.distribution = distribution;
-		this.BookName=null;
-	}
-	
-	/**
-	 * constructor for book objects statistics
-	 */
-public ReportData(double avg, double median, double distribution, String reference, String bName) {
-		
-		this.reference = reference;
-		this.avg = avg;
-		this.median = median;
-		this.distribution = distribution;
-		this.BookName=bName;
-	}
-
-	public String getBookName() {
-		return BookName;
-	}
-
-	public void setBookName(String bookName) {
-		BookName = bookName;
 	}
 
 	public double getAvg() {
