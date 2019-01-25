@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="57.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage Loan Duration:" />
+      <Label layoutX="43.0" layoutY="106.0" text="Demended Books:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="ReportTypeLable" layoutX="43.0" layoutY="33.0" text="Loans Report:">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Text layoutX="57.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Loan Duration:" />
+      <Text layoutX="57.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median Loan Duration:" />
+      <Text layoutX="347.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage Loan Duration:" />
+      <Text layoutX="347.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Loan Duration:" />
+      <Text layoutX="347.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median Loan Duration:" />
+      <Label layoutX="333.0" layoutY="106.0" text="Regular Books:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="DemendedAVG" layoutX="207.0" layoutY="144.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="DemendedDistribution" layoutX="207.0" layoutY="175.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="DemendedMedian" layoutX="207.0" layoutY="205.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="RegularAVG" layoutX="500.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="RegularDistribution" layoutX="500.0" layoutY="176.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="RegularMedian" layoutX="500.0" layoutY="206.0" prefHeight="26.0" prefWidth="74.0" />
+   </children>
+</AnchorPane>

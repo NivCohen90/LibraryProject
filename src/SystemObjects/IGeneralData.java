@@ -35,8 +35,22 @@ public interface IGeneralData {
 		bookNameField, authorNameField, subjectField, freeTextField
 	};
 	
+	/**
+	 * 
+	 * @author Liad
+	 *
+	 */
 	enum reportsType {
 		activityReport, loansReport, lateReturnsReport
+	};
+	
+	/**
+	 * 
+	 * @author Liad
+	 *
+	 */
+	enum reportReference{
+		Demanded, Regular, GeneralLatesAmount, GeneralLatesDuration, BookLatesAmount, BookLatesDuration
 	};
 	/**
 	 * can indicate the sideMenu which icon to load for each button.
