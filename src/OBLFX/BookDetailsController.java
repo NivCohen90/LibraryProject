@@ -1,5 +1,10 @@
 package OBLFX;
 
+import java.awt.Desktop;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,20 +22,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * FXML controller for displying book details
+ * FXML controller for displaying book details
  * @author ofir
  *
  */
 public class BookDetailsController implements IGUIcontroller{
 
 	private Book displayedBook;
-	private Subscriber subscriberThatSearched = null; 
 	
 	private SubscriberHandler subscriberClient;
-
-	@FXML
-	public void initialize() {
-	}
 	
     @FXML
     private TextField BookNameTextField;
@@ -75,15 +75,6 @@ public class BookDetailsController implements IGUIcontroller{
     private Label OrderMsgText;
     
     /**
-     * if there is logged in {@link Subscriber} save object data
-     * @param subscriber save which subscriber search
-     */
-    public void setSubscriberThatSearched(Subscriber subscriber)
-    {
-    	this.subscriberThatSearched = subscriber;
-    }
-    
-    /**
      * set fields in FXML with book details
      * @param BookToDisplay which book to display details of
      */
@@ -119,8 +110,30 @@ public class BookDetailsController implements IGUIcontroller{
     	subscriberClient.orderBook(Main.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
     }
     
+    /**
+     * open context table pdf file of book
+     * @param event
+     */
     @FXML
     void openPdfFile(ActionEvent event) {
+    	File pdfoutFile;
+		FileOutputStream fos;			//input from file
+		BufferedOutputStream bos;		//buffer input		  
+		  
+		try {
+			pdfoutFile = File.createTempFile("BookCN-"+displayedBook.getCatalogNumber()+"_temp", ".pdf");//File.createTempFile("outTemp", ".pdf");
+			fos = new FileOutputStream(pdfoutFile);
+			bos = new BufferedOutputStream(fos);
+			bos.write(displayedBook.getContextTableByteArray(),0,displayedBook.getContextTableByteArray().length);				//read from file to byte array
+			bos.flush();
+			fos.flush();
+			fos.close();
+	    	if (Desktop.isDesktopSupported()) {
+    	        Desktop.getDesktop().open(pdfoutFile);
+	    	}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     /**
@@ -137,6 +150,7 @@ public class BookDetailsController implements IGUIcontroller{
 			case returnError:
 				OrderMsgText.setText(((Exception)msg).getMessage());
 				OrderMsgText.setVisible(true);
+				((Exception)msg).printStackTrace();
 		default:
 			break;
 		}

@@ -109,7 +109,7 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(book);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
+		ServerData loginInfo = new ServerData(List,IGeneralData.operations.AddBook);
 		try
 		{
 			sendToServer(loginInfo);
@@ -125,7 +125,7 @@ public class LibrarianHandler extends IHandler{
     	List.add(catalogNumber);
     	List.add(CopyNumber);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.deleteBook,List);
+		ServerData loginInfo = new ServerData(List, IGeneralData.operations.deleteBook);
 		try
 		{
 			sendToServer(loginInfo);
@@ -139,7 +139,7 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(book);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
+		ServerData loginInfo = new ServerData(List, IGeneralData.operations.updateBook);
 		try
 		{
 			sendToServer(loginInfo);
@@ -157,7 +157,7 @@ public class LibrarianHandler extends IHandler{
     	List.add(Catalog);
     	List.add(numberToAdd);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.AddBooK,List);
+		ServerData loginInfo = new ServerData(List, IGeneralData.operations.AddBook);
 		try
 		{
 			sendToServer(loginInfo);

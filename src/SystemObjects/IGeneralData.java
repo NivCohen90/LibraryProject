@@ -13,7 +13,7 @@ public interface IGeneralData {
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
 		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBooK, deleteBook, getBookDetails;
+		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails;
 	};
 	
 	/**

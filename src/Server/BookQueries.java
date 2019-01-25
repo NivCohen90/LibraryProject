@@ -1,5 +1,10 @@
 package Server;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,10 +34,26 @@ public class BookQueries {
 				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
 						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
 						rs.getString(12), rs.getString(13)));
+				
+				/*get pdf file*/
+				if(rs.getString("ContextTable").contains("pdf"))
+				{
+			    	File pdfFile = new File("src/PDFBook/"+rs.getString("ContextTable"));
+					byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+					FileInputStream fis;			//input from file
+					BufferedInputStream bis;		//buffer input		  
+					fis = new FileInputStream(pdfFile);
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+					bis.close();
+					fis.close();
+					Book newBook = (Book)books.get(books.size()-1);
+					newBook.setContextTableByteArray(mybytearray);
+				}
 			}
 			Result = new ServerData(books, IGeneralData.operationsReturn.returnBookArray);
 			return Result;
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
 			Result = new ServerData(ErrorMsgs, IGeneralData.operationsReturn.returnError);
@@ -56,12 +77,42 @@ public class BookQueries {
 				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
 						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
 						rs.getString(12), rs.getString(13)));
+				/*get pdf file*/
+				if(rs.getString("ContextTable").contains("pdf"))
+				{
+			    	File pdfFile = new File("src/PDFBook/"+rs.getString("ContextTable"));
+					byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+					FileInputStream fis;			//input from file
+					BufferedInputStream bis;		//buffer input		  
+					fis = new FileInputStream(pdfFile);
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+					bis.close();
+					fis.close();
+					Book newBook = (Book)books.get(books.size()-1);
+					newBook.setContextTableByteArray(mybytearray);
+				}
 			}
 			rs = s.executeQuery(queryAuthorName);
 			while (rs.next()) {
 				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
 						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
 						rs.getString(12), rs.getString(13)));
+				/*get pdf file*/
+				if(rs.getString("ContextTable").contains("pdf"))
+				{
+			    	File pdfFile = new File("src/PDFBook/"+rs.getString("ContextTable"));
+					byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+					FileInputStream fis;			//input from file
+					BufferedInputStream bis;		//buffer input		  
+					fis = new FileInputStream(pdfFile);
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+					bis.close();
+					fis.close();
+					Book newBook = (Book)books.get(books.size()-1);
+					newBook.setContextTableByteArray(mybytearray);
+				}
 			}
 			
 			rs = s.executeQuery(querySubject);
@@ -69,6 +120,21 @@ public class BookQueries {
 				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
 						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
 						rs.getString(12), rs.getString(13)));
+				/*get pdf file*/
+				if(rs.getString("ContextTable").contains("pdf"))
+				{
+			    	File pdfFile = new File("src/PDFBook/"+rs.getString("ContextTable"));
+					byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+					FileInputStream fis;			//input from file
+					BufferedInputStream bis;		//buffer input		  
+					fis = new FileInputStream(pdfFile);
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+					bis.close();
+					fis.close();
+					Book newBook = (Book)books.get(books.size()-1);
+					newBook.setContextTableByteArray(mybytearray);
+				}
 			}
 			
 			rs = s.executeQuery(queryDescription);
@@ -76,10 +142,25 @@ public class BookQueries {
 				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
 						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
 						rs.getString(12), rs.getString(13)));
+				/*get pdf file*/
+				if(rs.getString("ContextTable").contains("pdf"))
+				{
+			    	File pdfFile = new File("src/PDFBook/"+rs.getString("ContextTable"));
+					byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+					FileInputStream fis;			//input from file
+					BufferedInputStream bis;		//buffer input		  
+					fis = new FileInputStream(pdfFile);
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+					bis.close();
+					fis.close();
+					Book newBook = (Book)books.get(books.size()-1);
+					newBook.setContextTableByteArray(mybytearray);
+				}
 			}	
 			Result = new ServerData(books, IGeneralData.operationsReturn.returnBookArray);
 			return Result;
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
 			Result = new ServerData(ErrorMsgs, IGeneralData.operationsReturn.returnError);

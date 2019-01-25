@@ -22,10 +22,13 @@ public class Book implements Serializable{
 	private boolean isWanted;
 	private String Description;
 	private String ContextTable;
+	private byte[] ContextTableByteArray;
 	private ArrayList<Loan> Loaners;
 	
 	
-	
+	public Book() {
+		Loaners = new ArrayList<>();
+	};
 
 		public Book(String catalogNumber,String bookName,String authorName,String subject,int numberOfLibraryCopies,int availableCopies,int NumberOfOrders,String shelfLoaction,String editionNumber,Date purchesDate,boolean iswant,String description,String contextTable) {
 		BookName = bookName;
@@ -155,5 +158,13 @@ public class Book implements Serializable{
 	public boolean getIsWanted() {
 		return isWanted;
 	}
+	public byte[] getContextTableByteArray() {
+		return ContextTableByteArray;
+	}
+
+	public void setContextTableByteArray(byte[] contextTableByteArray) {
+		ContextTableByteArray = contextTableByteArray;
+	}
+
 		
 }
