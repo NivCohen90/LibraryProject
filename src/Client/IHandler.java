@@ -31,6 +31,11 @@ public abstract class IHandler extends AbstractClient {
 	protected IGUIcontroller currentControllerGUIobj;
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
+	/**
+	 * Constructor making connection
+	 * @param IPAddress IP address number
+	 * @param port	port number
+	 */
 	public IHandler(String IPAddress, int port){
 		super(IPAddress, port);
 		String Error;
@@ -76,7 +81,7 @@ public abstract class IHandler extends AbstractClient {
 	 * 	how this handler respond to massage from server
 	 *	will convert massage from server and pass it to the GUI controller that called.
 	 *	@author nivco
-	 *	@param
+	 *	@param msg message recived from server
 	 */
 	@Override
 	protected void handleMessageFromServer(Object msg) {
@@ -89,6 +94,10 @@ public abstract class IHandler extends AbstractClient {
 				// switch between different return massages from server
 				// convert data from server and send to GUI controller
 				switch (serverMsg.getOperationReturn()) {
+				case returnError:
+					Exception errorMsg = convertMsgFromServer(arrayMsg.get(0), Exception.class);
+					currentControllerGUIobj.receiveMassageFromServer(errorMsg, serverMsg.getOperationReturn());
+					break;
 				case returnSuccessMsg:
 					String successMsg = convertMsgFromServer(arrayMsg.get(0), String.class);
 					currentControllerGUIobj.receiveMassageFromServer(successMsg, serverMsg.getOperationReturn());

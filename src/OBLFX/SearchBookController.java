@@ -20,6 +20,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -72,7 +73,10 @@ public class SearchBookController implements IGUIcontroller {
 
 	@FXML
 	private RadioButton type4;
-
+	
+	@FXML
+	private RadioButton type5;
+	
 	@FXML
 	private Label title;
 
@@ -112,6 +116,7 @@ public class SearchBookController implements IGUIcontroller {
 		type2.setText("Author");
 		type3.setText("Subject");
 		type4.setText("Description");
+		type5.setText("Free Text");
 		col1.setText("Book Name");
 		col2.setText("Author Name");
 		col3.setText("Subject");
@@ -146,6 +151,8 @@ public class SearchBookController implements IGUIcontroller {
 				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookSubject);
 			if (type4.isSelected())
 				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookDescription);
+			if (type5.isSelected())
+				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByFreeText);
 		}
 
 	}
@@ -208,7 +215,7 @@ public class SearchBookController implements IGUIcontroller {
 			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(), e.getMessage());
 		}
 	}
 	
@@ -218,7 +225,10 @@ public class SearchBookController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		displayResults((ArrayList<T>) msg);
+		if(op!=operationsReturn.returnError)
+			displayResults((ArrayList<T>) msg);
+		else
+			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, msg.getClass().getName(), ((Exception)msg).getMessage());
 	}
 
 	/**

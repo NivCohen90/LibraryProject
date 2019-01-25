@@ -1,8 +1,10 @@
 package Server;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Server.LoginQueris;
+import SystemObjects.Book;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -98,6 +100,15 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+		case searchByCatalogNumber:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.CatalogNumber);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			break;
 		case updatePersonalDetails:
 			break;
 		case orderBook:
@@ -127,6 +138,24 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 			break;
 		case createLateReturnsReport:
+			break;
+		case AddBook:
+			try {
+				ArrayList<Object> getBook = ((ServerData)msg).getDataMsg();
+				ServerData msgToClient = CatalogQueries.addBookToDB((Book)(getBook.get(0)));
+				client.sendToClient(msgToClient);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case updateBook:
+			try {
+				ArrayList<Object> getBook = ((ServerData)msg).getDataMsg();
+				ServerData msgToClient = CatalogQueries.updateBookInDB((Book)(getBook.get(0)));		
+				client.sendToClient(msgToClient);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;

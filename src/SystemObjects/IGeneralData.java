@@ -8,12 +8,12 @@ public interface IGeneralData {
 	 *
 	 */
 	enum operations {
-		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber,
+		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber, searchByFreeText,
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
 		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBooK, deleteBook, getBookDetails;
+		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails;
 	};
 	
 	/**

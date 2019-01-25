@@ -1,5 +1,7 @@
 package OBLFX;
 
+import java.util.ArrayList;
+
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import SystemObjects.Book;
@@ -27,7 +29,7 @@ public class UpdateBookController implements IGUIcontroller {
 	private CommonHandler commonClient;
 	private final static String Search = "Search for a book first";
 	private static String catalogNumberSearch;
-	private static Book book;
+	private static Book book = new Book();
 
 	@FXML
 	private TextField BookNameTextField;
@@ -199,7 +201,12 @@ public class UpdateBookController implements IGUIcontroller {
 				}
 
 			}
-			if (counter == 5) {
+			if (!DescriptionTextField.getText().trim().isEmpty()){
+				counter++;
+				book.setDescription(DescriptionTextField.getText());
+
+			}
+			if (counter == 6) {
 				librarianClient.updateBookinCatalog(book, new Librarian());
 			}
 
@@ -212,17 +219,19 @@ public class UpdateBookController implements IGUIcontroller {
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
-		case returnBook:
+		case returnBookArray:
+			
+			book = ((ArrayList<Book>)msg).get(0);
 			SetAllEditable();
 			SetAllFlagFalse();
 
-			// BookNameTextField.setText(book.getBookName());
-			// AuthorTextField.setText(book.getAuthorName());
-			// SubjectTextField.setText(book.getSubject());
-			// PlaceOnShelfTextField.setText(book.getShelfLoaction());
-			// EditionNumberTextField.setText(book.getEditionNumber());
-			// DescriptionTextField.setText(book.getDescription());
-			// allFlagStatus=true;
+			 BookNameTextField.setText(book.getBookName());
+			 AuthorTextField.setText(book.getAuthorName());
+			 SubjectTextField.setText(book.getSubject());
+			 PlaceOnShelfTextField.setText(book.getShelfLoaction());
+			 EditionNumberTextField.setText(book.getEditionNumber());
+			 DescriptionTextField.setText(book.getDescription());
+			 allFlagStatus=true;
 
 			break;
 		default:
@@ -237,11 +246,13 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	private void SetAllEditable() {
 		SetAllFlagFalse();
+		CatalogTextField.setEditable(false);
 		BookNameTextField.setEditable(true);
 		AuthorTextField.setEditable(true);
 		SubjectTextField.setEditable(true);
 		PlaceOnShelfTextField.setEditable(true);
 		EditionNumberTextField.setEditable(true);
+		DescriptionTextField.setEditable(true);
 		allFlagStatus = true;
 
 	}
@@ -275,6 +286,7 @@ public class UpdateBookController implements IGUIcontroller {
 	@Override
 	public void setConnection() {
 		librarianClient = new LibrarianHandler(this);
+		commonClient = new CommonHandler(this);
 	}
 
 	@Override

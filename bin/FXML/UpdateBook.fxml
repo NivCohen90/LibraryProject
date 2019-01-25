@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UpdateBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UpdateBookController">
    <children>
       <Label layoutX="222.0" layoutY="6.0" text="Update Book">
          <font>
@@ -34,13 +34,13 @@
             <Button fx:id="GetBookDetailsBTN" layoutX="265.0" layoutY="88.0" mnemonicParsing="false" onAction="#GetBookDetailsAction" text="Get Book Details" />
             <Label fx:id="CatalogNumberLabel" layoutX="369.0" layoutY="90.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
             <Label fx:id="PlaceOnShelfLabel" layoutX="222.0" layoutY="208.0" prefHeight="25.0" prefWidth="78.0" textFill="RED" />
+            <Label fx:id="BookNameLabel" layoutX="570.0" layoutY="116.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
+            <Label fx:id="AuthorLabel" layoutX="570.0" layoutY="145.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
+            <Label fx:id="SubjectLabel" layoutX="570.0" layoutY="177.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
+            <Label fx:id="EditionNumberLabel" layoutX="570.0" layoutY="208.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
          </children>
       </Group>
-      <Button fx:id="UpdateBookBTN" layoutX="14.0" layoutY="363.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Update Book" />
-      <Label fx:id="BookNameLabel" layoutX="580.0" layoutY="81.0" prefHeight="26.0" prefWidth="114.0" textFill="RED" />
-      <Label fx:id="AuthorLabel" layoutX="575.0" layoutY="114.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
-      <Label fx:id="EditionNumberLabel" layoutX="580.0" layoutY="173.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
-      <Label fx:id="SubjectLabel" layoutX="580.0" layoutY="140.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
-      <Label fx:id="RetriveMSGLabel" layoutX="100.0" layoutY="362.0" prefHeight="26.0" prefWidth="266.0" textFill="RED" />
+      <Button fx:id="UpdateBookBTN" layoutX="14.0" layoutY="371.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Update Book" />
+      <Label fx:id="RetriveMSGLabel" layoutX="105.0" layoutY="370.0" prefHeight="26.0" textFill="RED" />
    </children>
 </AnchorPane>
