@@ -132,6 +132,7 @@ public class BookDetailsController implements IGUIcontroller{
     	        Desktop.getDesktop().open(pdfoutFile);
 	    	}
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
     }
