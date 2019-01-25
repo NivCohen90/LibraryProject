@@ -7,16 +7,17 @@ public class ReportData {
 	private double median;
 	private double distribution;
 	
-	
+	/**
+	 * constructor for general objects statistics
+	 */
 	public ReportData(double avg, double median, double distribution, String reference) {
 		
 		this.reference = reference;
 		this.avg = avg;
 		this.median = median;
 		this.distribution = distribution;
-		
 	}
-	
+
 	public double getAvg() {
 		return avg;
 	}
