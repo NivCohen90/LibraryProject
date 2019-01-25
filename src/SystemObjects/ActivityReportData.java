@@ -4,15 +4,23 @@ import java.util.Date;
 
 public class ActivityReportData {
 
+	private Date startDate;
+	private Date endDate;
+	private int ActiveSubscribersAmount;
+	private int FreezedSubscribersAmount;
+	private int NotActiveSubscribersAmount;
+	private int LoanedBooksAmount;
+	private int LateReturnsSubAmount;
+	
 	public ActivityReportData(Date startDate, Date endDate, int activeUser, int freezedUser, int notActiveUser,
 			int loanedCopiesNum, int lateReturnsUser) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		ActiveUser = activeUser;
-		FreezedUser = freezedUser;
-		NotActiveUser = notActiveUser;
-		LoanedCopiesNum = loanedCopiesNum;
-		LateReturnsUser = lateReturnsUser;
+		ActiveSubscribersAmount = activeUser;
+		FreezedSubscribersAmount = freezedUser;
+		NotActiveSubscribersAmount = notActiveUser;
+		LoanedBooksAmount = loanedCopiesNum;
+		LateReturnsSubAmount = lateReturnsUser;
 	}
 	public Date getStartDate() {
 		return startDate;
@@ -26,42 +34,36 @@ public class ActivityReportData {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public int getActiveUser() {
-		return ActiveUser;
+	public int getActiveSubscribersAmount() {
+		return ActiveSubscribersAmount;
 	}
-	public void setActiveUser(int activeUser) {
-		ActiveUser = activeUser;
+	public void setActiveSubscribersAmount(int activeSubAmount) {
+		ActiveSubscribersAmount = activeSubAmount;
 	}
-	public int getFreezedUser() {
-		return FreezedUser;
+	public int getFreezedSubscribersAmount() {
+		return FreezedSubscribersAmount;
 	}
-	public void setFreezedUser(int freezedUser) {
-		FreezedUser = freezedUser;
+	public void setFreezedSubscribersAmount(int freezedSubAmount) {
+		FreezedSubscribersAmount = freezedSubAmount;
 	}
-	public int getNotActiveUser() {
-		return NotActiveUser;
+	public int getNotActiveSubscribersAmount() {
+		return NotActiveSubscribersAmount;
 	}
-	public void setNotActiveUser(int notActiveUser) {
-		NotActiveUser = notActiveUser;
+	public void setNotActiveSubscribersAmount(int notActiveSubAmount) {
+		NotActiveSubscribersAmount = notActiveSubAmount;
 	}
-	public int getLoanedCopiesNum() {
-		return LoanedCopiesNum;
+	public int getLoanedBooksAmount() {
+		return LoanedBooksAmount;
 	}
-	public void setLoanedCopiesNum(int loanedCopiesNum) {
-		LoanedCopiesNum = loanedCopiesNum;
+	public void setLoanedBooksAmount(int loanedBooksAmount) {
+		LoanedBooksAmount = loanedBooksAmount;
 	}
-	public int getLateReturnsUser() {
-		return LateReturnsUser;
+	public int getLateReturnsSubAmount() {
+		return LateReturnsSubAmount;
 	}
-	public void setLateReturnsUser(int lateReturnsUser) {
-		LateReturnsUser = lateReturnsUser;
+	public void setLateReturnsSubAmount(int lateReturnsSubAmount) {
+		LateReturnsSubAmount = lateReturnsSubAmount;
 	}
-	private Date startDate;
-	private Date endDate;
-	private int ActiveUser;
-	private int FreezedUser;
-	private int NotActiveUser;
-	private int LoanedCopiesNum;
-	private int LateReturnsUser;
+	
 	
 }
