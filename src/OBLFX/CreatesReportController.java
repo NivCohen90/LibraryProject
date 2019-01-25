@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-
 import Client.LibraryManagerHandler;
 import SystemObjects.IGeneralData.reportsType;
 import SystemObjects.IGeneralData;
@@ -135,7 +134,7 @@ public class CreatesReportController implements IGUIcontroller {
 				break;
 			}
 			
-			Controller.setReportDataToDisplay((ArrayList<ReportData>) reportData, reportType);
+			Controller.setReportDataToDisplay((ArrayList<Object>) reportData, reportType);
 			
 		}
 		

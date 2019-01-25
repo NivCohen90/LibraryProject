@@ -1,14 +1,22 @@
 package OBLFX;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import SystemObjects.ReportData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+import SystemObjects.ActivityReportData;
 import SystemObjects.IGeneralData.operationsReturn;
 import SystemObjects.IGeneralData.reportsType;
+import SystemObjects.LateReturnsReportBookData;
 
 public class ReportDiaplayController implements IGUIcontroller {
 
@@ -50,6 +58,9 @@ public class ReportDiaplayController implements IGUIcontroller {
 
 	@FXML
 	private TextField GeneralDurationMedian;
+	
+    @FXML
+    private TableView<Object> BookData;
 
 	@FXML
 	private TableColumn<?, ?> BookName;
@@ -72,26 +83,60 @@ public class ReportDiaplayController implements IGUIcontroller {
 	@FXML
 	private TableColumn<?, ?> BookDurationMedian;
 
-	public void setReportDataToDisplay(ArrayList<ReportData> reportData, reportsType reportType) {
+	@FXML
+	private TextField ActiveSubAmount;
 
+	@FXML
+	private TextField FreezedSubAmount;
+
+	@FXML
+	private TextField UnActiveSubAmount;
+
+	@FXML
+	private TextField LoanedBooksAmount;
+
+	@FXML
+	private TextField LateReturnsSubAmount;
+
+	@FXML
+	private Text PeriodDates;
+
+	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
+
+	public void initialize() {
+		BookData.setItems(ObservableColumnData);
+		
+		BookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
+		BookAmountAVG.setCellValueFactory(new PropertyValueFactory<>("AmountAvg"));
+		BookAmountDistribution.setCellValueFactory(new PropertyValueFactory<>("AmountDistribution"));
+		BookAmountMedian.setCellValueFactory(new PropertyValueFactory<>("AmountMedian"));
+		BookDurationAVG.setCellValueFactory(new PropertyValueFactory<>("DurationAvg"));
+		BookDurationDistribution.setCellValueFactory(new PropertyValueFactory<>("DurationDistribution"));
+		BookDurationMedian.setCellValueFactory(new PropertyValueFactory<>("DurationMedian"));
+	}
+
+	
+	public void setReportDataToDisplay(ArrayList<Object> reportData, reportsType reportType) {
+
+		String reference;
+		
 		switch (reportType) {
-
 		case loansReport: {
 			for (int i = 0; i < reportData.size(); i++) {
-				String reference = reportData.get(i).getReference();
+				reference = ((ReportData) reportData.get(i)).getReference();
 				switch (reference) {
 
 				case "Demended": {
-					DemendedAVG.setText(toString(reportData.get(i).getAvg()));
-					DemendedDistribution.setText(toString(reportData.get(i).getDistribution()));
-					DemendedMedian.setText(toString(reportData.get(i).getMedian()));
+					DemendedAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
+					DemendedDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
+					DemendedMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
 					break;
 				}
 
 				case "Regular": {
-					RegularAVG.setText(toString(reportData.get(i).getAvg()));
-					RegularDistribution.setText(toString(reportData.get(i).getDistribution()));
-					RegularMedian.setText(toString(reportData.get(i).getMedian()));
+					RegularAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
+					RegularDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
+					RegularMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
 					break;
 				}
 
@@ -105,56 +150,49 @@ public class ReportDiaplayController implements IGUIcontroller {
 
 		case lateReturnsReport: {
 			for (int i = 0; i < reportData.size(); i++) {
-				String reference = reportData.get(i).getReference();
-				switch (reference) {
+				
+				if (reportData.get(i) instanceof ReportData) {
+					reference = ((ReportData) reportData.get(i)).getReference();
+					switch (reference) {
 
-				case "GeneralLatesAmount": {
-					GeneralAmountAVG.setText(toString(reportData.get(i).getAvg()));
-					GeneralAmountDistribution.setText(toString(reportData.get(i).getDistribution()));
-					GeneralAmountMedian.setText(toString(reportData.get(i).getMedian()));
-					break;
+					case "GeneralLatesAmount": {
+						GeneralAmountAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
+						GeneralAmountDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
+						GeneralAmountMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
+						break;
+					}
+
+					case "GeneralLatesDuration": {
+						GeneralDurationAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
+						GeneralDurationDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
+						GeneralDurationMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
+						break;
+					}
+
+					default:
+						break;
+					}
 				}
-
-				case "GeneralLatesDuration": {
-					GeneralDurationAVG.setText(toString(reportData.get(i).getAvg()));
-					GeneralDurationDistribution.setText(toString(reportData.get(i).getDistribution()));
-					GeneralDurationMedian.setText(toString(reportData.get(i).getMedian()));
-					break;
-				}
-
-				case "BookLatesAmount": {
-					BookName.setText(reportData.get(i).getBookName());
-					BookAmountAVG.setText(toString(reportData.get(i).getAvg()));
-					BookAmountDistribution.setText(toString(reportData.get(i).getDistribution()));
-					BookAmountMedian.setText(toString(reportData.get(i).getMedian()));
-					break;
-				}
-
-				case "BookLatesDuration": {
-					BookDurationAVG.setText(toString(reportData.get(i).getAvg()));
-					BookDurationDistribution.setText(toString(reportData.get(i).getDistribution()));
-					BookDurationMedian.setText(toString(reportData.get(i).getMedian()));
-					break;
-				}
-
-				default:
-					break;
-
-				}
+				
+				else ObservableColumnData.add(((LateReturnsReportBookData) reportData.get(i)));
 			}
-
 			break;
 		}
-		
+
 		case activityReport: {
-			
+			PeriodDates.setText(((((ActivityReportData) reportData.get(0)).getStartDate()) + "")
+					+ ((((ActivityReportData) reportData.get(0)).getEndDate()) + ""));
+			ActiveSubAmount.setText((((ActivityReportData) reportData.get(0)).getActiveSubscribersAmount()) + "");
+			FreezedSubAmount.setText((((ActivityReportData) reportData.get(0)).getFreezedSubscribersAmount()) + "");
+			UnActiveSubAmount.setText((((ActivityReportData) reportData.get(0)).getNotActiveSubscribersAmount()) + "");
+			LoanedBooksAmount.setText((((ActivityReportData) reportData.get(0)).getLoanedBooksAmount()) + "");
+			LateReturnsSubAmount.setText((((ActivityReportData) reportData.get(0)).getLateReturnsSubAmount()) + "");
+			break;
 		}
+
+		default:
+			break;
 		}
-	}
-
-	private String toString(double num) {
-
-		return toString((int) num);
 	}
 
 	@Override

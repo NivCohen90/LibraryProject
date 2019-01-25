@@ -25,8 +25,8 @@ public interface IFXMLpathAndStyle {
 	final static String UpdateBookFXML = "../FXML/UpdateBook.fxml";
 	final static String DeleteBookFXML = "../FXML/DeleteBook.fxml";
 	final static String LoanReportDiaplayFXML= "../FXML/LoanReportDiaplay.fxml";
-	//final static String LateReturnReportDisplayFXML= "../FXML/LateReturnReportDiaplay.fxml";
-	//final ststic String ActivityReportDisplayFXML= "../FXML/ActivityReportDiaplay.fxml";
+	final static String LateReturnReportDisplayFXML= "../FXML/LateReturnReportDiaplay.fxml";
+	final static String ActivityReportDisplayFXML= "../FXML/ActivityReportDiaplay.fxml";
 	final static String WelcomeScreenCSS = "../CSS/WelcomeScreen.css";
 	
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
