@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Client.SideMenu;
 import OBLFX.ConnectionSettingsController;
+import SystemObjects.ActivityReportData;
 import SystemObjects.Book;
 import SystemObjects.BookCopy;
 import SystemObjects.Loan;
@@ -168,15 +169,21 @@ public abstract class IHandler extends AbstractClient {
 					break;
 				}
 				
-				case returnReaportDataArray:{
+				case returnLoanReportData:{
 					ArrayList<ReportData> reportList = convertArrayMsgFromServer(arrayMsg, ReportData.class);
 					currentControllerGUIobj.receiveMassageFromServer(reportList, serverMsg.getOperationReturn());
 					break;
 				}
 				case returnActivityReportData:{
-
+					ArrayList<ActivityReportData> reporrtList = convertArrayMsgFromServer(arrayMsg, ActivityReportData.class);
+					currentControllerGUIobj.receiveMassageFromServer(reporrtList, serverMsg.getOperationReturn());
 					break;
 				}
+				case returnLateReturnsReportData:{
+					currentControllerGUIobj.receiveMassageFromServer(serverMsg.getDataMsg(), serverMsg.getOperationReturn());
+					break;
+				}
+				
 				default:
 					;
 				}

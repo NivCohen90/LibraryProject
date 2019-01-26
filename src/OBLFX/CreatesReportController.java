@@ -9,7 +9,6 @@ import Interfaces.IGUIcontroller;
 import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import Interfaces.IGeneralData.reportsType;
-import SystemObjects.ReportData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,7 +90,7 @@ public class CreatesReportController implements IGUIcontroller {
 
 	}
 
-	private void openResultDetails(Object reportData, reportsType reportType) {
+	private void openResultDetails(Object reportData, operationsReturn reportType) {
 		Stage primaryStage = new Stage();
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		AnchorPane root = null;
@@ -101,7 +100,7 @@ public class CreatesReportController implements IGUIcontroller {
 
 			switch (reportType) {
 
-			case loansReport: {
+			case returnLoanReportData: {
 				root = (AnchorPane) fxmlLoader
 						.load(getClass().getResource("../FXML/LoanReportDiaplay.fxml").openStream());
 				scene = new Scene(root);
@@ -111,7 +110,7 @@ public class CreatesReportController implements IGUIcontroller {
 				primaryStage.show();
 				break;
 				}
-			case lateReturnsReport: {
+			case returnLateReturnsReportData: {
 				root = (AnchorPane) fxmlLoader
 						.load(getClass().getResource("../FXML/LateReturnReportDiaplay.fxml").openStream());
 				scene = new Scene(root);
@@ -121,7 +120,7 @@ public class CreatesReportController implements IGUIcontroller {
 				primaryStage.show();
 				break;
 			}
-			case activityReport: {
+			case returnActivityReportData: {
 				root = (AnchorPane) fxmlLoader
 						.load(getClass().getResource("../FXML/ActivityReportDiaplay.fxml").openStream());
 				scene = new Scene(root);
@@ -135,11 +134,12 @@ public class CreatesReportController implements IGUIcontroller {
 				break;
 			}
 			
-			Controller.setReportDataToDisplay((ArrayList<Object>) reportData, reportType);
+			Controller.setReportDataToDisplay((ArrayList<Object>)reportData, reportType);
 			
 		}
 		
 		catch (Exception e) {
+			Interfaces.IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -157,6 +157,7 @@ public class CreatesReportController implements IGUIcontroller {
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-
+		openResultDetails(msg, op);
+		
 	}
 }

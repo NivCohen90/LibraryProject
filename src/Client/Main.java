@@ -41,7 +41,7 @@ public class Main extends Application {
 		try {
 			PrimaryStage = primaryStage;
 			PrimaryStage.initStyle(StageStyle.UNDECORATED);
-			sideMenu = new SideMenu(IGeneralData.MenuType.MainMenu);
+			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));

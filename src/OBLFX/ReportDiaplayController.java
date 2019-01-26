@@ -1,6 +1,5 @@
 package OBLFX;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
@@ -117,12 +116,12 @@ public class ReportDiaplayController implements IGUIcontroller {
 	}
 
 	
-	public void setReportDataToDisplay(ArrayList<Object> reportData, reportsType reportType) {
+	public void setReportDataToDisplay(ArrayList<Object> reportData, operationsReturn reportType) {
 
 		String reference;
 		
 		switch (reportType) {
-		case loansReport: {
+		case returnLoanReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
 				reference = ((ReportData) reportData.get(i)).getReference();
 				switch (reference) {
@@ -149,7 +148,7 @@ public class ReportDiaplayController implements IGUIcontroller {
 			}
 		}
 
-		case lateReturnsReport: {
+		case returnLateReturnsReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
 				
 				if (reportData.get(i) instanceof ReportData) {
@@ -180,7 +179,7 @@ public class ReportDiaplayController implements IGUIcontroller {
 			break;
 		}
 
-		case activityReport: {
+		case returnActivityReportData: {
 			PeriodDates.setText(((((ActivityReportData) reportData.get(0)).getStartDate()) + "")
 					+ ((((ActivityReportData) reportData.get(0)).getEndDate()) + ""));
 			ActiveSubAmount.setText((((ActivityReportData) reportData.get(0)).getActiveSubscribersAmount()) + "");
