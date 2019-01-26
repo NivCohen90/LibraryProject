@@ -3,11 +3,11 @@ package Client;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import Interfaces.IGUIcontroller;
+import Interfaces.IHandler;
+import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
-import OBLFX.IGUIcontroller;
-
 import SystemObjects.ServerData;
-import SystemObjects.IGeneralData.operations;
 
 
 /**

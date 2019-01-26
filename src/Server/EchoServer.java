@@ -3,10 +3,10 @@ package Server;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import OBLFX.IAlert;
+import Interfaces.IAlert;
+import Interfaces.IGeneralData;
 import Server.LoginQueris;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 

@@ -14,8 +14,11 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.HashMap;
 
-import OBLFX.IFXMLpathAndStyle;
-import OBLFX.IGUIcontroller;
+import Interfaces.IAlert;
+import Interfaces.IFXMLpathAndStyle;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.MenuType;
+import Interfaces.IGeneralData.Menuicons;
 import OBLFX.CreatesReportController;
 import OBLFX.LoginFormController;
 import OBLFX.NewLoanController;
@@ -28,8 +31,6 @@ import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
 import OBLFX.UpdateSubscriberStatusController;
-import SystemObjects.IGeneralData.MenuType;
-import SystemObjects.IGeneralData.Menuicons;
 import OBLFX.AddBookController;
 import OBLFX.AddBookCopyController;
 import OBLFX.AddNewSubscriberController;
@@ -37,7 +38,6 @@ import OBLFX.CardLibrarianController;
 import OBLFX.CardLibrarianManagerController;
 import OBLFX.ConnectionSettingsController;
 import OBLFX.DeleteController;
-import OBLFX.IAlert;
 
 public class SideMenu {
 	

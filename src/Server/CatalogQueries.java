@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import Interfaces.IGeneralData.operationsReturn;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +17,6 @@ import java.sql.Connection;
 
 import SystemObjects.ServerData;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData.operationsReturn;
 
 /**
  * class for server catalog related queries requests for database

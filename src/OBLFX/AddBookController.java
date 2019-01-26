@@ -11,8 +11,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import Client.LibrarianHandler;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

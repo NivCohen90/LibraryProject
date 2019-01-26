@@ -1,6 +1,7 @@
 package OBLFX;
 
-import SystemObjects.IGeneralData.operationsReturn;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.operationsReturn;
 
 public class UpdateSubscriberStatusController implements IGUIcontroller{
 

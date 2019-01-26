@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 import Client.LibrarianHandler;
 import Client.SideMenu;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
+import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData;
-import SystemObjects.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.Order;
 import javafx.collections.FXCollections;
@@ -111,7 +112,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 	}
 
 	@Override
-	public <T> void receiveMassageFromServer(T msg, SystemObjects.IGeneralData.operationsReturn op) {
+	public <T> void receiveMassageFromServer(T msg, Interfaces.IGeneralData.operationsReturn op) {
 		// TODO Auto-generated method stub
 		
 	}

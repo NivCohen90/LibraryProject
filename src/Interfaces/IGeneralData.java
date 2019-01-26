@@ -1,4 +1,4 @@
-package SystemObjects;
+package Interfaces;
 
 public interface IGeneralData {
 
@@ -73,4 +73,3 @@ public interface IGeneralData {
 	};
 	
 }
-// Login (UserName,Password) search(Text,op)

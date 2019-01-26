@@ -1,4 +1,4 @@
-package OBLFX;
+package Interfaces;
 
 public interface IFXMLpathAndStyle {
 

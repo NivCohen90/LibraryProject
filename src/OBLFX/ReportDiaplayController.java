@@ -3,6 +3,9 @@ package OBLFX;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.operationsReturn;
+import Interfaces.IGeneralData.reportsType;
 import SystemObjects.ReportData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import SystemObjects.ActivityReportData;
-import SystemObjects.IGeneralData.operationsReturn;
-import SystemObjects.IGeneralData.reportsType;
 import SystemObjects.LateReturnsReportBookData;
 
 public class ReportDiaplayController implements IGUIcontroller {

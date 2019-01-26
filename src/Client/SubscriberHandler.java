@@ -3,12 +3,13 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
+import Interfaces.IHandler;
+import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
-import OBLFX.IGUIcontroller;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData;
 import SystemObjects.ServerData;
-import SystemObjects.IGeneralData.operations;
 import Users.Subscriber;
 
 /**

@@ -1,10 +1,10 @@
-package Client;
+package Interfaces;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import Client.SideMenu;
 import OBLFX.ConnectionSettingsController;
-import OBLFX.IAlert;
-import OBLFX.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.BookCopy;
 import SystemObjects.Loan;

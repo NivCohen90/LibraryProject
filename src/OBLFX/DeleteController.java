@@ -2,9 +2,10 @@ package OBLFX;
 
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
+import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
-import SystemObjects.IGeneralData;
-import SystemObjects.IGeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

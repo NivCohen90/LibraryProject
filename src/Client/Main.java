@@ -1,9 +1,9 @@
 package Client;
 
 import Client.SideMenu;
-import OBLFX.IFXMLpathAndStyle;
-import SystemObjects.IGeneralData;
-import OBLFX.IAlert;
+import Interfaces.IAlert;
+import Interfaces.IFXMLpathAndStyle;
+import Interfaces.IGeneralData;
 import Users.Librarian;
 import Users.Subscriber;
 import javafx.application.Application;

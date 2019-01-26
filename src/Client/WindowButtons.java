@@ -1,6 +1,6 @@
 package Client;
 
-import OBLFX.IAlert;
+import Interfaces.IAlert;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

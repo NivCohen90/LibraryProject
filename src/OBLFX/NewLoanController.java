@@ -1,7 +1,8 @@
 package OBLFX;
 
 import Client.LibrarianHandler;
-import SystemObjects.IGeneralData.operationsReturn;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

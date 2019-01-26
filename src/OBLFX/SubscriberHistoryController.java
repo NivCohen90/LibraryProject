@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import Client.Main;
 import Client.SideMenu;
+import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.Order;
-import SystemObjects.IGeneralData.operationsReturn;
 import Users.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
