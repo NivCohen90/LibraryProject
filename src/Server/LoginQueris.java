@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import SystemObjects.Loan;
+import SystemObjects.Order;
 import SystemObjects.ServerData;
 import SystemObjects.IGeneralData.operationsReturn;
 import Users.Subscriber;
@@ -39,22 +40,38 @@ public class LoginQueris {
 					}
 					String getSubLoansquery = "SELECT * FROM obl.loan WHERE SubscriberID = '"
 							+ Sub.getSubscriberNumber() + "';";
-					Statement getSubLoans = mysqlConnection.conn.createStatement();
-					ResultSet subLoansRes = getSubLoans.executeQuery(getSubLoansquery);
+//					Statement getSubLoans = mysqlConnection.conn.createStatement();
+//					ResultSet subLoansRes = s.executeQuery(getSubLoansquery);
+					subRes = s.executeQuery(getSubLoansquery);
 					ArrayList<Loan> Loans = new ArrayList<Loan>();
-					ArrayList<Loan> ActivityHistory = new ArrayList<Loan>();
-					while (subLoansRes.next()) {
-						Loan a = new Loan(subLoansRes.getString(1), subLoansRes.getString(2), subLoansRes.getString(3),
-								subLoansRes.getString(4), subLoansRes.getDate(5), subLoansRes.getDate(6),
-								subLoansRes.getString(7));
+					ArrayList<Loan> LoansActivityHistory = new ArrayList<Loan>();
+					while (subRes.next()) {
+						Loan a = new Loan(subRes.getString(1), subRes.getString(2), subRes.getString(3),
+								subRes.getString(4), subRes.getDate(5), subRes.getDate(6),
+								subRes.getString(7));
 						if (a.getLoanStatus().equals("Finish")) {
-							ActivityHistory.add(a);
+							LoansActivityHistory.add(a);
 						} else {
 							Loans.add(a);
 						}
 					}
+					String getSubOredersquery = "SELECT * FROM obl.order WHERE SubscriberID = '"
+							+ Sub.getSubscriberNumber() + "';";
+					subRes = s.executeQuery(getSubOredersquery);
+					ArrayList<Order> Orders = new ArrayList<Order>();
+					ArrayList<Order> OrdersActivityHistory = new ArrayList<Order>();
+					while (subRes.next()) {
+						Order a = new Order(subRes.getString(1), subRes.getString(2), subRes.getDate(3), subRes.getDate(4));
+						Orders.add(a);
+//						if (a..equals("Finish")) {
+//							OrdersActivityHistory.add(a);
+//						} else {
+//						}
+					}
 					Sub.setActiveLoans(Loans);
-					Sub.setHistoryLoans(ActivityHistory);
+					Sub.setHistoryLoans(LoansActivityHistory);
+					Sub.setActiveOrders(Orders);
+					Sub.setHistoryOrders(OrdersActivityHistory);
 					ArrayList<Object> subs = new ArrayList<Object>();
 					subs.add(Sub);
 					ServerData result = new ServerData(subs, operationsReturn.returnSubscriber);

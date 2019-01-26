@@ -35,7 +35,6 @@ public class LoginFormController implements IGUIcontroller {
 	private String UserName;
 	private String Password;
 
-
 	@FXML
 	public void initialize() {
 	}
@@ -108,10 +107,9 @@ public class LoginFormController implements IGUIcontroller {
 			ArrayList<Loan> loans = ((Subscriber) msg).getActiveLoans();
 			ArrayList<Order> orders = ((Subscriber) msg).getActiveOrders();
 			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, orders);
-			
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);
-			
+
 			break;
 		case returnLibrarian:
 			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
@@ -130,10 +128,10 @@ public class LoginFormController implements IGUIcontroller {
 						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
 						pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 						Main.root.setRight(pane);
-						
+
 						CardLibrarianController librarianCon = new CardLibrarianController();
 						librarianCon.setLibrarianToDisplay((Librarian) msg);
-						
+
 					} catch (IOException e) {
 						IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
 								e.getMessage());
@@ -156,13 +154,13 @@ public class LoginFormController implements IGUIcontroller {
 	}
 
 	@Override
-	public void setConnection() {	
+	public void setConnection() {
 		commonClient = new CommonHandler(this);
 	}
-	
+
 	@Override
-	public void closeConnection() {	
-		if(commonClient!=null)
+	public void closeConnection() {
+		if (commonClient != null)
 			commonClient.quit();
 	}
 

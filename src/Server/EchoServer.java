@@ -3,8 +3,10 @@ package Server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import OBLFX.IAlert;
 import Server.LoginQueris;
 import SystemObjects.Book;
+import SystemObjects.IGeneralData;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -61,6 +63,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = LoginQueris.Login(login);
 				client.sendToClient(result);
 			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -69,7 +72,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.BookName);
 				client.sendToClient(result);
 			} catch (IOException e) {
-				
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -78,7 +81,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.AuthorName);
 				client.sendToClient(result);
 			} catch (IOException e) {
-				
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -87,7 +90,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Subject);
 				client.sendToClient(result);
 			} catch (IOException e) {
-				
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -96,7 +99,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Description);
 				client.sendToClient(result);
 			} catch (IOException e) {
-				
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -105,7 +108,7 @@ public class EchoServer extends AbstractServer {
 				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.CatalogNumber);
 				client.sendToClient(result);
 			} catch (IOException e) {
-				
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -145,6 +148,7 @@ public class EchoServer extends AbstractServer {
 				ServerData msgToClient = CatalogQueries.addBookToDB((Book)(getBook.get(0)));
 				client.sendToClient(msgToClient);
 			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
 			break;
@@ -154,8 +158,41 @@ public class EchoServer extends AbstractServer {
 				ServerData msgToClient = CatalogQueries.updateBookInDB((Book)(getBook.get(0)));		
 				client.sendToClient(msgToClient);
 			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
+			break;
+		case CreateNewLoan:
+			break;
+		case deleteBook:
+			break;
+		case getBookDetails:
+			break;
+		case searchByFreeText:
+			try {
+				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))));
+				System.out.println(result.getOperationReturn());
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+			break;
+		case searchByLibrarianAffiliation:
+			break;
+		case searchByLibrarianEmail:
+			break;
+		case searchByLibrarianID:
+			break;
+		case searchByLibrarianName:
+			break;
+		case searchBySubscriberEmail:
+			break;
+		case searchBySubscriberID:
+			break;
+		case searchBySubscriberName:
+			break;
+		case searchBySubscriberStudentID:
 			break;
 		default:
 			break;

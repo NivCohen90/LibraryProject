@@ -89,6 +89,10 @@ public class SubscriberCardController implements IGUIcontroller {
 			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(loan);
 		}
+		for (Order iorder : Orders) {
+			OrdersTable Order = new OrdersTable("missing", "missing", iorder.getOrderDate(), iorder.getBookArrivedTime());
+			ObservableOrdersList.add(Order);
+		}
 	}
 
 	@FXML

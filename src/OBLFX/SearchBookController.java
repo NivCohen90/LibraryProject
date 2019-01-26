@@ -215,7 +215,8 @@ public class SearchBookController implements IGUIcontroller {
 			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
-			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(), e.getMessage());
+			IAlert.ExceptionAlert(e);
+
 		}
 	}
 	
@@ -228,7 +229,7 @@ public class SearchBookController implements IGUIcontroller {
 		if(op!=operationsReturn.returnError)
 			displayResults((ArrayList<T>) msg);
 		else
-			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, msg.getClass().getName(), ((Exception)msg).getMessage());
+			IAlert.ExceptionAlert((Exception)msg);
 	}
 
 	/**
