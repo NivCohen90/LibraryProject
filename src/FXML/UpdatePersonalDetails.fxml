@@ -12,9 +12,9 @@
       <TextField fx:id="FirstNameTextField" layoutX="110.0" layoutY="91.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="157.0" />
       <TextField fx:id="PhoneNumberTextField" layoutX="479.0" layoutY="122.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="148.0" />
       <TextField fx:id="SubscriberIDTextField" editable="false" layoutX="479.0" layoutY="91.0" prefHeight="26.0" prefWidth="148.0" />
-      <TextField fx:id="LastNameTextField" editable="false" layoutX="110.0" layoutY="122.0" onKeyTyped="#CheckLastName" prefHeight="26.0" prefWidth="158.0" />
+      <TextField fx:id="LastNameTextField" layoutX="110.0" layoutY="122.0" onKeyTyped="#CheckLastName" prefHeight="26.0" prefWidth="158.0" />
       <TextField fx:id="StatusTextField" editable="false" layoutX="479.0" layoutY="153.0" prefHeight="26.0" prefWidth="148.0" />
-      <TextField fx:id="StudentIDTextField" layoutX="110.0" layoutY="158.0" onKeyTyped="#CheckEmail" prefHeight="26.0" prefWidth="158.0" />
+      <TextField fx:id="StudentIDTextField" editable="false" layoutX="110.0" layoutY="158.0" onKeyTyped="#CheckEmail" prefHeight="26.0" prefWidth="158.0" />
       <Text layoutX="39.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" AnchorPane.leftAnchor="40.0" />
       <Text layoutX="38.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" AnchorPane.leftAnchor="40.0" />
       <Text layoutX="39.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" AnchorPane.leftAnchor="40.0" />

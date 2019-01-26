@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
+ * @author Matan
  * AddBookController controls AddBookFXML
  * 
  * @param Dates and OpenFile is a flag that show if the user pushed their
@@ -177,7 +179,7 @@ public class AddBookController implements IGUIcontroller {
 			Book book = new Book(catalog, bookname, author, subject, 1, 1, 0, Shelf, EditionNumber,
 					java.sql.Date.valueOf(PurchaseDatePicker.getValue()), false, Description, Context);
 			book.setContextTableByteArray(contexTableByteArray);
-			librarianClient.addBookToCatalog(book, new Librarian());
+			librarianClient.addBookToCatalog(book,IGeneralData.userLibrarian);
 		}
 
 	}

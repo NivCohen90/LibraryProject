@@ -1,5 +1,8 @@
 package Interfaces;
 
+import Users.Librarian;
+import Users.Subscriber;
+
 public interface IGeneralData {
 
 	/**
@@ -7,6 +10,10 @@ public interface IGeneralData {
 	 * @author nivco
 	 *
 	 */
+	
+	public static Subscriber userSubscriber=null;
+	public static Librarian userLibrarian=null;
+	
 	enum operations {
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber, searchByFreeText,
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,

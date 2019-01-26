@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * @author Matan
  * UpdateBookController controls UpdateBookFXML
  * 
  * @param all the booleans parameters are flags to notice if the user trying to
@@ -208,7 +209,7 @@ public class UpdateBookController implements IGUIcontroller {
 
 			}
 			if (counter == 6) {
-				librarianClient.updateBookinCatalog(book, new Librarian());
+				librarianClient.updateBookinCatalog(book,IGeneralData.userLibrarian);
 			}
 
 		}

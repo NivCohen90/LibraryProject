@@ -2,6 +2,7 @@ package OBLFX;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * @author Matan
  * ReturnBookController controls ReturnBookFXML
  */
 public class ReturnBookController implements IGUIcontroller {
@@ -56,10 +58,10 @@ public class ReturnBookController implements IGUIcontroller {
 				&& IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
 						UserNameErrorNumebrs)
 				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
-			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
-					new Librarian());
-		}
-	}
+			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),IGeneralData.userLibrarian);
+		}		
+	}	
+	
 
 	/**
 	 * CheckSubscriberID is a method that check if the user put input.,if he didn't

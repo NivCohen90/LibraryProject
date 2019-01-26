@@ -2,6 +2,7 @@ package OBLFX;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import Users.Subscriber;
 import Users.Librarian;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * @author Matan
  * AddNewSubscriberController controls CreateNewSubscriberFXML
  * @param AreaCodeFlag is a flag that show if the user pushed this Button
  */
@@ -174,7 +176,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
 			if (counter == 6) {
 				PhoneNum = "" + AreaCodeTextFiled.getPromptText() + PhoneNumberTextFiled.getText();
 				Subscriber sub = new Subscriber(IDTextField.getText(), FirstNameTextFiled.getText(), LastNameTextFiled.getText(), EmailTextField.getText(), PhoneNum, PasswordTextFiled.getText(), "Active");
-				librarianClient.createNewSubscriber(sub,new Librarian()); // have to be changed.
+				librarianClient.createNewSubscriber(sub,IGeneralData.userLibrarian); 
 
 			}
 		} else
@@ -186,7 +188,15 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+	switch(op) {
+	case returnError:
 		ErrorAtCreatSubscriberLabel.setText((String) msg);
+		break;
+	default:
+		ErrorAtCreatSubscriberLabel.setText("New Subscriber apply");
+		break;
+	}
+
 	}
 
 	/*************************************************************

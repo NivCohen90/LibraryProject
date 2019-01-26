@@ -24,10 +24,13 @@ public class SubscriberHandler extends IHandler {
 		currentControllerGUIobj = guiController;
 	}
 
-	public void updateDetails(Object user, Object userEdit) {
+	public void updateDetails(String FirstName,String LastName,String PhoneNumber,String Email,Subscriber subscriberDetails) {
 		ArrayList<Object> List = new ArrayList<Object>();
-		List.add(user);
-		List.add(userEdit);
+		List.add(FirstName);
+		List.add(LastName);
+		List.add(PhoneNumber);
+		List.add(Email);
+		List.add(subscriberDetails);;
 		ServerData loginInfo = new ServerData(IGeneralData.operations.updatePersonalDetails, List);
 		try {
 			sendToServer(loginInfo);

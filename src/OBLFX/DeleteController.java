@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 /**
+ * @author Matan
  * DeleteController controls DeleteBookFXML
 */
 public class DeleteController implements IGUIcontroller {
@@ -105,7 +106,7 @@ public class DeleteController implements IGUIcontroller {
 				}
 			}
 
-			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(), new Librarian());
+			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),IGeneralData.userLibrarian);
 		}
 	}
     /**
@@ -126,24 +127,38 @@ public class DeleteController implements IGUIcontroller {
     */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		CopyNumberLabel.setText((String) msg);
-		// BookNameTextField.setText(book.getBookName());
-		// AuthorTextField.setText(book.getAuthorName());
-		// SubjectTextField.setText(book.getSubject());
-		// CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
-		// AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
-		// DescripitionAreaField.setText(book.getDescription());
+		switch(op) {
+		case returnBook:
+			CopyNumberLabel.setText((String) msg);
+		    BookNameTextField.setText(book.getBookName());
+			AuthorTextField.setText(book.getAuthorName());
+			SubjectTextField.setText(book.getSubject());
+			CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
+			AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
+			DescripitionAreaField.setText(book.getDescription());
+			break;
+		case returnError:
+			
+			break;
+			
+		case returnSuccessMsg:
+			CopyNumberLabel.setText("Delete succses");
+			break;
+		}
+		
+
 
 	}
 	@Override
 	public void setConnection() {
-		commonClient = new CommonHandler(this);
-		
+		librarianClient = new LibrarianHandler(this);
+
 	}
+
 	@Override
 	public void closeConnection() {
-		if(commonClient!=null)
-			commonClient.quit();
+		if(librarianClient!=null)
+			librarianClient.quit();
 	}
 
 }

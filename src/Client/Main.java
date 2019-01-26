@@ -33,8 +33,7 @@ public class Main extends Application {
 	public static SideMenu sideMenu;
 	public static ToolBar toolBar;
 
-	public static Subscriber userSubscriber=null;
-	public static Librarian userLibrarian=null;
+
 	
 	@Override
 	public void start(Stage primaryStage) {
