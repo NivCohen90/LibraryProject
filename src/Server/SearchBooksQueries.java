@@ -18,7 +18,7 @@ import SystemObjects.ServerData;
  * @author nivco
  *
  */
-public class BookQueries {
+public class SearchBooksQueries {
 
 	private static final String StartSearchquery = "SELECT * FROM `book` WHERE `";
 	private static final String MiddleSearchquery = "` LIKE + '%";
@@ -40,7 +40,7 @@ public class BookQueries {
 	 * @param colName
 	 * @return 
 	 */
-	public static ServerData SearchBook(String SearchString, Cols colName) {
+	public static ServerData SearchBookByColName(String SearchString, Cols colName) {
 		ServerData Result;
 		try {
 			String query = StartSearchquery + colName + MiddleSearchquery + SearchString + EndSearchquery;
@@ -83,7 +83,7 @@ public class BookQueries {
 	 * @param SearchString
 	 * @return
 	 */
-	public static ServerData SearchBook(String SearchString) {
+	public static ServerData FreeTextSearch(String SearchString) {
 		ServerData Result;
 		try {
 			String freeTextquery = FreeTextquery1 + SearchString + FreeTextquery2 + SearchString + FreeTextquery3

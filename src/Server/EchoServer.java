@@ -69,7 +69,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByBookName:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.BookName);
+				ServerData result = SearchBooksQueries.SearchBookByColName((((String)((ServerData)msg).getDataMsg().get(0))), SearchBooksQueries.Cols.BookName);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -78,7 +78,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByBookAuthor:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.AuthorName);
+				ServerData result = SearchBooksQueries.SearchBookByColName((((String)((ServerData)msg).getDataMsg().get(0))), SearchBooksQueries.Cols.AuthorName);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -87,7 +87,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByBookSubject:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Subject);
+				ServerData result = SearchBooksQueries.SearchBookByColName((((String)((ServerData)msg).getDataMsg().get(0))), SearchBooksQueries.Cols.Subject);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -96,7 +96,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByBookDescription:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.Description);
+				ServerData result = SearchBooksQueries.SearchBookByColName((((String)((ServerData)msg).getDataMsg().get(0))), SearchBooksQueries.Cols.Description);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -105,7 +105,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByCatalogNumber:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))), BookQueries.Cols.CatalogNumber);
+				ServerData result = SearchBooksQueries.SearchBookByColName((((String)((ServerData)msg).getDataMsg().get(0))), SearchBooksQueries.Cols.CatalogNumber);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -170,7 +170,7 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchByFreeText:
 			try {
-				ServerData result = BookQueries.SearchBook((((String)((ServerData)msg).getDataMsg().get(0))));
+				ServerData result = SearchBooksQueries.FreeTextSearch((((String)((ServerData)msg).getDataMsg().get(0))));
 				System.out.println(result.getOperationReturn());
 				client.sendToClient(result);
 			} catch (IOException e) {

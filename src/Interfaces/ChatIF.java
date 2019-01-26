@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-package Client;
+package Interfaces;
 
 /**
  * This interface implements the abstract method used to display

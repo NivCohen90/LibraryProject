@@ -47,8 +47,7 @@ public class LoginQueris {
 					ArrayList<Loan> LoansActivityHistory = new ArrayList<Loan>();
 					while (subRes.next()) {
 						Loan a = new Loan(subRes.getString(1), subRes.getString(2), subRes.getString(3),
-								subRes.getString(4), subRes.getDate(5), subRes.getDate(6),
-								subRes.getString(7));
+								subRes.getString(4), subRes.getDate(5), subRes.getDate(6), subRes.getString(7));
 						if (a.getLoanStatus().equals("Finish")) {
 							LoansActivityHistory.add(a);
 						} else {
@@ -61,7 +60,8 @@ public class LoginQueris {
 					ArrayList<Order> Orders = new ArrayList<Order>();
 					ArrayList<Order> OrdersActivityHistory = new ArrayList<Order>();
 					while (subRes.next()) {
-						Order a = new Order(subRes.getString(1), subRes.getString(2), subRes.getDate(3), subRes.getDate(4));
+						Order a = new Order(subRes.getString(1), subRes.getString(2), subRes.getDate(3),
+								subRes.getDate(4));
 						Orders.add(a);
 //						if (a..equals("Finish")) {
 //							OrdersActivityHistory.add(a);
@@ -76,9 +76,17 @@ public class LoginQueris {
 					subs.add(Sub);
 					ServerData result = new ServerData(subs, operationsReturn.returnSubscriber);
 					return result;
+				} else if (rs.getString(7).equals("1")) {
+					ArrayList<Object> Librarian = new ArrayList<Object>();
+					ServerData result = new ServerData(Librarian, operationsReturn.returnLibrarian);
+					return result;
+				}
+				else if(rs.getString(7).equals("2")) {
+					ArrayList<Object> LibrarianManager = new ArrayList<Object>();
+					ServerData result = new ServerData(LibrarianManager, operationsReturn.returnLibrarianManager);
+					return result;
 				}
 			}
-
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			ArrayList<Object> Error = new ArrayList<Object>();

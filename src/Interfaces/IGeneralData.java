@@ -69,7 +69,7 @@ public interface IGeneralData {
 	 *
 	 */
 	enum MenuType {
-		MainMenu, SubscriberMenu, LibrarianMenu, LibrarianManagerMenu
+		MainMenu, SubscriberMenu, LibrarianMenu, LibrarianManagerMenu, SubMenu
 	};
 	
 }

@@ -17,6 +17,7 @@ import java.util.HashMap;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.MenuType;
 import Interfaces.IGeneralData.Menuicons;
 import OBLFX.CreatesReportController;
@@ -45,6 +46,8 @@ public class SideMenu {
 	public static Menuicons clicked = Menuicons.Nothing; // not in use right now.
 	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
 	public static boolean refuseConnection = false;
+	private static boolean SubMenu = false;
+	
 	/**
 	 * each AnchorPane described a page.
 	 * 
@@ -122,14 +125,25 @@ public class SideMenu {
 			vbox.getChildren().add(Item(Menuicons.Report));
 			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
 			vbox.getChildren().add(Item(Menuicons.catalog));
-			vbox.getChildren().add(Item(Menuicons.AddBook));
-			vbox.getChildren().add(Item(Menuicons.AddBookCopy));
-			vbox.getChildren().add(Item(Menuicons.UpdateBook));
-			vbox.getChildren().add(Item(Menuicons.DeleteBook));
+//			vbox.getChildren().add(Item(Menuicons.AddBook));
+//			vbox.getChildren().add(Item(Menuicons.AddBookCopy));
+//			vbox.getChildren().add(Item(Menuicons.UpdateBook));
+//			vbox.getChildren().add(Item(Menuicons.DeleteBook));
 			vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
 			vbox.getChildren().add(Item(Menuicons.Statistics));
 			vbox.getChildren().add(Item(Menuicons.Connection));
 			vbox.getChildren().add(Item(Menuicons.Exit));
+			break;
+		case SubMenu:
+			vbox.getChildren().add(Item(Menuicons.catalog));
+			vbox.getChildren().add(Item(Menuicons.AddBook));
+			vbox.getChildren().add(Item(Menuicons.AddBookCopy));
+			vbox.getChildren().add(Item(Menuicons.UpdateBook));
+			vbox.getChildren().add(Item(Menuicons.DeleteBook));
+			vbox.getChildren().add(Item(Menuicons.Connection));
+			vbox.getChildren().add(Item(Menuicons.Exit));
+			break;
+		default:
 			break;
 		}
 
@@ -305,6 +319,7 @@ public class SideMenu {
 	 * @param pane
 	 */
 	private void menuDecorator(Button btn, Pane pane) {
+
 		btn.setOnMouseEntered(value -> {
 			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
 			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
@@ -362,6 +377,32 @@ public class SideMenu {
 			}
 		});
 	}
+	
+	private void SubMenuBtnHandler(Button btn) {
+		btn.setOnMouseClicked(search -> {
+			try {
+				if(SubMenu) {
+					SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
+					Main.root.setLeft(sideMenu.getVBox());
+					Main.root.setRight(SideMenu.APReaderCardFXML);
+					SubMenu = false;
+				}
+				else {
+					SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubMenu);
+					Main.root.setLeft(sideMenu.getVBox());
+					Main.root.setRight(SideMenu.APReaderCardFXML);
+					SubMenu = true;
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
+						e.getMessage());
+			}
+		});
+	}
+	
 
 	/**
 	 * inorder to the IconName send an AP object to the RightSideBtnHandler method.
@@ -414,7 +455,7 @@ public class SideMenu {
 			break;
 		case catalog:
 			btn.setText("Manage Catalog");
-			// RightSideBtnHandler(btn, APCreateReportFXML, IconName);
+			SubMenuBtnHandler(btn);
 			break;
 		case AddBook:
 			btn.setText("Add Book");
