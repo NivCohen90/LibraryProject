@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import SystemObjects.ActivityReportData;
 import SystemObjects.LateReturnsReportBookData;
 
-public class ReportDiaplayController implements IGUIcontroller {
+public class ReportDisplayController implements IGUIcontroller {
 
 	@FXML
 	private Label ReportTypeLable;

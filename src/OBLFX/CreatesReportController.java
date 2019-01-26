@@ -95,7 +95,7 @@ public class CreatesReportController implements IGUIcontroller {
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		AnchorPane root = null;
 		Scene scene = null;
-		ReportDiaplayController Controller = (ReportDiaplayController) fxmlLoader.getController();
+		ReportDisplayController Controller = (ReportDisplayController) fxmlLoader.getController();
 		try {
 
 			switch (reportType) {
