@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -146,15 +146,15 @@ public class SearchBookController implements IGUIcontroller {
 		else {
 			emptyMsg.setVisible(false);
 			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookName);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookName);
 			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookAuthor);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookAuthor);
 			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookSubject);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookSubject);
 			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByBookDescription);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookDescription);
 			if (type5.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByFreeText);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByFreeText);
 		}
 
 	}

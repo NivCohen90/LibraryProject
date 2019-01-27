@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import Interfaces.IGeneralData;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 
 /**
@@ -68,12 +68,12 @@ public class SearchBooksQueries {
 					newBook.setContextTableByteArray(mybytearray);
 				}
 			}
-			Result = new ServerData(books, IGeneralData.operationsReturn.returnBookArray);
+			Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
 			return Result;
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
-			Result = new ServerData(ErrorMsgs, IGeneralData.operationsReturn.returnError);
+			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnError);
 			return Result;
 		}
 	}
@@ -111,12 +111,12 @@ public class SearchBooksQueries {
 					newBook.setContextTableByteArray(mybytearray);
 				}
 			}
-			Result = new ServerData(books, IGeneralData.operationsReturn.returnBookArray);
+			Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
 			return Result;
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
-			Result = new ServerData(ErrorMsgs, IGeneralData.operationsReturn.returnError);
+			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnError);
 			return Result;
 		}
 	}

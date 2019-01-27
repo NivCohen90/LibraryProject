@@ -17,9 +17,6 @@ import java.util.HashMap;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.MenuType;
-import Interfaces.IGeneralData.Menuicons;
 import OBLFX.CreatesReportController;
 import OBLFX.LoginFormController;
 import OBLFX.NewLoanController;
@@ -32,6 +29,9 @@ import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
 import OBLFX.UpdateSubscriberStatusController;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.MenuType;
+import SystemObjects.GeneralData.Menuicons;
 import OBLFX.AddBookController;
 import OBLFX.AddBookCopyController;
 import OBLFX.AddNewSubscriberController;
@@ -382,13 +382,13 @@ public class SideMenu {
 		btn.setOnMouseClicked(search -> {
 			try {
 				if(SubMenu) {
-					SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
+					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 					Main.root.setLeft(sideMenu.getVBox());
 					Main.root.setRight(SideMenu.APReaderCardFXML);
 					SubMenu = false;
 				}
 				else {
-					SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.SubMenu);
+					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.SubMenu);
 					Main.root.setLeft(sideMenu.getVBox());
 					Main.root.setRight(SideMenu.APReaderCardFXML);
 					SubMenu = true;

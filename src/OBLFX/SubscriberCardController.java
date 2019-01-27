@@ -5,11 +5,11 @@ import java.util.Date;
 
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.LoansTable;
 import SystemObjects.Order;
 import SystemObjects.OrdersTable;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

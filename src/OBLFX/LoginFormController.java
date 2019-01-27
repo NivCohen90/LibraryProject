@@ -12,10 +12,10 @@ import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData;
 import SystemObjects.Loan;
 import SystemObjects.Order;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +97,7 @@ public class LoginFormController implements IGUIcontroller {
 		SideMenu sideMenu;
 		switch (op) {
 		case returnSubscriber:
-			sideMenu = new SideMenu(IGeneralData.MenuType.SubscriberMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.SubscriberMenu);
 			Main.root.setLeft(sideMenu.getVBox());
 			Main.root.setRight(SideMenu.APReaderCardFXML);
 			SubscriberCardController a = new SubscriberCardController();
@@ -115,7 +115,7 @@ public class LoginFormController implements IGUIcontroller {
 
 			break;
 		case returnLibrarian:
-			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
 			Main.root.setLeft(sideMenu.getVBox());
 			Main.root.setRight(SideMenu.APReaderCardFXML);
 			break;
@@ -125,7 +125,7 @@ public class LoginFormController implements IGUIcontroller {
 				public void run() {
 
 					try {
-						SideMenu sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
+						SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 						Main.root.setLeft(sideMenu.getVBox());
 						AnchorPane pane;
 						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));

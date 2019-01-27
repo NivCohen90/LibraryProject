@@ -2,8 +2,8 @@ package OBLFX;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 import Users.Librarian;
 import javafx.collections.FXCollections;
@@ -176,7 +176,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
 			if (counter == 6) {
 				PhoneNum = "" + AreaCodeTextFiled.getPromptText() + PhoneNumberTextFiled.getText();
 				Subscriber sub = new Subscriber(IDTextField.getText(), FirstNameTextFiled.getText(), LastNameTextFiled.getText(), EmailTextField.getText(), PhoneNum, PasswordTextFiled.getText(), "Active");
-				librarianClient.createNewSubscriber(sub,IGeneralData.userLibrarian); 
+				librarianClient.createNewSubscriber(sub,GeneralData.userLibrarian); 
 
 			}
 		} else

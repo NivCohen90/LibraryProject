@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import Client.LibrarianHandler;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
 import SystemObjects.Loan;
 import SystemObjects.Order;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -112,7 +112,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 	}
 
 	@Override
-	public <T> void receiveMassageFromServer(T msg, Interfaces.IGeneralData.operationsReturn op) {
+	public <T> void receiveMassageFromServer(T msg, SystemObjects.GeneralData.operationsReturn op) {
 		// TODO Auto-generated method stub
 		
 	}

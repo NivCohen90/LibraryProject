@@ -5,7 +5,7 @@ import java.util.Optional;
 import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
-import Interfaces.IGeneralData;
+import SystemObjects.GeneralData;
 import Users.Librarian;
 import Users.Subscriber;
 import javafx.application.Application;
@@ -40,7 +40,7 @@ public class Main extends Application {
 		try {
 			PrimaryStage = primaryStage;
 			PrimaryStage.initStyle(StageStyle.UNDECORATED);
-			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));

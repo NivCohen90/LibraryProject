@@ -3,9 +3,9 @@ package OBLFX;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -106,7 +106,7 @@ public class DeleteController implements IGUIcontroller {
 				}
 			}
 
-			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),IGeneralData.userLibrarian);
+			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),GeneralData.userLibrarian);
 		}
 	}
     /**
@@ -119,7 +119,7 @@ public class DeleteController implements IGUIcontroller {
 				UserNameErrorNumebrs)
 				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
 			catalogNumberSearch = CatalogNumberTextField.getText();
-			commonClient.searchInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
 		}
 	}
     /**

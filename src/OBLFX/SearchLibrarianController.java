@@ -3,9 +3,9 @@ package OBLFX;
 import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,13 +140,13 @@ public class SearchLibrarianController implements IGUIcontroller {
 		else {
 			emptyMsg.setVisible(false);
 			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianID);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
 			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianAffiliation);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
 			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianName);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
 			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianEmail);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
 		}
 
 	}

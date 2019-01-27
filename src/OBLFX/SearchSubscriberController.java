@@ -3,9 +3,9 @@ package OBLFX;
 import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,13 +140,13 @@ public class SearchSubscriberController implements IGUIcontroller {
 		else {
 			emptyMsg.setVisible(false);
 			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberStudentID);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
 			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberID);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
 			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberName);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
 			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberEmail);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);
 		}
 
 	}

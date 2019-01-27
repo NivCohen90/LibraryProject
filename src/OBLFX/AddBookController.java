@@ -12,9 +12,9 @@ import java.io.IOException;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -179,7 +179,7 @@ public class AddBookController implements IGUIcontroller {
 			Book book = new Book(catalog, bookname, author, subject, 1, 1, 0, Shelf, EditionNumber,
 					java.sql.Date.valueOf(PurchaseDatePicker.getValue()), false, Description, Context);
 			book.setContextTableByteArray(contexTableByteArray);
-			librarianClient.addBookToCatalog(book,IGeneralData.userLibrarian);
+			librarianClient.addBookToCatalog(book,GeneralData.userLibrarian);
 		}
 
 	}

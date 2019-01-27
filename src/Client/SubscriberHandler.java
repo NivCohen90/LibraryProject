@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
 import Interfaces.IHandler;
-import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
+import SystemObjects.GeneralData.operations;
 import Users.Subscriber;
 
 /**
@@ -31,7 +31,7 @@ public class SubscriberHandler extends IHandler {
 		List.add(PhoneNumber);
 		List.add(Email);
 		List.add(subscriberDetails);;
-		ServerData loginInfo = new ServerData(IGeneralData.operations.updatePersonalDetails, List);
+		ServerData loginInfo = new ServerData(GeneralData.operations.updatePersonalDetails, List);
 		try {
 			sendToServer(loginInfo);
 		} catch (Exception e) {

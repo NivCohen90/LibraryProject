@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.Order;
 import SystemObjects.ServerData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 
 public class LoginQueris {

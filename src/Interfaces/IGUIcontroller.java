@@ -1,7 +1,7 @@
 package Interfaces;
 
 import Client.CommonHandler;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 

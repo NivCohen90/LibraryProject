@@ -3,9 +3,9 @@ package OBLFX;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,7 +56,7 @@ public class AddBookCopyController implements IGUIcontroller {
 				&& IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel)) {
 			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)
 					&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)) {
-				librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),IGeneralData.userLibrarian);	
+				librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),GeneralData.userLibrarian);	
 			}
 		}
 
@@ -82,7 +82,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	void GetDetailsAction(ActionEvent event) {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)
 				&& IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)) {
-			commonClient.searchInServer(CatalogTextField.getText(), IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(CatalogTextField.getText(), GeneralData.operations.searchByCatalogNumber);
 		}
 	}
 

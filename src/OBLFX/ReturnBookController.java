@@ -2,8 +2,8 @@ package OBLFX;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,7 +67,7 @@ public class ReturnBookController implements IGUIcontroller {
 			counter++;
 		}	
 		if(counter==3) {
-			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),IGeneralData.userLibrarian);	
+			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),GeneralData.userLibrarian);	
 		}
 	}	
 	

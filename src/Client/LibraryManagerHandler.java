@@ -5,9 +5,9 @@ import java.time.LocalDate;
 
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
-import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.ServerData;
+import SystemObjects.GeneralData.operations;
 
 
 /**

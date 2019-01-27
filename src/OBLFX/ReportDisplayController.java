@@ -3,9 +3,9 @@ package OBLFX;
 import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
-import Interfaces.IGeneralData.reportsType;
 import SystemObjects.ReportData;
+import SystemObjects.GeneralData.operationsReturn;
+import SystemObjects.GeneralData.reportsType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

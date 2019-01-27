@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.*;
 
 public class CardLibrarianManagerController implements IGUIcontroller {

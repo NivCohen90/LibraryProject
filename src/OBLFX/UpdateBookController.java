@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -151,7 +151,7 @@ public class UpdateBookController implements IGUIcontroller {
 				&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel)) {
 			catalogNumberSearch = CatalogTextField.getText();
 
-			commonClient.searchInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
 		}
 	}
 
@@ -209,7 +209,7 @@ public class UpdateBookController implements IGUIcontroller {
 
 			}
 			if (counter == 6) {
-				librarianClient.updateBookinCatalog(book,IGeneralData.userLibrarian);
+				librarianClient.updateBookinCatalog(book,GeneralData.userLibrarian);
 			}
 
 		}

@@ -2,8 +2,8 @@ package OBLFX;
 
 import Client.SubscriberHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -115,7 +115,7 @@ public class UpdatePersonalDataController implements IGUIcontroller {
 			count++;
 		}
 		if (count == 4) {
-			SubClient.updateDetails(FirstNameTextField.getText(),LastNameTextField.getText(),PhoneNumberTextField.getText(),EmailTextField.getText(),IGeneralData.userSubscriber);
+			SubClient.updateDetails(FirstNameTextField.getText(),LastNameTextField.getText(),PhoneNumberTextField.getText(),EmailTextField.getText(),GeneralData.userSubscriber);
 		}
 	}
     /**
@@ -129,10 +129,10 @@ public class UpdatePersonalDataController implements IGUIcontroller {
 			break;
 		case returnSubscriber:		
 			SaveChangeMSG.setText("Change apply");
-			IGeneralData.userSubscriber.setFirstName(((Subscriber)msg).getFirstName());
-			IGeneralData.userSubscriber.setLastName(((Subscriber)msg).getLastName()); 
-			IGeneralData.userSubscriber.setPhoneNumber(((Subscriber)msg).getPhoneNumber());
-			IGeneralData.userSubscriber.setEmail(((Subscriber)msg).getEmail()); 
+			GeneralData.userSubscriber.setFirstName(((Subscriber)msg).getFirstName());
+			GeneralData.userSubscriber.setLastName(((Subscriber)msg).getLastName()); 
+			GeneralData.userSubscriber.setPhoneNumber(((Subscriber)msg).getPhoneNumber());
+			GeneralData.userSubscriber.setEmail(((Subscriber)msg).getEmail()); 
 			break;
 		
 		}
