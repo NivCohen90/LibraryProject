@@ -40,7 +40,7 @@ public class Main extends Application {
 		try {
 			PrimaryStage = primaryStage;
 			PrimaryStage.initStyle(StageStyle.UNDECORATED);
-			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.MainMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
