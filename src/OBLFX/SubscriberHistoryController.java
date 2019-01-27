@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Client.Main;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.Order;
@@ -44,8 +45,8 @@ public class SubscriberHistoryController implements IGUIcontroller{
 		tblOrderColAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthor"));
 		tblOrderColOrderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		tblOrderColOrderStatus.setCellValueFactory(new PropertyValueFactory<>("BookArrivedTime"));
-		if(Main.userSubscriber!=null)
-				setSubscriberHistory(Main.userSubscriber);
+		if(IGeneralData.userSubscriber!=null)
+				setSubscriberHistory(IGeneralData.userSubscriber);
 		
 		tblFaultHistory.setPlaceholder(new Label("No fault history"));
 		
