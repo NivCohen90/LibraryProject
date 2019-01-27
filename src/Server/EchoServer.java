@@ -7,6 +7,7 @@ import Interfaces.IAlert;
 import Server.LoginQueris;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
+import SystemObjects.Order;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -115,6 +116,15 @@ public class EchoServer extends AbstractServer {
 		case updatePersonalDetails:
 			break;
 		case orderBook:
+			try {
+				ArrayList<Object> getOrder = ((ServerData)msg).getDataMsg();
+				ServerData msgToClient = SubscriberQueries.addOrderToDB((Order)getOrder.get(0));
+				client.sendToClient(msgToClient);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+
 			break;
 		case extandLoan:
 			break;

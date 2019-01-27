@@ -114,8 +114,8 @@ public abstract class IHandler extends AbstractClient {
 					break;
 				}
 				case returnLibrarianManager: {
-					//Librarian librarianData = convertMsgFromServer(arrayMsg.get(0), Librarian.class);
-					currentControllerGUIobj.receiveMassageFromServer(null, serverMsg.getOperationReturn());
+					Librarian librarianManData = convertMsgFromServer(arrayMsg.get(0), Librarian.class);
+					currentControllerGUIobj.receiveMassageFromServer(librarianManData, serverMsg.getOperationReturn());
 					break;
 				}
 				case returnBook: {

@@ -1,5 +1,13 @@
 package Server;
 
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import SystemObjects.GeneralData.*;
+import SystemObjects.ServerData;
+import SystemObjects.*;
+
 public class SubscriberQueries {
 
 	public static String UpdateStudent() {
@@ -14,6 +22,56 @@ public class SubscriberQueries {
 		String updateString = "INSERT INTO student VALUES(?, ?, ?, ?, ?)";
 		// WHERE StudentID = ?
 		return updateString;
+	}
+	
+	public static ServerData addOrderToDB(Order orderToAdd) {
+		
+		int count = 0;
+		ServerData result;
+		Statement stmt = null;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String queryCheck = String.format(
+				"SELECT * FROM obl.book where CatalogNumber = '%s' and NumberOfCopies!=NumberOfOrders;",
+				orderToAdd.getBookCatalogNumber());
+		String query = String.format(
+				"INSERT INTO `obl`.`order` (`SubscriberID`,`bookCatalogNumber`,`OrderDate`,`OrderStatus`)"
+						+ "VALUES ('%s', '%s', '%s', 'Active');",
+				orderToAdd.getSubscriberID(), orderToAdd.getBookCatalogNumber(),
+				dateFormat.format(orderToAdd.getOrderDate()));
+		String queryUpBook = String.format(
+				"UPDATE book SET AvailableCopies = AvailableCopies - 1, NumberOfOrders = NumberOfOrders + 1 where CatalogNumber = '%s';",
+				orderToAdd.getBookCatalogNumber());
+		System.out.println(query);
+		try {
+			stmt = mysqlConnection.conn.createStatement();
+			if (stmt.executeQuery(queryCheck).next()) {
+					count = stmt.executeUpdate(queryUpBook);
+					System.out.println(queryUpBook);
+					count = stmt.executeUpdate(query);
+					System.out.println(query);
+					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+			} else
+				result = new ServerData(operationsReturn.returnError, new Exception("order queue is full"));
+		} catch (SQLException e) {
+			if (count == 1) {
+				String queryDownBook = String.format(
+						"UPDATE book SET AvailableCopies = AvailableCopies + 1, NumberOfOrders = NumberOfOrders - 1 where CatalogNumber = '%s';",
+						orderToAdd.getBookCatalogNumber());
+				try {
+					if (stmt == null)
+						stmt = mysqlConnection.conn.createStatement();
+					count = stmt.executeUpdate(queryDownBook);
+				} catch (SQLException e1) {
+					result = new ServerData(operationsReturn.returnError, e);
+				}
+			}
+			if(e.getMessage().contains("Duplicate entry"))
+				result = new ServerData(operationsReturn.returnError, new Exception("order for this book already exist"));
+			else
+				result = new ServerData(operationsReturn.returnError, e);
+		}
+		return result;
 	}
 	
 	/*public static void insertToDB(Student s) throws SQLException {

@@ -100,6 +100,8 @@ public class BookDetailsController implements IGUIcontroller{
 	    else
 	    	OrderBookBTN.setVisible(false);
 	    EditionNumberTextField.setText(BookToDisplay.getEditionNumber());
+	    if(EditionNumberTextField.getText().isEmpty())
+	    	EditionNumberTextField.setText("no info");
 	    DescriptionTextField.setText(BookToDisplay.getDescription());
     }
 
@@ -109,8 +111,9 @@ public class BookDetailsController implements IGUIcontroller{
      */
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
+    	setConnection();
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
+    	subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
     }
     
     /**
@@ -158,7 +161,7 @@ public class BookDetailsController implements IGUIcontroller{
 		default:
 			break;
 		}
-		
+    	closeConnection();
 	}
 
     /**
