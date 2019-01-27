@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -41,13 +42,13 @@ import OBLFX.ConnectionSettingsController;
 import OBLFX.DeleteController;
 
 public class SideMenu {
-	
+
 	private VBox vbox;
 	public static Menuicons clicked = Menuicons.Nothing; // not in use right now.
 	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
 	public static boolean refuseConnection = false;
 	private static boolean SubMenu = false;
-	
+
 	/**
 	 * each AnchorPane described a page.
 	 * 
@@ -162,12 +163,20 @@ public class SideMenu {
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
-		btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+		if (icon == Menuicons.catalog) {
+			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+		} else {
+			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+		}
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
 		paneIndicator.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-		menuDecorator(btn, paneIndicator);
+		if (icon == Menuicons.catalog) {
+			catalogDecorator(btn, paneIndicator);
+		} else {
+			menuDecorator(btn, paneIndicator);
+		}
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
 	}
@@ -298,7 +307,7 @@ public class SideMenu {
 			fxmlLoader.setController(null);
 			APDeleteBookFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.DeleteBookFXML).openStream());
-			
+
 			controllerMap.put(Menuicons.DeleteBook, (DeleteController) fxmlLoader.getController());
 
 			// fxmlLoader.setRoot(null);
@@ -307,6 +316,7 @@ public class SideMenu {
 			// fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen).openStream());
 
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -326,6 +336,15 @@ public class SideMenu {
 		});
 		btn.setOnMouseExited(value -> {
 			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+		});
+	}
+
+	private void catalogDecorator(Button btn, Pane pane) {
+		btn.setOnMouseEntered(value -> {
+			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
+		});
+		btn.setOnMouseExited(value -> {
 			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		});
 	}
@@ -371,38 +390,39 @@ public class SideMenu {
 				}
 
 			} catch (Exception e) {
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
-				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
-						e.getMessage());
 			}
 		});
 	}
-	
-	private void SubMenuBtnHandler(Button btn) {
+
+	private void SubMenuBtnFalseHandler(Button btn) {
 		btn.setOnMouseClicked(search -> {
 			try {
-				if(SubMenu) {
-					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
-					Main.root.setLeft(sideMenu.getVBox());
-					Main.root.setRight(SideMenu.APReaderCardFXML);
-					SubMenu = false;
-				}
-				else {
-					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.SubMenu);
-					Main.root.setLeft(sideMenu.getVBox());
-					Main.root.setRight(SideMenu.APReaderCardFXML);
-					SubMenu = true;
-				}
-
-
+				SubMenu = true;
+				SideMenu sideMenu = new SideMenu(GeneralData.MenuType.SubMenu);
+				Main.root.setLeft(sideMenu.getVBox());
 			} catch (Exception e) {
+				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
-				IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
-						e.getMessage());
 			}
 		});
+
 	}
-	
+
+	private void SubMenuBtnTrueHandler(Button btn) {
+		btn.setOnMouseClicked(search -> {
+			try {
+				SubMenu = false;
+				SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
+				Main.root.setLeft(sideMenu.getVBox());
+			} catch (Exception e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+		});
+
+	}
 
 	/**
 	 * inorder to the IconName send an AP object to the RightSideBtnHandler method.
@@ -454,8 +474,15 @@ public class SideMenu {
 			RightSideBtnHandler(btn, APReportFaultFXML, IconName);
 			break;
 		case catalog:
-			btn.setText("Manage Catalog");
-			SubMenuBtnHandler(btn);
+			if(SubMenu) {
+				btn.setText("Manage Catalog <<");
+				SubMenuBtnTrueHandler(btn);
+			}
+			else {
+				btn.setText("Manage Catalog >>");
+				SubMenuBtnFalseHandler(btn);
+			}
+
 			break;
 		case AddBook:
 			btn.setText("Add Book");

@@ -144,6 +144,8 @@ public class DeleteController implements IGUIcontroller {
 		case returnSuccessMsg:
 			CopyNumberLabel.setText("Delete succses");
 			break;
+		default:
+			break;
 		}
 		
 

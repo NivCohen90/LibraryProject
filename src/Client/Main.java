@@ -40,7 +40,7 @@ public class Main extends Application {
 		try {
 			PrimaryStage = primaryStage;
 			PrimaryStage.initStyle(StageStyle.UNDECORATED);
-			sideMenu = new SideMenu(GeneralData.MenuType.MainMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
@@ -69,8 +69,8 @@ public class Main extends Application {
 				}
 			});
 		} catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
-			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(), e.getMessage());
 		}
 	}
 

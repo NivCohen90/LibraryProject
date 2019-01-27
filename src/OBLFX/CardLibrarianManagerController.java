@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Client.SideMenu;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.*;
@@ -35,6 +36,7 @@ public class CardLibrarianManagerController implements IGUIcontroller {
 			commonClient = new CommonHandler(this);
 			librarianClient = new LibrarianHandler(this);
 		} catch (IOException e) {
+		IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
         */

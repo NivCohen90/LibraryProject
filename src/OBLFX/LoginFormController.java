@@ -130,13 +130,10 @@ public class LoginFormController implements IGUIcontroller {
 			GeneralData.userLibrarian = ((Librarian) msg);
 			break;
 		case returnError:
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					WrongData.setText((String) msg);
-				}
-			});
-
+			((Label) SideMenu.APLoginFXML.lookup("#WrongData")).setText((String) msg);
+			break;
+		case returnException:
+			IAlert.ExceptionAlert((Exception)msg);
 			break;
 		default:
 		}

@@ -31,7 +31,7 @@ public class GeneralData {
 	public enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
-		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData
+		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData, returnException
 		};	
 
 

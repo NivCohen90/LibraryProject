@@ -91,7 +91,7 @@ public class LoginQueris {
 			System.out.println(e.getMessage());
 			ArrayList<Object> Error = new ArrayList<Object>();
 			Error.add(e.getMessage());
-			ServerData result = new ServerData(Error, operationsReturn.returnError);
+			ServerData result = new ServerData(Error, operationsReturn.returnException);
 			return result;
 		}
 		ArrayList<Object> Error = new ArrayList<Object>();

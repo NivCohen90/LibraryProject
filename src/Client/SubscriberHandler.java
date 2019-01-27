@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
@@ -37,6 +38,7 @@ public class SubscriberHandler extends IHandler {
 		try {
 			sendToServer(loginInfo);
 		} catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +58,7 @@ public class SubscriberHandler extends IHandler {
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}

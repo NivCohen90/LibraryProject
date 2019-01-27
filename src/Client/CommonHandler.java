@@ -3,6 +3,7 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
@@ -36,6 +37,7 @@ public class CommonHandler extends IHandler{
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -56,6 +58,7 @@ public class CommonHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}

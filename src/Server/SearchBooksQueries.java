@@ -43,7 +43,14 @@ public class SearchBooksQueries {
 	public static ServerData SearchBookByColName(String SearchString, Cols colName) {
 		ServerData Result;
 		try {
-			String query = StartSearchquery + colName + MiddleSearchquery + SearchString + EndSearchquery;
+			String query;
+			if(colName.equals(Cols.CatalogNumber)) {
+				query = StartSearchquery + colName + "` LIKE + '" + SearchString + "'";
+			}
+			else {
+				query = StartSearchquery + colName + MiddleSearchquery + SearchString + EndSearchquery;
+			}
+			
 			ArrayList<Object> books = new ArrayList<Object>();
 			Statement s;
 			s = mysqlConnection.conn.createStatement();

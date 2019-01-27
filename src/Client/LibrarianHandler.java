@@ -3,6 +3,7 @@ package Client;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
@@ -41,6 +42,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -66,6 +68,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -88,6 +91,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 		
@@ -116,6 +120,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 		
@@ -132,6 +137,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -146,6 +152,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -164,6 +171,7 @@ public class LibrarianHandler extends IHandler{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 	}

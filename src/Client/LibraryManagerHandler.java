@@ -3,6 +3,7 @@ package Client;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
@@ -41,6 +42,7 @@ public void createReport(LocalDate startDate, LocalDate endDate, operations repo
 		try {
 			sendToServer(report);
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
