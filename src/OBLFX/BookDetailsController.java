@@ -13,6 +13,7 @@ import Client.Main;
 import Client.SubscriberHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
 import Users.Subscriber;
@@ -94,7 +95,7 @@ public class BookDetailsController implements IGUIcontroller{
 	    PurchaseDateTextField.setText(dateFormat.format(BookToDisplay.getPurchesDate()));
 	    AvailibaleCopiesTextField.setText(String.valueOf(BookToDisplay.getAvailableCopies()));
 	    NumberOfCopiesTextField.setText(String.valueOf(BookToDisplay.getNumberOfLibraryCopies()));
-	    if(BookToDisplay.getAvailableCopies()==0 && Main.userSubscriber!=null)
+	    if(BookToDisplay.getAvailableCopies()==0 && IGeneralData.userSubscriber!=null)
 	    	OrderBookBTN.setVisible(true);
 	    else
 	    	OrderBookBTN.setVisible(false);
@@ -109,7 +110,7 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	subscriberClient.orderBook(Main.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
+    	subscriberClient.orderBook(IGeneralData.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
     }
     
     /**
