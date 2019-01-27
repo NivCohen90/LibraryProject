@@ -100,47 +100,34 @@ public class LoginFormController implements IGUIcontroller {
 			sideMenu = new SideMenu(GeneralData.MenuType.SubscriberMenu);
 			Main.root.setLeft(sideMenu.getVBox());
 			Main.root.setRight(SideMenu.APReaderCardFXML);
-			SubscriberCardController a = new SubscriberCardController();
-			String FullName = ((Subscriber) msg).getFirstName() + " " + ((Subscriber) msg).getLastName();
-			String ID = ((Subscriber) msg).getID();
-			String Email = ((Subscriber) msg).getEmail();
-			String Status = ((Subscriber) msg).getStatus();
-			String SubNumber = ((Subscriber) msg).getSubscriberNumber();
-			String PhoneNumber = ((Subscriber) msg).getPhoneNumber();
-			ArrayList<Loan> loans = ((Subscriber) msg).getActiveLoans();
-			ArrayList<Order> orders = ((Subscriber) msg).getActiveOrders();
-			a.setSubscriberCard(FullName, PhoneNumber, ID, Email, Status, SubNumber, loans, orders);
+			
+			SubscriberCardController subCon = new SubscriberCardController();
+			subCon.setSubscriberCard((Subscriber) msg);
+			
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);
+			
+			GeneralData.userSubscriber = ((Subscriber) msg);
 
 			break;
 		case returnLibrarian:
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
-			Main.root.setLeft(sideMenu.getVBox());
-			Main.root.setRight(SideMenu.APReaderCardFXML);
+			Main.root.setLeft(sideMenu.getVBox());		
+			Main.root.setRight(SideMenu.APCardLibrarianFXML);
+					
+			CardLibrarianController librarianCon = new CardLibrarianController();
+			librarianCon.setLibrarianToDisplay((Librarian) msg);
+			GeneralData.userLibrarian = ((Librarian) msg);
+			
 			break;
 		case returnLibrarianManager:
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-
-					try {
-						SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
-						Main.root.setLeft(sideMenu.getVBox());
-						AnchorPane pane;
-						pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML));
-						pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-						Main.root.setRight(pane);
-
-						CardLibrarianController librarianCon = new CardLibrarianController();
-						librarianCon.setLibrarianToDisplay((Librarian) msg);
-
-					} catch (IOException e) {
-						IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(),
-								e.getMessage());
-					}
-				}
-			});
+			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
+			Main.root.setLeft(sideMenu.getVBox());		
+			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
+					
+			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
+			librarianManCon.setLibrarianToDisplay((Librarian) msg);
+			GeneralData.userLibrarian = ((Librarian) msg);
 			break;
 		case returnError:
 			Platform.runLater(new Runnable() {

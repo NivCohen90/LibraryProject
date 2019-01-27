@@ -2,6 +2,7 @@ package Client;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
@@ -10,6 +11,7 @@ import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operations;
+import SystemObjects.Order;
 import Users.Subscriber;
 
 /**
@@ -48,8 +50,9 @@ public class SubscriberHandler extends IHandler {
 	 * @param orderedBook book subscriber ordered
 	 * @param orderDate	date order is made
 	 */
-	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, String orderDate) {
-		ServerData serverData = new ServerData(operations.orderBook, subscriberOrdered, orderedBook, orderDate);
+	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, Date orderDate) {
+		Order newOrder = new Order(orderDate, null, subscriberOrdered.getSubscriberNumber(), orderedBook.getCatalogNumber());
+		ServerData serverData = new ServerData(operations.orderBook, newOrder);
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
