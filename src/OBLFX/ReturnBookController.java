@@ -45,8 +45,9 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalog(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
 
 	/**
@@ -54,12 +55,20 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckReturnBook(ActionEvent event) {
-		if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)
-				&& IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
-						UserNameErrorNumebrs)
-				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
-			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),IGeneralData.userLibrarian);
-		}		
+		int counter=0;
+		if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)) {
+			counter++;	
+		}
+		if(IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,UserNameErrorNumebrs)){
+			counter++;	
+		}
+				
+		if(IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
+			counter++;
+		}	
+		if(counter==3) {
+			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),IGeneralData.userLibrarian);	
+		}
 	}	
 	
 

@@ -17,7 +17,7 @@ public interface IGUIcontroller {
 	final static String OnlyNumbers = "^[0-9]*$";
 	final static String OnlyLetters = "^[a-zA-Z]*$";
 	final static String OnlyLetterError = "Only Letters allowed";
-	final static String OnlyThisLetterError = "Only Letters and , allowed";
+	final static String OnlyThisLetterError = "Only Letters(a-Z) and comma(,) allowed";
 	final static String fillThisArea = " Fill this Area";
 	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
 	public static CommonHandler commonClient = null;
