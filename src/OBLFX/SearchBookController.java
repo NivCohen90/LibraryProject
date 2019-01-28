@@ -105,6 +105,9 @@ public class SearchBookController implements IGUIcontroller {
 	
     @FXML
     private Label lblNoResult;
+   
+    @FXML
+    private Label ResultMSGLabel;
 
 	@SuppressWarnings("unused")
 	private TableView<Book> tblResultsBook = new TableView<>();
@@ -147,10 +150,21 @@ public class SearchBookController implements IGUIcontroller {
 			emptyMsg.setVisible(false);
 			if (type1.isSelected())
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookName);
-			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookAuthor);
-			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookSubject);
+			if (type2.isSelected()) {
+				if(IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
+					if(IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters, OnlyThisLetterError)) {
+						commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookAuthor);
+					}
+				}
+			}
+				
+			if (type3.isSelected()) {
+				if(IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
+					if(IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters, OnlyThisLetterError)) {
+						commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookSubject);
+					}
+				}
+			}
 			if (type4.isSelected())
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookDescription);
 			if (type5.isSelected())

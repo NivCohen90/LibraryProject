@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.time.LocalDate;
+
 import Client.CommonHandler;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.scene.control.Label;
@@ -7,7 +9,7 @@ import javafx.scene.control.TextField;
 
 /**
  * interface for all FXLM controllers, instances will be set to client and it will call to controller to display result from sever
- * @author User
+ * @author Matan
  *
  */
 public interface IGUIcontroller {
@@ -19,7 +21,8 @@ public interface IGUIcontroller {
 	final static String OnlyLetterError = "Only Letters allowed";
 	final static String OnlyThisLetterError = "Only Letters(a-Z) and comma(,) allowed";
 	final static String fillThisArea = " Fill this Area";
-	final static String OnlyThisLetters = "^[a-zA-Z,]*$";
+	final static String OnlyThisLetters = "^[a-zA-Z, ]*$";
+	final static String ChooseDate = "Select a future Date";
 	public static CommonHandler commonClient = null;
 	
 	/**
@@ -66,7 +69,14 @@ public interface IGUIcontroller {
 			return true;
 		}
 	}
-	
+	public static boolean CheckIfDateIsValid(LocalDate OrignalDate ,LocalDate setDate,Label Alert) {
+		if(setDate.compareTo(OrignalDate) == 0 || setDate.compareTo(OrignalDate) == 1) {
+			Alert.setText("");
+			return true;
+		}
+		Alert.setText(ChooseDate);
+		return false;
+	}
 	/**
 	 * open client connection
 	 */
@@ -75,4 +85,6 @@ public interface IGUIcontroller {
 	 * close client connection
 	 */
 	public void closeConnection();
+
+
 }

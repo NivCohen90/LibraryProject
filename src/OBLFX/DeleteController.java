@@ -70,9 +70,9 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
-		CopyNumberLabel.setText("");
-		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
     /**
      * CheckCopy is a method that check if the user put input.,if he didn't gave input the method will alert the user.
@@ -80,9 +80,9 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void CheckCopy(KeyEvent event) {
-		CopyNumberLabel.setText("");
-		IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
-		IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CopyNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CopyNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 		if (book.getNumberOfLibraryCopies() < Integer.parseInt(CopyNumberTextField.getText())) {
 			CopyNumberLabel.setText("No such copy");
 		}

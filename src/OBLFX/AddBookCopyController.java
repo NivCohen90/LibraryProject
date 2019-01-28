@@ -69,8 +69,8 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void CatalogNumberCheck(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 	}
 
 	/**
@@ -94,8 +94,9 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void NumberOfaddedCopiesCheck(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel);
+		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
 
 	/**

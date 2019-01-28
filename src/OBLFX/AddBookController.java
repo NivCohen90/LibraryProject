@@ -134,7 +134,7 @@ public class AddBookController implements IGUIcontroller {
 			counter++;
 		}
 		if(IGUIcontroller.CheckIfUserPutInput(CatalogTextField,CatalogLabel)) {
-			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyThisLetters, OnlyThisLetterError)) {
+			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 				counter++;
 			}
 		}

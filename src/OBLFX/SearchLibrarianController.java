@@ -132,23 +132,31 @@ public class SearchLibrarianController implements IGUIcontroller {
      */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
-
 		String searchInput = txtInput.getText();
-		if (searchInput.isEmpty()) {
-			emptyMsg.setVisible(true);
-		}
-		else {
-			emptyMsg.setVisible(false);
-			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
-			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
-			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
-			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
-		}
-
+		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+			if (type1.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
+				}
+			}
+			if (type2.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
+				}
+			}
+			if (type3.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
+				}
+			}			
+			if (type4.isSelected()) {
+				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+				}
+				else 
+					emptyMsg.setText("Invalid Email");
+			}					
+			}    
 	}
 
     /**
