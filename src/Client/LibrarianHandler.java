@@ -55,7 +55,14 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(bookCtalogNumber);
     	List.add(newReturnDate);
-		
+		ServerData loginInfo = new ServerData(GeneralData.operations.extandLoan,List);
+		try
+		{
+			sendToServer(loginInfo);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	public void returnBook(String catalogNumber,String SubscriberID,Librarian librarian) {
