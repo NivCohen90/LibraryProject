@@ -89,9 +89,9 @@ public class SideMenu {
 		vbox.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
 
-		loadAllFXMLAnchorPanes();
 		switch (menuType) {
 		case MainMenu:
+			loadAllFXMLAnchorPanes();
 			vbox.getChildren().add(Item(Menuicons.Login));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.Connection));
