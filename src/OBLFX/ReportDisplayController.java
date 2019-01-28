@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
 import Interfaces.IGeneralData.operationsReturn;
-import Interfaces.IGeneralData.reportsType;
 import SystemObjects.ReportData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

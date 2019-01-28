@@ -8,6 +8,7 @@ import Interfaces.IHandler;
 import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.ServerData;
+import Users.Subscriber;
 
 
 /**
@@ -26,7 +27,19 @@ public class LibraryManagerHandler extends IHandler{
 	}
 	
 	
-public void createReport(LocalDate startDate, LocalDate endDate, operations reportType) {
+	public void changeSubscriberStatus(Subscriber sub, String status) {
+		
+		ServerData data= new ServerData(operations.changeSubscriberStatus, sub, status);
+
+		try {
+			sendToServer(data);
+		} catch (IOException e) {
+			Interfaces.IAlert.ExceptionAlert(e);
+			e.printStackTrace();
+		}	}
+	
+	
+	public void createReport(LocalDate startDate, LocalDate endDate, operations reportType) {
 		
 		ServerData report;
 		
@@ -41,6 +54,7 @@ public void createReport(LocalDate startDate, LocalDate endDate, operations repo
 		try {
 			sendToServer(report);
 		} catch (IOException e) {
+			Interfaces.IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
