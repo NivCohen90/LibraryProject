@@ -136,10 +136,10 @@ public class SearchSubscriberController implements IGUIcontroller {
 		String searchInput = txtInput.getText();
 		
 		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
-			if (type1.isSelected())
+			if (type1.isSelected()) {
 				if(IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
-				}
+				}}
 					if (type2.isSelected()) {
 						if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
 							commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
