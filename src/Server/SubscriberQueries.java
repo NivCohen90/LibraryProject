@@ -40,7 +40,7 @@ public class SubscriberQueries {
 				orderToAdd.getSubscriberID(), orderToAdd.getBookCatalogNumber(),
 				dateFormat.format(orderToAdd.getOrderDate()));
 		String queryUpBook = String.format(
-				"UPDATE book SET AvailableCopies = AvailableCopies - 1, NumberOfOrders = NumberOfOrders + 1 where CatalogNumber = '%s';",
+				"UPDATE book SET NumberOfOrders = NumberOfOrders + 1 where CatalogNumber = '%s';",
 				orderToAdd.getBookCatalogNumber());
 		System.out.println(query);
 		try {
@@ -56,7 +56,7 @@ public class SubscriberQueries {
 		} catch (SQLException e) {
 			if (count == 1) {
 				String queryDownBook = String.format(
-						"UPDATE book SET AvailableCopies = AvailableCopies + 1, NumberOfOrders = NumberOfOrders - 1 where CatalogNumber = '%s';",
+						"UPDATE book SET NumberOfOrders = NumberOfOrders - 1 where CatalogNumber = '%s';",
 						orderToAdd.getBookCatalogNumber());
 				try {
 					if (stmt == null)

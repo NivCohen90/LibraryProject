@@ -2,6 +2,7 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -209,20 +210,20 @@ public class SearchSubscriberController implements IGUIcontroller {
     	Scene scene = null;
 		try {
 			
-			if(choosenResult instanceof Book)
+			if(choosenResult instanceof Subscriber)
 			{
 				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ReaderCard.fxml").openStream());
 				scene = new Scene(root);
-				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-				Controller.setBookToDisplay((Book)choosenResult);
-				primaryStage.setTitle(((Book)choosenResult).getBookName());
+				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
+				Controller.setSubscriberCard((Subscriber)choosenResult);
+				primaryStage.setTitle(((Subscriber)choosenResult).getFullName());
 			}		
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			IAlert.ExceptionAlert(e);
 		}
 	}
 	

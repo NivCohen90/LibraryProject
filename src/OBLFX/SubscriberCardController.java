@@ -82,6 +82,16 @@ public class SubscriberCardController implements IGUIcontroller {
 		((TextField) SideMenu.APReaderCardFXML.lookup("#StatusField")).setText(sub.getStatus());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#SubscriberNumberField")).setText(sub.getSubscriberNumber());
 		
+		//set details when opening FXML on search
+		if (FullNameField != null) {
+			FullNameField.setText(sub.getFullName());
+			PhoneNumberField.setText(sub.getPhoneNumber());
+			IDField.setText(sub.getID());
+			EmailField.setText(sub.getEmail());
+			StatusField.setText(sub.getStatus());
+			SubscriberNumberField.setText(sub.getSubscriberNumber());
+		}
+		
 		for (Loan iloan : sub.getActiveLoans()) {
 			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(loan);
