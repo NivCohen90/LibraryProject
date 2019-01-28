@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * FXML controller for displaying book details
@@ -154,10 +155,11 @@ public class BookDetailsController implements IGUIcontroller{
 				OrderMsgText.setText((String)msg);
 				OrderMsgText.setVisible(true);
 				break;
-			case returnError:
+			case returnException:
 				OrderMsgText.setText(((Exception)msg).getMessage());
+				OrderMsgText.setTextFill(Color.RED);
 				OrderMsgText.setVisible(true);
-				((Exception)msg).printStackTrace();
+				IAlert.ExceptionAlert((Exception)msg);
 		default:
 			break;
 		}
