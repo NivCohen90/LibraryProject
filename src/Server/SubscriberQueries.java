@@ -52,7 +52,7 @@ public class SubscriberQueries {
 					System.out.println(query);
 					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
 			} else
-				result = new ServerData(operationsReturn.returnError, new Exception("order queue is full"));
+				result = new ServerData(operationsReturn.returnException, new Exception("order queue is full"));
 		} catch (SQLException e) {
 			if (count == 1) {
 				String queryDownBook = String.format(
@@ -63,13 +63,13 @@ public class SubscriberQueries {
 						stmt = mysqlConnection.conn.createStatement();
 					count = stmt.executeUpdate(queryDownBook);
 				} catch (SQLException e1) {
-					result = new ServerData(operationsReturn.returnError, e);
+					result = new ServerData(operationsReturn.returnException, e);
 				}
 			}
 			if(e.getMessage().contains("Duplicate entry"))
-				result = new ServerData(operationsReturn.returnError, new Exception("order for this book already exist"));
+				result = new ServerData(operationsReturn.returnException, new Exception("order for this book already exist"));
 			else
-				result = new ServerData(operationsReturn.returnError, e);
+				result = new ServerData(operationsReturn.returnException, e);
 		}
 		return result;
 	}

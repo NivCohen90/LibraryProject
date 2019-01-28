@@ -175,7 +175,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
 		if (AreaCodeFlag == true) {
 			if (counter == 6) {
 				PhoneNum = "" + AreaCodeTextFiled.getPromptText() + PhoneNumberTextFiled.getText();
-				Subscriber sub = new Subscriber(IDTextField.getText(), FirstNameTextFiled.getText(), LastNameTextFiled.getText(), EmailTextField.getText(), PhoneNum, PasswordTextFiled.getText(), "Active");
+				Subscriber sub = new Subscriber(IDTextField.getText(), FirstNameTextFiled.getText(), LastNameTextFiled.getText(), EmailTextField.getText(), PhoneNum, PasswordTextFiled.getText(),null, "Active", 0);
 				librarianClient.createNewSubscriber(sub,GeneralData.userLibrarian); 
 
 			}

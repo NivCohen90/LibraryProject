@@ -184,6 +184,7 @@ public class SearchBookController implements IGUIcontroller {
 	 * display error in FXML
 	 * @param msg error message
 	 */
+	
 	@SuppressWarnings("unused")
 	private void displayError(Error msg) {
 

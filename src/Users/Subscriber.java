@@ -17,30 +17,31 @@ public class Subscriber extends User implements Serializable{
 	public ArrayList<Loan> HistoryLoans;
 	public ArrayList<Order> ActiveOrders;
 	public ArrayList<Order> HistoryOrders;
-	public int fellonyNumber;
+	public int FellonyNumber;
 		
 	public Subscriber() {}
 	
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password) {
-		super(firstName, lastName, email, iD, password,1);
+		super(firstName, lastName, email, iD, password,0);
 		PhoneNumber = phoneNumber;
 		ActiveLoans = new ArrayList<Loan>();
 		HistoryLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
 		HistoryOrders = new ArrayList<Order>();
-		fellonyNumber = 0;
+		FellonyNumber = 0;
 		
 	}
 	
-	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password, String status) {
+	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password,String subscriberNumber, String status, int fellonyNumber) {
 		super(firstName, lastName, email, iD, password,1);
 		PhoneNumber = phoneNumber;
 		ActiveLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
 		HistoryLoans = new ArrayList<Loan>();
 		HistoryOrders = new ArrayList<Order>();
-		fellonyNumber = 0;
+		FellonyNumber = fellonyNumber;
 		Status = status;
+		SubscriberNumber = subscriberNumber;
 		
 	}
 	public String getStatus() {
@@ -63,10 +64,10 @@ public class Subscriber extends User implements Serializable{
 	}
 
 	public int getFellonyNumber() {
-		return fellonyNumber;
+		return FellonyNumber;
 	}
 	public void setFellonyNumber(int fellonyNumber) {
-		this.fellonyNumber = fellonyNumber;
+		this.FellonyNumber = fellonyNumber;
 	}
 
 	public ArrayList<Loan> getActiveLoans() {
