@@ -99,6 +99,7 @@ public class LoginFormController implements IGUIcontroller {
 		case returnSubscriber:
 			sideMenu = new SideMenu(GeneralData.MenuType.SubscriberMenu);
 			Main.root.setLeft(sideMenu.getVBox());
+			SideMenu.APReaderCardFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APReaderCardFXML);
 			
 			SubscriberCardController subCon = new SubscriberCardController();
@@ -112,7 +113,8 @@ public class LoginFormController implements IGUIcontroller {
 			break;
 		case returnLibrarian:
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
-			Main.root.setLeft(sideMenu.getVBox());		
+			Main.root.setLeft(sideMenu.getVBox());	
+			SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APCardLibrarianFXML);
 					
 			CardLibrarianController librarianCon = new CardLibrarianController();
@@ -122,7 +124,8 @@ public class LoginFormController implements IGUIcontroller {
 			break;
 		case returnLibrarianManager:
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
-			Main.root.setLeft(sideMenu.getVBox());		
+			Main.root.setLeft(sideMenu.getVBox());	
+			SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
 					
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();

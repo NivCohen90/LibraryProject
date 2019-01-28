@@ -8,6 +8,7 @@ import SystemObjects.Loan;
 import SystemObjects.Order;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operationsReturn;
+import Users.Librarian;
 import Users.Subscriber;
 
 public class LoginQueris {
@@ -19,6 +20,10 @@ public class LoginQueris {
 	private static final String getSubscriberInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.subscriber.SubscriberID, obl.subscriber.Status, obl.subscriber.FelonyNumber\r\n"
 			+ "FROM obl.user\r\n" + "INNER JOIN obl.subscriber ON obl.user.ID=subscriber.ID\r\n"
 			+ "WHERE obl.user.ID = '";
+	private static final String getLibrarianInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.librarian.Affiliation  \r\n" + 
+			"FROM obl.user\r\n" + 
+			"INNER JOIN obl.librarian ON obl.user.ID=obl.librarian.ID\r\n" + 
+			"WHERE obl.user.ID = '";
 	private static final String ANDPassword = "' AND obl.user.Password = '";
 	private static final String getUserLoans = "SELECT * FROM obl.loan WHERE SubscriberID = '";
 	private static final String getUserOrders = "SELECT * FROM obl.order WHERE SubscriberID = '";
@@ -34,33 +39,33 @@ public class LoginQueris {
 
 		try {
 			Statement s = mysqlConnection.conn.createStatement();
-			ResultSet subRes = s.executeQuery(getUserLevel + Login.userName + ANDPassword + Login.Password + Endquery);
-			while (subRes.next()) {
-				if (subRes.getString(1).equals("0")) {
-					subRes = s.executeQuery(
+			ResultSet Res = s.executeQuery(getUserLevel + Login.userName + ANDPassword + Login.Password + Endquery);
+			while (Res.next()) {
+				if (Res.getString(1).equals("0")) {
+					Res = s.executeQuery(
 							getSubscriberInformation + Login.userName + ANDPassword + Login.Password + Endquery);
-					while (subRes.next()) {
-						Subscriber Sub = new Subscriber(subRes.getString(1), subRes.getString(2), subRes.getString(3),
-								subRes.getString(4), subRes.getString(5), subRes.getString(6), subRes.getString(8),
-								subRes.getString(9), subRes.getInt(10));
-						subRes = s.executeQuery(getUserLoans + Sub.getSubscriberNumber() + Endquery);
+					while (Res.next()) {
+						Subscriber Sub = new Subscriber(Res.getString(1), Res.getString(2), Res.getString(3),
+								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8),
+								Res.getString(9), Res.getInt(10));
+						Res = s.executeQuery(getUserLoans + Sub.getSubscriberNumber() + Endquery);
 						ArrayList<Loan> Loans = new ArrayList<Loan>();
 						ArrayList<Loan> LoansActivityHistory = new ArrayList<Loan>();
-						while (subRes.next()) {
-							Loan a = new Loan(subRes.getString(1), subRes.getString(2), subRes.getString(3),
-									subRes.getString(4), subRes.getDate(5), subRes.getDate(6), subRes.getString(7));
+						while (Res.next()) {
+							Loan a = new Loan(Res.getString(1), Res.getString(2), Res.getString(3),
+									Res.getString(4), Res.getDate(5), Res.getDate(6), Res.getString(7));
 							if (a.getLoanStatus().equals("Finish")) {
 								LoansActivityHistory.add(a);
 							} else {
 								Loans.add(a);
 							}
 						}
-						subRes = s.executeQuery(getUserOrders + Sub.getSubscriberNumber() + Endquery);
+						Res = s.executeQuery(getUserOrders + Sub.getSubscriberNumber() + Endquery);
 						ArrayList<Order> Orders = new ArrayList<Order>();
 						ArrayList<Order> OrdersActivityHistory = new ArrayList<Order>();
-						while (subRes.next()) {
-							Order a = new Order(subRes.getString(1), subRes.getString(2), subRes.getDate(3),
-									subRes.getDate(4));
+						while (Res.next()) {
+							Order a = new Order(Res.getString(1), Res.getString(2), Res.getDate(3),
+									Res.getDate(4));
 							Orders.add(a);
 //						if (a..equals("Finish")) {
 //							OrdersActivityHistory.add(a);
@@ -76,12 +81,26 @@ public class LoginQueris {
 						ServerData result = new ServerData(subs, operationsReturn.returnSubscriber);
 						return result;
 					}
-				} else if (subRes.getString(7).equals("1")) {
+				} else if (Res.getString(1).equals("1")) {
 					ArrayList<Object> Librarian = new ArrayList<Object>();
+					Res = s.executeQuery(
+							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
+					while (Res.next()) {
+						Librarian librarian = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
+								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 1);
+						Librarian.add(librarian);
+					}
 					ServerData result = new ServerData(Librarian, operationsReturn.returnLibrarian);
 					return result;
-				} else if (subRes.getString(7).equals("2")) {
+				} else if (Res.getString(1).equals("2")) {
 					ArrayList<Object> LibrarianManager = new ArrayList<Object>();
+					Res = s.executeQuery(
+							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
+					while (Res.next()) {
+						Librarian librarianManager = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
+								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 2);
+						LibrarianManager.add(librarianManager);
+					}
 					ServerData result = new ServerData(LibrarianManager, operationsReturn.returnLibrarianManager);
 					return result;
 				}

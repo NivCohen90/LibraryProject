@@ -414,8 +414,13 @@ public class SideMenu {
 		btn.setOnMouseClicked(search -> {
 			try {
 				SubMenu = false;
-				SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
-				Main.root.setLeft(sideMenu.getVBox());
+				if (SystemObjects.GeneralData.userLibrarian.getLevel() == 1) {
+					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
+					Main.root.setLeft(sideMenu.getVBox());
+				} else {
+					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
+					Main.root.setLeft(sideMenu.getVBox());
+				}
 			} catch (Exception e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
@@ -474,11 +479,10 @@ public class SideMenu {
 			RightSideBtnHandler(btn, APReportFaultFXML, IconName);
 			break;
 		case catalog:
-			if(SubMenu) {
+			if (SubMenu) {
 				btn.setText("Manage Catalog <<");
 				SubMenuBtnTrueHandler(btn);
-			}
-			else {
+			} else {
 				btn.setText("Manage Catalog >>");
 				SubMenuBtnFalseHandler(btn);
 			}

@@ -1,40 +1,40 @@
 package Users;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import SystemObjects.Loan;
 import SystemObjects.Order;
 
-public class Subscriber extends User implements Serializable{
+public class Subscriber extends User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public String Status;
-	public String PhoneNumber;
 	public String SubscriberNumber;
 	public ArrayList<Loan> ActiveLoans;
 	public ArrayList<Loan> HistoryLoans;
 	public ArrayList<Order> ActiveOrders;
 	public ArrayList<Order> HistoryOrders;
 	public int FellonyNumber;
-		
-	public Subscriber() {}
-	
+
+	public Subscriber() {
+	}
+
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password) {
-		super(firstName, lastName, email, iD, password,0);
-		PhoneNumber = phoneNumber;
+		super(iD, firstName, lastName, email, phoneNumber, password, 0);
 		ActiveLoans = new ArrayList<Loan>();
 		HistoryLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
 		HistoryOrders = new ArrayList<Order>();
 		FellonyNumber = 0;
-		
+
 	}
-	
-	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password,String subscriberNumber, String status, int fellonyNumber) {
-		super(firstName, lastName, email, iD, password,1);
-		PhoneNumber = phoneNumber;
+
+	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password,
+			String subscriberNumber, String status, int fellonyNumber) {
+		super(iD, firstName, lastName, email, phoneNumber, password, 1);
 		ActiveLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
 		HistoryLoans = new ArrayList<Loan>();
@@ -42,23 +42,21 @@ public class Subscriber extends User implements Serializable{
 		FellonyNumber = fellonyNumber;
 		Status = status;
 		SubscriberNumber = subscriberNumber;
-		
+
 	}
+
 	public String getStatus() {
 		return Status;
 	}
+
 	public void setStatus(String status) {
 		Status = status;
 	}
-	public String getPhoneNumber() {
-		return PhoneNumber;
-	}
-	public void setPhoneNumber(String phoneNumber) {
-		PhoneNumber = phoneNumber;
-	}
+
 	public String getSubscriberNumber() {
 		return SubscriberNumber;
 	}
+
 	public void setSubscriberNumber(String subscriberNumber) {
 		SubscriberNumber = subscriberNumber;
 	}
@@ -66,6 +64,7 @@ public class Subscriber extends User implements Serializable{
 	public int getFellonyNumber() {
 		return FellonyNumber;
 	}
+
 	public void setFellonyNumber(int fellonyNumber) {
 		this.FellonyNumber = fellonyNumber;
 	}
@@ -101,7 +100,5 @@ public class Subscriber extends User implements Serializable{
 	public void setHistoryOrders(ArrayList<Order> historyOrders) {
 		HistoryOrders = historyOrders;
 	}
-	
-
 
 }
