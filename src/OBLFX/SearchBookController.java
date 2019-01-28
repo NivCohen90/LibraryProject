@@ -233,7 +233,6 @@ public class SearchBookController implements IGUIcontroller {
 			primaryStage.show();
 		} catch(Exception e) {
 			IAlert.ExceptionAlert(e);
-
 		}
 	}
 	
