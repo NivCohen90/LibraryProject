@@ -193,7 +193,7 @@ public class AddBookController implements IGUIcontroller {
 	 * CheckDescripition is a method that clear the Fill this area label at Descripition raw;
 	 */
     @FXML
-    void CheckDescripition(InputMethodEvent event) {
+    void CheckDescripition(KeyEvent event) {
     	DescriptionLabel.setText("");
     }
 	/**

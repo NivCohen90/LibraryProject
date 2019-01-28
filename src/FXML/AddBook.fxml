@@ -30,7 +30,7 @@
       <Label layoutX="394.0" layoutY="164.0" text="Edition Number:" AnchorPane.leftAnchor="398.0" />
       <TextField fx:id="EditionNumberTextField" layoutX="511.0" layoutY="158.0" onKeyTyped="#CheckEditionNumber" promptText="Fill Edition" />
       <Label layoutX="14.0" layoutY="217.0" text="Purchase Date:" />
-      <TextArea fx:id="DescriptionTextField" layoutX="14.0" layoutY="273.0" prefHeight="171.0" prefWidth="610.0" promptText="Fill Description" wrapText="true" />
+      <TextArea fx:id="DescriptionTextField" layoutX="14.0" layoutY="273.0" onKeyTyped="#CheckDescripition" prefHeight="171.0" prefWidth="610.0" promptText="Fill Description" wrapText="true" />
       <TextField fx:id="ContextTabeTextField" editable="false" layoutX="511.0" layoutY="189.0" prefHeight="25.0" prefWidth="82.0" AnchorPane.leftAnchor="511.0" />
       <Button fx:id="OpenFileBTN" layoutX="597.0" layoutY="189.0" mnemonicParsing="false" onAction="#OpenFileAction" text="open file" />
       <Button layoutX="22.0" layoutY="467.0" mnemonicParsing="false" onAction="#AddBookAction" prefHeight="38.0" prefWidth="114.0" text="Add Book" />
