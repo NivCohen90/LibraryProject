@@ -134,19 +134,32 @@ public class SearchSubscriberController implements IGUIcontroller {
 	void searchInLibrary(ActionEvent event) {
 
 		String searchInput = txtInput.getText();
-		if (searchInput.isEmpty()) {
-			emptyMsg.setVisible(true);
-		}
-		else {
-			emptyMsg.setVisible(false);
+		
+		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
-			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
-			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
-			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);
+				if(IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
+				}
+					if (type2.isSelected()) {
+						if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+							commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
+						}
+					}
+
+			if (type3.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
+				}
+			}			
+			if (type4.isSelected()) {
+				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);	
+				}
+				else {
+					emptyMsg.setText("Invalid Email");
+				}
+				
+			}	
 		}
 
 	}

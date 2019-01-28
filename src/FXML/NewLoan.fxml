@@ -43,7 +43,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label text="Label" />
       <Label fx:id="CatalogNumberLabel" layoutX="313.0" layoutY="66.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
       <Label fx:id="StartDateLabel" layoutX="313.0" layoutY="107.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
       <Label fx:id="SubscriberIDLabel" layoutX="666.0" layoutY="66.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
