@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ExtandLoanLibrarian">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -46,7 +46,10 @@
             </Label>
             <TextField fx:id="wantedBookCtalog" layoutX="219.0" layoutY="408.0" />
             <DatePicker fx:id="newDatePicker" layoutX="546.0" layoutY="409.0" />
-            <Button fx:id="applayButton" layoutX="374.0" layoutY="478.0" mnemonicParsing="false" onAction="#extendLoan" text="Apply" />       
+            <Button fx:id="applayButton" layoutX="374.0" layoutY="492.0" mnemonicParsing="false" onAction="#extendLoan" text="Apply" />
+            <Label fx:id="BookCtatalogLabel" layoutX="279.0" layoutY="443.0" />
+            <Label fx:id="NewDateLabel" layoutX="619.0" layoutY="443.0" />
+            <Label fx:id="RetriveMSG" layoutX="230.0" layoutY="445.0" prefHeight="32.0" prefWidth="336.0" />       
          </children>
       </AnchorPane>
    </children>

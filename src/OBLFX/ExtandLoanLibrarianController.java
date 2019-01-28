@@ -9,6 +9,7 @@ import Users.Book;
 import Users.IGeneralData;
 import Users.IGeneralData.operationsReturn;
 import Users.Loan;
+import Users.LoansTable;
 import Users.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,19 +29,23 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 
 	private LibrarianHandler librarianClient;
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
-
+	//boolean NewReturnFlag = false;
 	
+	@FXML
+	public void initialize() {
+	//	tblLoans.setItems(ObservableLoansList);
+	}
     @FXML
     private TableView<?> curentLoansTable;
 
     @FXML
-    private TableColumn<?, ?> bookCatalogNumberCol;
+    private TableColumn<Loan,String> bookCatalogNumberCol;
 
     @FXML
-    private TableColumn<?, ?> startLoanDateCol;
+    private TableColumn<Loan,Date> startLoanDateCol;
 
     @FXML
-    private TableColumn<?, ?> returnedDateCol;
+    private TableColumn<Loan,Date> returnedDateCol;
 
     @FXML
     private TextField wantedBookCtalog;
@@ -50,56 +55,45 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 
     @FXML
     private Button applayButton;
+    
+    @FXML
+    private Label BookCtatalogLabel;
 
-    private TableView<Loan> tblLoans = new TableView<>();
+    @FXML
+    private Label NewDateLabel;
+    
+    @FXML
+    private Label RetriveMSG;
+
 	private <T> void displayLoans(ArrayList<T> list) {
-		bookCatalogNumberCol.setCellValueFactory(new PropertyValueFactory<>("BookCatalogNumber"));
-		startLoanDateCol.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-		returnedDateCol.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
 		ObservableColumnData.clear();
 		if(!list.isEmpty())
-		{			
+		{
 			for (T Ti : list)
 				ObservableColumnData.add(Ti);
 		}
 		else
-		{			
-			tblLoans.setPlaceholder(new Label(""));
+		{
+			curentLoansTable.setPlaceholder(new Label(""));
 		}
-		tblLoans.setItems(ObservableColumnData);
-		tblLoans.setVisible(true);
-	}
-	
-	public void setSubscriberCard(ArrayList<Loan> Loans)
-	{
-		bookCatalogNumberCol.setCellValueFactory(new PropertyValueFactory<>("BookCatalogNumber"));
-		startLoanDateCol.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-		returnedDateCol.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
-		ObservableColumnData.clear();
-		if(!Loans.isEmpty())
-		{			
-			for (Loan loansi : Loans)
-				ObservableColumnData.add(loansi);
-		}
-		else
-		{			
-			tblLoans.setPlaceholder(new Label(""));
-		}
-		tblLoans.setItems(ObservableColumnData);
-		tblLoans.setVisible(true);
-	}
-	
+		curentLoansTable.setVisible(true);
+		curentLoansTable.setVisible(true);
+	}	
 	@FXML
 	void extendLoan(ActionEvent event){
+	if(	IGUIcontroller.CheckOnlyLetter(wantedBookCtalog, BookCtatalogLabel, OnlyNumbers, UserNameErrorNumebrs)&&
+		IGUIcontroller.CheckIfUserPutInput(wantedBookCtalog, BookCtatalogLabel))
+	   {
 		String bookCtalogNumber = wantedBookCtalog.getText();
 		Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
 		librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
+	   }
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		displayLoans((ArrayList<T>) msg);
+		RetriveMSG.setText((String) msg);
 	}
 
 	
