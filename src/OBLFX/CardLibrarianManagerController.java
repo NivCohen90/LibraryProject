@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
+import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.*;
 
@@ -32,26 +33,8 @@ public class CardLibrarianManagerController implements IGUIcontroller {
 		tbl1.setItems(ObservableColumnDataTable1);
 		tbl2.setItems(ObservableColumnDataTable2);
 		
-		/*try {
-			commonClient = new CommonHandler(this);
-			librarianClient = new LibrarianHandler(this);
-		} catch (IOException e) {
-		IAlert.ExceptionAlert(e);
-			e.printStackTrace();
-		}
-        */
-		/*tbl1.setRowFactory(tv -> {
-            TableRow<Object> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
-                     && event.getClickCount() == 2) {
-
-                	Object clickedRow = row.getItem();
-                	//openResultDetails(clickedRow);
-                }
-            });
-            return (TableRow<Object>) row ;
-        });*/
+		if(GeneralData.userLibrarian!=null)
+			setLibrarianToDisplay(GeneralData.userLibrarian);
 	}
 	
 
@@ -176,6 +159,14 @@ public class CardLibrarianManagerController implements IGUIcontroller {
 		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl2")).setText(LibrarianToDisplay.getID());
 		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl4")).setText(LibrarianToDisplay.getLastName());
 		((TextField) SideMenu.APCardLibrarianManagerFXML.lookup("#txtfldLbl5")).setText(LibrarianToDisplay.getAffiliation());
+		
+		//set details when opening FXML on search
+		if (txtfldLbl1 != null) {
+			txtfldLbl1.setText(LibrarianToDisplay.getFirstName());
+			txtfldLbl2.setText(LibrarianToDisplay.getID());
+			txtfldLbl4.setText(LibrarianToDisplay.getLastName());
+			txtfldLbl5.setText(LibrarianToDisplay.getAffiliation());
+		}
 		
     }
 
