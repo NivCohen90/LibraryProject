@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import Client.LibraryManagerHandler;
 import Interfaces.IGUIcontroller;
-<<<<<<< HEAD
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
-=======
+
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
->>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

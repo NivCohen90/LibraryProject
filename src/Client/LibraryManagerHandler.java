@@ -8,11 +8,11 @@ import Interfaces.IGUIcontroller;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.ServerData;
-<<<<<<< HEAD
+
 import Users.Subscriber;
-=======
+
 import SystemObjects.GeneralData.operations;
->>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
+
 
 
 /**
@@ -60,11 +60,11 @@ public class LibraryManagerHandler extends IHandler{
 		try {
 			sendToServer(report);
 		} catch (IOException e) {
-<<<<<<< HEAD
+
 			Interfaces.IAlert.ExceptionAlert(e);
-=======
+
 			IAlert.ExceptionAlert(e);
->>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
+
 			e.printStackTrace();
 		}
 	}

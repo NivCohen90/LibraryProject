@@ -6,11 +6,7 @@ import java.util.Date;
 import Client.LibraryManagerHandler;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
-<<<<<<< HEAD
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
-=======
->>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
+
 import SystemObjects.Loan;
 import SystemObjects.LoansTable;
 import SystemObjects.Order;
