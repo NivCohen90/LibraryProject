@@ -98,7 +98,7 @@ public abstract class IHandler extends AbstractClient {
 				switch (serverMsg.getOperationReturn()) {
 				case returnException:
 					Exception exceptionMsg = convertMsgFromServer(arrayMsg.get(0), Exception.class);
-					currentControllerGUIobj.receiveMassageFromServer(exceptionMsg, operationsReturn.returnError);
+					currentControllerGUIobj.receiveMassageFromServer(exceptionMsg, operationsReturn.returnException);
 					break;
 				case returnError:
 					String errorMsg = convertMsgFromServer(arrayMsg.get(0), String.class);

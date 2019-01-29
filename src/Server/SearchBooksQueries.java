@@ -80,7 +80,7 @@ public class SearchBooksQueries {
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
-			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnError);
+			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnException);
 			return Result;
 		}
 	}
@@ -123,7 +123,7 @@ public class SearchBooksQueries {
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
 			ErrorMsgs.add(e);
-			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnError);
+			Result = new ServerData(ErrorMsgs, GeneralData.operationsReturn.returnException);
 			return Result;
 		}
 	}

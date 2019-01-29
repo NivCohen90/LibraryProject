@@ -65,9 +65,9 @@ public class CatalogQueries {
 			fos.close();
 			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg);
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			result = new ServerData(operationsReturn.returnError, new Exception("Catalog number already exist"));
+			result = new ServerData(operationsReturn.returnException, new Exception("Catalog number already exist"));
 		} catch (SQLException | IOException e) {
-			result = new ServerData(operationsReturn.returnError, e);
+			result = new ServerData(operationsReturn.returnException, e);
 		}
 		return result;
 	}
@@ -91,7 +91,7 @@ public class CatalogQueries {
 			stmt.executeUpdate(query);
 			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg);
 		} catch (SQLException e) {
-			result = new ServerData(operationsReturn.returnError, e);
+			result = new ServerData(operationsReturn.returnException, e);
 		}
 		return result;
 	}

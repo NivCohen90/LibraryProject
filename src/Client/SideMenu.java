@@ -87,8 +87,7 @@ public class SideMenu {
 		vbox.setPrefWidth(200);
 		loadAllFXMLAnchorPanes();
 		switch (menuType) {
-		case MainMenu:
-			
+		case MainMenu:	
 			vbox.getChildren().add(Item(Menuicons.Login));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.Connection));
@@ -123,10 +122,6 @@ public class SideMenu {
 			vbox.getChildren().add(Item(Menuicons.Report));
 			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
 			vbox.getChildren().add(Item(Menuicons.catalog));
-//			vbox.getChildren().add(Item(Menuicons.AddBook));
-//			vbox.getChildren().add(Item(Menuicons.AddBookCopy));
-//			vbox.getChildren().add(Item(Menuicons.UpdateBook));
-//			vbox.getChildren().add(Item(Menuicons.DeleteBook));
 			vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
 			vbox.getChildren().add(Item(Menuicons.Statistics));
 			vbox.getChildren().add(Item(Menuicons.Connection));
