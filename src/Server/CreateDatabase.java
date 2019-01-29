@@ -66,24 +66,22 @@ public class CreateDatabase {
 			"		  CONSTRAINT `loanSubID2` FOREIGN KEY (`SubscriberID`) REFERENCES `subscriber` (`subscriberid`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
 	
-	final static String orderTable = "CREATE TABLE IF NOT EXISTS `order` (\r\n" + 
-			"		  `SubscriberID` varchar(10) NOT NULL,\r\n" + 
-			"		  `bookCatalogNumber` varchar(45) NOT NULL,\r\n" + 
-			"		  `OrderDate` date NOT NULL,\r\n" + 
-			"		  `BookArrivedTime` date DEFAULT NULL,\r\n" + 
-			"		  KEY `SubscriberID_idx` (`SubscriberID`),\r\n" + 
-			"		  KEY `CatalogNumber_idx` (`bookCatalogNumber`),\r\n" + 
-			"		  CONSTRAINT `orderBookCN2` FOREIGN KEY (`SubscriberID`) REFERENCES `subscriber` (`subscriberid`) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 
-			"		  CONSTRAINT `orderSubscriberID` FOREIGN KEY (`bookCatalogNumber`) REFERENCES `book` (`catalognumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
-			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+	final static String orderTable = "CREATE TABLE IF NOT EXISTS `bookcopy` (\r\n" + 
+			"  `CopyID` int(11) NOT NULL AUTO_INCREMENT,\r\n" + 
+			"  `CatalogNumber` varchar(45) NOT NULL,\r\n" + 
+			"  `isLoaned` tinyint(4) NOT NULL DEFAULT '0',\r\n" + 
+			"  PRIMARY KEY (`CopyID`,`CatalogNumber`),\r\n" + 
+			"  KEY `copy_idx` (`CatalogNumber`),\r\n" + 
+			"  CONSTRAINT `copy` FOREIGN KEY (`CatalogNumber`) REFERENCES `book` (`catalognumber`)\r\n" + 
+			") ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n" + 
+			"";
 	
 	final static String bookcopyTable = "CREATE TABLE IF NOT EXISTS `bookcopy` (\r\n" + 
-			"		  `CopyID` varchar(45) NOT NULL,\r\n" + 
-			"		  `CatalogNumber` varchar(45) NOT NULL,\r\n" + 
-			"		  `Loan` tinyint(4) DEFAULT NULL,\r\n" + 
-			"		  PRIMARY KEY (`CopyID`,`CatalogNumber`),\r\n" + 
-			"		  KEY `copyCatalogNumber_idx` (`CatalogNumber`),\r\n" + 
-			"		  CONSTRAINT `copyCatalogNumber` FOREIGN KEY (`CatalogNumber`) REFERENCES `book` (`catalognumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
+			"  		`CopyID` int(11) GENERATED ALWAYS AS (0) VIRTUAL,\r\n" + 
+			"  		`CatalogNumber` varchar(45) NOT NULL,\r\n" + 
+			"  		`isLoaned` tinyint(4) NOT NULL DEFAULT '0',\r\n" + 
+			"		PRIMARY KEY (`CatalogNumber`),\r\n" + 
+			"		CONSTRAINT `bookCopyCatalog` FOREIGN KEY (`CatalogNumber`) REFERENCES `book` (`catalognumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
 	
 	

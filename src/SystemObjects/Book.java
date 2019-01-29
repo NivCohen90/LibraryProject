@@ -44,7 +44,7 @@ public class Book implements Serializable{
 		this.purchesDate = purchesDate;
 		Loaners = new ArrayList<Loan>();
 		NumberOfOrders=0;
-		isWanted=false;
+		isWanted=iswant;
 	}
 
 	public String getBookName() {

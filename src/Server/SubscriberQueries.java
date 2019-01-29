@@ -1,9 +1,15 @@
 package Server;
 
 import java.sql.Statement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
+import Interfaces.IAlert;
 import SystemObjects.GeneralData.*;
 import SystemObjects.ServerData;
 import SystemObjects.*;
@@ -24,8 +30,13 @@ public class SubscriberQueries {
 		return updateString;
 	}
 	
+	/**
+	 * add order by subscriber to database, subscriberID, book catalog in order object
+	 * @param orderToAdd order object with details of order
+	 * @return object for sending to client with appropriate message
+	 */
 	public static ServerData addOrderToDB(Order orderToAdd) {
-		
+
 		int count = 0;
 		ServerData result;
 		Statement stmt = null;
@@ -42,15 +53,15 @@ public class SubscriberQueries {
 		String queryUpBook = String.format(
 				"UPDATE book SET NumberOfOrders = NumberOfOrders + 1 where CatalogNumber = '%s';",
 				orderToAdd.getBookCatalogNumber());
-		System.out.println(query);
+		// System.out.println(query);
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			if (stmt.executeQuery(queryCheck).next()) {
-					count = stmt.executeUpdate(queryUpBook);
-					System.out.println(queryUpBook);
-					count = stmt.executeUpdate(query);
-					System.out.println(query);
-					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+				count = stmt.executeUpdate(queryUpBook);
+				// System.out.println(queryUpBook);
+				count = stmt.executeUpdate(query);
+				// System.out.println(query);
+				result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
 			} else
 				result = new ServerData(operationsReturn.returnException, new Exception("order queue is full"));
 		} catch (SQLException e) {
@@ -66,12 +77,44 @@ public class SubscriberQueries {
 					result = new ServerData(operationsReturn.returnException, e);
 				}
 			}
-			if(e.getMessage().contains("Duplicate entry"))
-				result = new ServerData(operationsReturn.returnException, new Exception("order for this book already exist"));
+			if (e.getMessage().contains("Duplicate entry"))
+				result = new ServerData(operationsReturn.returnException,
+						new Exception("order for this book already exist"));
 			else
 				result = new ServerData(operationsReturn.returnException, e);
 		}
 		return result;
+	}
+
+	/**
+	 * check is there are orders with arrived book in database, and if date is over 2 days update status to finished (didn't loan book after it arrived)
+	 */
+	public static void updateMissedOrderes() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date today = new Date();
+		LocalDate twoDaysAgo = LocalDate.now().minusDays(2);
+		Date twoDaysDate = Date.from(twoDaysAgo.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		String query = String.format("SELECT * FROM obl.order WHERE OrderDate <= '%s' and OrderDate >= '%s' and OrderStatus='Active' and BookArrivedTime != 'null';",
+				dateFormat.format(today), dateFormat.format(twoDaysDate));
+		System.out.println(query);
+		Statement stmt = null;
+		String queryUpdate = "";
+		try {
+			stmt = mysqlConnection.conn.createStatement();
+			ResultSet missedOrders = stmt.executeQuery(query);
+			while (missedOrders.next()) {
+				queryUpdate += String.format(
+						"UPDATE `obl`.`order` SET `OrderStatus` = 'Finished' WHERE SubscriberID=%s and bookCatalogNumber=%s;-",
+						missedOrders.getString("SubscriberID"), missedOrders.getString("bookCatalogNumber"));
+			}
+			String[] queryUpdateArray = queryUpdate.split("-");
+			for (String s : queryUpdateArray) {
+				stmt.executeUpdate(s);
+			}
+		} catch (SQLException e) {
+			IAlert.ExceptionAlert(e);
+		}
 	}
 	
 	/*public static void insertToDB(Student s) throws SQLException {

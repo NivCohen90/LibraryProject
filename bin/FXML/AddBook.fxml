@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.AddBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.AddBookController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Add new Book ">
          <font>
@@ -44,7 +44,7 @@
       <Label fx:id="PurchaseDateLabel" layoutX="271.0" layoutY="213.0" prefHeight="26.0" prefWidth="127.0" textFill="RED" />
       <Label fx:id="DescriptionLabel" layoutX="629.0" layoutY="300.0" prefHeight="26.0" prefWidth="149.0" textFill="RED" />
       <DatePicker fx:id="PurchaseDatePicker" editable="false" layoutX="119.0" layoutY="213.0" onAction="#PurchaceDateAction" prefHeight="26.0" prefWidth="149.0" promptText="Pick Date" />
-      <Label fx:id="RetriveMSG" layoutX="134.0" layoutY="473.0" prefHeight="26.0" prefWidth="367.0" textFill="RED" />
+      <Label fx:id="RetriveMSG" layoutX="148.0" layoutY="473.0"/>
       <Label fx:id="NumberOfCopiesTitle" layoutX="398.0" layoutY="226.0" text="Number of Copies:" AnchorPane.leftAnchor="398.0" />
       <TextField fx:id="NumberOfCopiesTextField" layoutX="515.0" layoutY="221.0" onKeyTyped="#NumberOfCopiesCheck" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" AnchorPane.leftAnchor="511.0" />
       <Label fx:id="NumberOfCopiesLabel" layoutX="638.0" layoutY="222.0" prefHeight="25.0" prefWidth="127.0" textFill="RED" />

@@ -78,6 +78,9 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     private Label OrderMsgText;
     
+    @FXML
+    private Label lblIsWanted;
+    
     /**
      * set fields in FXML with book details
      * @param BookToDisplay which book to display details of
@@ -88,6 +91,8 @@ public class BookDetailsController implements IGUIcontroller{
     	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
+	    if(BookToDisplay.getIsWanted())
+	    	lblIsWanted.setVisible(true);
 		BookNameTextField.setText(BookToDisplay.getBookName());
 		AuthorTextField.setText(BookToDisplay.getAuthorName().toString());
 	    SubjectTextField.setText(BookToDisplay.getSubject());
@@ -97,13 +102,15 @@ public class BookDetailsController implements IGUIcontroller{
 	    AvailibaleCopiesTextField.setText(String.valueOf(BookToDisplay.getAvailableCopies()));
 	    NumberOfCopiesTextField.setText(String.valueOf(BookToDisplay.getNumberOfLibraryCopies()));
 	    if(BookToDisplay.getAvailableCopies()==0 && GeneralData.userSubscriber!=null)
-	    	OrderBookBTN.setVisible(true);
+	    	if(!GeneralData.userSubscriber.getStatus().equals("Freeze"))
+	    		OrderBookBTN.setVisible(true);
 	    else
 	    	OrderBookBTN.setVisible(false);
 	    EditionNumberTextField.setText(BookToDisplay.getEditionNumber());
 	    if(EditionNumberTextField.getText().isEmpty())
 	    	EditionNumberTextField.setText("no info");
 	    DescriptionTextField.setText(BookToDisplay.getDescription());
+
     }
 
     /**
