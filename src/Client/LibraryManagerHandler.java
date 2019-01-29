@@ -13,49 +13,34 @@ import Users.Subscriber;
 
 import SystemObjects.GeneralData.operations;
 
-
-
 /**
  * class client for library Manager methods
+ * 
  * @author Liad
  *
  */
 
-
-public class LibraryManagerHandler extends IHandler{
+public class LibraryManagerHandler extends IHandler {
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 
-	public LibraryManagerHandler(IGUIcontroller guiController){
+	public LibraryManagerHandler(IGUIcontroller guiController) {
 		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;
 	}
-	
-	
-	public void changeSubscriberStatus(Subscriber sub, String status) {
-		
-		ServerData data= new ServerData(operations.changeSubscriberStatus, sub, status);//
 
-		try {
-			
-			sendToServer(data);
-			
-		} catch (IOException e) {
-			Interfaces.IAlert.ExceptionAlert(e);
-			e.printStackTrace();
-		}	}
-	
-	
 	public void createReport(LocalDate startDate, LocalDate endDate, operations reportType) {
-		
+
 		ServerData report;
-		
-		switch(reportType) {
-		case createActivityReport:{
-			report= new ServerData(reportType, startDate, endDate);
+
+		switch (reportType) {
+		case createActivityReport: {
+			report = new ServerData(reportType, startDate, endDate);
 			break;
 		}
-		default:
-			report= new ServerData(reportType, startDate);
+		default: {
+			report = new ServerData(reportType, startDate);
+			break;
+		}
 		}
 		try {
 			sendToServer(report);

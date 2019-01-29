@@ -10,6 +10,7 @@ import OBLFX.ConnectionSettingsController;
 import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operations;
+import Users.Subscriber;
 import SystemObjects.GeneralData.*;
 
 /**
@@ -63,5 +64,16 @@ public class CommonHandler extends IHandler{
 		}
 	}
 
+	public void changeSubscriberDetails(Subscriber sub) {
+		
+		ServerData data= new ServerData(operations.updateSubscriberDetails, sub);
 
+		try {
+			
+			sendToServer(data);
+			
+		} catch (IOException e) {
+			Interfaces.IAlert.ExceptionAlert(e);
+			e.printStackTrace();
+		}	}
 }

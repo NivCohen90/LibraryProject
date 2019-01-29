@@ -34,7 +34,7 @@ public class SubscriberHandler extends IHandler {
 		List.add(PhoneNumber);
 		List.add(Email);
 		List.add(subscriberDetails);;
-		ServerData loginInfo = new ServerData(GeneralData.operations.updatePersonalDetails, List);
+		ServerData loginInfo = new ServerData(GeneralData.operations.updateSubscriberDetails, List);
 		try {
 			sendToServer(loginInfo);
 		} catch (Exception e) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;

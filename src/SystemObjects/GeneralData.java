@@ -17,10 +17,9 @@ public class GeneralData {
 	public enum operations {
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber, searchByFreeText,
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
-		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
-		updatePersonalDetails, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
+		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		changeSubscriberStatus, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails;
+		updateSubscriberDetails, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails;
 	};
 	
 	/**
