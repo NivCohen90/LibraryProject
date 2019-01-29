@@ -113,7 +113,7 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
-		case updatePersonalDetails:
+		case updateSubscriberDetails:
 			break;
 		case orderBook:
 			try {
@@ -141,8 +141,6 @@ public class EchoServer extends AbstractServer {
 		case CreateNewSubscriber:
 			break;
 		case ManageCatalog:
-			break;
-		case changeSubscriberStatus:
 			break;
 		case watchEmployeesData:
 			break;
