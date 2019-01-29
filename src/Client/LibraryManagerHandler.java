@@ -33,7 +33,7 @@ public class LibraryManagerHandler extends IHandler{
 	
 	public void changeSubscriberStatus(Subscriber sub, String status) {
 		
-		ServerData data= new ServerData(operations.changeSubscriberStatus, sub, status);
+		ServerData data= new ServerData(operations.changeSubscriberStatus, sub, status);//
 
 		try {
 			
