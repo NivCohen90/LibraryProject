@@ -1,8 +1,10 @@
 package OBLFX;
 
+import java.sql.Date;
+
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +22,7 @@ import javafx.scene.input.KeyEvent;
 public class NewLoanController implements IGUIcontroller {
 	boolean StartFlag = false;
 	boolean ReturnFlag = false;
-	private final static String ChooseDate = "Select Date";
+
 	private LibrarianHandler librarianClient;
 	@FXML
 	private TextField CatalogNumberTextField;
@@ -59,8 +61,9 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalog(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
 
 	/**
@@ -69,22 +72,33 @@ public class NewLoanController implements IGUIcontroller {
 
 	@FXML
 	void CheckLoan(ActionEvent event) {
-		if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)
-				&& IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
-						UserNameErrorNumebrs)
-				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
-			if (StartFlag && ReturnFlag) {
-				librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
-						java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
-						java.sql.Date.valueOf(StartDateDatePicker.getValue()));
-			} else {
+		int counter = 0;
+		if(IGUIcontroller.CheckIfUserPutInput(SubscriberIDTextField, SubscriberIDLabel)) {
+			if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)) {
+				counter++;
+			}
+		}
+		if(IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
+			if(IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,UserNameErrorNumebrs)) {
+				counter++;
+			}
+		}
 				if (StartFlag) {
-					StartDateLabel.setText(ChooseDate);
+					counter++;
+				}
+				else {
+					StartDateLabel.setText(ChooseDate);	
 				}
 				if (ReturnFlag) {
-					ReturnDateLabel.setText(ChooseDate);
+					counter++;
 				}
+				else {
+					ReturnDateLabel.setText(ChooseDate);
 			}
+		if (counter==4) {
+			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
+					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
+					java.sql.Date.valueOf(StartDateDatePicker.getValue()));	
 		}
 
 	}
@@ -95,7 +109,9 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckReturnDate(ActionEvent event) {
-		ReturnFlag = true;
+		if(IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now() ,ReturnDateDatePicker.getValue(),ReturnDateLabel)) {
+			ReturnFlag = true;
+		}	
 	}
 
 	/**
@@ -104,7 +120,9 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckStartDate(ActionEvent event) {
-		StartFlag = true;
+		if(IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now() ,StartDateDatePicker.getValue(),StartDateLabel)) {
+			StartFlag = true;
+		}
 	}
 
 	/**
@@ -115,6 +133,7 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckSubscriberID(KeyEvent event) {
+		IGUIcontroller.CheckIfUserPutInput(SubscriberIDTextField, SubscriberIDLabel);
 		IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits);
 	}
 

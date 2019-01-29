@@ -3,13 +3,14 @@ package Client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
 import Interfaces.IHandler;
-import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
+import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
-
+import SystemObjects.GeneralData.operations;
+import SystemObjects.GeneralData.*;
 
 /**
  * class client for common methods for librarian and subscriber
@@ -36,6 +37,7 @@ public class CommonHandler extends IHandler{
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -50,12 +52,13 @@ public class CommonHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(ID);
     	List.add(Password);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.Login, ID, Password);
+		ServerData loginInfo = new ServerData(GeneralData.operations.Login, ID, Password);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}

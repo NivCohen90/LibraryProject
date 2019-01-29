@@ -12,9 +12,9 @@ public class Librarian extends User{
 	
 	public Librarian() {}
 
-	public Librarian(String firstName, String lastName, String email, String iD, String password, String affiliation) {
-		super(firstName, lastName, email, iD, password,2);
-		Affiliation=affiliation; 
+	public Librarian(String firstName, String lastName, String email, String iD, String password, String phoneNumber, String affiliation, int Level) {
+		super(iD, firstName, lastName, email, phoneNumber, password, Level);
+		Affiliation=affiliation;
 	}
 
 	public String getAffiliation() {

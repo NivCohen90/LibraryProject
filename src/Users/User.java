@@ -13,12 +13,13 @@ public class User implements Serializable{
 	private String Email;
 	private String ID;
 	private String Password;
+	public String PhoneNumber;
 	int level;
 	//0-user, 1-subscriber, 2-librarian
 
 	protected User() {}
 	
-	public User(String firstName, String lastName, String email, String iD, String password, int level) {
+	public User(String iD, String firstName, String lastName, String email, String phoneNumner, String password, int level) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
@@ -69,9 +70,14 @@ public class User implements Serializable{
 		this.level = level;
 	}
 	
-	
-	//public Book Search(String SearchField)(){}
-	
+	public String getPhoneNumber() {
+		return PhoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		PhoneNumber = phoneNumber;
+	}
+
 	public void updatePersonalDetails() {}
 
 	public String getFullName() {

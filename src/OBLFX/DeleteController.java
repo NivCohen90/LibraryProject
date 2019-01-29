@@ -3,9 +3,9 @@ package OBLFX;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 /**
+ * @author Matan
  * DeleteController controls DeleteBookFXML
 */
 public class DeleteController implements IGUIcontroller {
@@ -69,9 +70,9 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
-		CopyNumberLabel.setText("");
-		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
     /**
      * CheckCopy is a method that check if the user put input.,if he didn't gave input the method will alert the user.
@@ -79,9 +80,9 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void CheckCopy(KeyEvent event) {
-		CopyNumberLabel.setText("");
-		IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
-		IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CopyNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CopyNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 		if (book.getNumberOfLibraryCopies() < Integer.parseInt(CopyNumberTextField.getText())) {
 			CopyNumberLabel.setText("No such copy");
 		}
@@ -105,7 +106,7 @@ public class DeleteController implements IGUIcontroller {
 				}
 			}
 
-			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(), new Librarian());
+			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),GeneralData.userLibrarian);
 		}
 	}
     /**
@@ -118,7 +119,7 @@ public class DeleteController implements IGUIcontroller {
 				UserNameErrorNumebrs)
 				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
 			catalogNumberSearch = CatalogNumberTextField.getText();
-			commonClient.searchInServer(catalogNumberSearch, IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
 		}
 	}
     /**
@@ -126,24 +127,40 @@ public class DeleteController implements IGUIcontroller {
     */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		CopyNumberLabel.setText((String) msg);
-		// BookNameTextField.setText(book.getBookName());
-		// AuthorTextField.setText(book.getAuthorName());
-		// SubjectTextField.setText(book.getSubject());
-		// CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
-		// AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
-		// DescripitionAreaField.setText(book.getDescription());
+		switch(op) {
+		case returnBook:
+			CopyNumberLabel.setText((String) msg);
+		    BookNameTextField.setText(book.getBookName());
+			AuthorTextField.setText(book.getAuthorName());
+			SubjectTextField.setText(book.getSubject());
+			CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
+			AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
+			DescripitionAreaField.setText(book.getDescription());
+			break;
+		case returnError:
+			
+			break;
+			
+		case returnSuccessMsg:
+			CopyNumberLabel.setText("Delete succses");
+			break;
+		default:
+			break;
+		}
+		
+
 
 	}
 	@Override
 	public void setConnection() {
-		commonClient = new CommonHandler(this);
-		
+		librarianClient = new LibrarianHandler(this);
+
 	}
+
 	@Override
 	public void closeConnection() {
-		if(commonClient!=null)
-			commonClient.quit();
+		if(librarianClient!=null)
+			librarianClient.quit();
 	}
 
 }

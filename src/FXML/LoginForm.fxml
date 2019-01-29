@@ -33,9 +33,9 @@
       </Label>
 
       <Label fx:id="UserNameAlertLabel" layoutX="458.0" layoutY="171.0" prefHeight="25.0" prefWidth="336.0" textFill="RED" AnchorPane.leftAnchor="458.0" AnchorPane.rightAnchor="6.0" />
-      <Label fx:id="WrongData" layoutX="130.0" layoutY="313.0" prefHeight="25.0" prefWidth="288.0" textFill="RED" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="182.0">
+      <Label fx:id="WrongData" alignment="CENTER" layoutX="4.0" layoutY="313.0" prefHeight="36.0" prefWidth="788.0" textFill="RED" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="8.0">
          <font>
-            <Font name="System Italic" size="25.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </Label>
 

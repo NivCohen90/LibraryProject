@@ -2,14 +2,17 @@ package Client;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
 import Interfaces.IHandler;
-import Interfaces.IGeneralData.operations;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
+import SystemObjects.GeneralData.operations;
+import SystemObjects.Order;
 import Users.Subscriber;
 
 /**
@@ -24,14 +27,18 @@ public class SubscriberHandler extends IHandler {
 		currentControllerGUIobj = guiController;
 	}
 
-	public void updateDetails(Object user, Object userEdit) {
+	public void updateDetails(String FirstName,String LastName,String PhoneNumber,String Email,Subscriber subscriberDetails) {
 		ArrayList<Object> List = new ArrayList<Object>();
-		List.add(user);
-		List.add(userEdit);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.updatePersonalDetails, List);
+		List.add(FirstName);
+		List.add(LastName);
+		List.add(PhoneNumber);
+		List.add(Email);
+		List.add(subscriberDetails);;
+		ServerData loginInfo = new ServerData(GeneralData.operations.updatePersonalDetails, List);
 		try {
 			sendToServer(loginInfo);
 		} catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -45,12 +52,13 @@ public class SubscriberHandler extends IHandler {
 	 * @param orderedBook book subscriber ordered
 	 * @param orderDate	date order is made
 	 */
-	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, String orderDate) {
-		ServerData serverData = new ServerData(operations.orderBook, subscriberOrdered, orderedBook, orderDate);
+	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, Date orderDate) {
+		Order newOrder = new Order(orderDate, null, subscriberOrdered.getSubscriberNumber(), orderedBook.getCatalogNumber());
+		ServerData serverData = new ServerData(operations.orderBook, newOrder);
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}

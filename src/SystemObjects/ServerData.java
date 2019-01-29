@@ -1,10 +1,9 @@
 package SystemObjects;
 import java.io.Serializable;
 import java.util.ArrayList;
+import SystemObjects.GeneralData.*;
 
-import Interfaces.IGeneralData;
-
-public class ServerData implements IGeneralData, Serializable{
+public class ServerData implements Serializable{
 
 	/**
 	 * 

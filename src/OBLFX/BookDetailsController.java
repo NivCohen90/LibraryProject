@@ -13,8 +13,9 @@ import Client.Main;
 import Client.SubscriberHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * FXML controller for displaying book details
@@ -94,11 +96,13 @@ public class BookDetailsController implements IGUIcontroller{
 	    PurchaseDateTextField.setText(dateFormat.format(BookToDisplay.getPurchesDate()));
 	    AvailibaleCopiesTextField.setText(String.valueOf(BookToDisplay.getAvailableCopies()));
 	    NumberOfCopiesTextField.setText(String.valueOf(BookToDisplay.getNumberOfLibraryCopies()));
-	    if(BookToDisplay.getAvailableCopies()==0 && Main.userSubscriber!=null)
+	    if(BookToDisplay.getAvailableCopies()==0 && GeneralData.userSubscriber!=null)
 	    	OrderBookBTN.setVisible(true);
 	    else
 	    	OrderBookBTN.setVisible(false);
 	    EditionNumberTextField.setText(BookToDisplay.getEditionNumber());
+	    if(EditionNumberTextField.getText().isEmpty())
+	    	EditionNumberTextField.setText("no info");
 	    DescriptionTextField.setText(BookToDisplay.getDescription());
     }
 
@@ -108,8 +112,9 @@ public class BookDetailsController implements IGUIcontroller{
      */
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
+    	setConnection();
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	subscriberClient.orderBook(Main.userSubscriber, this.displayedBook, dateFormat.format(new Date()));
+    	subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
     }
     
     /**
@@ -150,14 +155,15 @@ public class BookDetailsController implements IGUIcontroller{
 				OrderMsgText.setText((String)msg);
 				OrderMsgText.setVisible(true);
 				break;
-			case returnError:
+			case returnException:
 				OrderMsgText.setText(((Exception)msg).getMessage());
+				OrderMsgText.setTextFill(Color.RED);
 				OrderMsgText.setVisible(true);
-				((Exception)msg).printStackTrace();
+				IAlert.ExceptionAlert((Exception)msg);
 		default:
 			break;
 		}
-		
+    	closeConnection();
 	}
 
     /**

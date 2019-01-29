@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SearchBookController">
    <children>
       <TextField fx:id="txtInput" layoutX="17.0" layoutY="97.0" prefHeight="30.0" prefWidth="350.0" />
-      <Button fx:id="btnSearch" layoutX="381.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchInLibrary" prefHeight="30.0" prefWidth="100.0" text="Search" />
+      <Button fx:id="btnSearch" layoutX="367.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchInLibrary" prefHeight="30.0" prefWidth="100.0" text="Search" />
       <RadioButton fx:id="type1" layoutX="100.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="type 1">
          <toggleGroup>
             <ToggleGroup fx:id="searchType" />
@@ -27,7 +27,7 @@
             <Font name="System Bold Italic" size="26.0" />
          </font>
       </Label>
-      <TableView fx:id="tblResults" layoutX="17.0" layoutY="176.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="400.0" prefWidth="760.0">
+      <TableView fx:id="tblResults" layoutX="14.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="400.0" prefWidth="760.0">
          <columns>
             <TableColumn fx:id="col1" maxWidth="-Infinity" minWidth="186.0" prefWidth="185.0" resizable="false" text="col1" />
             <TableColumn fx:id="col2" maxWidth="-Infinity" minWidth="186.0" prefWidth="185.0" resizable="false" text="col2" />
@@ -59,5 +59,6 @@
          </font>
       </Label>
       <RadioButton fx:id="type5" layoutX="500.0" layoutY="63.0" mnemonicParsing="false" text="type 5" toggleGroup="$searchType" />
+      <Label fx:id="ResultMSGLabel" layoutX="471.0" layoutY="98.0" prefHeight="27.0" prefWidth="270.0" textFill="RED" />
    </children>
 </AnchorPane>

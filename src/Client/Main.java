@@ -2,29 +2,23 @@ package Client;
 
 import java.util.Optional;
 
-import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
-import Interfaces.IGeneralData;
-import Users.Librarian;
-import Users.Subscriber;
+import SystemObjects.GeneralData;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 
@@ -32,16 +26,13 @@ public class Main extends Application {
 	public static Stage PrimaryStage;
 	public static SideMenu sideMenu;
 	public static ToolBar toolBar;
-
-	public static Subscriber userSubscriber=null;
-	public static Librarian userLibrarian=null;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			PrimaryStage = primaryStage;
 			PrimaryStage.initStyle(StageStyle.UNDECORATED);
-			sideMenu = new SideMenu(IGeneralData.MenuType.LibrarianManagerMenu);
+			sideMenu = new SideMenu(GeneralData.MenuType.MainMenu);
 			root = new BorderPane();
 			root.setLeft(sideMenu.getVBox());
 			AnchorPane pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
@@ -70,8 +61,8 @@ public class Main extends Application {
 				}
 			});
 		} catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
-			IAlert.setandShowAlert(AlertType.ERROR, IAlert.ExceptionErrorTitle, e.getClass().getName(), e.getMessage());
 		}
 	}
 

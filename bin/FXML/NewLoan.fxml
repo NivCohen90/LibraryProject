@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.NewLoanController">
    <children>
-      <TextField fx:id="CatalogNumberTextField" layoutX="175.0" layoutY="66.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
+      <TextField fx:id="CatalogNumberTextField" layoutX="181.0" layoutY="66.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
       <Label layoutX="26.0" layoutY="23.0" text="New Loan">
          <font>
             <Font name="System Bold Italic" size="24.0" />
@@ -35,15 +35,14 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="StartDateDatePicker" layoutX="175.0" layoutY="107.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
-      <DatePicker fx:id="ReturnDateDatePicker" layoutX="528.0" layoutY="107.0" onAction="#CheckReturnDate" prefHeight="26.0" prefWidth="137.0" />
-      <TextField fx:id="SubscriberIDTextField" layoutX="528.0" layoutY="66.0" onKeyTyped="#CheckSubscriberID" prefHeight="26.0" prefWidth="138.0" />
+      <DatePicker fx:id="StartDateDatePicker" layoutX="181.0" layoutY="107.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
+      <DatePicker fx:id="ReturnDateDatePicker" layoutX="532.0" layoutY="107.0" onAction="#CheckReturnDate" prefHeight="26.0" prefWidth="137.0" />
+      <TextField fx:id="SubscriberIDTextField" layoutX="532.0" layoutY="66.0" onKeyTyped="#CheckSubscriberID" prefHeight="26.0" prefWidth="138.0" />
       <Button fx:id="CreateLoanBTN" layoutX="323.0" layoutY="188.0" mnemonicParsing="false" onAction="#CheckLoan" text="Create Loan">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label text="Label" />
       <Label fx:id="CatalogNumberLabel" layoutX="313.0" layoutY="66.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
       <Label fx:id="StartDateLabel" layoutX="313.0" layoutY="107.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
       <Label fx:id="SubscriberIDLabel" layoutX="666.0" layoutY="66.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />

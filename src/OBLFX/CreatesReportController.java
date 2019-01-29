@@ -6,8 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import Client.LibraryManagerHandler;
 import Interfaces.IGUIcontroller;
+<<<<<<< HEAD
 import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
+=======
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
+>>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,14 +83,14 @@ public class CreatesReportController implements IGUIcontroller {
 			LocalDate sDate = startDateCombo.getValue();
 			LocalDate eDate = EndDateCombo.getValue();
 
-			commonClient.createReport(sDate, eDate, IGeneralData.operations.createActivityReport);
+			commonClient.createReport(sDate, eDate, GeneralData.operations.createActivityReport);
 		}
 
 		else if (loansReport.isSelected())
-			commonClient.createReport(currentDate, null, IGeneralData.operations.createLoansReport);
+			commonClient.createReport(currentDate, null, GeneralData.operations.createLoansReport);
 
 		else if (lateReturnReport.isSelected())
-			commonClient.createReport(currentDate, null, IGeneralData.operations.createLateReturnsReport);
+			commonClient.createReport(currentDate, null, GeneralData.operations.createLateReturnsReport);
 
 	}
 

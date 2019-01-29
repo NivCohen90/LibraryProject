@@ -7,6 +7,8 @@ package Client;
 import ocsf.client.*;
 import java.io.*;
 
+import Interfaces.IAlert;
+
 
 /**
  * This class overrides some of the methods defined in the abstract superclass
@@ -61,7 +63,7 @@ public class ChatClient extends AbstractClient {
 			
 			sendToServer(Command);
 		} catch (IOException e) {
-			
+			IAlert.ExceptionAlert(e);
 		}
 	}
 
@@ -72,6 +74,7 @@ public class ChatClient extends AbstractClient {
 		try {
 			closeConnection();
 		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
 		}
 		System.exit(0);
 	}

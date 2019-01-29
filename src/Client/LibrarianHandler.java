@@ -3,11 +3,12 @@ package Client;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
 import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 import Users.Subscriber;
 import Users.Librarian;
@@ -35,12 +36,13 @@ public class LibrarianHandler extends IHandler{
     	List.add(SubscriberID);
     	List.add(Returndate);
     	List.add(Startdate);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.CreateNewLoan,List);
+		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewLoan,List);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -53,19 +55,27 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(bookCtalogNumber);
     	List.add(newReturnDate);
-		
+		ServerData loginInfo = new ServerData(GeneralData.operations.extandLoan,List);
+		try
+		{
+			sendToServer(loginInfo);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	public void returnBook(String catalogNumber,String SubscriberID,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(catalogNumber);
     	List.add(SubscriberID);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.returnBook,List);
+		ServerData loginInfo = new ServerData(GeneralData.operations.returnBook,List);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -82,12 +92,13 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(newSub);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(IGeneralData.operations.CreateNewSubscriber,List);
+		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewSubscriber,List);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 		
@@ -110,12 +121,13 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(book);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(List,IGeneralData.operations.AddBook);
+		ServerData loginInfo = new ServerData(List,GeneralData.operations.AddBook);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 		
@@ -126,12 +138,13 @@ public class LibrarianHandler extends IHandler{
     	List.add(catalogNumber);
     	List.add(CopyNumber);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(List, IGeneralData.operations.deleteBook);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.deleteBook);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
 	}
@@ -140,12 +153,13 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(book);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(List, IGeneralData.operations.updateBook);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.updateBook);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 		
@@ -158,12 +172,13 @@ public class LibrarianHandler extends IHandler{
     	List.add(Catalog);
     	List.add(numberToAdd);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(List, IGeneralData.operations.AddBook);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.AddBook);
 		try
 		{
 			sendToServer(loginInfo);
 		}
 		catch (Exception e) {
+			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
 	}

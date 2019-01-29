@@ -1,13 +1,20 @@
-package Interfaces;
+package SystemObjects;
 
-public interface IGeneralData {
+import Users.Librarian;
+import Users.Subscriber;
+
+public class GeneralData {
 
 	/**
 	 * this enum indicate the server which operation to do.
 	 * @author nivco
 	 *
 	 */
-	enum operations {
+	
+	public static Subscriber userSubscriber=null;
+	public static Librarian userLibrarian=null;
+	
+	public enum operations {
 		Login, searchByBookName, searchByBookAuthor, searchByBookSubject, searchByBookDescription, searchByCatalogNumber, searchByFreeText,
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID,
@@ -21,18 +28,18 @@ public interface IGeneralData {
 	 * @author nivco
 	 *
 	 */
-	enum operationsReturn {
+	public enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
-		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData
+		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData, returnException
 		};	
 
 
-	enum subscriberSearchFields {
+	public enum subscriberSearchFields {
 		IDField, subscriberNumberField, emailField, fullNameField
 	};
 
-	enum bookSearchFields {
+	public enum bookSearchFields {
 		bookNameField, authorNameField, subjectField, freeTextField
 	};
 	
@@ -41,7 +48,7 @@ public interface IGeneralData {
 	 * @author Liad
 	 *
 	 */
-	enum reportsType {
+	public enum reportsType {
 		activityReport, loansReport, lateReturnsReport
 	};
 	
@@ -50,7 +57,7 @@ public interface IGeneralData {
 	 * @author Liad
 	 *
 	 */
-	enum reportReference{
+	public enum reportReference{
 		Demanded, Regular, GeneralLatesAmount, GeneralLatesDuration, BookLatesAmount, BookLatesDuration
 	};
 	/**
@@ -58,7 +65,7 @@ public interface IGeneralData {
 	 * @author nivco
 	 *
 	 */
-	enum Menuicons {
+	public enum Menuicons {
 		Nothing, Login, SearchBook, SearchLibrarian, SearchSubscriber, SubscriberCard, ManagerCard, LibrarianCard, Exit,
 		History, Report, catalog, CreateLoan, ReturnBook, CreateSubscriber, ChangeSubscriberStatus, Statistics,
 		Connection, AddBook, AddBookCopy, UpdateBook, DeleteBook, CreateReport
@@ -69,7 +76,7 @@ public interface IGeneralData {
 	 * @author nivco
 	 *
 	 */
-	enum MenuType {
+	public enum MenuType {
 		MainMenu, SubscriberMenu, LibrarianMenu, LibrarianManagerMenu, SubMenu
 	};
 	

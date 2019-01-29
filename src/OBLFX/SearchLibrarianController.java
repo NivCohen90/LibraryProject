@@ -2,10 +2,11 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -132,23 +133,31 @@ public class SearchLibrarianController implements IGUIcontroller {
      */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
-
 		String searchInput = txtInput.getText();
-		if (searchInput.isEmpty()) {
-			emptyMsg.setVisible(true);
-		}
-		else {
-			emptyMsg.setVisible(false);
-			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianID);
-			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianAffiliation);
-			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianName);
-			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchByLibrarianEmail);
-		}
-
+		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+			if (type1.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
+				}
+			}
+			if (type2.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
+				}
+			}
+			if (type3.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
+				}
+			}			
+			if (type4.isSelected()) {
+				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+				}
+				else 
+					emptyMsg.setText("Invalid Email");
+			}					
+			}    
 	}
 
     /**
@@ -196,20 +205,20 @@ public class SearchLibrarianController implements IGUIcontroller {
     	Scene scene = null;
 		try {
 			
-			if(choosenResult instanceof Book)
+			if(choosenResult instanceof Librarian)
 			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/CardLibrarian.fxml").openStream());
 				scene = new Scene(root);
-				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-				Controller.setBookToDisplay((Book)choosenResult);
-				primaryStage.setTitle(((Book)choosenResult).getBookName());
+				CardLibrarianController Controller = (CardLibrarianController) fxmlLoader.getController();
+				Controller.setLibrarianToDisplay((Librarian)choosenResult);
+				primaryStage.setTitle(((Librarian)choosenResult).getFullName());
 			}		
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			IAlert.ExceptionAlert(e);
 		}
 	}
 	

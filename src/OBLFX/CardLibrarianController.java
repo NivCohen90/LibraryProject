@@ -14,8 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Client.SideMenu;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.*;
 
 /**
@@ -40,6 +41,7 @@ public class CardLibrarianController implements IGUIcontroller {
 			commonClient = new CommonHandler(this);
 			librarianClient = new LibrarianHandler(this);
 		} catch (IOException e) {
+		IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
         */
@@ -186,6 +188,14 @@ public class CardLibrarianController implements IGUIcontroller {
 		((TextField) SideMenu.APCardLibrarianFXML.lookup("#txtfldLbl2")).setText(LibrarianToDisplay.getID());
 		((TextField) SideMenu.APCardLibrarianFXML.lookup("#txtfldLbl4")).setText(LibrarianToDisplay.getLastName());
 		((TextField) SideMenu.APCardLibrarianFXML.lookup("#txtfldLbl5")).setText(LibrarianToDisplay.getAffiliation());
+		
+		//set details when opening FXML on search
+		if (txtfldLbl1 != null) {
+			txtfldLbl1.setText(LibrarianToDisplay.getFirstName());
+			txtfldLbl2.setText(LibrarianToDisplay.getID());
+			txtfldLbl4.setText(LibrarianToDisplay.getLastName());
+			txtfldLbl5.setText(LibrarianToDisplay.getAffiliation());
+		}
     }
 
     /**

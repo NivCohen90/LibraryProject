@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import ocsf.client.AbstractClient;
 import Users.Librarian;
+import SystemObjects.GeneralData.operationsReturn;
 
 /**
  * interface class for clients, has method to parse massage from server to objects
@@ -25,7 +26,7 @@ import Users.Librarian;
  */
 
 public abstract class IHandler extends AbstractClient {
-
+	
 	/*
 	 * Variables IGUIcontroller - controller input was sent from
 	 */
@@ -95,27 +96,31 @@ public abstract class IHandler extends AbstractClient {
 				// switch between different return massages from server
 				// convert data from server and send to GUI controller
 				switch (serverMsg.getOperationReturn()) {
+				case returnException:
+					Exception exceptionMsg = convertMsgFromServer(arrayMsg.get(0), Exception.class);
+					currentControllerGUIobj.receiveMassageFromServer(exceptionMsg, operationsReturn.returnError);
+					break;
 				case returnError:
-					Exception errorMsg = convertMsgFromServer(arrayMsg.get(0), Exception.class);
-					currentControllerGUIobj.receiveMassageFromServer(errorMsg, serverMsg.getOperationReturn());
+					String errorMsg = convertMsgFromServer(arrayMsg.get(0), String.class);
+					currentControllerGUIobj.receiveMassageFromServer(errorMsg, operationsReturn.returnError);
 					break;
 				case returnSuccessMsg:
 					String successMsg = convertMsgFromServer(arrayMsg.get(0), String.class);
-					currentControllerGUIobj.receiveMassageFromServer(successMsg, serverMsg.getOperationReturn());
+					currentControllerGUIobj.receiveMassageFromServer(successMsg, operationsReturn.returnSuccessMsg);
 					break;
 				case returnSubscriber: {
 					Subscriber subscriberData = convertMsgFromServer(arrayMsg.get(0), Subscriber.class);
-					currentControllerGUIobj.receiveMassageFromServer(subscriberData, serverMsg.getOperationReturn());
+					currentControllerGUIobj.receiveMassageFromServer(subscriberData, operationsReturn.returnSubscriber);
 					break;
 				}
 				case returnLibrarian: {
 					Librarian librarianData = convertMsgFromServer(arrayMsg.get(0), Librarian.class);
-					currentControllerGUIobj.receiveMassageFromServer(librarianData, serverMsg.getOperationReturn());
+					currentControllerGUIobj.receiveMassageFromServer(librarianData, operationsReturn.returnLibrarian);
 					break;
 				}
 				case returnLibrarianManager: {
-					//Librarian librarianData = convertMsgFromServer(arrayMsg.get(0), Librarian.class);
-					currentControllerGUIobj.receiveMassageFromServer(null, serverMsg.getOperationReturn());
+					Librarian librarianManData = convertMsgFromServer(arrayMsg.get(0), Librarian.class);
+					currentControllerGUIobj.receiveMassageFromServer(librarianManData, serverMsg.getOperationReturn());
 					break;
 				}
 				case returnBook: {

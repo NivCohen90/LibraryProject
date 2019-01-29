@@ -2,7 +2,9 @@ package OBLFX;
 
 import Client.SubscriberHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData.operationsReturn;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
+import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 /**
+ * @author Matan
  * UpdatePersonalDataController controls UpdatePersonalDetailsFXML
  */
 public class UpdatePersonalDataController implements IGUIcontroller {
@@ -112,7 +115,7 @@ public class UpdatePersonalDataController implements IGUIcontroller {
 			count++;
 		}
 		if (count == 4) {
-			//SubClient.updateDetails(new User(),new User());
+			SubClient.updateDetails(FirstNameTextField.getText(),LastNameTextField.getText(),PhoneNumberTextField.getText(),EmailTextField.getText(),GeneralData.userSubscriber);
 		}
 	}
     /**
@@ -120,7 +123,23 @@ public class UpdatePersonalDataController implements IGUIcontroller {
     */  
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		SaveChangeMSG.setText((String) msg);
+		switch(op) {
+		case returnError:
+			SaveChangeMSG.setText((String) msg);
+			break;
+		case returnSubscriber:		
+			SaveChangeMSG.setText("Change apply");
+			GeneralData.userSubscriber.setFirstName(((Subscriber)msg).getFirstName());
+			GeneralData.userSubscriber.setLastName(((Subscriber)msg).getLastName()); 
+			GeneralData.userSubscriber.setPhoneNumber(((Subscriber)msg).getPhoneNumber());
+			GeneralData.userSubscriber.setEmail(((Subscriber)msg).getEmail()); 
+			break;
+		
+		}
+		
+		
+		
+		
 
 	}
 	@Override

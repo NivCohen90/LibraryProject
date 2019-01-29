@@ -6,12 +6,17 @@ import java.util.Date;
 import Client.LibraryManagerHandler;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
+<<<<<<< HEAD
 import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
+=======
+>>>>>>> branch 'master' of https://github.com/NivCohen90/LibraryProject.git
 import SystemObjects.Loan;
 import SystemObjects.LoansTable;
 import SystemObjects.Order;
 import SystemObjects.OrdersTable;
+import Users.Subscriber;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -77,25 +82,30 @@ public class SubscriberCardController implements IGUIcontroller {
 	@FXML
 	private TableColumn<OrdersTable, Date> AOrdersArrivedDate;
 
-	public void setSubscriberCard(String FullName, String PhoneNumber, String ID, String Email, String Status, String SubNumber,
-			ArrayList<Loan> Loans, ArrayList<Order> Orders) {
-		TextField FullNameField = (TextField) SideMenu.APReaderCardFXML.lookup("#FullNameField");
-		TextField PhoneNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField");
-		TextField IDField = (TextField) SideMenu.APReaderCardFXML.lookup("#IDField");
-		TextField EmailField = (TextField) SideMenu.APReaderCardFXML.lookup("#EmailField");
-		TextField StatusField = (TextField) SideMenu.APReaderCardFXML.lookup("#StatusField");
-		TextField SubscriberNumberField = (TextField) SideMenu.APReaderCardFXML.lookup("#SubscriberNumberField");
-		FullNameField.setText(FullName);
-		PhoneNumberField.setText(PhoneNumber);
-		IDField.setText(ID);
-		EmailField.setText(Email);
-		StatusField.setText(Status);
-		SubscriberNumberField.setText(SubNumber);
-		for (Loan iloan : Loans) {
+	public void setSubscriberCard(Subscriber sub) {
+		
+		((TextField) SideMenu.APReaderCardFXML.lookup("#FullNameField")).setText(sub.getFullName());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).setText(sub.getPhoneNumber());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).setText(sub.getID());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField")).setText(sub.getEmail());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#StatusField")).setText(sub.getStatus());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#SubscriberNumberField")).setText(sub.getSubscriberNumber());
+		
+		//set details when opening FXML on search
+		if (FullNameField != null) {
+			FullNameField.setText(sub.getFullName());
+			PhoneNumberField.setText(sub.getPhoneNumber());
+			IDField.setText(sub.getID());
+			EmailField.setText(sub.getEmail());
+			StatusField.setText(sub.getStatus());
+			SubscriberNumberField.setText(sub.getSubscriberNumber());
+		}
+		
+		for (Loan iloan : sub.getActiveLoans()) {
 			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(loan);
 		}
-		for (Order iorder : Orders) {
+		for (Order iorder : sub.getActiveOrders()) {
 			OrdersTable Order = new OrdersTable("missing", "missing", iorder.getOrderDate(), iorder.getBookArrivedTime());
 			ObservableOrdersList.add(Order);
 		}

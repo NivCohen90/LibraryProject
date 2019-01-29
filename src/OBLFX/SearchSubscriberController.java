@@ -2,10 +2,11 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,19 +135,32 @@ public class SearchSubscriberController implements IGUIcontroller {
 	void searchInLibrary(ActionEvent event) {
 
 		String searchInput = txtInput.getText();
-		if (searchInput.isEmpty()) {
-			emptyMsg.setVisible(true);
-		}
-		else {
-			emptyMsg.setVisible(false);
-			if (type1.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberStudentID);
-			if (type2.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberID);
-			if (type3.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberName);
-			if (type4.isSelected())
-				commonClient.searchInServer(searchInput, IGeneralData.operations.searchBySubscriberEmail);
+		
+		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+			if (type1.isSelected()) {
+				if(IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
+				}}
+					if (type2.isSelected()) {
+						if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+							commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
+						}
+					}
+
+			if (type3.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
+				}
+			}			
+			if (type4.isSelected()) {
+				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);	
+				}
+				else {
+					emptyMsg.setText("Invalid Email");
+				}
+				
+			}	
 		}
 
 	}
@@ -196,20 +210,20 @@ public class SearchSubscriberController implements IGUIcontroller {
     	Scene scene = null;
 		try {
 			
-			if(choosenResult instanceof Book)
+			if(choosenResult instanceof Subscriber)
 			{
 				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ReaderCard.fxml").openStream());
 				scene = new Scene(root);
-				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
-				Controller.setBookToDisplay((Book)choosenResult);
-				primaryStage.setTitle(((Book)choosenResult).getBookName());
+				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
+				Controller.setSubscriberCard((Subscriber)choosenResult);
+				primaryStage.setTitle(((Subscriber)choosenResult).getFullName());
 			}		
 		
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			IAlert.ExceptionAlert(e);
 		}
 	}
 	

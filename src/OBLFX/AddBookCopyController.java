@@ -3,9 +3,9 @@ package OBLFX;
 import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
-import Interfaces.IGeneralData;
-import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Book;
+import SystemObjects.GeneralData;
+import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,8 +56,7 @@ public class AddBookCopyController implements IGUIcontroller {
 				&& IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel)) {
 			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)
 					&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)) {
-				//librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),
-				//		new Librarian());
+				librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),GeneralData.userLibrarian);	
 			}
 		}
 
@@ -70,8 +69,8 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void CatalogNumberCheck(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	void GetDetailsAction(ActionEvent event) {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)
 				&& IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)) {
-			commonClient.searchInServer(CatalogTextField.getText(), IGeneralData.operations.searchByCatalogNumber);
+			commonClient.searchInServer(CatalogTextField.getText(), GeneralData.operations.searchByCatalogNumber);
 		}
 	}
 
@@ -95,8 +94,9 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void NumberOfaddedCopiesCheck(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel);
+		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
+		
 	}
 
 	/**
@@ -107,9 +107,9 @@ public class AddBookCopyController implements IGUIcontroller {
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
 		case returnBook:
-			// BookNameTextField.setText(msg.getBookName());
-			// NumberOfCopiesTextField.setText(msg.getNumberOfLibraryCopies());
-
+			 BookNameTextField.setText(((Book)msg).getBookName());
+			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));
+			 
 			break;
 
 		case returnError:
@@ -120,13 +120,14 @@ public class AddBookCopyController implements IGUIcontroller {
 
 	@Override
 	public void setConnection() {
-		// TODO Auto-generated method stub
+		librarianClient = new LibrarianHandler(this);
 
 	}
 
 	@Override
 	public void closeConnection() {
-		// TODO Auto-generated method stub
+		if(librarianClient!=null)
+			librarianClient.quit();
 	}
 
 }
