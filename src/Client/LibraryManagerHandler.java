@@ -32,7 +32,9 @@ public class LibraryManagerHandler extends IHandler{
 		ServerData data= new ServerData(operations.changeSubscriberStatus, sub, status);
 
 		try {
+			
 			sendToServer(data);
+			
 		} catch (IOException e) {
 			Interfaces.IAlert.ExceptionAlert(e);
 			e.printStackTrace();

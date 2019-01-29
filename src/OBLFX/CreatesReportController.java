@@ -8,7 +8,6 @@ import Client.LibraryManagerHandler;
 import Interfaces.IGUIcontroller;
 import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
-import Interfaces.IGeneralData.reportsType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

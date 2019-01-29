@@ -3,8 +3,10 @@ package OBLFX;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Client.LibraryManagerHandler;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
+import Interfaces.IGeneralData;
 import Interfaces.IGeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.LoansTable;
@@ -12,6 +14,7 @@ import SystemObjects.Order;
 import SystemObjects.OrdersTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,6 +26,8 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	static ObservableList<LoansTable> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
+	private LibraryManagerHandler commonClient;
+
 
 	@FXML
 	private TextField FullNameField;
@@ -114,6 +119,13 @@ public class SubscriberCardController implements IGUIcontroller {
 		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
 	}
 
+//	@FXML
+//	public void changeStatus(ActionEvent event) {
+//		
+//		commonClient.changeSubscriberStatus();
+	//}
+	
+	
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		// TODO Auto-generated method stub
