@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SearchBookController">
    <children>
-      <TextField fx:id="txtInput" layoutX="17.0" layoutY="97.0" prefHeight="30.0" prefWidth="350.0" />
+      <TextField fx:id="txtInput" layoutX="17.0" layoutY="97.0" onKeyTyped="#CheckSearch" prefHeight="30.0" prefWidth="350.0" />
       <Button fx:id="btnSearch" layoutX="367.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchInLibrary" prefHeight="30.0" prefWidth="100.0" text="Search" />
       <RadioButton fx:id="type1" layoutX="100.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="type 1">
          <toggleGroup>

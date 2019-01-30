@@ -114,9 +114,12 @@ public class SubscriberCardController implements IGUIcontroller {
     private Text TextMSG;
 
 	public void setSubscriberCard(Subscriber sub) {
+		String phoneNumber = sub.getPhoneNumber().substring(3, 10); 
+		String areaCode= sub.getPhoneNumber().substring(0, 3);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getFirstName());
-		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getLastName());
-		((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).setText(sub.getPhoneNumber());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(sub.getLastName());
+		((TextField) SideMenu.APReaderCardFXML.lookup("#AreaCodeTXT")).setText(areaCode);
+		((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).setText(phoneNumber);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).setText(sub.getID());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField")).setText(sub.getEmail());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#StatusField")).setText(sub.getStatus());
