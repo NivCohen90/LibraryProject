@@ -134,10 +134,12 @@ public class SubscriberCardController implements IGUIcontroller {
 			SubscriberNumberField.setText(sub.getSubscriberNumber());
 		}
 
+		ObservableOrdersList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
 			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(loan);
 		}
+		ObservableOrdersList.clear();
 		for (Order iorder : sub.getActiveOrders()) {
 			OrdersTable Order = new OrdersTable("missing", "missing", iorder.getOrderDate(),
 					iorder.getBookArrivedTime());

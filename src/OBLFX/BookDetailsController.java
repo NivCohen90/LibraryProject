@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
+import SystemObjects.Order;
 import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +35,7 @@ import javafx.scene.paint.Color;
 public class BookDetailsController implements IGUIcontroller{
 
 	private Book displayedBook;
+	private Order sentOrder;
 	
 	private SubscriberHandler subscriberClient;
 	
@@ -120,8 +123,12 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     void orderBookFromLibrary(ActionEvent event) {
     	setConnection();
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	String stringToday = dateFormat.format(new Date());
+    	java.sql.Date sqlDate = java.sql.Date.valueOf(stringToday);
+    	sentOrder = new Order(sqlDate, null, GeneralData.userSubscriber.getSubscriberNumber(), this.displayedBook.getCatalogNumber());
+    	subscriberClient.orderBook(sentOrder);
+    	//subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
     }
     
     /**
@@ -160,8 +167,17 @@ public class BookDetailsController implements IGUIcontroller{
 		{
 			case returnSuccessMsg:
 				OrderMsgText.setText((String)msg);
+				OrderMsgText.setTextFill(Color.GREEN);
 				OrderMsgText.setVisible(true);
+				GeneralData.userSubscriber.ActiveOrders.add(sentOrder);
+				SubscriberCardController subCon = new SubscriberCardController();
+				subCon.setSubscriberCard(GeneralData.userSubscriber);
 				break;
+			case returnError:
+				OrderMsgText.setText((String)msg);
+				OrderMsgText.setTextFill(Color.RED);
+				OrderMsgText.setVisible(true);
+				break;	
 			case returnException:
 				OrderMsgText.setText(((Exception)msg).getMessage());
 				OrderMsgText.setTextFill(Color.RED);

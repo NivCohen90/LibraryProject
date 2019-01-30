@@ -63,7 +63,7 @@ public class SubscriberQueries {
 				// System.out.println(query);
 				result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
 			} else
-				result = new ServerData(operationsReturn.returnException, new Exception("order queue is full"));
+				result = new ServerData(operationsReturn.returnError, "order queue is full");
 		} catch (SQLException e) {
 			if (count == 1) {
 				String queryDownBook = String.format(
@@ -74,12 +74,12 @@ public class SubscriberQueries {
 						stmt = mysqlConnection.conn.createStatement();
 					count = stmt.executeUpdate(queryDownBook);
 				} catch (SQLException e1) {
-					result = new ServerData(operationsReturn.returnException, e);
+					result = new ServerData(operationsReturn.returnException, e1);
 				}
 			}
 			if (e.getMessage().contains("Duplicate entry"))
-				result = new ServerData(operationsReturn.returnException,
-						new Exception("order for this book already exist"));
+				result = new ServerData(operationsReturn.returnError,
+						"order for this book already exist");
 			else
 				result = new ServerData(operationsReturn.returnException, e);
 		}
@@ -97,7 +97,7 @@ public class SubscriberQueries {
 		Date twoDaysDate = Date.from(twoDaysAgo.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		String query = String.format("SELECT * FROM obl.order WHERE OrderDate <= '%s' and OrderDate >= '%s' and OrderStatus='Active' and BookArrivedTime != 'null';",
 				dateFormat.format(today), dateFormat.format(twoDaysDate));
-		System.out.println(query);
+		//System.out.println(query);
 		Statement stmt = null;
 		String queryUpdate = "";
 		try {
