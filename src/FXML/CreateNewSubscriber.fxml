@@ -59,6 +59,6 @@
       <Label fx:id="PhoneNumberLabel" layoutX="516.0" layoutY="250.0" prefHeight="25.0" prefWidth="250.0" textFill="RED" />
       <Label fx:id="PasswordLabel" layoutX="517.0" layoutY="280.0" prefHeight="25.0" prefWidth="250.0" textFill="RED" />
       <Label fx:id="ErrorAtCreatSubscriberLabel" layoutX="240.0" layoutY="363.0" prefHeight="100.0" prefWidth="300.0" textFill="RED" />
-      <PasswordField fx:id="PasswordTextFiled" layoutX="316.0" layoutY="280.0" onKeyTyped="#CheckPassword" prefHeight="26.0" prefWidth="201.0" promptText="Fill Password" />
+      <PasswordField fx:id="PasswordTextFiled" layoutX="316.0" layoutY="280.0" onKeyTyped="#CheckPassword" prefHeight="26.0" prefWidth="185.0" promptText="Fill Password" />
    </children>
 </AnchorPane>
