@@ -69,6 +69,7 @@ public class EchoServer extends AbstractServer {
 		ServerController.updateLog("Request from:\n" + client.getInetAddress().getHostName() + "\nCommand: "
 				+ ((ServerData) msg).getOperation());
 		ServerData msgToClient;
+		Statement s;
 		switch (((ServerData) msg).getOperation()) {
 		case Login:
 			try {
@@ -144,8 +145,21 @@ public class EchoServer extends AbstractServer {
 			}
 
 			break;
+			
 		case extandLoan:
+			String subID= SubscriberQueries.getSpecificLoan(((ServerData) msg).getDataMsg().get(0)+"");
+			if(subID.equals("Active"))
+			{
+			try {
+				s = mysqlConnection.conn.createStatement();
+				//s.executeUpdate(extandLoanSQL);
+				
+			}
+			catch(SQLException e) {
+			IAlert.ExceptionAlert(e);
+			e.printStackTrace();}}
 			break;
+			
 		case viewActiveLoans:
 			break;
 		case viewActivityHistory:
@@ -153,7 +167,9 @@ public class EchoServer extends AbstractServer {
 		case updateReturnDateManualy:
 			break;
 		case returnBook:
+			
 			break;
+			
 		case watchReadersCard:
 			break;
 		case CreateNewSubscriber:
@@ -167,7 +183,6 @@ public class EchoServer extends AbstractServer {
 			String subscriberSQL = String.format("INSERT INTO `obl`.`subscriber`\n" + "(`ID`,\n" + "`Status`,\n"
 					+ "`FelonyNumber`)\n" + "VALUES\n" + "('%s','%s','%s');", sub.getID(), sub.getStatus(),
 					sub.getFellonyNumber());
-			Statement s;
 
 			try {
 				s = mysqlConnection.conn.createStatement();

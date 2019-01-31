@@ -10,6 +10,10 @@ import SystemObjects.*;
 
 public class SubscriberQueries {
 
+	public static String getSpecificLoan(String subID) {
+		String loanString= String.format("Select Status from obl.Subscriber s where LoanID=subID");
+		return loanString;
+	}
 	public static String UpdateStudent() {
 
 		String updateString = "UPDATE student SET "
