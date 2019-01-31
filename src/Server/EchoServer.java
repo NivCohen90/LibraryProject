@@ -147,18 +147,15 @@ public class EchoServer extends AbstractServer {
 			break;
 			
 		case extandLoan:
-			String subID= SubscriberQueries.getSpecificLoan(((ServerData) msg).getDataMsg().get(0)+"");
-			if(subID.equals("Active"))
-			{
-			try {
-				s = mysqlConnection.conn.createStatement();
-				//s.executeUpdate(extandLoanSQL);
+			String subID= SubscriberQueries.getSubscriberStatus(((ServerData) msg).getDataMsg().get(0)+"", ((ServerData) msg).getDataMsg().get(1)+"");
+			if(subID.equals("Active")) {
 				
-			}
-			catch(SQLException e) {
-			IAlert.ExceptionAlert(e);
-			e.printStackTrace();}}
-			break;
+//			
+//				Calendar c = Calendar.getInstance();
+//				c.setTime(sdf.parse(dt));
+//				c.add(Calendar.DATE, 1);}
+			//	LoanQueries.updateLoanReturnDate(((ServerData) msg).getDataMsg().get(0)+"", ((ServerData) msg).getDataMsg().get(1)+""), newReturnDate);
+			}break;
 			
 		case viewActiveLoans:
 			break;

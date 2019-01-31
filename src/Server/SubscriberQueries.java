@@ -17,8 +17,15 @@ import SystemObjects.*;
 public class SubscriberQueries {
 
 
-	public static String getSpecificLoan(String subID) {
-		String loanString= String.format("Select Status from obl.Subscriber s where LoanID=subID");
+	public static String getSubscriberStatus(String subID, String loanID) {
+		String loanString= String.format("Select Status from obl.Subscriber s where LoanID=loanID and SubscriberID=subID");
+		Statement st;
+		try {
+			st = mysqlConnection.conn.createStatement();
+			loanString=st.executeQuery(loanString)+"";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return loanString;}
 
 	/**
