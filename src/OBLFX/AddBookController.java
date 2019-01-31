@@ -165,12 +165,12 @@ public class AddBookController implements IGUIcontroller {
 			EditionNumber = EditionNumberTextField.getText();
 			Description = DescriptionTextField.getText();
 			Context = ContextTabeTextField.getText();
-			Book book = new Book(catalog, bookname, author, subject, 1, 1, 0, Shelf, EditionNumber,
+			int numberOfCopies = Integer.parseInt(NumberOfCopiesTextField.getText());
+			Book book = new Book(catalog, bookname, author, subject, numberOfCopies, numberOfCopies, 0, Shelf, EditionNumber,
 					java.sql.Date.valueOf(PurchaseDatePicker.getValue()), false, Description, Context);
 			book.setContextTableByteArray(contexTableByteArray);
 			librarianClient.addBookToCatalog(book,GeneralData.userLibrarian);
 		}
-
 	}
 
 
@@ -301,10 +301,21 @@ public class AddBookController implements IGUIcontroller {
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		if(op!=operationsReturn.returnError)
-			RetriveMSG.setText((String) msg);
-		else
-			RetriveMSG.setText(((Exception) msg).getMessage());
+		switch(op)
+		{
+			case returnSuccessMsg:
+				RetriveMSG.setText((String) msg);
+				RetriveMSG.setStyle("-fx-text-fill: green;");
+				break;
+			case returnError:	
+				RetriveMSG.setText((String) msg);
+				RetriveMSG.setStyle("-fx-text-fill: red;");
+				break;
+			case returnException:
+				RetriveMSG.setText(((Exception) msg).getMessage());
+				break;
+		}
+			
 	}
 
 	@Override

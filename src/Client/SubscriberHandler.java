@@ -52,15 +52,14 @@ public class SubscriberHandler extends IHandler {
 	 * @param orderedBook book subscriber ordered
 	 * @param orderDate	date order is made
 	 */
-	public void orderBook(Subscriber subscriberOrdered, Book orderedBook, Date orderDate) {
-		Order newOrder = new Order(orderDate, null, subscriberOrdered.getSubscriberNumber(), orderedBook.getCatalogNumber());
-		ServerData serverData = new ServerData(operations.orderBook, newOrder);
-		try {
-			sendToServer(serverData);
-		} catch (IOException e) {
-			IAlert.ExceptionAlert(e);
-			e.printStackTrace();
-		}
-	}
+	 public void orderBook(Order newOrder) {
+			ServerData serverData = new ServerData(operations.orderBook, newOrder);
+			try {
+				sendToServer(serverData);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+	 }
 
 }

@@ -34,7 +34,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Label layoutX="55.0" layoutY="411.0" text="Book Catalog Number:">
+            <Label layoutX="55.0" layoutY="411.0" text="Loan Number:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -44,12 +44,15 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="wantedBookCtalog" layoutX="219.0" layoutY="408.0" />
-            <DatePicker fx:id="newDatePicker" layoutX="546.0" layoutY="409.0" />
+            <TextField fx:id="LoanNumberTextField" layoutX="156.0" layoutY="408.0" prefHeight="26.0" prefWidth="86.0" />
+            <DatePicker fx:id="newDatePicker" layoutX="546.0" layoutY="409.0" prefHeight="26.0" prefWidth="94.0" />
             <Button fx:id="applayButton" layoutX="374.0" layoutY="492.0" mnemonicParsing="false" onAction="#extendLoan" text="Apply" />
             <Label fx:id="BookCtatalogLabel" layoutX="279.0" layoutY="443.0" />
             <Label fx:id="NewDateLabel" layoutX="619.0" layoutY="443.0" />
-            <Label fx:id="RetriveMSG" layoutX="230.0" layoutY="445.0" prefHeight="32.0" prefWidth="336.0" />       
+            <Label fx:id="RetriveMSG" layoutX="230.0" layoutY="445.0" prefHeight="32.0" prefWidth="336.0" />
+            <Button fx:id="CancelBTN" layoutX="476.0" layoutY="492.0" mnemonicParsing="false" onAction="#CancelLoan" text="Cancel" />
+            <Label fx:id="LoanNumberLabel" layoutX="242.0" layoutY="409.0" prefHeight="26.0" prefWidth="144.0" />
+            <Label fx:id="DateLabel" layoutX="640.0" layoutY="408.0" prefHeight="26.0" prefWidth="135.0" />       
          </children>
       </AnchorPane>
    </children>

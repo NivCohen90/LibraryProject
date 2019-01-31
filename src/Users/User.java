@@ -19,7 +19,7 @@ public class User implements Serializable{
 
 	protected User() {}
 	
-	public User(String iD, String firstName, String lastName, String email, String phoneNumner, String password, int level) {
+	public User(String iD, String firstName, String lastName, String email, String phoneNumber, String password, int level) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
@@ -27,6 +27,7 @@ public class User implements Serializable{
 		ID = iD;
 		Password=password;
 		this.level = level;
+		PhoneNumber=phoneNumber;
 	}
 	
 	
