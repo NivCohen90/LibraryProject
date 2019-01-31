@@ -5,6 +5,7 @@ import java.util.Date;
 
 import Client.CommonHandler;
 import Client.SideMenu;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 
 import SystemObjects.Loan;
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -365,7 +367,10 @@ public class SubscriberCardController implements IGUIcontroller {
 		List.add("055");
 		List.add("058");
 		AreaCodeCombo.setItems(List);
-		
+		if(GeneralData.userSubscriber != null && GeneralData.userSubscriber.getStatus()!= "Active") {
+			UpdateDetailsbutton.setDisable(true);
+			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
+		}
 
 	}
 
@@ -401,10 +406,13 @@ public class SubscriberCardController implements IGUIcontroller {
 			break;}
 			
 		case returnError:{
-			TextMSG.setText("An error occurred- subscriber was not updated");
-			break;}
+			TextMSG.setText("User is locked");
+			
+			break;
+			}
 		
 		default:
+
 			break;
 			
 		}
