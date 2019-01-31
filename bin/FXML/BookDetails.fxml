@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.BookDetailsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.BookDetailsController">
    <children>
       <Label layoutX="22.0" layoutY="25.0" text="Book Detalis">
          <font>
@@ -40,5 +40,10 @@
       <TextArea fx:id="DescriptionTextField" editable="false" focusTraversable="false" layoutX="32.0" layoutY="346.0" prefHeight="200.0" prefWidth="565.0" wrapText="true" />
       <Label fx:id="txtWhenAvailableDate" layoutX="286.0" layoutY="270.0" text="date will be available" visible="false" />
       <Label fx:id="OrderMsgText" layoutX="410.0" layoutY="270.0" text="order msg" visible="false" />
+      <Label fx:id="lblIsWanted" layoutX="198.0" layoutY="32.0" text="Wanted book" textFill="MAROON" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
