@@ -135,6 +135,7 @@ public class SubscriberCardController implements IGUIcontroller {
     @FXML
     private Label PhoneNumber;
     
+    
     @FXML
     void CancelAllChanges(ActionEvent event) {
     	((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Reader Card");

@@ -32,31 +32,40 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
     private TableView<?> curentLoansTable;
 
     @FXML
-    private TableColumn<Loan,String> bookCatalogNumberCol;
+    private TableColumn<?, ?> bookCatalogNumberCol;
 
     @FXML
-    private TableColumn<Loan,Date> startLoanDateCol;
+    private TableColumn<?, ?> startLoanDateCol;
 
     @FXML
-    private TableColumn<Loan,Date> returnedDateCol;
+    private TableColumn<?, ?> returnedDateCol;
 
     @FXML
-    private TextField wantedBookCtalog;
+    private TextField LoanNumberTextField;
 
     @FXML
     private DatePicker newDatePicker;
 
     @FXML
     private Button applayButton;
-    
-    @FXML
-    private Label BookCtatalogLabel;
 
     @FXML
-    private Label NewDateLabel;
-    
-    @FXML
     private Label RetriveMSG;
+
+    @FXML
+    private Button CancelBTN;
+
+    @FXML
+    private Label LoanNumberLabel;
+
+    @FXML
+    private Label DateLabel;
+
+    @FXML
+    void CancelLoan(ActionEvent event) {
+    	newDatePicker.setValue(null);
+    	LoanNumberTextField.setText("");
+    }
 
 	private <T> void displayLoans(ArrayList<T> list) {
 		ObservableColumnData.clear();
@@ -74,13 +83,17 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 	}	
 	@FXML
 	void extendLoan(ActionEvent event){
-	if(	IGUIcontroller.CheckOnlyLetter(wantedBookCtalog, BookCtatalogLabel, OnlyNumbers, UserNameErrorNumebrs)&&
-		IGUIcontroller.CheckIfUserPutInput(wantedBookCtalog, BookCtatalogLabel))
-	   {
-		String bookCtalogNumber = wantedBookCtalog.getText();
-		Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
-		librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
-	   }
+	if(IGUIcontroller.CheckIfUserPutInput(LoanNumberTextField, LoanNumberLabel)){
+		if(IGUIcontroller.CheckOnlyLetter(LoanNumberTextField, LoanNumberLabel, OnlyNumbers, UserNameErrorNumebrs)){
+			String bookCtalogNumber = LoanNumberTextField.getText();
+			Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
+			librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
+		}
+	}
+		
+	   
+
+	  
 	}
 	
 	
