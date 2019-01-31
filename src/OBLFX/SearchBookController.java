@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -135,7 +136,28 @@ public class SearchBookController implements IGUIcontroller {
 		col3.setCellValueFactory(new PropertyValueFactory<>("Subject"));
 		col4.setCellValueFactory(new PropertyValueFactory<>("Description"));
 	}
+	
+    @FXML
+    void CheckSearch(KeyEvent event) {
+    	ResultMSGLabel.setText("");
+		if (type2.isSelected()) {
+			if (IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
+				if (IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters,
+						OnlyThisLetterError)) {
+					
+				}
+			}
+		}
 
+		if (type3.isSelected()) {
+			if (IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
+				if (IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters,
+						OnlyThisLetterError)) {
+				
+				}
+			}
+		}
+    }
 	/**
 	 * request search book from client
 	 * 
@@ -143,12 +165,9 @@ public class SearchBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
-
+		ResultMSGLabel.setText("");
 		String searchInput = txtInput.getText();
-		if (searchInput.isEmpty()) {
-			emptyMsg.setVisible(true);
-		} else {
-			emptyMsg.setVisible(false);
+		if (IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
 			if (type1.isSelected())
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookName);
 			if (type2.isSelected()) {

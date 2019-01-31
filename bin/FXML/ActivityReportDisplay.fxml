@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="45.0" layoutY="35.0" text="Activity Report:">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="152.0" text="Active Subscribers Amount:" />
+      <Label layoutX="69.0" layoutY="195.0" text="Freezed Subscribers Amount:" />
+      <Label layoutX="69.0" layoutY="238.0" text="UnActive Subscribers Amount:" />
+      <TextField fx:id="ActiveSubAmount" editable="false" layoutX="259.0" layoutY="147.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="FreezedSubAmount" editable="false" layoutX="259.0" layoutY="190.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="UnActiveSubAmount" editable="false" layoutX="259.0" layoutY="233.0" prefHeight="26.0" prefWidth="74.0" />
+      <Label layoutX="69.0" layoutY="281.0" text="General Amount Of Loaned Books:" />
+      <Label layoutX="69.0" layoutY="324.0" text="Late Returns Subscribers Amount:" />
+      <TextField fx:id="LoanedBooksAmount" editable="false" layoutX="259.0" layoutY="276.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="LateReturnsSubAmount" editable="false" layoutX="259.0" layoutY="319.0" prefHeight="26.0" prefWidth="74.0" />
+      <Label layoutX="69.0" layoutY="87.0" text="Period Dates:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Text fx:id="PeriodDates" layoutX="161.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.79999542236328">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

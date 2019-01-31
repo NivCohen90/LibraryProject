@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 
 /**
@@ -93,7 +94,10 @@ public class BookDetailsController implements IGUIcontroller{
     	this.displayedBook = BookToDisplay;
     	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		
+		if(GeneralData.userSubscriber != null && GeneralData.userSubscriber.getStatus()!= "Active") {
+			OrderBookBTN.setDisable(true);
+			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
+		}
 	    if(BookToDisplay.getIsWanted())
 	    	lblIsWanted.setVisible(true);
 		BookNameTextField.setText(BookToDisplay.getBookName());
