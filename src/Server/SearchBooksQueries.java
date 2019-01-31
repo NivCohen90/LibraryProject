@@ -13,11 +13,11 @@ import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 
-/**
- * 
- * @author nivco
- *
- */
+ /**
+  * 
+  * @author NivCohen
+  *
+  */
 public class SearchBooksQueries {
 
 	private static final String StartSearchquery = "SELECT * FROM `book` WHERE `";

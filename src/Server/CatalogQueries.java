@@ -99,7 +99,7 @@ public class CatalogQueries {
 	 * 
 	 * @param bookToUpdate book object with details to update
 	 * @return ServerData object for sending to client with appropriate message;
-	 *         success or error
+	 *         success or error or Exception.
 	 */
 	public static ServerData updateBookInDB(Book bookToUpdate) {
 		String successMsg = "Book updated in Catalog";
