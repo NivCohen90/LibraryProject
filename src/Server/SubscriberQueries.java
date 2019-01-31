@@ -16,6 +16,10 @@ import SystemObjects.*;
 
 public class SubscriberQueries {
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static String UpdateStudent() {
 
 		String updateString = "UPDATE student SET "
