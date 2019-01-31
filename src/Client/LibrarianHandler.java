@@ -1,7 +1,9 @@
 package Client;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
@@ -69,7 +71,8 @@ public class LibrarianHandler extends IHandler{
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(catalogNumber);
     	List.add(SubscriberID);
-		ServerData loginInfo = new ServerData(GeneralData.operations.returnBook,List);
+    	List.add(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.returnBook);
 		try
 		{
 			sendToServer(loginInfo);
@@ -91,8 +94,7 @@ public class LibrarianHandler extends IHandler{
 	public  void createNewSubscriber(Subscriber newSub,Librarian librarian) {
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(newSub);
-    	List.add(librarian);
-		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewSubscriber,List);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.CreateNewSubscriber);
 		try
 		{
 			sendToServer(loginInfo);

@@ -1,6 +1,7 @@
 package OBLFX;
 
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
@@ -192,8 +193,10 @@ public class AddNewSubscriberController implements IGUIcontroller {
 	case returnError:
 		ErrorAtCreatSubscriberLabel.setText((String) msg);
 		break;
-	default:
-		ErrorAtCreatSubscriberLabel.setText("New Subscriber apply");
+	case returnException:
+		IAlert.ExceptionAlert((Exception)msg);
+		default:
+		ErrorAtCreatSubscriberLabel.setText("New subscriber was added successfully");
 		break;
 	}
 

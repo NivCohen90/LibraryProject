@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,5 +38,13 @@
       <TextField fx:id="RegularAVG" layoutX="500.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
       <TextField fx:id="RegularDistribution" layoutX="500.0" layoutY="176.0" prefHeight="26.0" prefWidth="74.0" />
       <TextField fx:id="RegularMedian" layoutX="500.0" layoutY="206.0" prefHeight="26.0" prefWidth="74.0" />
+      <BarChart fx:id="histogramChart" layoutX="129.0" layoutY="239.0" prefHeight="346.0" prefWidth="500.0">
+        <xAxis>
+          <CategoryAxis fx:id="chartRange" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="chartNumberOfValues" side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

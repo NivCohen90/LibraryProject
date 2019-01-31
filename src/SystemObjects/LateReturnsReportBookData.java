@@ -1,4 +1,6 @@
 package SystemObjects;
+import java.util.ArrayList;
+
 import SystemObjects.ReportData;
 
 public class LateReturnsReportBookData {
@@ -53,11 +55,11 @@ public class LateReturnsReportBookData {
 		return Duration.getMedian();
 	}
 	
-	public double getAmountDistribution() {
+	public ArrayList<Integer> getAmountDistribution() {
 		return Amount.getDistribution();
 	}
 	
-	public double getDurationDistribution() {
+	public ArrayList<Integer> getDurationDistribution() {
 		return Duration.getDistribution();
 	}
 	

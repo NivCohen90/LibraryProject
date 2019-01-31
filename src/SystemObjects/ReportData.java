@@ -1,21 +1,25 @@
 package SystemObjects;
 
+import java.util.ArrayList;
+
+import SystemObjects.GeneralData.reportReference;
+
 public class ReportData {
 
-	private String reference;
+	private reportReference reference;
 	private double avg;
 	private double median;
-	private double distribution;
+	private ArrayList<Integer> distributionValues;
 	
 	/**
 	 * constructor for general objects statistics
 	 */
-	public ReportData(double avg, double median, double distribution, String reference) {
+	public ReportData(double avg, double median, ArrayList<Integer> distribution, reportReference reference) {
 		
 		this.reference = reference;
 		this.avg = avg;
 		this.median = median;
-		this.distribution = distribution;
+		this.distributionValues = distribution;
 	}
 
 	public double getAvg() {
@@ -34,19 +38,19 @@ public class ReportData {
 		this.median = median;
 	}
 	
-	public double getDistribution() {
-		return distribution;
+	public ArrayList<Integer> getDistribution() {
+		return distributionValues;
 	}
 	
-	public void setDistribution(double distribution) {
-		this.distribution = distribution;
+	public void setDistribution(ArrayList<Integer> distribution) {
+		this.distributionValues = distribution;
 	}
 	
-	public String getReference() {
+	public reportReference getReference() {
 		return reference;
 	}
 	
-	public void setReference(String reference) {
+	public void setReference(reportReference reference) {
 		this.reference = reference;
 	}
 	

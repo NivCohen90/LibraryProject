@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
 
-
 import SystemObjects.ReportData;
 import SystemObjects.GeneralData.operationsReturn;
+import SystemObjects.GeneralData.reportReference;
 import SystemObjects.GeneralData.reportsType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -60,9 +64,9 @@ public class ReportDisplayController implements IGUIcontroller {
 
 	@FXML
 	private TextField GeneralDurationMedian;
-	
-    @FXML
-    private TableView<Object> BookData;
+
+	@FXML
+	private TableView<Object> BookData;
 
 	@FXML
 	private TableColumn<?, ?> BookName;
@@ -103,11 +107,21 @@ public class ReportDisplayController implements IGUIcontroller {
 	@FXML
 	private Text PeriodDates;
 
-	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
+	@FXML
+	private BarChart<String, Integer> histogramChart;
 
+	@FXML
+	private CategoryAxis chartRange;
+
+	@FXML
+	private NumberAxis chartNumberOfValues;
+
+	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
+	ArrayList<String> chartRanges;
+	
 	public void initialize() {
 		BookData.setItems(ObservableColumnData);
-		
+
 		BookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
 		BookAmountAVG.setCellValueFactory(new PropertyValueFactory<>("AmountAvg"));
 		BookAmountDistribution.setCellValueFactory(new PropertyValueFactory<>("AmountDistribution"));
@@ -115,56 +129,61 @@ public class ReportDisplayController implements IGUIcontroller {
 		BookDurationAVG.setCellValueFactory(new PropertyValueFactory<>("DurationAvg"));
 		BookDurationDistribution.setCellValueFactory(new PropertyValueFactory<>("DurationDistribution"));
 		BookDurationMedian.setCellValueFactory(new PropertyValueFactory<>("DurationMedian"));
+	
+		histogramChart.setTitle("Histogram:");
+		chartRange.setLabel("Range:");      
+		chartNumberOfValues.setLabel("Number Of Loaners");
+		XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Amount");       
 	}
 
-	
 	public void setReportDataToDisplay(ArrayList<Object> reportData, operationsReturn reportType) {
 
-		String reference;
-		
+		reportReference reference;
+
 		switch (reportType) {
 		case returnLoanReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
 				reference = ((ReportData) reportData.get(i)).getReference();
 				switch (reference) {
 
-				case "Demended": {
+				case Demanded: {
 					DemendedAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
-					DemendedDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
 					DemendedMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
-					break;
+					DemendedDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
+
+					continue;
 				}
 
-				case "Regular": {
+				case Regular: {
 					RegularAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
 					RegularDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
 					RegularMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
-					break;
+					continue;
 				}
 
 				default:
-					break;
+					continue;
 				}
-
-				break;
 			}
+			break;
 		}
 
 		case returnLateReturnsReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
-				
+
 				if (reportData.get(i) instanceof ReportData) {
 					reference = ((ReportData) reportData.get(i)).getReference();
 					switch (reference) {
 
-					case "GeneralLatesAmount": {
+					case GeneralLatesAmount: {
 						GeneralAmountAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
 						GeneralAmountDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
 						GeneralAmountMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
 						break;
 					}
 
-					case "GeneralLatesDuration": {
+					case GeneralLatesDuration: {
 						GeneralDurationAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
 						GeneralDurationDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
 						GeneralDurationMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
@@ -175,8 +194,9 @@ public class ReportDisplayController implements IGUIcontroller {
 						break;
 					}
 				}
-				
-				else ObservableColumnData.add(((LateReturnsReportBookData) reportData.get(i)));
+
+				else
+					ObservableColumnData.add(((LateReturnsReportBookData) reportData.get(i)));
 			}
 			break;
 		}
@@ -213,5 +233,12 @@ public class ReportDisplayController implements IGUIcontroller {
 	public void closeConnection() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void calcHistogramColm(int max) {
+		int firstColNum = 10 - (max % 10);
+		int firstColRange = (int) Math.floor(max / 10);
+		int secondColNum = max % 10;
+		int secondColRange = firstColRange + 1;
 	}
 }
