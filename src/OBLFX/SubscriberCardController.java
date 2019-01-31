@@ -202,7 +202,8 @@ public class SubscriberCardController implements IGUIcontroller {
 		if (GeneralData.userLibrarian != null) {
 			Sub.setFirstName(FirstNameField.getText());
 			Sub.setLastName(LastNameField.getText());
-			Sub.setPhoneNumber("" + AreaCodeCombo.getPromptText() + PhoneNumberField.getText());			Sub.setID(IDField.getText());
+			Sub.setPhoneNumber("" + AreaCodeCombo.getPromptText() + PhoneNumberField.getText());			
+			Sub.setID(IDField.getText());
 			Sub.setEmail(EmailField.getText());
 			Sub.setStatus(StatusField.getPromptText());
 		}
