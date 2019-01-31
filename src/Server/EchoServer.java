@@ -145,18 +145,23 @@ public class EchoServer extends AbstractServer {
 			}
 
 			break;
-			
+
 		case extandLoan:
-			String subID= SubscriberQueries.getSubscriberStatus(((ServerData) msg).getDataMsg().get(0)+"", ((ServerData) msg).getDataMsg().get(1)+"");
-			if(subID.equals("Active")) {
-				
-//			
-//				Calendar c = Calendar.getInstance();
-//				c.setTime(sdf.parse(dt));
-//				c.add(Calendar.DATE, 1);}
-			//	LoanQueries.updateLoanReturnDate(((ServerData) msg).getDataMsg().get(0)+"", ((ServerData) msg).getDataMsg().get(1)+""), newReturnDate);
-			}break;
-			
+			String loanID = ((ServerData) msg).getDataMsg().get(1).toString();
+			String subID = ((ServerData) msg).getDataMsg().get(0).toString();
+			try {
+				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
+				if (subStatus.equals("Active")) {
+					LoanQueries.updateLoanReturnDate(subID, loanID);
+					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
+				}
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+				msgToClient = new ServerData(operationsReturn.returnException, e);
+			}
+			break;
+
 		case viewActiveLoans:
 			break;
 		case viewActivityHistory:
@@ -164,9 +169,9 @@ public class EchoServer extends AbstractServer {
 		case updateReturnDateManualy:
 			break;
 		case returnBook:
-			
+
 			break;
-			
+
 		case watchReadersCard:
 			break;
 		case CreateNewSubscriber:
@@ -209,10 +214,10 @@ public class EchoServer extends AbstractServer {
 				String getDatesSQL = String.format(
 						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=1;");
 
-				ReportData demandedBookStat=ReportQueries.calculateStatistic(getDatesSQL);
+				ReportData demandedBookStat = ReportQueries.calculateStatistic(getDatesSQL);
 				getDatesSQL = String.format(
 						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=0;");
-				ReportData regularBooksStat=ReportQueries.calculateStatistic(getDatesSQL);
+				ReportData regularBooksStat = ReportQueries.calculateStatistic(getDatesSQL);
 				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);

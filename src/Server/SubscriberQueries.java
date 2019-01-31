@@ -12,21 +12,18 @@ import java.util.Date;
 import Interfaces.IAlert;
 import SystemObjects.GeneralData.*;
 import SystemObjects.ServerData;
+import Users.Subscriber;
 import SystemObjects.*;
 
 public class SubscriberQueries {
 
 
-	public static String getSubscriberStatus(String subID, String loanID) {
-		String loanString= String.format("Select Status from obl.Subscriber s where LoanID=loanID and SubscriberID=subID");
+	public static String getSubscriberStatus(String subID) throws SQLException {
+		String loanString= String.format("Select Status from obl.Subscriber s where SubscriberID=subID");
 		Statement st;
-		try {
 			st = mysqlConnection.conn.createStatement();
-			loanString=st.executeQuery(loanString)+"";
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return loanString;}
+			return st.executeQuery(loanString)+"";
+	}
 
 	/**
 	 * 
@@ -133,6 +130,12 @@ public class SubscriberQueries {
 			IAlert.ExceptionAlert(e);
 		}
 	}
+	
+//	public static Subscriber subscriberData(String subID)
+//	{
+//		String sqlQuery=("SELECT * FROM obl.Subscriber where SubscriberID=subID");
+//		
+//	}
 	
 	/*public static void insertToDB(Student s) throws SQLException {
 	PreparedStatement Statment = conn.prepareStatement(SqlQuerys.addStudent());
