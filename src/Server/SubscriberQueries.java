@@ -27,7 +27,7 @@ public class SubscriberQueries {
 
 	/**
 	 * 
-	 * @return
+	 * @return update student query.
 	 */
 
 	public static String UpdateStudent() {
@@ -131,23 +131,23 @@ public class SubscriberQueries {
 		}
 	}
 	
-	public static Subscriber subscriberData(String subID) throws Exception
-	{
-		String sqlQuery=("SELECT * AS s FROM obl.Subscriber where SubscriberID=subID UNION (SELECT * From obl.user WHERE ID= s.ID");
-		Statement s= mysqlConnection.conn.createStatement();
-		ResultSet resultSet=s.executeQuery(sqlQuery);
-		Subscriber sub= new Subscriber();
-		while(resultSet.next()) {
-			sub.setID(resultSet.getString("ID"));
-			sub.setSubscriberNumber(resultSet.getInt("SubscriberID"));
-			sub.setStatus(resultSet.getString("Status"));
-			sub.setFellonyNumber(resultSet.getInt("FelonyNumber"));
-			sub.setFirstName(resultSet.getString("FirstName"));
-			sub.setLastName(resultSet.getString("LastName"));
-			sub.setEmail(resultSet.getString("Email"));
-			sub.setPhoneNumber(resultSet.getString("PhoneNumber"));
-			
-		}
+//	public static Subscriber subscriberData(String subID) throws Exception
+//	{
+//		String sqlQuery=("SELECT * AS s FROM obl.Subscriber where SubscriberID=subID UNION (SELECT * From obl.user WHERE ID= s.ID");
+//		Statement s= mysqlConnection.conn.createStatement();
+//		ResultSet resultSet=s.executeQuery(sqlQuery);
+//		Subscriber sub= new Subscriber();
+//		while(resultSet.next()) {
+//			sub.setID(resultSet.getString("ID"));
+//			sub.setSubscriberNumber(resultSet.getInt("SubscriberID"));
+//			sub.setStatus(resultSet.getString("Status"));
+//			sub.setFellonyNumber(resultSet.getInt("FelonyNumber"));
+//			sub.setFirstName(resultSet.getString("FirstName"));
+//			sub.setLastName(resultSet.getString("LastName"));
+//			sub.setEmail(resultSet.getString("Email"));
+//			sub.setPhoneNumber(resultSet.getString("PhoneNumber"));
+//			
+//		}
 	}
 	
 	/*public static void insertToDB(Student s) throws SQLException {
@@ -204,4 +204,4 @@ public static ArrayList<Student> UpdateStudentInformation(Student s) throws SQLE
 	return null;
 
 }*/
-}
+

@@ -11,6 +11,12 @@ import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
 import Users.Subscriber;
 
+/**
+ * User Login queries.
+ * 
+ * @author NivPC
+ *
+ */
 public class LoginQueris {
 	private String userName;
 	private String Password;
@@ -34,6 +40,11 @@ public class LoginQueris {
 		Password = pass;
 	}
 
+	/**
+	 * 
+	 * @param Login
+	 * @return Server Data with the user information or Error or Exception.
+	 */
 	@SuppressWarnings("resource")
 	public static ServerData Login(LoginQueris Login) {
 

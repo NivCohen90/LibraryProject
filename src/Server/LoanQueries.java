@@ -43,9 +43,15 @@ public class LoanQueries {
 		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
 	}
 	
-//	public static void createNewLoan(ResultSet resultSet) {
-//		String sqlQuery=("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus VALUES "
-//				+ "(%s, %s %s %s, % , % , %s", resultSet.getInt("LoanID"), resultSet.getInt(SubscriberID), resultSet.getInt("CopyID"), resultSet.getDate(StartDate).toLocalDate() );
-//	}
+	public static void createNewLoan2(ResultSet result) {
+		
+		try {
+			String sqlQuery=String.format("INSERT INTO obl.loan LoanID=result.getInt(\"LoanID\"), SubscriberID=result.getInt(\"SubscriberID\"), BookCatalogNumber=, CopyID=result.getInt(\"CopyID\"), StartDate, ReturnDate, LoanStatus VALUES "
+					+ "(%s, %s %s %s, % , % , %s)", result.getInt("CopyID"), 
+					result.getDate("StartDate").toLocalDate() );
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

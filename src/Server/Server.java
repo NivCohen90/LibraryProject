@@ -2,6 +2,7 @@ package Server;
 
 import java.util.Optional;
 
+import Interfaces.IAlert;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -45,6 +46,7 @@ public class Server extends Application {
 			e.printStackTrace();
 			String Error = "SQLException: " + e.getMessage();
 			ServerController.updateLog(Error);
+			IAlert.ExceptionAlert(e);
 		}
 
 	}

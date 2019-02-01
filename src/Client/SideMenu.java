@@ -2,6 +2,7 @@ package Client;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
@@ -27,6 +29,7 @@ import OBLFX.SearchSubscriberController;
 import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
+import OBLFX.UserWelcomeController;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.MenuType;
 import SystemObjects.GeneralData.Menuicons;
@@ -43,6 +46,7 @@ public class SideMenu {
 	private VBox vbox;
 	public static Menuicons clicked = Menuicons.Nothing; // not in use right now.
 	public static HashMap<Menuicons, IGUIcontroller> controllerMap;
+	public static HashMap<Menuicons, Button> sideMenuButtons;
 	public static boolean refuseConnection = false;
 	private static boolean SubMenu = false;
 
@@ -73,7 +77,8 @@ public class SideMenu {
 	public static AnchorPane APUpdateSubscriberStatusFXML;
 	public static AnchorPane APStatisticsFXML;
 	public static AnchorPane APConnectionSettingsFXML;
-	public static AnchorPane APWelcomeScreen;
+	public static AnchorPane APWelcomeScreenFXML;
+	public static AnchorPane APUserWelcomeFXML;
 
 	/**
 	 * Create new menu inorder to menuType.
@@ -83,6 +88,7 @@ public class SideMenu {
 	public SideMenu(MenuType menuType) {
 		vbox = new VBox();
 		controllerMap = new HashMap<>();
+		sideMenuButtons = new HashMap<>();
 		vbox.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		vbox.setPrefWidth(200);
 		loadAllFXMLAnchorPanes();
@@ -152,6 +158,7 @@ public class SideMenu {
 		Image image = new Image(getClass().getResource("/MenuIcons/" + icon.toString() + ".png").toExternalForm());
 		ImageView imageView = new ImageView(image);
 		Button btn = new Button();
+		sideMenuButtons.put(icon, btn);
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
@@ -299,13 +306,13 @@ public class SideMenu {
 			fxmlLoader.setController(null);
 			APDeleteBookFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.DeleteBookFXML).openStream());
-
 			controllerMap.put(Menuicons.DeleteBook, (DeleteController) fxmlLoader.getController());
+			
 
-			// fxmlLoader.setRoot(null);
-			// fxmlLoader.setController(null);
-			// APWelcomeScreen = (AnchorPane)
-			// fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen).openStream());
+//			 fxmlLoader.setRoot(null);
+//			 fxmlLoader.setController(null);
+//			 APUserWelcomeFXML = (AnchorPane)
+//			 fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.UserWelcomeFXML).openStream());
 
 		} catch (IOException e) {
 			IAlert.ExceptionAlert(e);
@@ -323,11 +330,11 @@ public class SideMenu {
 	private void menuDecorator(Button btn, Pane pane) {
 
 		btn.setOnMouseEntered(value -> {
-			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+			//btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
 			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
 		});
 		btn.setOnMouseExited(value -> {
-			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+			//btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		});
 	}
@@ -366,6 +373,13 @@ public class SideMenu {
 	private void RightSideBtnHandler(Button btn, AnchorPane anchorPane, Menuicons IconName) {
 		btn.setOnMouseClicked(search -> {
 			try {
+				if(sideMenuButtons.get(IconName) != null) {
+					sideMenuButtons.get(IconName).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+					for(Menuicons icon : Menuicons.values()) {
+						if(IconName != icon && sideMenuButtons.get(icon) != null)
+							sideMenuButtons.get(icon).setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					}
+				}
 				if (controllerMap.get(IconName) != null) {
 					controllerMap.get(IconName).setConnection();
 					for (Menuicons icon : Menuicons.values()) {
