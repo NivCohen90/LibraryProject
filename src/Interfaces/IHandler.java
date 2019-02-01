@@ -73,8 +73,7 @@ public abstract class IHandler extends AbstractClient {
 			conn.ConnectedFLAG = false;
 			conn.setConnection();
 			SideMenu.refuseConnection = true;
-			IAlert.ExceptionAlert(e);
-			e.printStackTrace();
+			IAlert.ExceptionAlert("Connection Failed.", new Exception (Error));
 		}
 	}
 

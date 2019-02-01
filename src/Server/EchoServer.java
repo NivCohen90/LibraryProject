@@ -69,6 +69,7 @@ public class EchoServer extends AbstractServer {
 		ServerController.updateLog("Request from:\n" + client.getInetAddress().getHostName() + "\nCommand: "
 				+ ((ServerData) msg).getOperation());
 		ServerData msgToClient;
+		Statement s;
 		switch (((ServerData) msg).getOperation()) {
 		case Login:
 			try {
@@ -144,8 +145,23 @@ public class EchoServer extends AbstractServer {
 			}
 
 			break;
+
 		case extandLoan:
+			String loanID = ((ServerData) msg).getDataMsg().get(1).toString();
+			String subID = ((ServerData) msg).getDataMsg().get(0).toString();
+			try {
+				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
+				if (subStatus.equals("Active")) {
+					LoanQueries.updateLoanReturnDate(subID, loanID);
+					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
+				}
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+				msgToClient = new ServerData(operationsReturn.returnException, e);
+			}
 			break;
+
 		case viewActiveLoans:
 			break;
 		case viewActivityHistory:
@@ -153,7 +169,9 @@ public class EchoServer extends AbstractServer {
 		case updateReturnDateManualy:
 			break;
 		case returnBook:
+
 			break;
+
 		case watchReadersCard:
 			break;
 		case CreateNewSubscriber:
@@ -167,7 +185,6 @@ public class EchoServer extends AbstractServer {
 			String subscriberSQL = String.format("INSERT INTO `obl`.`subscriber`\n" + "(`ID`,\n" + "`Status`,\n"
 					+ "`FelonyNumber`)\n" + "VALUES\n" + "('%s','%s','%s');", sub.getID(), sub.getStatus(),
 					sub.getFellonyNumber());
-			Statement s;
 
 			try {
 				s = mysqlConnection.conn.createStatement();
@@ -197,10 +214,10 @@ public class EchoServer extends AbstractServer {
 				String getDatesSQL = String.format(
 						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=1;");
 
-				ReportData demandedBookStat=ReportQueries.calculateStatistic(getDatesSQL);
+				ReportData demandedBookStat = ReportQueries.calculateStatistic(getDatesSQL);
 				getDatesSQL = String.format(
 						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=0;");
-				ReportData regularBooksStat=ReportQueries.calculateStatistic(getDatesSQL);
+				ReportData regularBooksStat = ReportQueries.calculateStatistic(getDatesSQL);
 				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);

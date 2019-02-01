@@ -47,45 +47,55 @@ public class CatalogQueries {
 		String successMsg = "Book added to Catalog";
 		ServerData result;
 		Statement stmt;
+		bookToAdd.setContextTable(bookToAdd.getCatalogNumber() + ".pdf");
 		String query = String.format(
-				"INSERT INTO `obl`.`book` (`CatalogNumber`, `BookName`, `AuthorName`, `Subject`, `NumberOfCopies`, `AvailableCopies`, `NumberOfOrders`, `ShelfLocation`, `EditionNumber`, `purchesDate`, `isWanted`, `Description`, `ContextTable`)"
+				"INSERT INTO `obl`.`book` (`CatalogNumber`, `BookName`, `AuthorName`, `Subject`, `NumberOfCopies`, `AvailableCopies`, `NumberOfOrders`, `ShelfLocation`, `EditionNumber`, `purchesDate`, `isWanted`, `Description`, `ContextTable`,`BookCopyIndex`)"
 						+ "VALUES (%s);",
 				bookDetailsQuery(bookToAdd, queryType.Insert));
-		String queryCopies = String.format("INSERT INTO `obl`.`bookcopy` (`CatalogNumber`) VALUES('%s');",
-				bookToAdd.getCatalogNumber());
+		
+		String checkCatalogNumber = String.format(
+				"SELECT `CatalogNumber` FROM `obl`.`book` WHERE obl.book.CatalogNumber='%s';",bookToAdd.getCatalogNumber());
 
 		// System.out.println(query);
 		try {
 			stmt = con.createStatement();
-			stmt.executeUpdate(query);
+			ResultSet catalogNumber = stmt.executeQuery(checkCatalogNumber);
+			while(catalogNumber.next()) {
+				throw new SQLException("This book with this catalog number is already in database.");
+			}
 			File pdfoutFile;
 			FileOutputStream fos; // input from file
 			BufferedOutputStream bos; // buffer input
 			pdfoutFile = new File("src/PDFBook/" + bookToAdd.getContextTable());
 			if (pdfoutFile.exists())
 				throw new FileAlreadyExistsException("pdf file with this name already exist");
+			stmt.executeUpdate(query);
 			fos = new FileOutputStream(pdfoutFile);
 			bos = new BufferedOutputStream(fos);
 			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read from file to byte array
 			bos.flush();
 			fos.flush();
 			fos.close();
-
-			for (int i = 0; i < bookToAdd.getNumberOfLibraryCopies(); i++)
+			for (int i = 1; i <= bookToAdd.getNumberOfLibraryCopies(); i++) {
+				String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + 
+						"(`CopyID`,\r\n" + 
+						"`CatalogNumber`)\r\n" + 
+						"VALUES\r\n" + 
+						"(" + i + ",\r\n" + 
+						bookToAdd.getCatalogNumber() + ");";
 				stmt.executeUpdate(queryCopies);
-
+			}
 			String queryCopiesAdded = String.format("SELECT * FROM obl.bookcopy where CatalogNumber='%s';",
 					bookToAdd.getCatalogNumber());
 			ResultSet copies = stmt.executeQuery(queryCopiesAdded);
 			String copiesIDs = "Copies ID added : ";
 			while (copies.next())
-				copiesIDs += String.format("%s, ", copies.getString("CopyID"));
-
+				copiesIDs += String.format("%d, ", copies.getInt(1));
 			copiesIDs = copiesIDs.substring(0, copiesIDs.length() - 2);
-
+			copiesIDs = copiesIDs + ".";
 			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg + "\n" + copiesIDs);
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			result = new ServerData(operationsReturn.returnError, "Catalog number already exist");
+			result = new ServerData(operationsReturn.returnException, new Exception ("Catalog number already exist"));
 		} catch (FileAlreadyExistsException e) {
 			result = new ServerData(operationsReturn.returnError, e.getMessage());
 		} catch (SQLException | IOException e) {
@@ -129,13 +139,13 @@ public class CatalogQueries {
 		String query = "";
 		switch (queryType) {
 		case Insert:
-			query = String.format("'%s', '%s', '%s', '%s', %d, %d, 0, '%s', '%s', '%s', '%s', '%s', '%s'",
+			query = String.format("'%s', '%s', '%s', '%s', %d, %d, 0, '%s', '%s', '%s', '%s', '%s', '%s', %d",
 					bookWithDetails.getCatalogNumber(), bookWithDetails.getBookName(), bookWithDetails.getAuthorName(),
 					bookWithDetails.getSubject(), bookWithDetails.getNumberOfLibraryCopies(),
 					bookWithDetails.getAvailableCopies(), bookWithDetails.getShelfLoaction(),
 					bookWithDetails.getEditionNumber(), dateFormat.format(bookWithDetails.getPurchesDate()),
 					bookWithDetails.getIsWanted() ? 1 : 0, bookWithDetails.getDescription(),
-					bookWithDetails.getContextTable());
+					bookWithDetails.getContextTable(), bookWithDetails.getNumberOfLibraryCopies());
 			break;
 		case Update:
 			query = String.format(

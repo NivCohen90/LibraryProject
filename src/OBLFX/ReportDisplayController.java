@@ -240,5 +240,7 @@ public class ReportDisplayController implements IGUIcontroller {
 		int firstColRange = (int) Math.floor(max / 10);
 		int secondColNum = max % 10;
 		int secondColRange = firstColRange + 1;
+		int i=1;
+		
 	}
 }

@@ -15,7 +15,7 @@ import SystemObjects.ServerData;
 
 /**
  * 
- * @author nivco
+ * @author Niv Cohen.
  *
  */
 public class SearchBooksQueries {
@@ -38,7 +38,7 @@ public class SearchBooksQueries {
 	 * Return Book by specific search.
 	 * @param SearchString
 	 * @param colName
-	 * @return 
+	 * @return Server Data with the book(s) details or Error or Exception.
 	 */
 	public static ServerData SearchBookByColName(String SearchString, Cols colName) {
 		ServerData Result;

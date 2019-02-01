@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -215,8 +216,9 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CatalogNumberCheck(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
+	
 	}
 
 	/**
@@ -312,7 +314,8 @@ public class AddBookController implements IGUIcontroller {
 				RetriveMSG.setStyle("-fx-text-fill: red;");
 				break;
 			case returnException:
-				RetriveMSG.setText(((Exception) msg).getMessage());
+				//RetriveMSG.setText(((Exception) msg).getMessage());
+				IAlert.ExceptionAlert((Exception)msg);
 				break;
 		}
 			

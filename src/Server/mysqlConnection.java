@@ -16,6 +16,14 @@ public class mysqlConnection {
 	static String DB_UserName;
 	static String DB_Password;
  
+	/**
+	 * 
+	 * @param DatabaseIP
+	 * @param SchemeName
+	 * @param UserName
+	 * @param Password
+	 * @return if connection and build database was succesful.
+	 */
 	@SuppressWarnings("deprecation")
 	public static boolean SetmysqlConnection(String DatabaseIP, String SchemeName, String UserName, String Password) {
 		DB_SchemeName = SchemeName;
@@ -59,6 +67,11 @@ public class mysqlConnection {
 		
 	}
 	
+	/**
+	 * 
+	 * @param Path
+	 * @return if load data from CSV files was succesful.
+	 */
 	public static boolean LoadDataFromCSV(String Path) {
 		Statement createdb;
 		try {
@@ -118,6 +131,10 @@ public class mysqlConnection {
 		}
 
 	}
+	/**
+	 * Stop Connection with the database.
+	 * @return flag that indicate the succesful of the method.
+	 */
 	public static boolean CloseDBConnection() {
 		try {
 			conn.close();

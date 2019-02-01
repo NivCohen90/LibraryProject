@@ -88,8 +88,8 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckAuthorName(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError);
 		IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel);
+		IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError);
 		author = true;
 	}
 
@@ -100,8 +100,8 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel);
+		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		catalog = true;
 	}
 
@@ -120,8 +120,8 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckSubject(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError);
 		IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel);
+		IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError);
 		subject = true;
 	}
 
@@ -147,8 +147,8 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void GetBookDetailsAction(ActionEvent event) {
-		if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs)
-				&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel)) {
+		if ( IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel) && IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs))
+				 {
 			catalogNumberSearch = CatalogTextField.getText();
 
 			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
@@ -173,8 +173,8 @@ public class UpdateBookController implements IGUIcontroller {
 				}
 			}
 
-			if (IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError)
-					&& IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel)) {
+			if (IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel) && IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError))
+					 {
 				counter++;
 				if (author) {
 					book.setAuthorName(AuthorTextField.getText());
@@ -188,8 +188,8 @@ public class UpdateBookController implements IGUIcontroller {
 
 				}
 			}
-			if (IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError)
-					&& IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel)) {
+			if (IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel) &&  IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError))
+					 {
 				counter++;
 				if (subject) {
 					book.setSubject(SubjectTextField.getText());

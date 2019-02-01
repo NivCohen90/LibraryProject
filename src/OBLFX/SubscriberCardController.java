@@ -135,6 +135,7 @@ public class SubscriberCardController implements IGUIcontroller {
     @FXML
     private Label PhoneNumber;
     
+    
     @FXML
     void CancelAllChanges(ActionEvent event) {
     	((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Reader Card");
@@ -186,7 +187,7 @@ public class SubscriberCardController implements IGUIcontroller {
 			
 		} 
 		else if (GeneralData.userSubscriber != null) {
-			String phoneNumber = GeneralData.userSubscriber.getPhoneNumber().substring(3,  GeneralData.userSubscriber.getPhoneNumber().length()); 
+			String phoneNumber = GeneralData.userSubscriber.getPhoneNumber().substring(3, 10); 
 			String areaCode= GeneralData.userSubscriber.getPhoneNumber().substring(0, 3);
 			((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(GeneralData.userSubscriber.getFirstName());
 			((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(GeneralData.userSubscriber.getLastName());
@@ -203,7 +204,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 
 	public void setSubscriberCard(Subscriber sub) {
-		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length()); 
+		String phoneNumber = sub.getPhoneNumber().substring(3, 10); 
 		String areaCode= sub.getPhoneNumber().substring(0, 3);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getFirstName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(sub.getLastName());
@@ -367,7 +368,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		List.add("055");
 		List.add("058");
 		AreaCodeCombo.setItems(List);
-		if(GeneralData.userSubscriber != null && GeneralData.userSubscriber.getStatus()!= "Active") {
+		if(GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			UpdateDetailsbutton.setDisable(true);
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
 		}
@@ -410,11 +411,6 @@ public class SubscriberCardController implements IGUIcontroller {
 			
 			break;
 			}
-		case returnException:{
-			IAlert.ExceptionAlert((Exception) msg);
-			
-			break;
-			}
 		
 		default:
 
@@ -426,14 +422,13 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@Override
 	public void setConnection() {
-		commonClient = new CommonHandler(this);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void closeConnection() {
-		if(commonClient!=null)
-			commonClient.quit();	
+		// TODO Auto-generated method stub
 
 	}
 
