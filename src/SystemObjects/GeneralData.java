@@ -19,7 +19,7 @@ public class GeneralData {
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		updateSubscriberDetails, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails;
+		updateSubscriberDetails, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails, calcReturnDate;
 	};
 	
 	/**
@@ -30,7 +30,7 @@ public class GeneralData {
 	public enum operationsReturn {
 		returnSubscriber, returnLibrarian,returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray, returnOrderArray,
-		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData, returnException
+		returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData, returnActivityReportData, returnException, returnReturnDate
 		};	
 
 

@@ -3,10 +3,13 @@ package Server;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import Interfaces.IAlert;
 import SystemObjects.Book;
+import SystemObjects.Loan;
 import Users.Subscriber;
 
 public class LoanQueries {
@@ -43,15 +46,26 @@ public class LoanQueries {
 		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
 	}
 	
-	public static void createNewLoan(ResultSet result) {
-		
+	public static void createNewLoan(Loan newLoan) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			String sqlQuery=String.format("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber=, CopyID=result.getInt(\"CopyID\"), StartDate, ReturnDate, LoanStatus VALUES "
-					+ "(%d, %d %s %s, % , % , %s)", result.getInt("LoanID"), result.getInt("SubscriberID"), result.getInt("CopyID"), 
-					result.getDate("StartDate").toLocalDate() );
+				sqlQuery=String.format("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus VALUES "
+						+ "(%s, %s, %s, %s, %s, %s, %s)", newLoan.getLoanID(), newLoan.getSubscriberID(), newLoan.getBookCatalogNumber(), newLoan.getCopyID(), 
+						dateFormat.format(newLoan.getStartDate()), dateFormat.format(newLoan.getReturnDate()), newLoan.getLoanStatus());
+			st = mysqlConnection.conn.createStatement();
+			st.executeUpdate(sqlQuery);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	
+	public static LocalDate calcReturnDate(LocalDate sDate, boolean demanded){
+		
+		if (demanded)
+			return sDate.plusDays(3);
+		
+		else return sDate.plusDays(14);
 	}
 
 }

@@ -1,6 +1,7 @@
 package OBLFX;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import Client.LibrarianHandler;
 import Interfaces.IGUIcontroller;
@@ -61,9 +62,15 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalog(KeyEvent event) {
-		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
-		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
-		
+		if (IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel))
+			if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
+					UserNameErrorNumebrs)) {
+				StartDateDatePicker.setDisable(false);
+				StartDateDatePicker.setStyle("-fx-opacity:0.1;");
+			} else {
+				StartDateDatePicker.setDisable(true);
+				StartDateDatePicker.setStyle("-fx-opacity:0.5;");
+			}
 	}
 
 	/**
@@ -73,45 +80,34 @@ public class NewLoanController implements IGUIcontroller {
 	@FXML
 	void CheckLoan(ActionEvent event) {
 		int counter = 0;
-		if(IGUIcontroller.CheckIfUserPutInput(SubscriberIDTextField, SubscriberIDLabel)) {
+		if (IGUIcontroller.CheckIfUserPutInput(SubscriberIDTextField, SubscriberIDLabel)) {
 			if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)) {
 				counter++;
 			}
 		}
-		if(IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
-			if(IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,UserNameErrorNumebrs)) {
+		if (IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
+			if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
+					UserNameErrorNumebrs)) {
 				counter++;
 			}
 		}
-				if (StartFlag) {
-					counter++;
-				}
-				else {
-					StartDateLabel.setText(ChooseDate);	
-				}
-				if (ReturnFlag) {
-					counter++;
-				}
-				else {
-					ReturnDateLabel.setText(ChooseDate);
-			}
-		if (counter==4) {
+		if (StartFlag) {
+			counter++;
+		} else {
+			StartDateLabel.setText(ChooseDate);
+		}
+		if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), ReturnDateDatePicker.getValue(),
+				ReturnDateLabel)) {
+			counter++;
+		} else {
+			ReturnDateLabel.setText(ChooseDate);
+		}
+		if (counter == 4) {
 			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
 					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
-					java.sql.Date.valueOf(StartDateDatePicker.getValue()));	
+					java.sql.Date.valueOf(StartDateDatePicker.getValue()));
 		}
 
-	}
-
-	/**
-	 * CheckReturnDate is a method that check if the user choose a date an notice it
-	 * by a flag
-	 */
-	@FXML
-	void CheckReturnDate(ActionEvent event) {
-		if(IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now() ,ReturnDateDatePicker.getValue(),ReturnDateLabel)) {
-			ReturnFlag = true;
-		}	
 	}
 
 	/**
@@ -120,8 +116,10 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckStartDate(ActionEvent event) {
-		if(IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now() ,StartDateDatePicker.getValue(),StartDateLabel)) {
+		if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), StartDateDatePicker.getValue(),
+				StartDateLabel)) {
 			StartFlag = true;
+			librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
 		}
 	}
 
@@ -142,7 +140,24 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		RetriveMSG.setText((String) msg);
+
+		switch (op) {
+		case returnReturnDate:
+			ReturnDateDatePicker.setValue((LocalDate) msg);
+			break;
+
+		case returnSuccessMsg:
+			RetriveMSG.setText("New loan was added");
+			break;
+
+		case returnError:
+			RetriveMSG.setText("Subscriber status isn't 'Active'");
+			break;
+
+		case returnException:
+			System.out.println(msg);
+			break;
+		}
 	}
 
 	@Override
@@ -152,7 +167,7 @@ public class NewLoanController implements IGUIcontroller {
 
 	@Override
 	public void closeConnection() {
-		if(librarianClient!=null)
+		if (librarianClient != null)
 			librarianClient.quit();
 	}
 

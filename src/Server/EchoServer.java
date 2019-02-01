@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Interfaces.IAlert;
+import OBLFX.NewLoanController;
 import Server.LoginQueris;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -21,6 +22,7 @@ import SystemObjects.ReportData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
+import SystemObjects.Loan;
 import Users.Subscriber;
 import ocsf.server.*;
 
@@ -252,7 +254,26 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 		case CreateNewLoan:
+			ArrayList<Object> newLoan = ((ServerData) msg).getDataMsg();
+			try {
+				String subStatus = SubscriberQueries.getSubscriberStatus(((Loan) newLoan.get(0)).getSubscriberID());
+				if (subStatus.equals("Active")) {
+				LoanQueries.createNewLoan((Loan) newLoan.get(0));
+				msgToClient = new ServerData(operationsReturn.returnSuccessMsg);}
+				else msgToClient = new ServerData(operationsReturn.returnError);
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+				msgToClient = new ServerData(operationsReturn.returnException);
+			}
+			try {
+				client.sendToClient(msgToClient);
+			}
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			break;
+
 		case deleteBook:
 			break;
 		case getBookDetails:
@@ -284,6 +305,19 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchBySubscriberStudentID:
 			break;
+
+		case calcReturnDate:
+			ArrayList<Object> data = ((ServerData) msg).getDataMsg();
+			boolean answer = BookQueries.isDemanded((String) data.get(1));
+			LocalDate returnDate = LoanQueries.calcReturnDate((LocalDate) data.get(0), answer);
+			try {
+				client.sendToClient(returnDate);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			break;
 

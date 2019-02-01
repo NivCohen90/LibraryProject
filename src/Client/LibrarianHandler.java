@@ -1,5 +1,6 @@
 package Client;
 
+import java.time.LocalDate;
 //import java.sql.Date;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import Interfaces.IHandler;
 import OBLFX.ConnectionSettingsController;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
+import SystemObjects.Loan;
 import SystemObjects.ServerData;
 import Users.Subscriber;
 import Users.Librarian;
@@ -28,17 +30,23 @@ public class LibrarianHandler extends IHandler{
 		currentControllerGUIobj = guiController;
 	}
 
-
+	public void calcReturnDate(LocalDate sDate, String bookCatalogNumber) {
+		ServerData data = new ServerData(GeneralData.operations.calcReturnDate, sDate, bookCatalogNumber);
+	try {
+		sendToServer(data);
+	}
+	catch (Exception e) {
+		IAlert.ExceptionAlert(e);
+		e.printStackTrace();
+	}	
+	}
 
 	
 	
-	public void createNewLoan(String catalogNumber,String SubscriberID,Date Returndate,Date Startdate) {
-		ArrayList<Object> List = new ArrayList<Object>();
-    	List.add(catalogNumber);
-    	List.add(SubscriberID);
-    	List.add(Returndate);
-    	List.add(Startdate);
-		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewLoan,List);
+	public void createNewLoan(String catalogNumber,String SubscriberID,Date Returndate,Date StartDate) {
+		Loan newLoan=new Loan(null, SubscriberID, catalogNumber, null, StartDate, Returndate, "Active");
+
+		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewLoan,newLoan);
 		try
 		{
 			sendToServer(loginInfo);
@@ -47,9 +55,6 @@ public class LibrarianHandler extends IHandler{
 			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}	
-		
-		
-		
 		
 	}
 	
@@ -106,14 +111,6 @@ public class LibrarianHandler extends IHandler{
 		
 		
 	}
-	
-	public void changeSubscriberStatus() {}
-	
-	public void FreezeSubscriber() {}
-	
-	public void createReports() {}
-	
-	public void getEmployeesData() {}
 	
 	public void searchSubscriber() {}
 	
