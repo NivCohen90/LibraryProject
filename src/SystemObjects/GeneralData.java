@@ -19,7 +19,7 @@ public class GeneralData {
 		searchByLibrarianName, searchByLibrarianAffiliation, searchByLibrarianEmail, searchByLibrarianID,
 		searchBySubscriberName, searchBySubscriberStudentID, searchBySubscriberEmail, searchBySubscriberID, orderBook, extandLoan, viewActiveLoans, viewActivityHistory, CreateNewLoan,
 		updateReturnDateManualy, returnBook, watchReadersCard, CreateNewSubscriber, ManageCatalog,
-		updateSubscriberDetails, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook, updateBook, deleteBook, getBookDetails, calcReturnDate;
+		updateSubscriberDetails, watchEmployeesData, createActivityReport, createLoansReport, createLateReturnsReport ,AddBook,AddBookCopy, updateBook, deleteBook, getBookDetails, calcReturnDate;
 	};
 	
 	/**

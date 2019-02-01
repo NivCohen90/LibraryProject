@@ -379,6 +379,9 @@ public class SubscriberCardController implements IGUIcontroller {
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status", "Please contect the libararian",
 					"Click ok to close message");
 		}
+		else {
+			UpdateDetailsbutton.setDisable(false);
+		}
 		
 		ActiveLoansTable.setRowFactory(tv -> {
 			TableRow<LoansTable> row = new TableRow<>();

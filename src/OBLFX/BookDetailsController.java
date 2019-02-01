@@ -98,6 +98,9 @@ public class BookDetailsController implements IGUIcontroller{
 			OrderBookBTN.setDisable(true);
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
 		}
+		else {
+			OrderBookBTN.setDisable(false);
+		}
 	    if(BookToDisplay.getIsWanted())
 	    	lblIsWanted.setVisible(true);
 		BookNameTextField.setText(BookToDisplay.getBookName());

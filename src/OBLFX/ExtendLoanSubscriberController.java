@@ -10,8 +10,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.sun.corba.se.impl.activation.CommandHandler;
-
 import Client.CommonHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
@@ -28,7 +26,7 @@ import javafx.scene.control.TextField;
 
 public class ExtendLoanSubscriberController implements IGUIcontroller {
 
-	private CommandHandler commanClient;
+	private CommonHandler commanClient;
 	private LoansTable displayedLoan;
 	
 	@FXML
