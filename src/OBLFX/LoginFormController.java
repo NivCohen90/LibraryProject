@@ -15,6 +15,7 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.Loan;
 import SystemObjects.Order;
+import SystemObjects.GeneralData.Menuicons;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -104,6 +105,7 @@ public class LoginFormController implements IGUIcontroller {
 			
 			SubscriberCardController subCon = new SubscriberCardController();
 			subCon.setSubscriberCard((Subscriber) msg);
+			SideMenu.controllerMap.get(Menuicons.SubscriberCard).setConnection();
 			
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);

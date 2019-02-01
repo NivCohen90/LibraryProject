@@ -186,7 +186,7 @@ public class SubscriberCardController implements IGUIcontroller {
 			
 		} 
 		else if (GeneralData.userSubscriber != null) {
-			String phoneNumber = GeneralData.userSubscriber.getPhoneNumber().substring(3, 10); 
+			String phoneNumber = GeneralData.userSubscriber.getPhoneNumber().substring(3,  GeneralData.userSubscriber.getPhoneNumber().length()); 
 			String areaCode= GeneralData.userSubscriber.getPhoneNumber().substring(0, 3);
 			((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(GeneralData.userSubscriber.getFirstName());
 			((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(GeneralData.userSubscriber.getLastName());
@@ -203,7 +203,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 
 	public void setSubscriberCard(Subscriber sub) {
-		String phoneNumber = sub.getPhoneNumber().substring(3, 10); 
+		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length()); 
 		String areaCode= sub.getPhoneNumber().substring(0, 3);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getFirstName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(sub.getLastName());
@@ -410,6 +410,11 @@ public class SubscriberCardController implements IGUIcontroller {
 			
 			break;
 			}
+		case returnException:{
+			IAlert.ExceptionAlert((Exception) msg);
+			
+			break;
+			}
 		
 		default:
 
@@ -421,13 +426,14 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@Override
 	public void setConnection() {
-		// TODO Auto-generated method stub
+		commonClient = new CommonHandler(this);
 
 	}
 
 	@Override
 	public void closeConnection() {
-		// TODO Auto-generated method stub
+		if(commonClient!=null)
+			commonClient.quit();	
 
 	}
 
