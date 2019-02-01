@@ -43,11 +43,11 @@ public class LoanQueries {
 		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
 	}
 	
-	public static void createNewLoan2(ResultSet result) {
+	public static void createNewLoan(ResultSet result) {
 		
 		try {
-			String sqlQuery=String.format("INSERT INTO obl.loan LoanID=result.getInt(\"LoanID\"), SubscriberID=result.getInt(\"SubscriberID\"), BookCatalogNumber=, CopyID=result.getInt(\"CopyID\"), StartDate, ReturnDate, LoanStatus VALUES "
-					+ "(%s, %s %s %s, % , % , %s)", result.getInt("CopyID"), 
+			String sqlQuery=String.format("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber=, CopyID=result.getInt(\"CopyID\"), StartDate, ReturnDate, LoanStatus VALUES "
+					+ "(%d, %d %s %s, % , % , %s)", result.getInt("LoanID"), result.getInt("SubscriberID"), result.getInt("CopyID"), 
 					result.getDate("StartDate").toLocalDate() );
 		} catch (SQLException e) {
 			e.printStackTrace();
