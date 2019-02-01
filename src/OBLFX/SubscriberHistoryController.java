@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 
 /**
  * FXML controller for subscriber history
@@ -28,6 +29,10 @@ public class SubscriberHistoryController implements IGUIcontroller{
 	static ObservableList<Object> ObservableColumnDataLoans = FXCollections.observableArrayList();
 	static ObservableList<Object> ObservableColumnDataOrder = FXCollections.observableArrayList();
 	
+	/**
+	 * Initialize.
+	 * @author Niv Cohen.
+	 */
 	@FXML
 	public void initialize() {
 		tblLoanHistory.setItems(ObservableColumnDataLoans);
@@ -118,6 +123,8 @@ public class SubscriberHistoryController implements IGUIcontroller{
 			for (T Ti : list)
 				observablelist.add(Ti);
 		}
+		table.setItems(observablelist);
+		table.setFixedCellSize(Region.USE_COMPUTED_SIZE);
 		table.setVisible(true);
 	}
 
