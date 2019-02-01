@@ -188,6 +188,7 @@ public class SubscriberCardController implements IGUIcontroller {
 					.setText(GeneralData.userSubscriber.getFirstName());
 			((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField"))
 					.setText(GeneralData.userSubscriber.getLastName());
+
 			((TextField) SideMenu.APReaderCardFXML.lookup("#AreaCodeTXT")).setText(areaCode);
 			((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).setText(phoneNumber);
 			((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField"))
@@ -201,8 +202,8 @@ public class SubscriberCardController implements IGUIcontroller {
 	}
 
 	public void setSubscriberCard(Subscriber sub) {
-		String phoneNumber = sub.getPhoneNumber().substring(3, 10);
-		String areaCode = sub.getPhoneNumber().substring(0, 3);
+		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length()); 
+		String areaCode= sub.getPhoneNumber().substring(0, 3);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getFirstName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(sub.getLastName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#AreaCodeTXT")).setText(areaCode);
@@ -423,7 +424,6 @@ public class SubscriberCardController implements IGUIcontroller {
 	@Override
 	public void setConnection() {
 		commonClient = new CommonHandler(this);
-
 	}
 
 	@Override
