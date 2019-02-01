@@ -72,6 +72,7 @@ public class LoanQueries {
 	}
 
 	public static ServerData returnBook(String SubscriberID, String bookCatalogNumber) {
+		ServerData msgToClient = null;
 		Statement stmt = null;
 		int bookCopyID=0;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -80,8 +81,8 @@ public class LoanQueries {
 		// check book and subscriber exist
 		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber=%s", bookCatalogNumber);
 		String queryCheckSub = String.format("SELECT * FROM obl.subscriber where SubscriberID=%s", SubscriberID);
-		//System.out.println(queryCheckBook);
-		//System.out.println(queryCheckSub);
+		//System.out.println(queryCheckBook); System.out.println(queryCheckSub);
+		
 		try {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(queryCheckBook);
@@ -122,14 +123,13 @@ public class LoanQueries {
 					break;
 				}
 				stmt.executeUpdate(querySubStatus);
-				System.out.println(querySubStatus);
-				System.out.println("changed status");
+				//System.out.println(querySubStatus); System.out.println("changed status");
 				
 				// update loan status to late finish
 				String returnDate = dateFormat.format(new Date());
 				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'LateFinish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
 				stmt.executeUpdate(queryLoanStatus);
-				System.out.println(queryLoanStatus);
+				//System.out.println(queryLoanStatus);
 			}
 			else
 			{
@@ -137,7 +137,7 @@ public class LoanQueries {
 				String returnDate = dateFormat.format(new Date());
 				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
 				stmt.executeUpdate(queryLoanStatus);
-				System.out.println(queryLoanStatus);
+				//System.out.println(queryLoanStatus);
 			}
 			
 			// check is order exist, and notice subscriber
@@ -148,7 +148,7 @@ public class LoanQueries {
 						"UPDATE `obl`.`book` SET `AvailableCopies` = AvailableCopies+1 WHERE `CatalogNumber` = %s;",
 						bookCatalogNumber);
 				stmt.executeUpdate(queryBookCopiesUp);
-				System.out.println(queryBookCopiesUp);
+				//System.out.println(queryBookCopiesUp);
 			}
 			
 			//update isLoaned in bookcopy
@@ -156,15 +156,16 @@ public class LoanQueries {
 					"UPDATE `obl`.`bookcopy` SET `isLoaned` = 0 WHERE `CatalogNumber` = %s and CopyID=%s;",
 					bookCatalogNumber, bookCopyID);
 			stmt.executeUpdate(queryBookCopy);
-			System.out.println(queryBookCopy);
+			//System.out.println(queryBookCopy);
 			
 			// send success message
-			System.out.println("return loan success");
+			msgToClient = new ServerData(operationsReturn.returnException, "Book returned to library");
+			//System.out.println("return loan success");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			msgToClient = new ServerData(operationsReturn.returnException, e);
 		}
 
-		return null;
+		return msgToClient;
 	}
 
 	public static String checkOrdersForBookAndNotice(String bookCatalogNumber) {
