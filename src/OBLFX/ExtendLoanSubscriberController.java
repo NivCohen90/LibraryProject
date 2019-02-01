@@ -28,7 +28,7 @@ import javafx.scene.control.TextField;
 
 public class ExtendLoanSubscriberController implements IGUIcontroller {
 
-	private CommandHandler commanClient;
+	private CommonHandler commanClient;
 	private LoansTable displayedLoan;
 	
 	@FXML
