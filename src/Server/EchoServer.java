@@ -154,6 +154,7 @@ public class EchoServer extends AbstractServer {
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
 				if (subStatus.equals("Active")) {
+					//if()
 					LoanQueries.updateLoanReturnDate(subID, loanID);
 					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
 				}
