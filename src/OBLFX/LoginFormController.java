@@ -121,6 +121,8 @@ public class LoginFormController implements IGUIcontroller {
 					
 			CardLibrarianController librarianCon = new CardLibrarianController();
 			librarianCon.setLibrarianToDisplay((Librarian) msg);
+			SideMenu.controllerMap.get(Menuicons.LibrarianCard).setConnection();
+			
 			GeneralData.userLibrarian = ((Librarian) msg);
 			
 			break;
@@ -132,6 +134,8 @@ public class LoginFormController implements IGUIcontroller {
 					
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
 			librarianManCon.setLibrarianToDisplay((Librarian) msg);
+			SideMenu.controllerMap.get(Menuicons.ManagerCard).setConnection();
+			
 			GeneralData.userLibrarian = ((Librarian) msg);
 			break;
 		case returnError:
