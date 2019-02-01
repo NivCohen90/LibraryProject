@@ -43,9 +43,9 @@ public class LoanQueries {
 		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
 	}
 	
-//	public static void createNewLoan(Subscriber s, Book b) {
+//	public static void createNewLoan(ResultSet resultSet) {
 //		String sqlQuery=("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus VALUES "
-//				+ "(%s, %s %s %s, % , % , %s", ((Subscriber)s).getSubscriberNumber(), );
+//				+ "(%s, %s %s %s, % , % , %s", resultSet.getInt("LoanID"), resultSet.getInt(SubscriberID), resultSet.getInt("CopyID"), resultSet.getDate(StartDate).toLocalDate() );
 //	}
 
 }

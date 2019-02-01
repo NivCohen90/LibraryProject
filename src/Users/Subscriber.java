@@ -12,7 +12,7 @@ public class Subscriber extends User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	public String Status;
-	public String SubscriberNumber;
+	public int SubscriberNumber;
 	public ArrayList<Loan> ActiveLoans;
 	public ArrayList<Loan> HistoryLoans;
 	public ArrayList<Order> ActiveOrders;
@@ -33,7 +33,7 @@ public class Subscriber extends User implements Serializable {
 	}
 
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password,
-			String subscriberNumber, String status, int fellonyNumber) {
+			int subscriberNumber, String status, int fellonyNumber) {
 		super(iD, firstName, lastName, email, phoneNumber, password, 1);
 		ActiveLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
@@ -53,11 +53,11 @@ public class Subscriber extends User implements Serializable {
 		Status = status;
 	}
 
-	public String getSubscriberNumber() {
+	public int getSubscriberNumber() {
 		return SubscriberNumber;
 	}
 
-	public void setSubscriberNumber(String subscriberNumber) {
+	public void setSubscriberNumber(int subscriberNumber) {
 		SubscriberNumber = subscriberNumber;
 	}
 
