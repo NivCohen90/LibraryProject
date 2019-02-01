@@ -9,12 +9,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-import Interfaces.IAlert;
-import SystemObjects.Book;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.ServerData;
-import Users.Subscriber;
 
 public class LoanQueries {
 

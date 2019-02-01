@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import SystemObjects.ReportData;
-import SystemObjects.ServerData;
-import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
 
 public class ReportQueries {
