@@ -13,22 +13,29 @@ import SystemObjects.LoansTable;
 import SystemObjects.Order;
 import SystemObjects.OrdersTable;
 import Users.Subscriber;
+import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class SubscriberCardController implements IGUIcontroller {
 
@@ -133,6 +140,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	private Label PhoneNumber;
+
 
 	@FXML
 	void CancelAllChanges(ActionEvent event) {
@@ -371,7 +379,47 @@ public class SubscriberCardController implements IGUIcontroller {
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status", "Please contect the libararian",
 					"Click ok to close message");
 		}
+		
+		ActiveLoansTable.setRowFactory(tv -> {
+			TableRow<LoansTable> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 
+					Object clickedRow = row.getItem();
+					openLoanDetails(clickedRow);
+				}
+			});
+			return (TableRow<LoansTable>) row;
+		});
+
+	}
+	
+	/**
+	 * open window with loan details with option to extend loan
+	 * 
+	 * @param choosenResult chosen loan to display details
+	 */
+	private void openLoanDetails(Object choosenResult) {
+		Stage primaryStage = new Stage();
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		AnchorPane root = null;
+		Scene scene = null;
+		try {
+
+			if (choosenResult instanceof LoansTable) {
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
+				scene = new Scene(root);
+				ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
+				Controller.setLoanDetails((LoansTable) choosenResult);
+				primaryStage.setTitle(((LoansTable) choosenResult).getBookName());
+			}
+
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+		} catch (Exception e) {
+			IAlert.ExceptionAlert(e);
+		}
 	}
 
 	@Override
