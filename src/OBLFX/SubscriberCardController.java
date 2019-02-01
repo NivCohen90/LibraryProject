@@ -137,10 +137,10 @@ public class SubscriberCardController implements IGUIcontroller {
 	@FXML
 	void CancelAllChanges(ActionEvent event) {
 		((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Reader Card");
-		FirstNameLabel.setText("");
-		LastNameLabel.setText("");
-		PhoneNumber.setText("");
-		EmailLabel.setText("");
+//		FirstNameLabel.setText("");
+//		LastNameLabel.setText("");
+//		PhoneNumber.setText("");
+//		EmailLabel.setText("");
 
 		ActiveLoansTable.setVisible(true);
 		ActiveLoansTXT.setVisible(true);
@@ -226,12 +226,12 @@ public class SubscriberCardController implements IGUIcontroller {
 
 		ObservableOrdersList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
-			LoansTable loan = new LoansTable("missing", "missing", iloan.getStartDate(), iloan.getReturnDate());
+			LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(), iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(loan);
 		}
 		ObservableOrdersList.clear();
 		for (Order iorder : sub.getActiveOrders()) {
-			OrdersTable Order = new OrdersTable("missing", "missing", iorder.getOrderDate(),
+			OrdersTable Order = new OrdersTable(iorder.getBookName(), iorder.getBookAuthors(), iorder.getOrderDate(),
 					iorder.getBookArrivedTime());
 			ObservableOrdersList.add(Order);
 		}
@@ -239,10 +239,10 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	public void updateSubscriberDetails(ActionEvent event) {
-//		FirstNameLabel.setText("");
-//		LastNameLabel.setText("");
-//		PhoneNumber.setText("");
-//		EmailLabel.setText("");
+		FirstNameLabel.setText("");
+		LastNameLabel.setText("");
+		PhoneNumber.setText("");
+		EmailLabel.setText("");
 
 		CancelBTN.setVisible(true);
 		((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Update Details");

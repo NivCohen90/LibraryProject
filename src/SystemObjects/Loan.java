@@ -8,6 +8,8 @@ public class Loan implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String BookName;
+	private String BookAuthors;
 	private Date StartDate;
 	private Date ReturnDate; 
 	private String LoanID; 
@@ -18,16 +20,34 @@ public class Loan implements Serializable{
 	
 	public Loan() {}
 	
-	public Loan(String loanID, String subscriberID, String bookCatalogNumber, String copyID, Date startDate, Date returnDate, String loanStatus) {
-		StartDate = startDate;
-		ReturnDate= returnDate;
-		LoanID = loanID;
-		SubscriberID = subscriberID;
-		BookCatalogNumber = bookCatalogNumber;
-		CopyID = copyID;
-		LoanStatus = loanStatus;
+	public Loan(String loanID, String subscriberID, String bookCatalogNumber, String copyID, Date startDate, Date returnDate, String loanStatus, String bookName, String bookAuthors) {
+		this.StartDate = startDate;
+		this.ReturnDate= returnDate;
+		this.LoanID = loanID;
+		this.SubscriberID = subscriberID;
+		this.BookCatalogNumber = bookCatalogNumber;
+		this.CopyID = copyID;
+		this.LoanStatus = loanStatus;
+		this.BookName = bookName;
+		this.BookAuthors = bookAuthors;
 	}
 	
+	public String getBookName() {
+		return BookName;
+	}
+
+	public void setBookName(String bookName) {
+		BookName = bookName;
+	}
+
+	public String getBookAuthors() {
+		return BookAuthors;
+	}
+
+	public void setBookAuthors(String bookAuthors) {
+		BookAuthors = bookAuthors;
+	}
+
 	public Date getStartDate() {
 		return StartDate;
 	}
