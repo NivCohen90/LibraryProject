@@ -60,8 +60,8 @@ public class Main extends Application {
 				fadeOut.play();
 			});
 			fadeOut.setOnFinished((e) -> {
-				Main.root.setRight(SideMenu.APLoginFXML);
-				SideMenu.sideMenuButtons.get(Menuicons.Login).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);;
+//				Main.root.setRight(SideMenu.APLoginFXML);
+//				SideMenu.sideMenuButtons.get(Menuicons.Login).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
 			});
 			Scene scene = new Scene(root);
 			// scene.getStylesheets().add(getClass().getResource(IFXMLpathAndStyle.WelcomeScreenCSS).toExternalForm());

@@ -121,7 +121,8 @@ public class LoginFormController implements IGUIcontroller {
 			SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APCardLibrarianFXML);
 			SideMenu.controllerMap.get(Menuicons.LibrarianCard).setConnection();
-			
+			((Label) Main.topMenu.lookup("#UserName")).setText(((Librarian) msg).getFullName());
+			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			CardLibrarianController librarianCon = new CardLibrarianController();
 			librarianCon.setLibrarianToDisplay((Librarian) msg);
 			GeneralData.userLibrarian = ((Librarian) msg);
@@ -134,7 +135,8 @@ public class LoginFormController implements IGUIcontroller {
 			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);	
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
 			SideMenu.controllerMap.get(Menuicons.ManagerCard).setConnection();
-			
+			((Label) Main.topMenu.lookup("#UserName")).setText(((Librarian) msg).getFullName());
+			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			librarianManCon.setLibrarianToDisplay((Librarian) msg);
 			GeneralData.userLibrarian = ((Librarian) msg);
 			break;

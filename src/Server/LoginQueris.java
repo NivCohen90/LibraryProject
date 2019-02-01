@@ -3,6 +3,7 @@ package Server;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import SystemObjects.Loan;
 import SystemObjects.Order;
@@ -33,6 +34,7 @@ public class LoginQueris {
 	private static final String ANDPassword = "' AND obl.user.Password = '";
 	private static final String getUserLoans = "SELECT * FROM obl.loan WHERE SubscriberID = '";
 	private static final String getUserOrders = "SELECT * FROM obl.order WHERE SubscriberID = '";
+	private static final String getBookNameAndAuthor = "SELECT obl.book.BookName, obl.book.AuthorName FROM obl.book WHERE obl.book.CatalogNumber = '";
 	private static final String Endquery = "';";
 
 	public LoginQueris(String name, String pass) {
@@ -63,9 +65,23 @@ public class LoginQueris {
 						ArrayList<Loan> Loans = new ArrayList<Loan>();
 						ArrayList<Loan> LoansActivityHistory = new ArrayList<Loan>();
 						while (Res.next()) {
-							Loan a = new Loan(Res.getString(1), Res.getString(2), Res.getString(3),
-									Res.getString(4), Res.getDate(5), Res.getDate(6), Res.getString(7));
-							if (a.getLoanStatus().equals("Finish")) {
+							String LoanID = Res.getString(1);
+							String SubscriberID = Res.getString(2);
+							String BookCatalogNumber = Res.getString(3);
+							String CopyID = Res.getString(4);
+							Date StartDate = Res.getDate(5);
+							Date ReturnDate = Res.getDate(6); 
+							String LoanStatus = Res.getString(7);
+							String BookName = "Coul'd not load this data.";
+							String BookAuthors = "Coul'd not load this data.";
+							Statement stmt = mysqlConnection.conn.createStatement();
+							ResultSet bookInfo = stmt.executeQuery(getBookNameAndAuthor + BookCatalogNumber + Endquery);
+							while (bookInfo.next()) {
+								BookName = bookInfo.getString(1);
+								BookAuthors = bookInfo.getString(2);
+							}
+							Loan a = new Loan(LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus, BookName, BookAuthors);
+							if (LoanStatus.equals("Finish")) {
 								LoansActivityHistory.add(a);
 							} else {
 								Loans.add(a);
@@ -75,8 +91,21 @@ public class LoginQueris {
 						ArrayList<Order> Orders = new ArrayList<Order>();
 						ArrayList<Order> OrdersActivityHistory = new ArrayList<Order>();
 						while (Res.next()) {
-							Order a = new Order(Res.getString(1), Res.getString(2), Res.getDate(3),
-									Res.getDate(4));
+							String OrderID = Res.getString(1);
+							String SubscriberID = Res.getString(2);
+							String BookCatalogNumber = Res.getString(3);
+							Date OrderDate = Res.getDate(4);
+							Date BookArrivedTime = Res.getDate(5);
+							String OrderStatus = Res.getString(6);
+							String BookName = "Coul'd not load this data.";
+							String BookAuthors = "Coul'd not load this data.";
+							Statement stmt = mysqlConnection.conn.createStatement();
+							ResultSet bookInfo = stmt.executeQuery(getBookNameAndAuthor + BookCatalogNumber + Endquery);
+							while (bookInfo.next()) {
+								BookName = bookInfo.getString(1);
+								BookAuthors = bookInfo.getString(2);
+							}
+							Order a = new Order(OrderID, SubscriberID, BookCatalogNumber, OrderDate, BookArrivedTime, OrderStatus, BookName, BookAuthors);
 							Orders.add(a);
 //						if (a..equals("Finish")) {
 //							OrdersActivityHistory.add(a);
@@ -97,7 +126,7 @@ public class LoginQueris {
 					Res = s.executeQuery(
 							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
 					while (Res.next()) {
-						Librarian librarian = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
+						Librarian librarian = new Librarian(Res.getString(2), Res.getString(3), Res.getString(1),
 								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 1);
 						Librarian.add(librarian);
 					}
@@ -108,7 +137,7 @@ public class LoginQueris {
 					Res = s.executeQuery(
 							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
 					while (Res.next()) {
-						Librarian librarianManager = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
+						Librarian librarianManager = new Librarian(Res.getString(2), Res.getString(3), Res.getString(1),
 								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 2);
 						LibrarianManager.add(librarianManager);
 					}
@@ -119,7 +148,7 @@ public class LoginQueris {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			ArrayList<Object> Error = new ArrayList<Object>();
-			Error.add(e.getMessage());
+			Error.add(e);
 			ServerData result = new ServerData(Error, operationsReturn.returnException);
 			return result;
 		}

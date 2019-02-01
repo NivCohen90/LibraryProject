@@ -130,7 +130,7 @@ public class BookDetailsController implements IGUIcontroller{
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     	String stringToday = dateFormat.format(new Date());
     	java.sql.Date sqlDate = java.sql.Date.valueOf(stringToday);
-    	sentOrder = new Order(sqlDate, null, GeneralData.userSubscriber.getSubscriberNumber(), this.displayedBook.getCatalogNumber());
+    	sentOrder = new Order(null, GeneralData.userSubscriber.getSubscriberNumber(), this.displayedBook.getCatalogNumber(), sqlDate, null, "active", null, null);
     	subscriberClient.orderBook(sentOrder);
     	//subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
     }
