@@ -94,7 +94,7 @@ public class BookDetailsController implements IGUIcontroller{
     	this.displayedBook = BookToDisplay;
     	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		if(GeneralData.userSubscriber != null && GeneralData.userSubscriber.getStatus()!= "Active") {
+		if(GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			OrderBookBTN.setDisable(true);
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
 		}

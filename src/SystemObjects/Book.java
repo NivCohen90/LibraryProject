@@ -1,9 +1,10 @@
 package SystemObjects;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Book implements Serializable{
+public class Book implements Serializable {
 
 	/**
 	 * 
@@ -24,63 +25,64 @@ public class Book implements Serializable{
 	private String ContextTable;
 	private byte[] ContextTableByteArray;
 	private ArrayList<Loan> Loaners;
-	
-	
+
 	public Book() {
 		Loaners = new ArrayList<>();
 	};
 
-		public Book(String catalogNumber,String bookName,String authorName,String subject,int numberOfLibraryCopies,int availableCopies,int NumberOfOrders,String shelfLoaction,String editionNumber,Date purchesDate,boolean iswant,String description,String contextTable) {
-		BookName = bookName;
-		AuthorName = authorName;
-		CatalogNumber = catalogNumber;
-		ShelfLoaction = shelfLoaction;
-		AvailableCopies = availableCopies;
-		NumberOfCopies = numberOfLibraryCopies;
-		Description = description;
+	public Book(String catalogNumber, String bookName, String authorName, String subject, int numberOfLibraryCopies,
+			int availableCopies, int NumberOfOrders, String shelfLoaction, String editionNumber, Date purchesDate,
+			boolean iswant, String description, String contextTable) {
+		this.BookName = bookName;
+		this.AuthorName = authorName;
+		this.CatalogNumber = catalogNumber;
+		this.ShelfLoaction = shelfLoaction;
+		this.AvailableCopies = availableCopies;
+		this.NumberOfCopies = numberOfLibraryCopies;
+		this.Description = description;
 		this.Subject = subject;
-		ContextTable = contextTable;
-		EditionNumber = editionNumber;
+		this.ContextTable = contextTable;
+		this.EditionNumber = editionNumber;
 		this.purchesDate = purchesDate;
-		Loaners = new ArrayList<Loan>();
-		NumberOfOrders=0;
-		isWanted=iswant;
+		this.Loaners = new ArrayList<Loan>();
+		this.NumberOfOrders = NumberOfOrders;
+		isWanted = iswant;
 	}
 
 	public String getBookName() {
-		return BookName;
+		return this.BookName;
 	}
 
 	public void setBookName(String bookName) {
-		BookName = bookName;
+		this.BookName = bookName;
 	}
 
 	public String getAuthorName() {
-		return AuthorName;
+		return this.AuthorName;
 	}
 
 	public void setAuthorName(String authorNames) {
-		AuthorName = authorNames;
+		this.AuthorName = authorNames;
 	}
 
 	public String getCatalogNumber() {
-		return CatalogNumber;
+		return this.CatalogNumber;
 	}
 
 	public void setCatalogNumber(String catalogNumber) {
-		CatalogNumber = catalogNumber;
+		this.CatalogNumber = catalogNumber;
 	}
 
 	public String getShelfLoaction() {
-		return ShelfLoaction;
+		return this.ShelfLoaction;
 	}
 
 	public void setShelfLoaction(String shelfLoaction) {
-		ShelfLoaction = shelfLoaction;
+		this.ShelfLoaction = shelfLoaction;
 	}
 
 	public int getAvailableCopies() {
-		return AvailableCopies;
+		return this.AvailableCopies;
 	}
 
 	public void setAvailableCopies(int availableCopies) {
@@ -142,22 +144,23 @@ public class Book implements Serializable{
 	public void setLoaners(ArrayList<Loan> loaners) {
 		Loaners = loaners;
 	}
-	
+
 	public void setNumberOfOrders(int orders) {
 		NumberOfOrders = orders;
 	}
-	
+
 	public int getNumberOfOrders() {
 		return NumberOfOrders;
 	}
-	
+
 	public void setIsWanted(boolean isWanted) {
 		this.isWanted = isWanted;
 	}
-	
+
 	public boolean getIsWanted() {
 		return isWanted;
 	}
+
 	public byte[] getContextTableByteArray() {
 		return ContextTableByteArray;
 	}
@@ -166,5 +169,4 @@ public class Book implements Serializable{
 		ContextTableByteArray = contextTableByteArray;
 	}
 
-		
 }

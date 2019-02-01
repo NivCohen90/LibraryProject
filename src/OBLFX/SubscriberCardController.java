@@ -368,7 +368,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		List.add("055");
 		List.add("058");
 		AreaCodeCombo.setItems(List);
-		if(GeneralData.userSubscriber != null && GeneralData.userSubscriber.getStatus()!= "Active") {
+		if(GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			UpdateDetailsbutton.setDisable(true);
 			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
 		}
