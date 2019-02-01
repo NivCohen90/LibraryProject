@@ -27,7 +27,7 @@ public class SubscriberQueries {
 
 	/**
 	 * 
-	 * @return
+	 * @return update student query.
 	 */
 
 	public static String UpdateStudent() {

@@ -140,9 +140,14 @@ public class ServerController implements Initializable {
 	 * 
 	 * Description: Data base Connection Methods. Methods: SetConnectionToDB,
 	 * StopConnectionWithDatabase, LoadDataFromCSV
+	 * @author Niv Cohen.
 	 *
 	 ************************************************************/
 
+	/**
+	 * Set Connection with the server.
+	 * @param event
+	 */
 	@FXML
 	void SetConnectionToDB(ActionEvent event) {
 		boolean Result = mysqlConnection.SetmysqlConnection(DataBaseSHostName.getText(), DataBaseSchemeName.getText(),
@@ -165,6 +170,10 @@ public class ServerController implements Initializable {
 		}
 	}
 
+	/**
+	 * Close Connection with the Server.
+	 * @param event
+	 */
 	@FXML
 	void StopConnectionWithDatabase(ActionEvent event) {
 		if (mysqlConnection.CloseDBConnection()) {
@@ -185,6 +194,10 @@ public class ServerController implements Initializable {
 		}
 	}
 
+	/**
+	 * Handle the load database from CSV files GUI.
+	 * @param event
+	 */
 	@FXML
 	void LoadDataFromCSV(ActionEvent event) {
 		Alert alert = new Alert(AlertType.WARNING);
@@ -207,6 +220,10 @@ public class ServerController implements Initializable {
 		}
 	}
 
+	/**
+	 * Change the CSV files path to be correct.
+	 * @param event
+	 */
 	@FXML
 	void ChangeCSVPath(ActionEvent event) {
 		final DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -224,6 +241,10 @@ public class ServerController implements Initializable {
 	 *
 	 ************************************************************/
 
+	/**
+	 * Set connection to the server.
+	 * @param event
+	 */
 	@SuppressWarnings("deprecation")
 	@FXML
 	void SetConnectionToServer(ActionEvent event) {
@@ -269,6 +290,11 @@ public class ServerController implements Initializable {
 		}
 	}
 
+	/**
+	 * Stop connection with the server.
+	 * @param event
+	 * @throws IOException
+	 */
 	@SuppressWarnings("deprecation")
 	@FXML
 	void StopConnectionWithServer(ActionEvent event) throws IOException {
@@ -293,6 +319,9 @@ public class ServerController implements Initializable {
 	 *
 	 ************************************************************/
 
+	/**
+	 * set timelines.
+	 */
 	@SuppressWarnings("deprecation")
 	private void setTimeLines() {
 
@@ -342,6 +371,10 @@ public class ServerController implements Initializable {
 	 *
 	 ************************************************************/
 
+	/**
+	 * get Current time.
+	 * @return current time with that format: "HH:mm:ss".
+	 */
 	public static String getCurrentTimeUsingCalendar() {
 		Calendar cal = Calendar.getInstance();
 		Date date = cal.getTime();
@@ -357,6 +390,10 @@ public class ServerController implements Initializable {
 	 *
 	 ************************************************************/
 
+	/**
+	 * update Log for server.
+	 * @param log
+	 */
 	public static void updateLog(String log) {
 		ObservableLogList.add(new Log(getCurrentTimeUsingCalendar(), log));
 	}

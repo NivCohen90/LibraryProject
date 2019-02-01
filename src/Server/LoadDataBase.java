@@ -1,7 +1,12 @@
 package Server;
 
+/**
+ * Load the database queries.
+ * @author NivPC
+ * 
+ */
 public class LoadDataBase {
-	
+
 	final static String Path = "LOAD DATA INFILE '";
 	
 	final static String userTableStart = "user.csv' INTO TABLE ";
