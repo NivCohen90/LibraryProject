@@ -154,10 +154,12 @@ public class EchoServer extends AbstractServer {
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
 				if (subStatus.equals("Active")) {
-					//if()
+					if(BookQueries.isDemandedByLoanID(loanID)) {
 					LoanQueries.updateLoanReturnDate(subID, loanID);
-					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
+					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");}
+					else msgToClient= new ServerData(operationsReturn.returnError, "Book is demanded. Extension was declined");
 				}
+				else msgToClient=new ServerData(operationsReturn.returnError, "Subscriber status isn't 'Active'. Extension was declined");
 			} catch (SQLException e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
