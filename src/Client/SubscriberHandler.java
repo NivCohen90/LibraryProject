@@ -12,6 +12,8 @@ import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operations;
+import SystemObjects.GeneralData.operationsReturn;
+import SystemObjects.Loan;
 import SystemObjects.Order;
 import Users.Subscriber;
 
@@ -43,7 +45,14 @@ public class SubscriberHandler extends IHandler {
 		}
 	}
 
-	public void extendLoan() {
+	public void extendLoan(Loan loanToExtend) {
+		ServerData serverData= new ServerData(operations.extandLoan, loanToExtend);
+		try {
+			sendToServer(serverData);
+		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
+			e.printStackTrace();
+		}
 	}
 
 	/**
