@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import Interfaces.IAlert;
+import SystemObjects.Book;
+import Users.Subscriber;
 
 public class LoanQueries {
 
@@ -40,5 +42,10 @@ public class LoanQueries {
 		st = mysqlConnection.conn.createStatement();
 		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
 	}
+	
+//	public static void createNewLoan(Subscriber s, Book b) {
+//		String sqlQuery=("INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus VALUES "
+//				+ "(%s, %s %s %s, % , % , %s", ((Subscriber)s).getSubscriberNumber(), );
+//	}
 
 }

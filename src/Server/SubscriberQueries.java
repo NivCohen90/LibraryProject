@@ -131,10 +131,16 @@ public class SubscriberQueries {
 		}
 	}
 	
-//	public static Subscriber subscriberData(String subID)
+//	public static Subscriber subscriberData(String subID) throws Exception
 //	{
 //		String sqlQuery=("SELECT * FROM obl.Subscriber where SubscriberID=subID");
-//		
+//		Statement s= mysqlConnection.conn.createStatement();
+//		ResultSet resultSet=s.executeQuery(sqlQuery);
+//		Subscriber s;
+//		while(resultSet.next()) {
+//			s.setFirstName(resultSet.getString("COF_NAME");)
+//			
+//		}
 //	}
 	
 	/*public static void insertToDB(Student s) throws SQLException {
