@@ -4,11 +4,11 @@ public class CreateDatabase {
 	
 	final static String userTable = "CREATE TABLE IF NOT EXISTS `user` (\r\n" + 
 			"		  `ID` varchar(10) NOT NULL,\r\n" + 
-			"		  `FirstName` varchar(10) DEFAULT NULL,\r\n" + 
-			"		  `LastName` varchar(10) DEFAULT NULL,\r\n" + 
-			"		  `Email` varchar(30) DEFAULT NULL,\r\n" + 
+			"		  `FirstName` varchar(45) DEFAULT NULL,\r\n" + 
+			"		  `LastName` varchar(45) DEFAULT NULL,\r\n" + 
+			"		  `Email` varchar(50) DEFAULT NULL,\r\n" + 
 			"		  `PhoneNumber` varchar(20) DEFAULT NULL,\r\n" + 
-			"		  `Password` varchar(20) DEFAULT NULL,\r\n" + 
+			"		  `Password` varchar(50) DEFAULT NULL,\r\n" + 
 			"		  `Level` int(11) DEFAULT NULL,\r\n" + 
 			"		  PRIMARY KEY (`ID`),\r\n" + 
 			"		  UNIQUE KEY `Subcriber_ID_UNIQUE` (`ID`)\r\n" + 
@@ -39,13 +39,14 @@ public class CreateDatabase {
 			"		  `Subject` varchar(500) DEFAULT NULL,\r\n" + 
 			"		  `NumberOfCopies` int(11) DEFAULT NULL,\r\n" + 
 			"		  `AvailableCopies` int(11) DEFAULT NULL,\r\n" + 
-			"		  `NumberOfOrders` varchar(45) DEFAULT NULL,\r\n" + 
+			"		  `NumberOfOrders` int(11) DEFAULT NULL,\r\n" + 
 			"		  `ShelfLocation` varchar(45) DEFAULT NULL,\r\n" + 
 			"		  `EditionNumber` varchar(45) DEFAULT NULL,\r\n" + 
 			"		  `purchesDate` date DEFAULT NULL,\r\n" + 
 			"		  `isWanted` tinyint(4) DEFAULT '0',\r\n" + 
 			"		  `Description` varchar(500) DEFAULT NULL,\r\n" + 
-			"		  `ContextTable` varchar(45) DEFAULT NULL,\r\n" + 
+			"		  `ContextTable` varchar(45) DEFAULT NULL,\r\n" +
+			"		  `BookCopyIndex` int(11) DEFAULT 0,\r\n" +
 			"		  PRIMARY KEY (`CatalogNumber`),\r\n" + 
 			"		  UNIQUE KEY `CatalogNumber_UNIQUE` (`CatalogNumber`)\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
@@ -80,10 +81,10 @@ public class CreateDatabase {
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n";
 	
 	final static String bookcopyTable = "CREATE TABLE IF NOT EXISTS `bookcopy` (\r\n" + 
-			"  		`CopyID` int(11) GENERATED ALWAYS AS (0) VIRTUAL,\r\n" + 
+			"  		`CopyID` int(11) NOT NULL,\r\n" + 
 			"  		`CatalogNumber` varchar(45) NOT NULL,\r\n" + 
 			"  		`isLoaned` tinyint(4) NOT NULL DEFAULT '0',\r\n" + 
-			"		PRIMARY KEY (`CatalogNumber`),\r\n" + 
+			"		PRIMARY KEY (`CatalogNumber`,`CopyID`),\r\n" + 
 			"		CONSTRAINT `bookCopyCatalog` FOREIGN KEY (`CatalogNumber`) REFERENCES `book` (`catalognumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			"		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
 	

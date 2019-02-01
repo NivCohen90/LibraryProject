@@ -95,8 +95,9 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	void CheckFirstName(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled, FirstNameLabel, OnlyLetters, OnlyLetterError);
 		IGUIcontroller.CheckIfUserPutInput(FirstNameTextFiled, FirstNameLabel);
+		IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled, FirstNameLabel, OnlyLetters, OnlyLetterError);
+		
 	}
     /**
      * CheckLastName is a method that check if the user put input.,if he didn't gave input the method will alert the user.
@@ -104,8 +105,9 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	void CheckLastName(KeyEvent event) {
-		IGUIcontroller.CheckOnlyLetter(LastNameTextFiled, LastNameLabel, OnlyLetters, OnlyLetterError);
 		IGUIcontroller.CheckIfUserPutInput(LastNameTextFiled, LastNameLabel);
+		IGUIcontroller.CheckOnlyLetter(LastNameTextFiled, LastNameLabel, OnlyLetters, OnlyLetterError);
+		
 	}
     /**
      * CheckEmail is a method that check if the user put input.,if he didn't gave input the method will alert the user.
