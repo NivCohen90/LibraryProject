@@ -26,6 +26,7 @@ public interface IFXMLpathAndStyle {
 	final static String LoanReportDiaplayFXML= "../FXML/LoanReportDiaplay.fxml";
 	final static String LateReturnReportDisplayFXML= "../FXML/LateReturnReportDiaplay.fxml";
 	final static String ActivityReportDisplayFXML= "../FXML/ActivityReportDiaplay.fxml";
+	final static String UserWelcomeFXML= "../FXML/UserWelcome.fxml";
 	final static String WelcomeScreenCSS = "../CSS/WelcomeScreen.css";
 	
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";

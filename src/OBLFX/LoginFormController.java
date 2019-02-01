@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * @author Matan,Niv
@@ -101,7 +102,8 @@ public class LoginFormController implements IGUIcontroller {
 			Main.root.setLeft(sideMenu.getVBox());
 			SideMenu.APReaderCardFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APReaderCardFXML);
-			
+			((Label) Main.topMenu.lookup("#UserName")).setText(((Subscriber) msg).getFullName());
+			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			SubscriberCardController subCon = new SubscriberCardController();
 			subCon.setSubscriberCard((Subscriber) msg);
 			
@@ -126,8 +128,7 @@ public class LoginFormController implements IGUIcontroller {
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 			Main.root.setLeft(sideMenu.getVBox());	
 			SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
-					
+			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);	
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
 			librarianManCon.setLibrarianToDisplay((Librarian) msg);
 			GeneralData.userLibrarian = ((Librarian) msg);
