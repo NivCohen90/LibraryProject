@@ -15,6 +15,7 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.Loan;
 import SystemObjects.Order;
+import SystemObjects.GeneralData.Menuicons;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -106,6 +107,7 @@ public class LoginFormController implements IGUIcontroller {
 			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			SubscriberCardController subCon = new SubscriberCardController();
 			subCon.setSubscriberCard((Subscriber) msg);
+			SideMenu.controllerMap.get(Menuicons.SubscriberCard).setConnection();
 			
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);
@@ -118,7 +120,8 @@ public class LoginFormController implements IGUIcontroller {
 			Main.root.setLeft(sideMenu.getVBox());	
 			SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APCardLibrarianFXML);
-					
+			SideMenu.controllerMap.get(Menuicons.LibrarianCard).setConnection();
+			
 			CardLibrarianController librarianCon = new CardLibrarianController();
 			librarianCon.setLibrarianToDisplay((Librarian) msg);
 			GeneralData.userLibrarian = ((Librarian) msg);
@@ -130,6 +133,8 @@ public class LoginFormController implements IGUIcontroller {
 			SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);	
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
+			SideMenu.controllerMap.get(Menuicons.ManagerCard).setConnection();
+			
 			librarianManCon.setLibrarianToDisplay((Librarian) msg);
 			GeneralData.userLibrarian = ((Librarian) msg);
 			break;
