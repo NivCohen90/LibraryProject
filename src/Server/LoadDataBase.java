@@ -21,7 +21,7 @@ public class LoadDataBase {
 			"FIELDS TERMINATED BY ','  ENCLOSED BY '\"'\r\n" + 
 			"LINES TERMINATED BY '\\r\\n'\r\n" + 
 			"IGNORE 1 LINES\r\n" + 
-			"(ID,SubscriberID,Status,FelonyNumber);";
+			"(ID,Status,FelonyNumber);";
 	
 	final static String librarianTableStart = "librarian.csv' INTO TABLE ";		
 	final static String librarianTable = ".librarian\r\n" + 
@@ -35,21 +35,21 @@ public class LoadDataBase {
 			"FIELDS TERMINATED BY ','  ENCLOSED BY '\"'\r\n" + 
 			"LINES TERMINATED BY '\\r\\n'\r\n" + 
 			"IGNORE 1 LINES\r\n" + 
-			"(CatalogNumber,BookName,AuthorName,Subject,NumberOfCopies,AvailableCopies,NumberOfOrders,ShelfLocation,EditionNumber,purchesDate,isWanted,Description,ContextTable,BookCopyIndex);";
+			"(CatalogNumber,BookName,AuthorName,Subject,NumberOfCopies,AvailableCopies,NumberOfOrders,ShelfLocation,EditionNumber,purchesDate,isWanted,Description,ContextTable,BookCopyIndex,isArchived);";
 
 	final static String loanTableStart = "loan.csv' INTO TABLE ";
 	final static String loanTable = ".loan\r\n" +
 			"FIELDS TERMINATED BY ','  ENCLOSED BY '\"'\r\n" + 
 			"LINES TERMINATED BY '\\r\\n'\r\n" + 
 			"IGNORE 1 LINES\r\n" + 
-			"(LoanID,SubscriberID,BookCatalogNumber,CopyID,StartDate,ReturnDate,LoanStatus);";
+			"(SubscriberID,BookCatalogNumber,CopyID,StartDate,ReturnDate,LoanStatus);";
 	
 	final static String orderTableStart = "order.csv' INTO TABLE ";
 	final static String orderTable = ".order\r\n" + 
 			"FIELDS TERMINATED BY ','  ENCLOSED BY '\"'\r\n" + 
 			"LINES TERMINATED BY '\\r\\n'\r\n" + 
 			"IGNORE 1 LINES\r\n" + 
-			"(SubscriberID,BookCatalogNumber,OrderDate,BookArrivedTime);";
+			"(SubscriberID,BookCatalogNumber,OrderDate,BookArrivedTime,OrderStatus);";
 	
 	final static String bookcopyTableStart = "bookcopy.csv' INTO TABLE ";
 	final static String bookcopyTable = ".bookcopy\r\n" + 
@@ -58,5 +58,3 @@ public class LoadDataBase {
 			"IGNORE 1 LINES\r\n" + 
 			"(CopyID,CatalogNumber,isLoaned);";
 }
-
-
