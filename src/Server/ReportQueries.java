@@ -15,11 +15,21 @@ import SystemObjects.ServerData;
 import SystemObjects.GeneralData.reportReference;
 
 public class ReportQueries {
+	
+//	public static ReportData calculateLateReturnReportStatistics() {
+//		int bookAmount= BookQueries.totalBookAmount();
+//		int lateReturnsAmount= lateReturnsAmount();
+//		int late
+//		ArrayList<Integer> generalLoansDuration = new ArrayList<Integer>();
+//		ReportData rd= new ReportData(0, 0, generalLoansDuration, reportReference.GeneralLatesDuration);
+//		
+//	}
 
 	public static ReportData calculateLoanReportStatistic(String sqlQuery) throws SQLException {
 		double sum = 0;
-		ArrayList<Integer> loanDuration = new ArrayList<Integer>();
-		ReportData data = new ReportData(0, 0, loanDuration, reportReference.Demanded);
+		ArrayList<Integer> loanDurationsArray = new ArrayList<Integer>();
+		ArrayList<Object> distribution= new ArrayList<Object>();
+		ReportData data = new ReportData(0, 0, distribution, reportReference.Demanded);
 
 		Statement st;
 		st = mysqlConnection.conn.createStatement();
@@ -30,20 +40,23 @@ public class ReportQueries {
 			LocalDate eDate = dataResult.getDate("ReturnDate").toLocalDate();
 			Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
 			sum += diff.toDays();
-			loanDuration.add((int) diff.toDays());
+			loanDurationsArray.add((int) diff.toDays());
 		}
-		sum = sum / dataSize;
-		data.setAvg(sum);
-		Collections.sort(loanDuration);
-		if (dataSize % 2 != 0)
-			sum = loanDuration.get((dataSize + 1) / 2);
-		else {
-			sum = loanDuration.get(dataSize / 2) + loanDuration.get((dataSize / 2) + 1);
-			sum = sum / 2;
-		}
-		data.setMedian(sum);
-
+		data.setAvg(calcAvg(sum, dataSize));
+		Collections.sort(loanDurationsArray);
+		data.setMedian(calcMedian(dataSize, loanDurationsArray));
+		
 		return data;
+	}
+	
+	public static double calcAvg(double dataSum, int dataAmount) {
+		return dataSum/dataAmount;
+	}
+	
+	public static double calcMedian(int dataAmount, ArrayList<Integer> dataArray) {
+		if (dataAmount%2!=0)
+			return dataArray.get((dataAmount+1)/2);
+		else return((dataArray.get(dataAmount/2)+dataArray.get((dataAmount/2)+1))/2);
 	}
 
 	public static String demandedBooksSQL() {
@@ -70,11 +83,4 @@ public class ReportQueries {
 		}
 		return 0;
 	}
-//	
-//	public static ReportData calculateLateReturnReportStatistics() {
-//		int bookAmount= BookQueries.totalBookAmount();
-//		int lateReturnsAmount= lateReturnsAmount();
-//		ArrayList<Integer> distributionArray = new ArrayList<Integer>();
-//		ReportData rd= new ReportData(0, 0, distributionArray, reportReference.GeneralLatesAmount);
-//	}
 }

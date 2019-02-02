@@ -9,17 +9,17 @@ public class ReportData {
 	private reportReference reference;
 	private double avg;
 	private double median;
-	private ArrayList<Integer> distributionValues;
+	private ArrayList<Object> distribution;//distribution(0)=valuesArray, distribution(1)=rangesArray, distribution(2)=valuesAmountArray which indicate how many values are there in each range
 	
 	/**
 	 * constructor for general objects statistics
 	 */
-	public ReportData(double avg, double median, ArrayList<Integer> distribution, reportReference reference) {
+	public ReportData(double avg, double median, ArrayList<Object> distribution, reportReference reference) {
 		
 		this.reference = reference;
 		this.avg = avg;
 		this.median = median;
-		this.distributionValues = distribution;
+		this.distribution = distribution;
 	}
 
 	public double getAvg() {
@@ -38,12 +38,12 @@ public class ReportData {
 		this.median = median;
 	}
 	
-	public ArrayList<Integer> getDistribution() {
-		return distributionValues;
+	public ArrayList<Object> getDistribution() {
+		return distribution;
 	}
 	
-	public void setDistribution(ArrayList<Integer> distribution) {
-		this.distributionValues = distribution;
+	public void setDistribution(ArrayList<Object> distribution) {
+		this.distribution = distribution;
 	}
 	
 	public reportReference getReference() {

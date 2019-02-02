@@ -55,11 +55,11 @@ public class LateReturnsReportBookData {
 		return Duration.getMedian();
 	}
 	
-	public ArrayList<Integer> getAmountDistribution() {
+	public ArrayList<Object> getAmountDistribution() {
 		return Amount.getDistribution();
 	}
 	
-	public ArrayList<Integer> getDurationDistribution() {
+	public ArrayList<Object> getDurationDistribution() {
 		return Duration.getDistribution();
 	}
 	
