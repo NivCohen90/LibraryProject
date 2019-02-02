@@ -34,8 +34,8 @@
       <Text layoutX="370.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
       <TextField fx:id="StatusField" disable="true" editable="false" layoutX="480.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
       <ComboBox fx:id="StatusCombo" layoutX="469.0" layoutY="122.0" prefHeight="25.0" prefWidth="160.0" promptText="Choose Status" visible="false" />
-      <Button fx:id="UpdateDetailsbutton" layoutX="295.0" layoutY="195.0" mnemonicParsing="false" onAction="#updateSubscriberDetails" text="Update Details" />
-      <Button fx:id="SaveButton" layoutX="296.0" layoutY="195.0" mnemonicParsing="false" onAction="#saveSubscriberUpdate" prefHeight="26.0" prefWidth="94.0" text="Save Changes" visible="false" />
+      <Button fx:id="UpdateDetailsbutton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#updateSubscriberDetails" text="Update Details" />
+      <Button fx:id="SaveButton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#saveSubscriberUpdate" prefHeight="26.0" prefWidth="94.0" text="Save Changes" visible="false" />
       <TableView fx:id="ActiveLoansTable" layoutX="12.0" layoutY="263.0" prefHeight="140.0" prefWidth="570.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="18.0">
          <columns>
             <TableColumn fx:id="ALoansBookName" prefWidth="152.0" text="Book Name" />
@@ -69,7 +69,7 @@
          </font>
       </Text>
       <Text fx:id="TextMSG" layoutX="412.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
-      <Button fx:id="CancelBTN" layoutX="411.0" layoutY="195.0" mnemonicParsing="false" onAction="#CancelAllChanges" prefHeight="26.0" prefWidth="94.0" text="Cancel" visible="false" />
+      <Button fx:id="CancelBTN" layoutX="295.0" layoutY="196.0" mnemonicParsing="false" onAction="#CancelAllChanges" prefHeight="26.0" prefWidth="94.0" text="Cancel" visible="false" />
       <Label fx:id="FirstNameLabel" layoutX="272.0" layoutY="62.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
       <Label fx:id="LastNameLabel" layoutX="272.0" layoutY="93.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
       <Label fx:id="EmailLabel" layoutX="280.0" layoutY="156.0" prefHeight="26.0" prefWidth="212.0" textFill="RED" />

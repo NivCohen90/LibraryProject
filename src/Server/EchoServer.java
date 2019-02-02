@@ -66,6 +66,7 @@ public class EchoServer extends AbstractServer {
 	 *
 	 * @param msg    The message received from the client.
 	 * @param client The connection from which the message originated.
+	 * @throws SQLException 
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		ServerController.updateLog("Request from:\n" + client.getInetAddress().getHostName() + "\nCommand: "
@@ -135,6 +136,17 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 		case updateSubscriberDetails:
+			try {
+				ServerData result = SubscriberQueries.UpdateSubscriberInformation((((Subscriber) ((ServerData) msg).getDataMsg().get(0))));
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+			
 			break;
 		case orderBook:
 			try {
@@ -235,7 +247,6 @@ public class EchoServer extends AbstractServer {
 				e1.printStackTrace();
 			}
 			break;
-
 		case ManageCatalog:
 			break;
 		case watchEmployeesData:
