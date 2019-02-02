@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UpdateBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UpdateBookController">
    <children>
       <Label layoutX="222.0" layoutY="6.0" text="Update Book">
          <font>
             <Font name="System Bold Italic" size="26.0" />
          </font>
       </Label>
-      <Group layoutX="14.0" layoutY="-34.0">
+      <Group layoutX="14.0" layoutY="-44.0">
          <children>
             <Label layoutY="120.0" text="Book Name :" />
             <TextField fx:id="BookNameTextField" editable="false" layoutX="105.0" layoutY="116.0" onKeyTyped="#FlagBookName" prefHeight="25.0" prefWidth="460.0" promptText="Fill Book Name" />
@@ -38,6 +38,7 @@
             <Label fx:id="AuthorLabel" layoutX="570.0" layoutY="145.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
             <Label fx:id="SubjectLabel" layoutX="570.0" layoutY="177.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
             <Label fx:id="EditionNumberLabel" layoutX="570.0" layoutY="208.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
+            <Label fx:id="DescriptionLabel" layoutX="565.0" layoutY="303.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
          </children>
       </Group>
       <Button fx:id="UpdateBookBTN" layoutX="14.0" layoutY="371.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Update Book" />

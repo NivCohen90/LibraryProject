@@ -47,6 +47,7 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalog(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel);
 		IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		
@@ -57,6 +58,7 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckReturnBook(ActionEvent event) {
+		RetriveMSG.setText("");
 		int counter=0;
 		if (IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits)) {
 			counter++;	
@@ -81,6 +83,7 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckSubscriberID(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckOnlyNumbers(SubscriberIDTextField, SubscriberIDLabel, 9, UserNameErrorDigits);
 	}
 

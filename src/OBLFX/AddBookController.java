@@ -111,6 +111,7 @@ public class AddBookController implements IGUIcontroller {
 	/**
 	 * AddBookAction is a method that check if all off the fields are filled
 	 */
+
 	@FXML
 	void AddBookAction(ActionEvent event) {
 		int counter = 0;
@@ -170,6 +171,7 @@ public class AddBookController implements IGUIcontroller {
 					java.sql.Date.valueOf(PurchaseDatePicker.getValue()), false, Description, Context);
 			book.setContextTableByteArray(contexTableByteArray);
 			librarianClient.addBookToCatalog(book,GeneralData.userLibrarian);
+			
 		}
 	}
 
@@ -180,6 +182,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckBook(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(BookNameTextField, BookNameLabel);
 	}
 	/**
@@ -187,6 +190,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
    void CheckEditionNumber(KeyEvent event) {
+		RetriveMSG.setText("");
 	   EditionNumberLabel.setText("");
    }
 	/**
@@ -194,6 +198,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
     @FXML
     void CheckDescripition(KeyEvent event) {
+    	RetriveMSG.setText("");
     	DescriptionLabel.setText("");
     }
 	/**
@@ -203,6 +208,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void AuthorCheck(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel);
 		IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError);
 		
@@ -215,6 +221,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CatalogNumberCheck(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel);
 		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 	
@@ -226,6 +233,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckPlaceOnShelf(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(PlaceOnShelfTextField, PlaceOnShelfLabel);
 	}
 
@@ -236,6 +244,7 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void NumberOfCopiesCheck(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(NumberOfCopiesTextField, NumberOfCopiesLabel);
 		IGUIcontroller.CheckOnlyLetter(NumberOfCopiesTextField, NumberOfCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
 		
@@ -247,6 +256,7 @@ public class AddBookController implements IGUIcontroller {
 
 	@FXML
 	void OpenFileAction(ActionEvent event) {
+		RetriveMSG.setText("");
     	Stage stage = new Stage();
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Choose Book Context Table");
@@ -280,6 +290,8 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void PurchaceDateAction(ActionEvent event) {
+		
+		RetriveMSG.setText("");
 		Dates = true;
 		PurchaseDateLabel.setText("");
 	}
@@ -302,6 +314,18 @@ public class AddBookController implements IGUIcontroller {
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		BookNameTextField.setText("");
+		AuthorTextField.setText("");
+		SubjectTextField.setText("");
+		PlaceOnShelfTextField.setText("");
+		EditionNumberTextField.setText("");
+		CatalogTextField.setText("");
+		NumberOfCopiesTextField.setText("");
+		DescriptionTextField.setText("");
+		PurchaseDatePicker.setValue(null);
+		ContextTabeTextField.setText("");
+		Dates = false;
+		OpenFile = false;
 		switch(op)
 		{
 			case returnSuccessMsg:

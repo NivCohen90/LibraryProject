@@ -62,6 +62,9 @@ public class UpdateBookController implements IGUIcontroller {
 	@FXML
 	private Label PlaceOnShelfLabel;
 
+    @FXML
+    private Label DescriptionLabel;
+    
 	@FXML
 	private Button UpdateBookBTN;
 
@@ -205,8 +208,9 @@ public class UpdateBookController implements IGUIcontroller {
 			if (!DescriptionTextField.getText().trim().isEmpty()){
 				counter++;
 				book.setDescription(DescriptionTextField.getText());
-
+				DescriptionLabel.setText("");
 			}
+			else DescriptionLabel.setText("Fill this Area");
 			if (counter == 6) {
 				librarianClient.updateBookinCatalog(book,GeneralData.userLibrarian);
 			}

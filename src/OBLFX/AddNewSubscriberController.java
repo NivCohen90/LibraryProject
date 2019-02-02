@@ -15,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 /**
  * @author Matan
@@ -79,6 +80,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	private void CheckChoose(ActionEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		AreaCodeFlag = true;
 	}
     /**
@@ -86,6 +88,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
     @FXML
     void CheckEmail(KeyEvent event) {
+    	ErrorAtCreatSubscriberLabel.setText("");
     	IGUIcontroller.CheckIfUserPutInput(EmailTextField,EmailLabel);
     }
     /**
@@ -94,6 +97,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	void CheckFirstName(KeyEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		IGUIcontroller.CheckIfUserPutInput(FirstNameTextFiled, FirstNameLabel);
 		IGUIcontroller.CheckOnlyLetter(FirstNameTextFiled, FirstNameLabel, OnlyLetters, OnlyLetterError);
 		
@@ -104,6 +108,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	void CheckLastName(KeyEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		IGUIcontroller.CheckIfUserPutInput(LastNameTextFiled, LastNameLabel);
 		IGUIcontroller.CheckOnlyLetter(LastNameTextFiled, LastNameLabel, OnlyLetters, OnlyLetterError);
 		
@@ -113,6 +118,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
     @FXML
     void CheckPassword(KeyEvent event) {
+    	ErrorAtCreatSubscriberLabel.setText("");
     	IGUIcontroller.CheckIfUserPutInput(PasswordTextFiled,PasswordLabel);
     }
     /**
@@ -121,6 +127,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	void CheckIDInput(KeyEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel, 9, UserNameErrorDigits);
 	}
     /**
@@ -129,6 +136,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	private void CheckPhoneNumber(KeyEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		IGUIcontroller.CheckOnlyNumbers(PhoneNumberTextFiled, PhoneNumberLabel, 7, PhoneNumberErrorDigits);
 	}
     /**
@@ -136,6 +144,7 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */
 	@FXML
 	private void CreateNewSubscriberBtn(ActionEvent event) {
+		ErrorAtCreatSubscriberLabel.setText("");
 		int counter = 0;
 		if (IGUIcontroller.CheckOnlyNumbers(IDTextField, IDAlertLabel, 9, UserNameErrorDigits)) {
 			counter++;
@@ -190,13 +199,24 @@ public class AddNewSubscriberController implements IGUIcontroller {
     */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		IDTextField.setText("");
+		FirstNameTextFiled.setText("");
+		LastNameTextFiled.setText("");
+		EmailTextField.setText("");
+		PhoneNumberTextFiled.setText("");
+		AreaCodeTextFiled.setValue(null);
+		PasswordTextFiled.setText("");
+		ErrorAtCreatSubscriberLabel.setText("");
 	switch(op) {
 	case returnError:
+		ErrorAtCreatSubscriberLabel.setTextFill(Color.RED);
 		ErrorAtCreatSubscriberLabel.setText((String) msg);
 		break;
 	case returnException:
+		ErrorAtCreatSubscriberLabel.setTextFill(Color.RED);
 		IAlert.ExceptionAlert((Exception)msg);
-		default:
+	case returnSuccessMsg:
+		ErrorAtCreatSubscriberLabel.setTextFill(Color.GREEN);
 		ErrorAtCreatSubscriberLabel.setText("New subscriber was added successfully");
 		break;
 	}

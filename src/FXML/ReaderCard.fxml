@@ -21,16 +21,16 @@
       <TextField fx:id="FirstNameField" disable="true" editable="false" layoutX="107.0" layoutY="62.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="165.0" />
       <Text layoutX="40.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" />
       <TextField fx:id="LastNameField" disable="true" editable="false" layoutX="107.0" layoutY="94.0" onKeyTyped="#CheckLastName" prefWidth="165.0" />
+      <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="480.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
+      <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="540.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
+      <TextField fx:id="EmailField" disable="true" editable="false" layoutX="107.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" />
       <Text layoutX="40.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
       <TextField fx:id="IDField" disable="true" editable="false" layoutX="107.0" layoutY="125.0" prefWidth="165.0" />
       <Text layoutX="40.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
-      <TextField fx:id="EmailField" disable="true" editable="false" layoutX="107.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" />
       <Text layoutX="370.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Number:" />
       <TextField fx:id="SubscriberNumberField" disable="true" editable="false" layoutX="480.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
       <Text layoutX="370.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :" />
-      <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="480.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
       <ComboBox fx:id="AreaCodeCombo" layoutX="479.0" layoutY="93.0" prefHeight="26.0" prefWidth="60.0" visible="false" />
-      <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="540.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
       <Text layoutX="370.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
       <TextField fx:id="StatusField" disable="true" editable="false" layoutX="480.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
       <ComboBox fx:id="StatusCombo" layoutX="469.0" layoutY="122.0" prefHeight="25.0" prefWidth="160.0" promptText="Choose Status" visible="false" />
@@ -68,11 +68,11 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Text fx:id="TextMSG" layoutX="412.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
       <Button fx:id="CancelBTN" layoutX="295.0" layoutY="196.0" mnemonicParsing="false" onAction="#CancelAllChanges" prefHeight="26.0" prefWidth="94.0" text="Cancel" visible="false" />
       <Label fx:id="FirstNameLabel" layoutX="272.0" layoutY="62.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
       <Label fx:id="LastNameLabel" layoutX="272.0" layoutY="93.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
       <Label fx:id="EmailLabel" layoutX="280.0" layoutY="156.0" prefHeight="26.0" prefWidth="212.0" textFill="RED" />
       <Label fx:id="PhoneNumber" layoutX="618.0" layoutY="92.0" prefHeight="26.0" prefWidth="180.0" textFill="RED" />
+      <Label fx:id="TextMSG" layoutX="328.0" layoutY="201.0" prefHeight="26.0" prefWidth="406.0" />
    </children>
 </AnchorPane>

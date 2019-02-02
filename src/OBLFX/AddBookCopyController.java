@@ -54,6 +54,7 @@ public class AddBookCopyController implements IGUIcontroller {
 
 	@FXML
 	void AddCopiesAction(ActionEvent event) {
+		RetriveMSG.setText("");
 		if (IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs)
 				&& IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel)) {
 			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)
@@ -72,6 +73,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void CatalogNumberCheck(KeyEvent event) {
+		RetriveMSG.setText("");
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel);
 		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs);
 	}
@@ -83,6 +85,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	 */
 	@FXML
 	void GetDetailsAction(ActionEvent event) {
+		RetriveMSG.setText("");
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)
 				&& IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 			commonClient.searchInServer(CatalogTextField.getText(), GeneralData.operations.searchByCatalogNumber);
@@ -108,6 +111,10 @@ public class AddBookCopyController implements IGUIcontroller {
 	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		CatalogTextField.setText("");
+		BookNameTextField.setText("");
+		NumberOfCopiesTextField.setText("");
+		AddcopiesTextField.setText("");
 		switch (op) {
 		case returnBook:
 			 BookNameTextField.setText(((Book)msg).getBookName());
@@ -115,6 +122,7 @@ public class AddBookCopyController implements IGUIcontroller {
 			break;
 
 		case returnError:
+			RetriveMSG.setStyle("-fx-text-fill: red;");
 			RetriveMSG.setText((String) msg);
 			break;
 		case returnBookArray:

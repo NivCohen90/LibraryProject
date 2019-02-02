@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
  *
  */
 public interface IGUIcontroller {
+
 	final static String PhoneNumberErrorDigits = "PhoneNumber contains 10 digits.";
 	final static String UserNameErrorNumebrs = "Only numbers allowed.";
 	final static String UserNameErrorDigits = "ID contains 9 digits.";

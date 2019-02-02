@@ -35,6 +35,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -126,7 +127,7 @@ public class SubscriberCardController implements IGUIcontroller {
 	private TextField AreaCodeTXT;
 
 	@FXML
-	private Text TextMSG;
+	private Label TextMSG;
 
 	@FXML
 	private Button CancelBTN;
@@ -419,9 +420,9 @@ public class SubscriberCardController implements IGUIcontroller {
 		Subscriber Sub = new Subscriber();
 		TextMSG.setVisible(true);
 
-		switch (op) {
+		switch (op) {		
 		case returnSuccessMsg: {
-
+			TextMSG.setTextFill(Color.GREEN);
 			if (GeneralData.userLibrarian != null) {
 				TextMSG.setText((String) msg);
 				Sub.setFirstName(FirstNameField.getText());
@@ -449,6 +450,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		}
 
 		case returnError:
+			TextMSG.setTextFill(Color.RED);
 			TextMSG.setText((String) msg);
 			break;
 		case returnException:

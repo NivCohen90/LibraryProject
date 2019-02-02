@@ -8,9 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 
 public class ConnectionSettingsController implements IGUIcontroller {
+	final static String GREEN_COLOR = "-fx-control-inner-background: #1AFE01";
+	final static String RED_COLOR = "-fx-control-inner-background: RED";
 
-	public static String GREEN_COLOR = "-fx-control-inner-background: #1AFE01";
-	public static String RED_COLOR = "-fx-control-inner-background: RED";
 	public boolean ConnectedFLAG = false;
 
 	@FXML

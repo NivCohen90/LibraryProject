@@ -16,15 +16,15 @@
       <Label layoutX="20.0" layoutY="86.0" text="Catalog Number:" />
       <TextField fx:id="CatalogTextField" layoutX="125.0" layoutY="82.0" onKeyTyped="#CatalogNumberCheck" promptText="Fill Catalog Number" />
       <Button layoutX="303.0" layoutY="75.0" mnemonicParsing="false" onAction="#GetDetailsAction" prefHeight="38.0" prefWidth="114.0" text="Get book details" />
-      <Label layoutX="20.0" layoutY="117.0" text="Book Name :" />
       <TextField fx:id="BookNameTextField" editable="false" layoutX="125.0" layoutY="113.0" prefHeight="26.0" prefWidth="460.0" promptText="Fill Book Name" />
-      <Label fx:id="NumberOfCopiesTitle" layoutX="23.0" layoutY="151.0" text="Copies in libary:" />
       <TextField fx:id="NumberOfCopiesTextField" editable="false" layoutX="125.0" layoutY="146.0" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" />
+      <TextField fx:id="AddcopiesTextField" layoutX="127.0" layoutY="181.0" onKeyTyped="#NumberOfaddedCopiesCheck" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" />
+      <Label layoutX="20.0" layoutY="117.0" text="Book Name :" />
+      <Label fx:id="NumberOfCopiesTitle" layoutX="23.0" layoutY="151.0" text="Copies in libary:" />
       <Button layoutX="285.0" layoutY="219.0" mnemonicParsing="false" onAction="#AddCopiesAction" prefHeight="38.0" prefWidth="114.0" text="Add copies" />
       <Label fx:id="CatalogLabel" layoutX="430.0" layoutY="82.0" prefHeight="25.0" prefWidth="267.0" textFill="RED" />
       <Label fx:id="RetriveMSG" layoutX="150.0" layoutY="257.0" prefHeight="25.0" prefWidth="492.0" textFill="RED" />
       <Label fx:id="NumberOfCopiesTitle1" layoutX="25.0" layoutY="186.0" prefHeight="18.0" prefWidth="97.0" text="Copies to add:" />
-      <TextField fx:id="AddcopiesTextField" layoutX="127.0" layoutY="181.0" onKeyTyped="#NumberOfaddedCopiesCheck" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" />
       <Label fx:id="AddCopiesLabel" layoutX="254.0" layoutY="182.0" prefHeight="25.0" prefWidth="267.0" textFill="RED" />
    </children>
 </AnchorPane>

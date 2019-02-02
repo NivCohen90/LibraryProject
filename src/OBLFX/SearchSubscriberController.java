@@ -131,6 +131,7 @@ public class SearchSubscriberController implements IGUIcontroller {
     void clearFields(MouseEvent event) {
     	ObservableColumnData.clear();
     	txtInput.setText("");
+    	emptyMsg.setText("");
     	lblNoResult.setVisible(false);
     }
     

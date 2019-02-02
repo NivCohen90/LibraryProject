@@ -123,6 +123,7 @@ public class SearchBookController implements IGUIcontroller {
     void clearFields(MouseEvent event) {
     	ObservableColumnData.clear();
     	txtInput.setText("");
+    	ResultMSGLabel.setText("");
     	lblNoResult.setVisible(false);
     }
 	
