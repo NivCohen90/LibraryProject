@@ -14,6 +14,7 @@ import OBLFX.NewLoanController;
 import Server.LoginQueris;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
+import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Order;
 import SystemObjects.ReportData;
 // This file contains material supporting section 3.7 of the textbook:
@@ -271,9 +272,10 @@ public class EchoServer extends AbstractServer {
 			break;
 			
 		case createLateReturnsReport:
+			ArrayList<LateReturnsReportBookData> booksData=ReportQueries.allBooksLateReturnData();
 			ReportData generalBooksCount= ReportQueries.generalAmountLateReturnsReportStat(reportReference.GeneralLatesAmount);
 			ReportData generalBooksDuration= ReportQueries.generalDurationLateReturnsReportStat(reportReference.GeneralLatesDuration);
-			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration);
+			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration, booksData);
 			try {
 				client.sendToClient(msgToClient);
 			} catch (IOException e1) {
