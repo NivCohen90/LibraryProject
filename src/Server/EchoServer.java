@@ -154,10 +154,18 @@ public class EchoServer extends AbstractServer {
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
 				if (subStatus.equals("Active")) {
-					//if()
-					LoanQueries.updateLoanReturnDate(subID, loanID);
-					msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
-				}
+					if (BookQueries.checkOrdersForBook(loanID)) {
+						if (BookQueries.isDemandedByLoanID(loanID)) {
+							LoanQueries.updateLoanReturnDate(subID, loanID);
+							msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+						} else
+							msgToClient = new ServerData(operationsReturn.returnError,
+									"Book is demanded. Extension was declined");
+					}
+					else msgToClient = new ServerData(operationsReturn.returnError, "This book has been ordered. Extension was declined");
+				} else
+					msgToClient = new ServerData(operationsReturn.returnError,
+							"Subscriber status isn't 'Active'. Extension was declined");
 			} catch (SQLException e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
@@ -214,13 +222,8 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 
 			try {
-				String getDatesSQL = String.format(
-						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=1;");
-
-				ReportData demandedBookStat = ReportQueries.calculateStatistic(getDatesSQL);
-				getDatesSQL = String.format(
-						"select StartDate,ReturnDate FROM obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where LoanStatus='Finish' and isWanted=0;");
-				ReportData regularBooksStat = ReportQueries.calculateStatistic(getDatesSQL);
+				ReportData demandedBookStat = ReportQueries.calculateStatistic(ReportQueries.demandedBooksSQL());
+				ReportData regularBooksStat = ReportQueries.calculateStatistic(ReportQueries.regularBookSQL());
 				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
@@ -231,9 +234,11 @@ public class EchoServer extends AbstractServer {
 				e1.printStackTrace();
 			}
 			break;
+			
 		case createLateReturnsReport:
-
+			
 			break;
+			
 		case AddBook:
 			try {
 				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();
@@ -259,9 +264,10 @@ public class EchoServer extends AbstractServer {
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(((Loan) newLoan.get(0)).getSubscriberID());
 				if (subStatus.equals("Active")) {
-				LoanQueries.createNewLoan((Loan) newLoan.get(0));
-				msgToClient = new ServerData(operationsReturn.returnSuccessMsg);}
-				else msgToClient = new ServerData(operationsReturn.returnError);
+					LoanQueries.createNewLoan((Loan) newLoan.get(0));
+					msgToClient = new ServerData(operationsReturn.returnSuccessMsg);
+				} else
+					msgToClient = new ServerData(operationsReturn.returnError);
 			} catch (SQLException e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
@@ -269,8 +275,7 @@ public class EchoServer extends AbstractServer {
 			}
 			try {
 				client.sendToClient(msgToClient);
-			}
-			catch (IOException e1) {
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			break;
