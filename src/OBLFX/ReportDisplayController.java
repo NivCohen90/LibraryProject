@@ -7,7 +7,6 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.ReportData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
-import SystemObjects.GeneralData.reportsType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

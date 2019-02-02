@@ -142,26 +142,33 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	private Label PhoneNumber;
-    
-	@FXML
-    void CheckEmail(KeyEvent event) {
-		IGUIcontroller.CheckIfUserPutInput(EmailField,EmailLabel);
-    }
-    @FXML
-    void CheckFirstName(KeyEvent event) {
-    	IGUIcontroller.CheckIfUserPutInput(FirstNameField,FirstNameLabel);
-    }
 
-    @FXML
-    void CheckLastName(KeyEvent event) {
-    	IGUIcontroller.CheckIfUserPutInput(LastNameField,LastNameLabel);
-    }
-    @FXML
-    void CheckPhone(KeyEvent event) {
-    	IGUIcontroller.CheckOnlyNumbers(PhoneNumberField, PhoneNumber, 7, PhoneNumberErrorDigits);
-    }
+	@FXML
+	void CheckEmail(KeyEvent event) {
+		IGUIcontroller.CheckIfUserPutInput(EmailField, EmailLabel);
+	}
+
+	@FXML
+	void CheckFirstName(KeyEvent event) {
+		IGUIcontroller.CheckIfUserPutInput(FirstNameField, FirstNameLabel);
+	}
+
+	@FXML
+	void CheckLastName(KeyEvent event) {
+		IGUIcontroller.CheckIfUserPutInput(LastNameField, LastNameLabel);
+	}
+
+	@FXML
+	void CheckPhone(KeyEvent event) {
+		IGUIcontroller.CheckOnlyNumbers(PhoneNumberField, PhoneNumber, 7, PhoneNumberErrorDigits);
+	}
+
 	@FXML
 	void CancelAllChanges(ActionEvent event) {
+		CancelOperation();
+	}
+
+	public void CancelOperation() {
 		((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Reader Card");
 		FirstNameLabel.setText("");
 		LastNameLabel.setText("");
@@ -227,7 +234,6 @@ public class SubscriberCardController implements IGUIcontroller {
 
 		}
 	}
-
 	public void setSubscriberCard(Subscriber sub) {
 		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length());
 		String areaCode = sub.getPhoneNumber().substring(0, 3);
@@ -266,8 +272,8 @@ public class SubscriberCardController implements IGUIcontroller {
 		}
 		if (GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(true);
-			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status", "For more information, Please contect the libararian.",
-					"Click ok to close message");
+			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status",
+					"For more information, Please contect the libararian.", "Click ok to close message");
 		} else {
 			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(false);
 		}
@@ -275,6 +281,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	public void updateSubscriberDetails(ActionEvent event) {
+		TextMSG.setText("");
 		FirstNameLabel.setText("");
 		LastNameLabel.setText("");
 		PhoneNumber.setText("");
@@ -350,27 +357,35 @@ public class SubscriberCardController implements IGUIcontroller {
 
 		if (counter == 4) {
 			if (GeneralData.userLibrarian != null) {
+				Sub.setID(((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).getText());
 				Sub.setFirstName(((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).getText());
 				Sub.setLastName(((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).getText());
-				Sub.setPhoneNumber(((ComboBox) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getPromptText()
+				Sub.setPhoneNumber(((ComboBox) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getSelectionModel().getSelectedItem().toString()
 						+ ((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).getText());
 				Sub.setID(((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).getText());
 				Sub.setEmail(((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField")).getText());
-				Sub.setStatus(((ComboBox) SideMenu.APReaderCardFXML.lookup("#StatusField")).getPromptText());
+				Sub.setStatus(((ComboBox) SideMenu.APReaderCardFXML.lookup("#StatusCombo")).getSelectionModel().getSelectedItem().toString());
 				commonClient.changeSubscriberDetails(Sub);
 			}
 
 			else if (GeneralData.userSubscriber != null) {
+				Sub.setID(((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).getText());
 				Sub.setFirstName(((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).getText());
 				Sub.setLastName(((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).getText());
-				Sub.setPhoneNumber(((ComboBox) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getPromptText());
+				Sub.setPhoneNumber(((ComboBox) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getSelectionModel().getSelectedItem().toString()
+						+ ((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).getText());
 				Sub.setEmail(((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField")).getText());
+				Sub.setStatus(((TextField) SideMenu.APReaderCardFXML.lookup("#StatusField")).getText());
+				System.out.println(Sub.getFirstName());
+				System.out.println(Sub.getLastName());
+				System.out.println(Sub.getPhoneNumber());
+				System.out.println(Sub.getEmail());
+				System.out.println(Sub.getStatus());
 				commonClient.changeSubscriberDetails(Sub);
 			}
 
 		}
 	}
-
 
 	/**
 	 * open window with loan details with option to extend loan
@@ -408,10 +423,10 @@ public class SubscriberCardController implements IGUIcontroller {
 		case returnSuccessMsg: {
 
 			if (GeneralData.userLibrarian != null) {
-				TextMSG.setText("Subscriber successfully updated");
+				TextMSG.setText((String) msg);
 				Sub.setFirstName(FirstNameField.getText());
 				Sub.setLastName(LastNameField.getText());
-				Sub.setPhoneNumber("" + AreaCodeCombo.getPromptText() + PhoneNumberField.getText());
+				Sub.setPhoneNumber("" + AreaCodeCombo.getSelectionModel().getSelectedItem().toString() + PhoneNumberField.getText());
 				Sub.setID(IDField.getText());
 				Sub.setEmail(EmailField.getText());
 				Sub.setStatus(StatusField.getPromptText());
@@ -421,25 +436,24 @@ public class SubscriberCardController implements IGUIcontroller {
 				GeneralData.userSubscriber.setFirstName(FirstNameField.getText());
 				GeneralData.userSubscriber.setLastName(LastNameField.getText());
 				GeneralData.userSubscriber
-						.setPhoneNumber("" + AreaCodeCombo.getPromptText() + PhoneNumberField.getText());
+						.setPhoneNumber(AreaCodeCombo.getSelectionModel().getSelectedItem().toString() + PhoneNumberField.getText());
 				GeneralData.userSubscriber.setEmail(EmailField.getText());
-				TextMSG.setText("Successfully updated");
+				TextMSG.setText((String) msg);
+				CancelOperation();	
 				Sub.setFirstName(FirstNameField.getText());
 				Sub.setLastName(LastNameField.getText());
-				Sub.setPhoneNumber("" + AreaCodeCombo.getPromptText() + PhoneNumberField.getText());
+				Sub.setPhoneNumber(AreaCodeCombo.getSelectionModel().getSelectedItem().toString() + PhoneNumberField.getText());
 				Sub.setEmail(EmailField.getText());
 			}
 			break;
 		}
 
-		case returnError: {
-			TextMSG.setText("User is locked");
-
+		case returnError:
+			TextMSG.setText((String) msg);
 			break;
-		}
-
+		case returnException:
+			IAlert.ExceptionAlert((Exception)msg);
 		default:
-
 			break;
 
 		}
@@ -456,8 +470,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		if (commonClient != null)
 			commonClient.quit();
 	}
-	
-	
+
 	/**
 	 * Initialized subscraiber card.
 	 */

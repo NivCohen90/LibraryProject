@@ -66,13 +66,27 @@ public class LoanQueries {
 		}
 	}
 
-	public static LocalDate calcReturnDate(LocalDate sDate, boolean demanded){
+	public static LocalDate calcNewReturnDate(LocalDate sDate, boolean demanded){
 		
 		if (demanded)
 			return sDate.plusDays(3);
 		
 		else return sDate.plusDays(14);
 	}
+
+
+	public static int totalLoansAmount() {
+		sqlQuery = ("SELECT count(LoanID) FROM obl.loan;");
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+			return rs.getInt(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	
 	public static ArrayList<Object> getSubscriberActiveLoans(String subID) throws SQLException {
 
@@ -98,5 +112,4 @@ public class LoanQueries {
 		return Loans;
 
 	}
-
 }
