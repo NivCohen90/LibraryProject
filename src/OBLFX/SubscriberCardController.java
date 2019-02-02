@@ -45,7 +45,8 @@ public class SubscriberCardController implements IGUIcontroller {
 	private CommonHandler commonClient;
 	// private static
 	private static ObservableList<String> List;
-
+	private ObservableList<String> ListStatus;
+	
 	@FXML
 	private Text TitleLabel;
 
@@ -203,7 +204,8 @@ public class SubscriberCardController implements IGUIcontroller {
 		EmailField.setStyle("-fx-opacity:0.5;");
 		AreaCodeTXT.setStyle("-fx-opacity:0.5;");
 		StatusField.setStyle("-fx-opacity:0.5;");
-
+		IDField.setStyle("-fx-opacity:0.5;");
+		
 		if (GeneralData.userLibrarian != null) {
 
 			StatusCombo.setVisible(false);
@@ -248,7 +250,8 @@ public class SubscriberCardController implements IGUIcontroller {
 		if (FirstNameField != null) {
 			FirstNameField.setText(sub.getFirstName());
 			LastNameField.setText(sub.getLastName());
-			PhoneNumberField.setText(sub.getPhoneNumber());
+			AreaCodeTXT.setText(areaCode);
+			PhoneNumberField.setText(phoneNumber);
 			IDField.setText(sub.getID());
 			EmailField.setText(sub.getEmail());
 			StatusField.setText(sub.getStatus());
@@ -488,13 +491,15 @@ public class SubscriberCardController implements IGUIcontroller {
 		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
 
+		ListStatus = FXCollections.observableArrayList();
+		ListStatus.clear();
+		ListStatus.add("Active");
+		ListStatus.add("Freezed");
+		ListStatus.add("Locked");
+		StatusCombo.setItems(ListStatus);
+		
 		List = FXCollections.observableArrayList();
-		List.add("Active");
-		List.add("Freezed");
-		List.add("Locked");
-		StatusCombo.setItems(List);
 		List.clear();
-
 		List.add("050");
 		List.add("052");
 		List.add("054");

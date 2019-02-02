@@ -101,15 +101,22 @@ public class SubscriberQueries {
 		String queryCheckOrder = String.format(
 				"SELECT * FROM obl.order where bookCatalogNumber = '%s' and SubscriberID='%s';",
 				orderToAdd.getBookCatalogNumber(), orderToAdd.getSubscriberID());
-		// System.out.println(query);
+		String queryCheckLoan = String.format(
+				"SELECT * FROM obl.loan where bookCatalogNumber = '%s' and SubscriberID='%s' and LoanStatus!='Finish';",
+				orderToAdd.getBookCatalogNumber(), orderToAdd.getSubscriberID());
+		 System.out.println(queryCheckLoan);
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			if (stmt.executeQuery(queryCheck).next()) {
-				if (!stmt.executeQuery(queryCheckOrder).next()) {
-					count = stmt.executeUpdate(queryUpBook);
-					count = stmt.executeUpdate(query);
-					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
-				} else
+				if (!stmt.executeQuery(queryCheckOrder).next())
+					if (!stmt.executeQuery(queryCheckLoan).next()) {
+						count = stmt.executeUpdate(queryUpBook);
+						count = stmt.executeUpdate(query);
+						result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+
+					} else
+						result = new ServerData(operationsReturn.returnError, "loan for this book exists, can not order");
+				else
 					result = new ServerData(operationsReturn.returnError, "order for this book already exist");
 			} else
 				result = new ServerData(operationsReturn.returnError, "order queue is full");

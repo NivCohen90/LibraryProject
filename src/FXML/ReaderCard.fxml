@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SubscriberCardController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SubscriberCardController">
    <children>
       <Text fx:id="TitleLabel" layoutX="15.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reader Card" wrappingWidth="183.4892578125">
          <font>
@@ -29,7 +29,7 @@
       <TextField fx:id="SubscriberNumberField" disable="true" editable="false" layoutX="480.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
       <Text layoutX="370.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :" />
       <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="480.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
-      <ComboBox fx:id="AreaCodeCombo" layoutX="469.0" layoutY="93.0" prefHeight="26.0" prefWidth="60.0" visible="false" />
+      <ComboBox fx:id="AreaCodeCombo" layoutX="479.0" layoutY="93.0" prefHeight="26.0" prefWidth="60.0" visible="false" />
       <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="540.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
       <Text layoutX="370.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
       <TextField fx:id="StatusField" disable="true" editable="false" layoutX="480.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />

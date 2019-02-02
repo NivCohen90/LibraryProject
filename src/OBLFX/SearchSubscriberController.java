@@ -24,6 +24,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -106,7 +107,6 @@ public class SearchSubscriberController implements IGUIcontroller {
 
 	@SuppressWarnings("unused")
 	private TableView<Subscriber> tblResultsSubscriber = new TableView<>();
-	
 	@FXML
 	void CheckSearch(KeyEvent event) {
 		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
@@ -123,6 +123,16 @@ public class SearchSubscriberController implements IGUIcontroller {
 			}
 		}
 	}
+	/**
+	 * clear fields in search
+	 * @param event
+	 */
+    @FXML
+    void clearFields(MouseEvent event) {
+    	ObservableColumnData.clear();
+    	txtInput.setText("");
+    	lblNoResult.setVisible(false);
+    }
     
 	/**
      * set labels for book subscriber in FXML

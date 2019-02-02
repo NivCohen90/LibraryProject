@@ -26,6 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -114,6 +115,17 @@ public class SearchBookController implements IGUIcontroller {
 	@SuppressWarnings("unused")
 	private TableView<Book> tblResultsBook = new TableView<>();
 
+	/**
+	 * clear fields in search
+	 * @param event
+	 */
+    @FXML
+    void clearFields(MouseEvent event) {
+    	ObservableColumnData.clear();
+    	txtInput.setText("");
+    	lblNoResult.setVisible(false);
+    }
+	
 	/**
 	 * set labels for book search in FXML
 	 */
