@@ -51,6 +51,7 @@ public class mysqlConnection {
 			createdb.execute(CreateDatabase.loanTable);
 			createdb.execute(CreateDatabase.orderTable);
 			createdb.execute(CreateDatabase.bookcopyTable);
+			createdb.execute(CreateDatabase.latereturnTable);
 			ServerController.updateLog("SQL connection succeed - Connected to " + SchemeName + " Database (IP: " + DatabaseIP + ").");
 			DB_Dropped = false;
 			return true;

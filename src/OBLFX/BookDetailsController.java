@@ -109,7 +109,7 @@ public class BookDetailsController implements IGUIcontroller{
 	    AvailibaleCopiesTextField.setText(String.valueOf(BookToDisplay.getAvailableCopies()));
 	    NumberOfCopiesTextField.setText(String.valueOf(BookToDisplay.getNumberOfLibraryCopies()));
 	    if(BookToDisplay.getAvailableCopies()==0 && GeneralData.userSubscriber!=null)
-	    	if(!GeneralData.userSubscriber.getStatus().equals("Freeze"))
+	    	if(GeneralData.userSubscriber.getStatus().equals("Active"))	//if active show order button
 	    		OrderBookBTN.setVisible(true);
 	    else
 	    	OrderBookBTN.setVisible(false);
