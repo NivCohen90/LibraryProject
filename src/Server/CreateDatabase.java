@@ -94,5 +94,18 @@ public class CreateDatabase {
 			"  PRIMARY KEY (`CatalogNumber`,`CopyID`),\r\n" + 
 			"  CONSTRAINT `bookCopyCatalog` FOREIGN KEY (`CatalogNumber`) REFERENCES `book` (`CatalogNumber`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+	
+	final static String latereturnTable = "CREATE TABLE IF NOT EXISTS `latereturns` (\r\n" + 
+			"  `LoanID` int(11) NOT NULL,\r\n" + 
+			"  `SubID` int(11) NOT NULL,\r\n" + 
+			"  `FaultKind` varchar(45) DEFAULT NULL,\r\n" + 
+			"  `ExpectedReturnDate` date DEFAULT NULL,\r\n" + 
+			"  `OriginalReturnDate` date DEFAULT NULL,\r\n" + 
+			"  PRIMARY KEY (`LoanID`,`SubID`),\r\n" + 
+			"  KEY `lateSubID_idx` (`SubID`),\r\n" + 
+			"  CONSTRAINT `lateLoanID` FOREIGN KEY (`LoanID`) REFERENCES `loan` (`loanid`) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 
+			"  CONSTRAINT `lateSubID` FOREIGN KEY (`SubID`) REFERENCES `subscriber` (`subscriberid`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
+			") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n" + 
+			"";
 
 }

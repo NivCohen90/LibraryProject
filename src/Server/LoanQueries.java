@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import SystemObjects.GeneralData.operationsReturn;
@@ -65,7 +66,7 @@ public class LoanQueries {
 		}
 	}
 
-	public static LocalDate calcReturnDate(LocalDate sDate, boolean demanded){
+	public static LocalDate calcNewReturnDate(LocalDate sDate, boolean demanded){
 		
 		if (demanded)
 			return sDate.plusDays(3);
@@ -73,4 +74,42 @@ public class LoanQueries {
 		else return sDate.plusDays(14);
 	}
 
+
+	public static int totalLoansAmount() {
+		sqlQuery = ("SELECT count(LoanID) FROM obl.loan;");
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+			return rs.getInt(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	
+	public static ArrayList<Object> getSubscriberActiveLoans(String subID) throws SQLException {
+
+		String sqlQuery = String.format("Select l.*, b.BookName, b.AuthorName from obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where l.SubscriberID=%s and l.LoanStatus='Active';", subID);
+		Statement stmt = mysqlConnection.conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sqlQuery);
+		
+		ArrayList<Object> Loans = new ArrayList<Object>();
+		while (rs.next()) {
+			String LoanID = rs.getString("LoanID");
+			String SubscriberID = rs.getString("SubscriberID");
+			String BookCatalogNumber = rs.getString("BookCatalogNumber");
+			String CopyID = rs.getString("CopyID");
+			Date StartDate = rs.getDate("StartDate");
+			Date ReturnDate = rs.getDate("ReturnDate"); 
+			String LoanStatus = rs.getString("LoanStatus");
+			String BookName = rs.getString("BookName");
+			String BookAuthors = rs.getString("AuthorName");
+
+			Loan a = new Loan(LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus, BookName, BookAuthors);
+			Loans.add(a);
+		}
+		return Loans;
+
+	}
 }

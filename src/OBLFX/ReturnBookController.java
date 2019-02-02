@@ -1,6 +1,7 @@
 package OBLFX;
 
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 /**
  * @author Matan
@@ -87,7 +89,24 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		RetriveMSG.setText((String) msg);
+		switch(op)
+		{
+		case returnSuccessMsg:
+			RetriveMSG.setVisible(true);
+			RetriveMSG.setText((String) msg);
+			RetriveMSG.setTextFill(Color.GREEN);
+			break;
+		case returnError:
+			RetriveMSG.setVisible(true);
+			RetriveMSG.setText((String) msg);
+			RetriveMSG.setTextFill(Color.RED);
+			break;
+		case returnException:
+			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

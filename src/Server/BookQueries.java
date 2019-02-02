@@ -73,32 +73,31 @@ public class BookQueries {
 
 	public static String checkOrdersForBookAndNotice(String bookCatalogNumber) {
 		Connection con = mysqlConnection.conn;
+		Statement stmt = null;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		String queryCheckOrder = String.format("SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n"
-				+ "	(	SELECT * FROM obl.order ord inner join\r\n"
-				+ "			(select sub.SubscriberID as subID, u.Email, u.FirstName, u.LastName from obl.subscriber sub inner join obl.user u on u.ID=sub.ID) subEmail on ord.SubscriberID = subEmail.subID\r\n"
-				+ "	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s ORDER BY ordDetail.OrderDate ASC;",
-				bookCatalogNumber);
+		
+		String queryCheckOrder = String.format(
+				"SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n" + 
+				"	(	SELECT * FROM obl.order ord inner join\r\n" + 
+				"			(select sub.SubscriberID as subID, u.Email, u.FirstName, u.LastName from obl.subscriber sub inner join obl.user u on u.ID=sub.ID) subEmail on ord.SubscriberID = subEmail.subID\r\n" + 
+				"	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s ORDER BY ordDetail.OrderDate ASC;", bookCatalogNumber);
 
 		try {
-			s = con.createStatement();
-			ResultSet rs = s.executeQuery(queryCheckOrder);
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(queryCheckOrder);
 			if (rs.next()) {
 				String todayDate = dateFormat.format(new Date());
 				String subscriberID = rs.getString("SubscriberID");
-				String orderNotice = String.format(
-						"to: %s\nfrom: ort braude Library\n\nsubject:\nHello, %s %s\nthe book you ordered - %s has arrived to the library.\nyou have 2 days to realize your order or the order will be canceled.",
-						rs.getString("Email"), rs.getString("FirstName"), rs.getString("LastName"),
-						rs.getString("BookName"));
-				System.out.println(orderNotice);
-
+				String orderNotice = String.format("to: %s\nfrom: ort braude Library\n\nsubject:\nHello, %s %s\nthe book you ordered - %s has arrived to the library.\nyou have 2 days to realize your order or the order will be canceled.",  rs.getString("Email"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("BookName"));
+				//System.out.println(orderNotice);
+				ServerController.updateLog(orderNotice);
+				
 				String queryUpdateOrder = String.format(
-						"UPDATE `obl`.`order` SET `BookArrivedTime` = '%s' WHERE `OrderID` = %s;", todayDate,
-						rs.getString("OrderID"));
-				s.executeUpdate(queryUpdateOrder);
-				System.out.println(queryUpdateOrder);
-
+						"UPDATE `obl`.`order` SET `BookArrivedTime` = '%s' WHERE `OrderID` = %s;",
+						todayDate, rs.getString("OrderID"));
+				stmt.executeUpdate(queryUpdateOrder);
+				//System.out.println(queryUpdateOrder);			
+				
 				return subscriberID;
 			}
 		} catch (SQLException e) {
@@ -107,82 +106,80 @@ public class BookQueries {
 		return null;
 	}
 
-	public static ServerData returnBook(String SubscriberID, String bookCatalogNumber) {
-		int bookCopyID = 0;
+
+	public static ServerData returnBook(String StudentID, String bookCatalogNumber) {
+		int bookCopyID=0, loanID=0;
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = mysqlConnection.conn;
 
 		// check book and subscriber exist
 		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber=%s", bookCatalogNumber);
-		String queryCheckSub = String.format("SELECT * FROM obl.subscriber where SubscriberID=%s", SubscriberID);
+		String queryCheckSub = String.format("SELECT * FROM obl.user u inner join obl.subscriber s on u.ID=s.ID where u.ID=%s;", StudentID);
 
 		try {
 			s = con.createStatement();
 			ResultSet rs = s.executeQuery(queryCheckBook);
 
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"book doesn't exist");
-
 
 			rs = s.executeQuery(queryCheckSub);
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"subscriber doesn't exist");
 
+			String SubscriberID = rs.getString("SubscriberID");
 			// check loan status
 			String queryCheckLoan = String.format(
-					"SELECT * FROM obl.loan loan inner join obl.subscriber sub on loan.SubscriberID=sub.SubscriberID where loan.BookCatalogNumber = %s and loan.SubscriberID=%s and loan.LoanStatus='Active'",
+					"SELECT * FROM obl.loan loan inner join obl.subscriber sub on loan.SubscriberID=sub.SubscriberID where loan.BookCatalogNumber = %s and loan.SubscriberID=%s and loan.LoanStatus!='Finish'",
 					bookCatalogNumber, SubscriberID);
 			rs = s.executeQuery(queryCheckLoan);
 
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"loan doesn't exist");
 
 			bookCopyID = rs.getInt("CopyID");
+			loanID = rs.getInt("LoanID");
+			String returnedDate = dateFormat.format(new Date());
 
-			if (rs.getString("LoanStatus").equals("Late")) {
-				String querySubStatus = "";
+			if (rs.getString("LoanStatus").equals("Late")) {					
+				
+				//insert to late return table
+				String queryLateReturn = String.format("INSERT INTO `obl`.`latereturns` (`LoanID`, `SubID`, `FaultKind`, `ExpectedReturnDate`, `OriginalReturnDate`) VALUES('%s','%s','LateReturn','%s','%s');", loanID, SubscriberID, rs.getString("ReturnDate"), returnedDate);
+				//System.out.println(queryLateReturn);
+				
+				String querySubStatus="";
+
 				switch (rs.getInt("FelonyNumber")) {
 				case 1: // change status to active and decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Active', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status freeze to active,decrease felony");
+					//System.out.println("status freeze to active,decrease felony");
 					break;
 				case 2: // decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status freeze to active,decrease felony");
+					//System.out.println("status freeze to active,decrease felony");
 					break;
 				case 3: // status from lock to freeze and decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Freeze', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status lock to freeze,decrease felony");
+					//System.out.println("status lock to freeze,decrease felony");
 					break;
 				}
 
 				s.executeUpdate(querySubStatus);
-
-				// update loan status to late finish
-				String returnDate = dateFormat.format(new Date());
-
-				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'LateFinish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
-				s.executeUpdate(queryLoanStatus);
+				s.executeUpdate(queryLateReturn);
 			}
-			else
-			{
+			
+			// update loan status to finish
+			String returnDate = dateFormat.format(new Date());
 
-				// update loan status to finish
-				String returnDate = dateFormat.format(new Date());
-
-				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
-				s.executeUpdate(queryLoanStatus);
-
-			}
+			String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, loanID);
+			s.executeUpdate(queryLoanStatus);
 
 			// check is order exist, and notice subscriber
 			String noticeSubscribeID = checkOrdersForBookAndNotice(bookCatalogNumber);

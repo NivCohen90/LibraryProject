@@ -157,7 +157,11 @@ public class EchoServer extends AbstractServer {
 					if (!BookQueries.checkOrdersForBook(loanID)) {
 						if (!BookQueries.isDemandedByLoanID(loanID)) {
 							LoanQueries.updateLoanReturnDate(subID, loanID);
-							msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+							
+							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subID);
+							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
+							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+							
 						} else
 							msgToClient = new ServerData(operationsReturn.returnError,
 									"Book is demanded. Extension was declined");
@@ -242,9 +246,9 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 
 			try {
-				ReportData demandedBookStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL());
-				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL());
-				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
+				ReportData demandedBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL(), reportReference.Demanded);
+				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL(), reportReference.Regular);
+				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBooksStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
@@ -345,7 +349,7 @@ public class EchoServer extends AbstractServer {
 		case calcReturnDate:
 			ArrayList<Object> data = ((ServerData) msg).getDataMsg();
 			boolean answer = BookQueries.isDemanded((String) data.get(1));
-			LocalDate returnDate = LoanQueries.calcReturnDate((LocalDate) data.get(0), answer);
+			LocalDate returnDate = LoanQueries.calcNewReturnDate((LocalDate) data.get(0), answer);
 			try {
 				client.sendToClient(returnDate);
 			} catch (IOException e) {
