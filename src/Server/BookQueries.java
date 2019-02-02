@@ -108,8 +108,7 @@ public class BookQueries {
 
 
 	public static ServerData returnBook(String StudentID, String bookCatalogNumber) {
-		Statement stmt = null;
-		int bookCopyID=0;
+		int bookCopyID=0, loanID=0;
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = mysqlConnection.conn;
@@ -132,7 +131,7 @@ public class BookQueries {
 			String SubscriberID = rs.getString("SubscriberID");
 			// check loan status
 			String queryCheckLoan = String.format(
-					"SELECT * FROM obl.loan loan inner join obl.subscriber sub on loan.SubscriberID=sub.SubscriberID where loan.BookCatalogNumber = %s and loan.SubscriberID=%s and loan.LoanStatus='Active'",
+					"SELECT * FROM obl.loan loan inner join obl.subscriber sub on loan.SubscriberID=sub.SubscriberID where loan.BookCatalogNumber = %s and loan.SubscriberID=%s and loan.LoanStatus!='Finish'",
 					bookCatalogNumber, SubscriberID);
 			rs = s.executeQuery(queryCheckLoan);
 
@@ -140,10 +139,14 @@ public class BookQueries {
 				return new ServerData(operationsReturn.returnError,"loan doesn't exist");
 
 			bookCopyID = rs.getInt("CopyID");
+			loanID = rs.getInt("LoanID");
+			String returnedDate = dateFormat.format(new Date());
 
 			if (rs.getString("LoanStatus").equals("Late")) {					
 				
-				//update late return table
+				//insert to late return table
+				String queryLateReturn = String.format("INSERT INTO `obl`.`latereturns` (`LoanID`, `SubID`, `FaultKind`, `ExpectedReturnDate`, `OriginalReturnDate`) VALUES('%s','%s','LateReturn','%s','%s');", loanID, SubscriberID, rs.getString("ReturnDate"), returnedDate);
+				//System.out.println(queryLateReturn);
 				
 				String querySubStatus="";
 
@@ -152,39 +155,31 @@ public class BookQueries {
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Active', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status freeze to active,decrease felony");
+					//System.out.println("status freeze to active,decrease felony");
 					break;
 				case 2: // decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status freeze to active,decrease felony");
+					//System.out.println("status freeze to active,decrease felony");
 					break;
 				case 3: // status from lock to freeze and decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Freeze', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
-					System.out.println("status lock to freeze,decrease felony");
+					//System.out.println("status lock to freeze,decrease felony");
 					break;
 				}
 
 				s.executeUpdate(querySubStatus);
-
-				// update loan status to late finish
-				String returnDate = dateFormat.format(new Date());
-				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Late', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
-				stmt.executeUpdate(queryLoanStatus);
+				s.executeUpdate(queryLateReturn);
 			}
-			else
-			{
+			
+			// update loan status to finish
+			String returnDate = dateFormat.format(new Date());
 
-				// update loan status to finish
-				String returnDate = dateFormat.format(new Date());
-
-				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
-				s.executeUpdate(queryLoanStatus);
-
-			}
+			String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, loanID);
+			s.executeUpdate(queryLoanStatus);
 
 			// check is order exist, and notice subscriber
 			String noticeSubscribeID = checkOrdersForBookAndNotice(bookCatalogNumber);

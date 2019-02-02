@@ -92,15 +92,19 @@ public class ReturnBookController implements IGUIcontroller {
 		switch(op)
 		{
 		case returnSuccessMsg:
+			RetriveMSG.setVisible(true);
 			RetriveMSG.setText((String) msg);
 			RetriveMSG.setTextFill(Color.GREEN);
 			break;
 		case returnError:
+			RetriveMSG.setVisible(true);
 			RetriveMSG.setText((String) msg);
 			RetriveMSG.setTextFill(Color.RED);
 			break;
 		case returnException:
 			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		default:
 			break;
 		}
 	}
