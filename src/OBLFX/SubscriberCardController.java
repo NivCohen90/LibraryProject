@@ -249,7 +249,7 @@ public class SubscriberCardController implements IGUIcontroller {
 			SubscriberNumberField.setText(sub.getSubscriberNumber());
 		}
 
-		ObservableOrdersList.clear();
+		ObservableLoansList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
 			// LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(),
 			// iloan.getStartDate(), iloan.getReturnDate());

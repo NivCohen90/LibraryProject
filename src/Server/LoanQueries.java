@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import SystemObjects.GeneralData.operationsReturn;
@@ -71,6 +72,31 @@ public class LoanQueries {
 			return sDate.plusDays(3);
 		
 		else return sDate.plusDays(14);
+	}
+	
+	public static ArrayList<Object> getSubscriberActiveLoans(String subID) throws SQLException {
+
+		String sqlQuery = String.format("Select l.*, b.BookName, b.AuthorName from obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where l.SubscriberID=%s and l.LoanStatus='Active';", subID);
+		Statement stmt = mysqlConnection.conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sqlQuery);
+		
+		ArrayList<Object> Loans = new ArrayList<Object>();
+		while (rs.next()) {
+			String LoanID = rs.getString("LoanID");
+			String SubscriberID = rs.getString("SubscriberID");
+			String BookCatalogNumber = rs.getString("BookCatalogNumber");
+			String CopyID = rs.getString("CopyID");
+			Date StartDate = rs.getDate("StartDate");
+			Date ReturnDate = rs.getDate("ReturnDate"); 
+			String LoanStatus = rs.getString("LoanStatus");
+			String BookName = rs.getString("BookName");
+			String BookAuthors = rs.getString("AuthorName");
+
+			Loan a = new Loan(LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus, BookName, BookAuthors);
+			Loans.add(a);
+		}
+		return Loans;
+
 	}
 
 }

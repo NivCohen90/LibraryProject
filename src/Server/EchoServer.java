@@ -157,7 +157,11 @@ public class EchoServer extends AbstractServer {
 					if (!BookQueries.checkOrdersForBook(loanID)) {
 						if (!BookQueries.isDemandedByLoanID(loanID)) {
 							LoanQueries.updateLoanReturnDate(subID, loanID);
-							msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+							
+							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subID);
+							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
+							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+							
 						} else
 							msgToClient = new ServerData(operationsReturn.returnError,
 									"Book is demanded. Extension was declined");
