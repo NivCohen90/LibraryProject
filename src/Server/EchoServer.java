@@ -154,8 +154,8 @@ public class EchoServer extends AbstractServer {
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
 				if (subStatus.equals("Active")) {
-					if (BookQueries.checkOrdersForBook(loanID)) {
-						if (BookQueries.isDemandedByLoanID(loanID)) {
+					if (!BookQueries.checkOrdersForBook(loanID)) {
+						if (!BookQueries.isDemandedByLoanID(loanID)) {
 							LoanQueries.updateLoanReturnDate(subID, loanID);
 							msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
 						} else
@@ -171,6 +171,13 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
+			try {
+				client.sendToClient(msgToClient);
+			} catch (IOException e2) {
+				IAlert.ExceptionAlert(e2);
+				e2.printStackTrace();
+			}
+			
 			break;
 
 		case viewActiveLoans:

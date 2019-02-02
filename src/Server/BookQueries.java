@@ -17,12 +17,16 @@ public class BookQueries {
 	private static Statement s;
 	
 	public static boolean isDemanded(String bookCatalogNumber) {
-		sqlQuery=String.format("SELECT isWanted from obl.book where BookCatalogNumber= %s", bookCatalogNumber);
+		sqlQuery=String.format("SELECT isWanted from obl.book where CatalogNumber= %s", bookCatalogNumber);
 		try {
 			s=mysqlConnection.conn.createStatement();
-			String answer= s.executeQuery(sqlQuery).toString();
-			if(answer.equals("0"))
-				return false;
+			ResultSet rs = s.executeQuery(sqlQuery);
+			if(rs.next())
+			{
+				String answer= rs.getString("isWanted");
+				if(answer.equals("0"))
+					return false;
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +45,10 @@ public class BookQueries {
 		sqlQuery=String.format("Select BookCatalogNumber from obl.loan where LoanID= %s", loanID);
 		try {
 			s=mysqlConnection.conn.createStatement();
-			return s.executeQuery(sqlQuery).toString();
+			ResultSet rs = s.executeQuery(sqlQuery);
+			if(rs.next())
+				return rs.getString("BookCatalogNumber");
+			return "";
 	}
 	catch (SQLException e) {
 		e.printStackTrace();
@@ -54,10 +61,7 @@ public class BookQueries {
 		Statement stmt;
 		String bookCatalogNumber= BookQueries.bookCatalogNumber(loanID);
 		String queryCheckOrder = String.format(
-				"SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n" + 
-				"	(	SELECT * FROM obl.order ord inner join\r\n" + 
-				"			(select sub.SubscriberID as subID, u.Email, u.FirstName, u.LastName from obl.subscriber sub inner join obl.user u on u.ID=sub.ID) subEmail on ord.SubscriberID = subEmail.subID\r\n" + 
-				"	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s ORDER BY ordDetail.OrderDate ASC;", bookCatalogNumber);
+				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime=null;", bookCatalogNumber);
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			ResultSet rs = stmt.executeQuery(queryCheckOrder);
