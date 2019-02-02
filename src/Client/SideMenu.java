@@ -262,19 +262,6 @@ public class SideMenu {
 					.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML).openStream());
 			controllerMap.put(Menuicons.CreateLoan, (NewLoanController) fxmlLoader.getController());
 
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APUpdateSubscriberStatusFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberDetailsFXML).openStream());
-//			controllerMap.put(Menuicons.ChangeSubscriberStatus,
-//					(UpdateSubscriberDetailsController) fxmlLoader.getController());
-
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APStatisticsFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
-//			controllerMap.put(Menuicons.Statistics, (CreateReportController) fxmlLoader.getController());
-
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
 			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
