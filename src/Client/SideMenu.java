@@ -2,7 +2,6 @@ package Client;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,7 +12,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
@@ -29,7 +27,6 @@ import OBLFX.SearchSubscriberController;
 import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
-import OBLFX.UserWelcomeController;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.MenuType;
 import SystemObjects.GeneralData.Menuicons;
