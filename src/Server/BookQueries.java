@@ -80,7 +80,7 @@ public class BookQueries {
 				"SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n" + 
 				"	(	SELECT * FROM obl.order ord inner join\r\n" + 
 				"			(select sub.SubscriberID as subID, u.Email, u.FirstName, u.LastName from obl.subscriber sub inner join obl.user u on u.ID=sub.ID) subEmail on ord.SubscriberID = subEmail.subID\r\n" + 
-				"	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s ORDER BY ordDetail.OrderDate ASC;", bookCatalogNumber);
+				"	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s and ordDetail.`BookArrivedTime` IS NULL ORDER BY ordDetail.OrderDate ASC;", bookCatalogNumber);
 
 		try {
 			stmt = con.createStatement();
