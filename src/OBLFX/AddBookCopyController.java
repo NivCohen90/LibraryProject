@@ -108,8 +108,7 @@ public class AddBookCopyController implements IGUIcontroller {
 		switch (op) {
 		case returnBook:
 			 BookNameTextField.setText(((Book)msg).getBookName());
-			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));
-			 
+			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));	 
 			break;
 
 		case returnError:

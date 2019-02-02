@@ -45,8 +45,8 @@ public class SubscriberHandler extends IHandler {
 		}
 	}
 
-	public void extendLoan(Loan loanToExtend) {
-		ServerData serverData= new ServerData(operations.extandLoan, loanToExtend);
+	public void extendLoan(String subscriberID, String LoanID) {
+		ServerData serverData= new ServerData(operations.extandLoan, subscriberID, LoanID);
 		try {
 			sendToServer(serverData);
 		} catch (IOException e) {
