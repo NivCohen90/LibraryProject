@@ -16,15 +16,14 @@ import SystemObjects.*;
 
 public class SubscriberQueries {
 
-
 	public static String getSubscriberStatus(String subID) throws SQLException {
-		String loanString= String.format("Select Status from obl.Subscriber s where SubscriberID=%s",subID);
+		String loanString = String.format("Select Status from obl.Subscriber s where SubscriberID=%s", subID);
 		Statement st;
-			st = mysqlConnection.conn.createStatement();
-			ResultSet rs = st.executeQuery(loanString);
-			if(rs.next())
-				return rs.getString("Status");
-			return "";
+		st = mysqlConnection.conn.createStatement();
+		ResultSet rs = st.executeQuery(loanString);
+		if (rs.next())
+			return rs.getString("Status");
+		return "";
 	}
 
 	/**
@@ -45,9 +44,11 @@ public class SubscriberQueries {
 		// WHERE StudentID = ?
 		return updateString;
 	}
-	
+
 	/**
-	 * add order by subscriber to database, subscriberID, book catalog in order object
+	 * add order by subscriber to database, subscriberID, book catalog in order
+	 * object
+	 * 
 	 * @param orderToAdd order object with details of order
 	 * @return object for sending to client with appropriate message
 	 */
@@ -71,19 +72,24 @@ public class SubscriberQueries {
 				orderToAdd.getBookCatalogNumber());
 		String queryCheckOrder = String.format(
 				"SELECT * FROM obl.order where bookCatalogNumber = '%s' and SubscriberID='%s';",
-				orderToAdd.getBookCatalogNumber(),orderToAdd.getSubscriberID());
-		// System.out.println(query);
+				orderToAdd.getBookCatalogNumber(), orderToAdd.getSubscriberID());
+		String queryCheckLoan = String.format(
+				"SELECT * FROM obl.loan where bookCatalogNumber = '%s' and SubscriberID='%s' and LoanStatus!='Finish';",
+				orderToAdd.getBookCatalogNumber(), orderToAdd.getSubscriberID());
+		 System.out.println(queryCheckLoan);
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			if (stmt.executeQuery(queryCheck).next()) {
-				if (!stmt.executeQuery(queryCheckOrder).next()){
-					count = stmt.executeUpdate(queryUpBook);
-					count = stmt.executeUpdate(query);
-					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
-				}
+				if (!stmt.executeQuery(queryCheckOrder).next())
+					if (!stmt.executeQuery(queryCheckLoan).next()) {
+						count = stmt.executeUpdate(queryUpBook);
+						count = stmt.executeUpdate(query);
+						result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+
+					} else
+						result = new ServerData(operationsReturn.returnError, "loan for this book exists, can not order");
 				else
-					result = new ServerData(operationsReturn.returnError,
-							"order for this book already exist");
+					result = new ServerData(operationsReturn.returnError, "order for this book already exist");
 			} else
 				result = new ServerData(operationsReturn.returnError, "order queue is full");
 		} catch (SQLException e) {
@@ -100,8 +106,7 @@ public class SubscriberQueries {
 				}
 			}
 			if (e.getMessage().contains("Duplicate entry"))
-				result = new ServerData(operationsReturn.returnError,
-						"order for this book already exist");
+				result = new ServerData(operationsReturn.returnError, "order for this book already exist");
 			else
 				result = new ServerData(operationsReturn.returnException, e);
 		}
@@ -109,7 +114,8 @@ public class SubscriberQueries {
 	}
 
 	/**
-	 * check is there are orders with arrived book in database, and if date is over 2 days update status to finished (didn't loan book after it arrived)
+	 * check is there are orders with arrived book in database, and if date is over
+	 * 2 days update status to finished (didn't loan book after it arrived)
 	 */
 	public static void updateMissedOrderes() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -117,9 +123,10 @@ public class SubscriberQueries {
 		Date today = new Date();
 		LocalDate twoDaysAgo = LocalDate.now().minusDays(2);
 		Date twoDaysDate = Date.from(twoDaysAgo.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		String query = String.format("SELECT * FROM obl.order WHERE OrderDate <= '%s' and OrderDate >= '%s' and OrderStatus='Active' and BookArrivedTime != 'null';",
+		String query = String.format(
+				"SELECT * FROM obl.order WHERE OrderDate <= '%s' and OrderDate >= '%s' and OrderStatus='Active' and BookArrivedTime != 'null';",
 				dateFormat.format(today), dateFormat.format(twoDaysDate));
-		//System.out.println(query);
+		// System.out.println(query);
 		Statement stmt = null;
 		String queryUpdate = "";
 		try {
@@ -138,61 +145,50 @@ public class SubscriberQueries {
 			IAlert.ExceptionAlert(e);
 		}
 	}
-	
-	}
-	
-	/*public static void insertToDB(Student s) throws SQLException {
-	PreparedStatement Statment = conn.prepareStatement(SqlQuerys.addStudent());
-	// String query = "INSERT INTO users VALUES ('" + data[0] + "', '" + data[1] +
-	// "', '"+data[2]+"', '"+data[3]+"');";
-	// System.out.println(query);
-	Statment.setString(1, s.getStudentID());
-	Statment.setString(2, s.getStudentName());
-	Statment.setString(3, s.getStatusMembership());
-	Statment.setString(4, s.getFreeze());
-	Statment.setString(5, s.getOperation());
-	//Statment.setString(6, s.getStudentID());
-	Statment.execute();
-	ServerController.updateLog("Student Added Succesfuly.");
+
 }
 
-public static ArrayList<Student> UpdateStudentInformation(Student s) throws SQLException {
-	PreparedStatement Statment = conn.prepareStatement(SqlQuerys.UpdateStudent());
-	Statment.setString(1, s.getStudentID());
-	Statment.setString(2, s.getStudentName());
-	System.out.println(s.getStatusMembership());
-	Statment.setString(3, s.getStatusMembership());
-	Statment.setString(4, s.getFreeze());
-	Statment.setString(5, s.getOperation());
-	Statment.setString(6, s.getStudentID());
-	Statment.executeUpdate();
-	ServerController.updateLog("StudentID: " + s.getStudentID() +  " Updated Succesfuly.");
-	return getAllStudents();
-}*/
+/*
+ * public static void insertToDB(Student s) throws SQLException {
+ * PreparedStatement Statment = conn.prepareStatement(SqlQuerys.addStudent());
+ * // String query = "INSERT INTO users VALUES ('" + data[0] + "', '" + data[1]
+ * + // "', '"+data[2]+"', '"+data[3]+"');"; // System.out.println(query);
+ * Statment.setString(1, s.getStudentID()); Statment.setString(2,
+ * s.getStudentName()); Statment.setString(3, s.getStatusMembership());
+ * Statment.setString(4, s.getFreeze()); Statment.setString(5,
+ * s.getOperation()); //Statment.setString(6, s.getStudentID());
+ * Statment.execute(); ServerController.updateLog("Student Added Succesfuly.");
+ * }
+ * 
+ * public static ArrayList<Student> UpdateStudentInformation(Student s) throws
+ * SQLException { PreparedStatement Statment =
+ * conn.prepareStatement(SqlQuerys.UpdateStudent()); Statment.setString(1,
+ * s.getStudentID()); Statment.setString(2, s.getStudentName());
+ * System.out.println(s.getStatusMembership()); Statment.setString(3,
+ * s.getStatusMembership()); Statment.setString(4, s.getFreeze());
+ * Statment.setString(5, s.getOperation()); Statment.setString(6,
+ * s.getStudentID()); Statment.executeUpdate();
+ * ServerController.updateLog("StudentID: " + s.getStudentID() +
+ * " Updated Succesfuly."); return getAllStudents(); }
+ */
 
-/*public static ArrayList<Student> getAllStudents() {
-
-	try {
-		
-		ArrayList<Student> students = new ArrayList<Student>();
-		Statement stmt = conn.createStatement();
-		// the ResultSet will hold the query result which we can manipulate
-		ResultSet rs = stmt.executeQuery("SELECT * FROM student");
-		while (rs.next()) {
-			Student student = new Student("", "", "", "", "");
-			student.setStudentID(rs.getString(1));
-			student.setStudentName(rs.getString(2));
-			student.setStatusMembership(rs.getString(3));
-			student.setFreeze(rs.getString(4));
-			student.setOperation(rs.getString(5).toString());
-			students.add(student);
-		}
-		return students;
-	} catch (SQLException e) {
-		ServerController.updateLog(e.getMessage().toString());
-		e.printStackTrace();
-	}
-	return null;
-
-}*/
-
+/*
+ * public static ArrayList<Student> getAllStudents() {
+ * 
+ * try {
+ * 
+ * ArrayList<Student> students = new ArrayList<Student>(); Statement stmt =
+ * conn.createStatement(); // the ResultSet will hold the query result which we
+ * can manipulate ResultSet rs = stmt.executeQuery("SELECT * FROM student");
+ * while (rs.next()) { Student student = new Student("", "", "", "", "");
+ * student.setStudentID(rs.getString(1));
+ * student.setStudentName(rs.getString(2));
+ * student.setStatusMembership(rs.getString(3));
+ * student.setFreeze(rs.getString(4));
+ * student.setOperation(rs.getString(5).toString()); students.add(student); }
+ * return students; } catch (SQLException e) {
+ * ServerController.updateLog(e.getMessage().toString()); e.printStackTrace(); }
+ * return null;
+ * 
+ * }
+ */
