@@ -6,11 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import Client.Main;
 import Client.SubscriberHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
@@ -18,7 +15,6 @@ import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.Order;
-import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -96,7 +92,8 @@ public class BookDetailsController implements IGUIcontroller{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		if(GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			OrderBookBTN.setDisable(true);
-			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status","Please contect the libararian","Click ok to close message");
+			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status", "For more information, Please contect the libararian.",
+					"Click ok to close message");
 		}
 		else {
 			OrderBookBTN.setDisable(false);
@@ -133,7 +130,7 @@ public class BookDetailsController implements IGUIcontroller{
     	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     	String stringToday = dateFormat.format(new Date());
     	java.sql.Date sqlDate = java.sql.Date.valueOf(stringToday);
-    	sentOrder = new Order(null, GeneralData.userSubscriber.getSubscriberNumber(), this.displayedBook.getCatalogNumber(), sqlDate, null, "active", null, null);
+    	sentOrder = new Order(null, GeneralData.userSubscriber.getSubscriberNumber(), this.displayedBook.getCatalogNumber(), sqlDate, null, "active", displayedBook.getBookName(), displayedBook.getAuthorName());
     	subscriberClient.orderBook(sentOrder);
     	//subscriberClient.orderBook(GeneralData.userSubscriber, this.displayedBook, new Date());
     }
@@ -190,6 +187,7 @@ public class BookDetailsController implements IGUIcontroller{
 				OrderMsgText.setTextFill(Color.RED);
 				OrderMsgText.setVisible(true);
 				IAlert.ExceptionAlert((Exception)msg);
+				break;
 		default:
 			break;
 		}
