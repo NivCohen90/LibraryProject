@@ -109,7 +109,8 @@ public class CatalogQueries {
 	}
 
 	public static ServerData addBookCopyToDB(String catalog, String numberToAdd) {
-		String successMsg = "Book copies added";
+		String successMsg = numberToAdd + " Book Copies Added Succesfuly.";
+		String failMsg = "There is no book with this Catalog Number.";
 		ServerData result;
 		Statement stmt;
 		int bookCopyIndex = -1;
@@ -123,47 +124,36 @@ public class CatalogQueries {
 		try {
 			stmt = con.createStatement();
 			ResultSet catalogNumber = stmt.executeQuery(checkCatalogNumber);
-			if (catalogNumber.getFetchSize() <= 0) {
-				throw new SQLException("Their is no book with this catalog number in database.");
-			} else {
-				while (catalogNumber.next()) {
-					System.out.println(catalogNumber.getString(1));
-					System.out.println(catalogNumber.getInt(2));
-					System.out.println(catalogNumber.getInt(3));
-					System.out.println(catalogNumber.getInt(4));
-					bookCopyIndex = catalogNumber.getInt(2);
-					NumberOfCopy = catalogNumber.getInt(3);
-					AvailibaleCopy = catalogNumber.getInt(4);
-					for (int i = bookCopyIndex + 1; i <= bookCopyIndex + AddNumber; i++) {
-						String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + "(`CopyID`,\r\n"
-								+ "`CatalogNumber`)\r\n" + "VALUES\r\n" + "(" + i + ",\r\n" + catalog + ");";
-						Statement stmt1 = con.createStatement();
-						stmt1.executeUpdate(queryCopies);
-					}
-					if (NumberOfCopy != -1 && AvailibaleCopy != -1 && bookCopyIndex != -1) {
-						PreparedStatement Pstmt = con.prepareStatement(
-								"UPDATE obl.book SET NumberOfCopies=?,AvailableCopies=?,BookCopyIndex=? WHERE CatalogNumber=?;");
-						Pstmt.setInt(1, NumberOfCopy + AddNumber);
-						Pstmt.setInt(2, AvailibaleCopy + AddNumber);
-						Pstmt.setInt(3, bookCopyIndex + AddNumber);
-						Pstmt.setString(4, catalog);
-						Pstmt.executeUpdate();
-					} else {
-						throw new SQLException("Cannot add book copy.");
-					}
+			while (catalogNumber.next()) {
+				bookCopyIndex = catalogNumber.getInt(2);
+				NumberOfCopy = catalogNumber.getInt(3);
+				AvailibaleCopy = catalogNumber.getInt(4);
+				for (int i = bookCopyIndex + 1; i <= bookCopyIndex + AddNumber; i++) {
+					String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + "(`CopyID`,\r\n" + "`CatalogNumber`)\r\n"
+							+ "VALUES\r\n" + "(" + i + ",\r\n" + catalog + ");";
+					Statement stmt1 = con.createStatement();
+					stmt1.executeUpdate(queryCopies);
+					stmt1.closeOnCompletion();
 				}
-
-				ArrayList<Object> list = new ArrayList<Object>();
-				list.add(successMsg + "\n");
-				result = new ServerData(list, operationsReturn.returnSuccessMsg);
+				PreparedStatement Pstmt = con.prepareStatement(
+						"UPDATE obl.book SET NumberOfCopies=?,AvailableCopies=?,BookCopyIndex=? WHERE CatalogNumber=?;");
+				Pstmt.setInt(1, NumberOfCopy + AddNumber);
+				Pstmt.setInt(2, AvailibaleCopy + AddNumber);
+				Pstmt.setInt(3, bookCopyIndex + AddNumber);
+				Pstmt.setString(4, catalog);
+				Pstmt.executeUpdate();
+				Pstmt.closeOnCompletion();
+				result = new ServerData(operationsReturn.returnSuccessMsg, successMsg);
+				return result;
 			}
+			result = new ServerData(operationsReturn.returnError, failMsg);
+			return result;
 		} catch (SQLException e) {
 			ArrayList<Object> list = new ArrayList<Object>();
 			list.add(e);
-			result = new ServerData(list, operationsReturn.returnException);
+			result = new ServerData(operationsReturn.returnException, e);
+			return result;
 		}
-		return result;
-
 	}
 
 	/**

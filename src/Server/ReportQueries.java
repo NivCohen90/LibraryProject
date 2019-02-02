@@ -13,21 +13,47 @@ import Interfaces.IAlert;
 import SystemObjects.ReportData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.reportReference;
+import SystemObjects.LateReturnsReportBookData;
 
 public class ReportQueries {
 	private static Statement st;
 	
-	//public static ReportDataa
+	public static ArrayList<LateReturnsReportBookData> allBooksLateReturnData(){
+		ArrayList<String> booksWithLoans=LoanQueries.booksWithLoans();
+		ArrayList<LateReturnsReportBookData> booksData= new ArrayList<LateReturnsReportBookData>();
+		for(int i=0;i<LoanQueries.numberOfBooksWithLateLoans();i++) 
+			booksData.add(specificBookLateReturnReportData(booksWithLoans.get(i)));
+		return booksData;
+	}
+	
+	public static LateReturnsReportBookData specificBookLateReturnReportData(String bookCatalogNumber) {
+		String bookName=BookQueries.bookName(bookCatalogNumber);
+
+		return new LateReturnsReportBookData(bookAmountLateReturnReportStat(bookCatalogNumber), bookDurationLateReturnReportStat(bookCatalogNumber), bookName);
+	}
+	
+	public static ReportData bookAmountLateReturnReportStat(String bookCatalogNumber) {
+		int latesAmount= LoanQueries.specificBookLateLoansAmount(bookCatalogNumber);
+		int loansAmount=LoanQueries.totalBookLoansAmount(bookCatalogNumber);
+		
+		return new ReportData(latesAmount/loansAmount, 0, new ArrayList<Object>(), reportReference.BookLatesAmount);
+	}
+	
+	public static ReportData bookDurationLateReturnReportStat(String bookCatalogNumber) {
+		ArrayList<Integer> lateLoanDuration= LoanQueries.specificBookLateLoansDuration(bookCatalogNumber);
+		
+		return new ReportData(calcAvg(lateLoanDuration), calcMedian(lateLoanDuration.size(), lateLoanDuration), calcDistribution(lateLoanDuration), reportReference.BookLatesDuration);
+	}
 	
 	public static ReportData generalAmountLateReturnsReportStat(reportReference reference) {
 		int lateReturnsAmount= lateReturnsAmount();
 		int loansAmount= LoanQueries.totalLoansAmount();
-		ArrayList<Integer> bookLateCount=LoanQueries.bookLateLoansAmount();
+		ArrayList<Integer> bookLateCount=LoanQueries.totalBooksLateLoansAmount();
 		return new ReportData(lateReturnsAmount/loansAmount, calcMedian(bookLateCount.size(), bookLateCount), calcDistribution(bookLateCount), reference);
 	}
 
 	public static ReportData generalDurationLateReturnsReportStat(reportReference reference) {
-		ArrayList<Integer> lateReturnsDuration=LoanQueries.lateReturnsDuration();
+		ArrayList<Integer> lateReturnsDuration=LoanQueries.totalLateReturnsDuration();
 		return new ReportData(calcAvg(lateReturnsDuration), calcMedian(lateReturnsDuration.size(), lateReturnsDuration), calcDistribution(lateReturnsDuration), reference);
 	}
 	

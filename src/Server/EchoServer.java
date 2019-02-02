@@ -12,6 +12,7 @@ import java.util.Collections;
 import Interfaces.IAlert;
 import OBLFX.NewLoanController;
 import Server.LoginQueris;
+import Server.SearchUserQueries.searchtype;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.Order;
@@ -22,6 +23,7 @@ import SystemObjects.ReportData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
+import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Loan;
 import Users.Subscriber;
 import ocsf.server.*;
@@ -239,7 +241,8 @@ public class EchoServer extends AbstractServer {
 				s.executeUpdate(subscriberSQL);
 				msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
 			} catch (SQLException e) {
-				msgToClient = new ServerData(operationsReturn.returnException, e);
+				SQLException  ex = new SQLException("Failed to create New Subscriber with ID: " + sub.getID()); 
+				msgToClient = new ServerData(operationsReturn.returnException, ex);
 			}
 			try {
 				client.sendToClient(msgToClient);
@@ -271,9 +274,10 @@ public class EchoServer extends AbstractServer {
 			break;
 			
 		case createLateReturnsReport:
+			ArrayList<LateReturnsReportBookData> booksData=ReportQueries.allBooksLateReturnData();
 			ReportData generalBooksCount= ReportQueries.generalAmountLateReturnsReportStat(reportReference.GeneralLatesAmount);
 			ReportData generalBooksDuration= ReportQueries.generalDurationLateReturnsReportStat(reportReference.GeneralLatesDuration);
-			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration);
+			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration, booksData);
 			try {
 				client.sendToClient(msgToClient);
 			} catch (IOException e1) {
@@ -340,7 +344,6 @@ public class EchoServer extends AbstractServer {
 			try {
 				ServerData result = SearchBooksQueries
 						.FreeTextSearch((((String) ((ServerData) msg).getDataMsg().get(0))));
-				System.out.println(result.getOperationReturn());
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -360,6 +363,13 @@ public class EchoServer extends AbstractServer {
 		case searchBySubscriberID:
 			break;
 		case searchBySubscriberName:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.SubscriberbyName);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchBySubscriberStudentID:
 			break;
