@@ -19,10 +19,13 @@ public class SubscriberQueries {
 
 
 	public static String getSubscriberStatus(String subID) throws SQLException {
-		String loanString= String.format("Select Status from obl.Subscriber s where SubscriberID=subID");
+		String loanString= String.format("Select Status from obl.Subscriber s where SubscriberID=%s",subID);
 		Statement st;
 			st = mysqlConnection.conn.createStatement();
-			return st.executeQuery(loanString)+"";
+			ResultSet rs = st.executeQuery(loanString);
+			if(rs.next())
+				return rs.getString("Status");
+			return "";
 	}
 
 	/**

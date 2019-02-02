@@ -36,15 +36,20 @@ public class LoanQueries {
 
 	public static void updateLoanReturnDate(String subID, String loanID) throws SQLException {
 		LocalDate newReturnDate = loanReturnDate(subID, loanID);
-		sqlQuery = ("UPDATE obl.loan SET ReturnDate= DATE_ADD(newReturnDate, INTERVAL 7 DAY)  WHERE LoanID=loanID AND SubscriberID= subID");
+		sqlQuery = String.format("UPDATE obl.loan SET ReturnDate= DATE_ADD('%s', INTERVAL 7 DAY)  WHERE LoanID=%s AND SubscriberID= %s",newReturnDate.toString(),loanID, subID);
 		st = mysqlConnection.conn.createStatement();
-		st.executeQuery(sqlQuery);
+		st.executeUpdate(sqlQuery);
 	}
 
 	public static LocalDate loanReturnDate(String subID, String loanID) throws SQLException {
-		sqlQuery = ("Select ReturnDate from obl.loan l where SubscriberID=subID and LoanID=loanID");
+		sqlQuery = String.format("Select ReturnDate from obl.loan l where LoanID=%s AND SubscriberID= %s",loanID, subID);
 		st = mysqlConnection.conn.createStatement();
-		return st.executeQuery(sqlQuery).getDate("created_date").toLocalDate();
+		ResultSet rs = st.executeQuery(sqlQuery);
+		if(rs.next())
+		{
+			return rs.getDate("ReturnDate").toLocalDate();
+		}
+		return null;
 	}
 	
 	public static void createNewLoan(Loan newLoan) {
@@ -67,5 +72,5 @@ public class LoanQueries {
 		
 		else return sDate.plusDays(14);
 	}
-	
+
 }

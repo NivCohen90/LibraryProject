@@ -109,9 +109,12 @@ public class AddBookCopyController implements IGUIcontroller {
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
-		case returnSuccessMsg:
-//			BookNameTextField.setText(((Book) msg).getBookName());
-//			NumberOfCopiesTextField.setText(Integer.toString(((Book) msg).getNumberOfLibraryCopies()));
+		case returnBook:
+			 BookNameTextField.setText(((Book)msg).getBookName());
+			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));	 
+			break;
+
+		case returnError:
 			RetriveMSG.setText((String) msg);
 			break;
 		case returnBookArray:
@@ -120,9 +123,6 @@ public class AddBookCopyController implements IGUIcontroller {
 				NumberOfCopiesTextField
 						.setText(Integer.toString(((ArrayList<Book>) msg).get(0).getNumberOfLibraryCopies()));
 			}
-			break;
-		case returnError:
-			RetriveMSG.setText("There is no such CatalogNumber");
 			break;
 		case returnException:
 			RetriveMSG.setText(((Exception) msg).getMessage());

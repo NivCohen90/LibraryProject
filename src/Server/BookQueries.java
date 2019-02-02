@@ -17,13 +17,18 @@ public class BookQueries {
 	private static Statement s;
 
 	public static boolean isDemanded(String bookCatalogNumber) {
-		sqlQuery = String.format("SELECT isWanted from obl.book where BookCatalogNumber= %s", bookCatalogNumber);
+		sqlQuery=String.format("SELECT isWanted from obl.book where CatalogNumber= %s", bookCatalogNumber);
 		try {
-			s = mysqlConnection.conn.createStatement();
-			String answer = s.executeQuery(sqlQuery).toString();
-			if (answer.equals("0"))
-				return false;
-		} catch (SQLException e) {
+			s=mysqlConnection.conn.createStatement();
+			ResultSet rs = s.executeQuery(sqlQuery);
+			if(rs.next())
+			{
+				String answer= rs.getString("isWanted");
+				if(answer.equals("0"))
+					return false;
+			}
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return true;
@@ -38,13 +43,15 @@ public class BookQueries {
 
 		sqlQuery = String.format("Select BookCatalogNumber from obl.loan where LoanID= %s", loanID);
 		try {
-			s = mysqlConnection.conn.createStatement();
+			s=mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(sqlQuery);
 			if(rs.next())
 				return rs.getString("BookCatalogNumber");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			return "";
+	}
+	catch (SQLException e) {
+		e.printStackTrace();
+	}
 		return null;
 	}
 
@@ -52,10 +59,7 @@ public class BookQueries {
 	{
 		String bookCatalogNumber= BookQueries.bookCatalogNumber(loanID);
 		String queryCheckOrder = String.format(
-				"SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n" + 
-				"	(	SELECT * FROM obl.order ord inner join\r\n" + 
-				"			(select sub.SubscriberID as subID, u.Email, u.FirstName, u.LastName from obl.subscriber sub inner join obl.user u on u.ID=sub.ID) subEmail on ord.SubscriberID = subEmail.subID\r\n" + 
-				"	) ordDetail on b.CatalogNumber = ordDetail.bookCatalogNumber where ordDetail.`bookCatalogNumber` = %s ORDER BY ordDetail.OrderDate ASC;", bookCatalogNumber);
+				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime=null;", bookCatalogNumber);
 		try {
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(queryCheckOrder);
@@ -111,20 +115,20 @@ public class BookQueries {
 		// check book and subscriber exist
 		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber=%s", bookCatalogNumber);
 		String queryCheckSub = String.format("SELECT * FROM obl.subscriber where SubscriberID=%s", SubscriberID);
-		// System.out.println(queryCheckBook);
-		// System.out.println(queryCheckSub);
+
 		try {
 			s = con.createStatement();
 			ResultSet rs = s.executeQuery(queryCheckBook);
 
 			if (!rs.next())
-				return new ServerData(operationsReturn.returnError, "book doesn't exist");
-			// System.out.println("book not exist");
+
+				return new ServerData(operationsReturn.returnError,"book doesn't exist");
+
 
 			rs = s.executeQuery(queryCheckSub);
 			if (!rs.next())
-				return new ServerData(operationsReturn.returnError, "subscriber doesn't exist");
-			// System.out.println("subscriber not exist");
+
+				return new ServerData(operationsReturn.returnError,"subscriber doesn't exist");
 
 			// check loan status
 			String queryCheckLoan = String.format(
@@ -133,8 +137,8 @@ public class BookQueries {
 			rs = s.executeQuery(queryCheckLoan);
 
 			if (!rs.next())
-				return new ServerData(operationsReturn.returnError, "loan doesn't exist");
-			// System.out.println("loan not exist");
+
+				return new ServerData(operationsReturn.returnError,"loan doesn't exist");
 
 			bookCopyID = rs.getInt("CopyID");
 
@@ -160,25 +164,24 @@ public class BookQueries {
 					System.out.println("status lock to freeze,decrease felony");
 					break;
 				}
+
 				s.executeUpdate(querySubStatus);
-				System.out.println(querySubStatus);
-				System.out.println("changed status");
 
 				// update loan status to late finish
 				String returnDate = dateFormat.format(new Date());
-				String queryLoanStatus = String.format(
-						"UPDATE `obl`.`loan` SET `LoanStatus` = 'LateFinish', ReturnDate='%s' WHERE `LoanID` = %s;",
-						returnDate, rs.getString("LoanID"));
+
+				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'LateFinish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
 				s.executeUpdate(queryLoanStatus);
-				System.out.println(queryLoanStatus);
-			} else {
+			}
+			else
+			{
+
 				// update loan status to finish
 				String returnDate = dateFormat.format(new Date());
-				String queryLoanStatus = String.format(
-						"UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;",
-						returnDate, rs.getString("LoanID"));
+
+				String queryLoanStatus = String.format("UPDATE `obl`.`loan` SET `LoanStatus` = 'Finish', ReturnDate='%s' WHERE `LoanID` = %s;", returnDate, rs.getString("LoanID"));
 				s.executeUpdate(queryLoanStatus);
-				System.out.println(queryLoanStatus);
+
 			}
 
 			// check is order exist, and notice subscriber
@@ -188,19 +191,20 @@ public class BookQueries {
 				String queryBookCopiesUp = String.format(
 						"UPDATE `obl`.`book` SET `AvailableCopies` = AvailableCopies+1 WHERE `CatalogNumber` = %s;",
 						bookCatalogNumber);
+
 				s.executeUpdate(queryBookCopiesUp);
-				System.out.println(queryBookCopiesUp);
+
 			}
 
 			// update isLoaned in bookcopy
 			String queryBookCopy = String.format(
 					"UPDATE `obl`.`bookcopy` SET `isLoaned` = 0 WHERE `CatalogNumber` = %s and CopyID=%s;",
 					bookCatalogNumber, bookCopyID);
-			s.executeUpdate(queryBookCopy);
-			System.out.println(queryBookCopy);
 
+			s.executeUpdate(queryBookCopy);
+			
 			// send success message
-			System.out.println("return loan success");
+			return new ServerData(operationsReturn.returnSuccessMsg, "book returned to library");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 
 public class SubscriberCardController implements IGUIcontroller {
 
-	static ObservableList<LoansTable> ObservableLoansList;
+	static ObservableList<Loan> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
 	private CommonHandler commonClient;
 	//private static
@@ -64,7 +64,7 @@ public class SubscriberCardController implements IGUIcontroller {
 	private TextField EmailField;
 
 	@FXML
-	private TableView<LoansTable> ActiveLoansTable;
+	private TableView<Loan> ActiveLoansTable;
 
 	@FXML
 	private TableColumn<LoansTable, String> ALoansBookName;
@@ -234,8 +234,8 @@ public class SubscriberCardController implements IGUIcontroller {
 
 		ObservableOrdersList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
-			LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(), iloan.getStartDate(), iloan.getReturnDate());
-			ObservableLoansList.add(loan);
+			//LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(), iloan.getStartDate(), iloan.getReturnDate());
+			ObservableLoansList.add(iloan);
 		}
 		ObservableOrdersList.clear();
 		for (Order iorder : sub.getActiveOrders()) {
@@ -351,9 +351,9 @@ public class SubscriberCardController implements IGUIcontroller {
 		ActiveLoansTable.setItems(ObservableLoansList);
 		ActiveLoansTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
 		ALoansBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
+		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
 		ALoansStartLoanDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("EndDate"));
+		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
 		ActiveOrdersTable.setItems(ObservableOrdersList);
 		ActiveOrdersTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
 		AOrdersBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
@@ -384,15 +384,15 @@ public class SubscriberCardController implements IGUIcontroller {
 		}
 		
 		ActiveLoansTable.setRowFactory(tv -> {
-			TableRow<LoansTable> row = new TableRow<>();
+			TableRow<Loan> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
 				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 
-					Object clickedRow = row.getItem();
+					Loan clickedRow = row.getItem();
 					openLoanDetails(clickedRow);
 				}
 			});
-			return (TableRow<LoansTable>) row;
+			return (TableRow<Loan>) row;
 		});
 
 	}
@@ -402,20 +402,18 @@ public class SubscriberCardController implements IGUIcontroller {
 	 * 
 	 * @param choosenResult chosen loan to display details
 	 */
-	private void openLoanDetails(Object choosenResult) {
+	private void openLoanDetails(Loan choosenResult) {
 		Stage primaryStage = new Stage();
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		AnchorPane root = null;
 		Scene scene = null;
 		try {
 
-			if (choosenResult instanceof LoansTable) {
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
-				scene = new Scene(root);
-				ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
-				Controller.setLoanDetails((LoansTable) choosenResult);
-				primaryStage.setTitle(((LoansTable) choosenResult).getBookName());
-			}
+			root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
+			scene = new Scene(root);
+			ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
+			Controller.setLoanDetails(choosenResult);
+			primaryStage.setTitle(choosenResult.getBookName());
 
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
