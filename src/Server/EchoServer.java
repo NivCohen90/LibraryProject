@@ -282,7 +282,6 @@ public class EchoServer extends AbstractServer {
 				e1.printStackTrace();
 			}
 			break;
-			
 		case AddBook:
 			try {
 				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();
