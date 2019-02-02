@@ -9,7 +9,7 @@ public class ReportData {
 	private reportReference reference;
 	private double avg;
 	private double median;
-	private ArrayList<Object> distribution;//distribution(0)=valuesArray, distribution(1)=rangesArray, distribution(2)=valuesAmountArray which indicate how many values are there in each range
+	private ArrayList<Object> distribution;//distribution(0)=values Array(ArrayList<Integer>), distribution(1)=range Size(int), distribution(2)=values Amount Array(int[]) which indicate how many values are there in each range
 	
 	/**
 	 * constructor for general objects statistics

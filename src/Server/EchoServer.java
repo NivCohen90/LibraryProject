@@ -242,9 +242,9 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 
 			try {
-				ReportData demandedBookStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL());
-				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL());
-				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
+				ReportData demandedBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL(), reportReference.Demanded);
+				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL(), reportReference.Regular);
+				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBooksStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
@@ -345,7 +345,7 @@ public class EchoServer extends AbstractServer {
 		case calcReturnDate:
 			ArrayList<Object> data = ((ServerData) msg).getDataMsg();
 			boolean answer = BookQueries.isDemanded((String) data.get(1));
-			LocalDate returnDate = LoanQueries.calcReturnDate((LocalDate) data.get(0), answer);
+			LocalDate returnDate = LoanQueries.calcNewReturnDate((LocalDate) data.get(0), answer);
 			try {
 				client.sendToClient(returnDate);
 			} catch (IOException e) {
