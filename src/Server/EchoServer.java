@@ -187,7 +187,20 @@ public class EchoServer extends AbstractServer {
 		case updateReturnDateManualy:
 			break;
 		case returnBook:
-
+			ArrayList<Object> arr =  ((ServerData) msg).getDataMsg();
+			String catalog = (String) arr.get(0);
+			String subscriberID = (String) arr.get(1);
+			//LocalDate returnDate = (LocalDate) arr.get(2);
+			
+			msgToClient = BookQueries.returnBook(subscriberID, catalog);
+			
+			try {
+				client.sendToClient(msgToClient);
+			} catch (IOException e2) {
+				IAlert.ExceptionAlert(e2);
+				e2.printStackTrace();
+			}
+			
 			break;
 
 		case watchReadersCard:
