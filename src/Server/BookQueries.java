@@ -123,13 +123,10 @@ public class BookQueries {
 			ResultSet rs = s.executeQuery(queryCheckBook);
 
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"book doesn't exist");
-
 
 			rs = s.executeQuery(queryCheckSub);
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"subscriber doesn't exist");
 
 			String SubscriberID = rs.getString("SubscriberID");
@@ -140,12 +137,13 @@ public class BookQueries {
 			rs = s.executeQuery(queryCheckLoan);
 
 			if (!rs.next())
-
 				return new ServerData(operationsReturn.returnError,"loan doesn't exist");
 
 			bookCopyID = rs.getInt("CopyID");
 
 			if (rs.getString("LoanStatus").equals("Late")) {					
+				
+				//update late return table
 				
 				String querySubStatus="";
 
