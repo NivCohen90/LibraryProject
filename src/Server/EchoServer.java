@@ -222,8 +222,8 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 
 			try {
-				ReportData demandedBookStat = ReportQueries.calculateStatistic(ReportQueries.demandedBooksSQL());
-				ReportData regularBooksStat = ReportQueries.calculateStatistic(ReportQueries.regularBookSQL());
+				ReportData demandedBookStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL());
+				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL());
 				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBookStat, regularBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
