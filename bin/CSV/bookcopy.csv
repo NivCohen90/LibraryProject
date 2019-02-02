@@ -1,4 +1,4 @@
-CopyID,CatalogNumber,Loan
+CopyID,CatalogNumber,isLoaned
 1,71002022,1
 2,71002022,1
 1,71230572,0
