@@ -17,17 +17,22 @@ import SystemObjects.GeneralData.reportReference;
 public class ReportQueries {
 	private static Statement st;
 	
-	public static ReportData calculateLateReturnReportStatistics(String sqlQuery, reportReference reference) {
-		int bookAmount= BookQueries.totalBookAmount();
+	public static ReportData
+	
+	public static ReportData generalAmountLateReturnsReportStat(reportReference reference) {
 		int lateReturnsAmount= lateReturnsAmount();
 		int loansAmount= LoanQueries.totalLoansAmount();
-		
-		ArrayList<Integer> generalLoansDuration = new ArrayList<Integer>();
-		return reportStatistics(generalLoansDuration, reference);
+		ArrayList<Integer> bookLateCount=LoanQueries.bookLateLoansAmount();
+		return new ReportData(lateReturnsAmount/loansAmount, calcMedian(bookLateCount.size(), bookLateCount), calcDistribution(bookLateCount), reference);
 	}
 
+	public static ReportData generalDurationLateReturnsReportStat(reportReference reference) {
+		ArrayList<Integer> lateReturnsDuration=LoanQueries.lateReturnsDuration();
+		return new ReportData(calcAvg(lateReturnsDuration), calcMedian(lateReturnsDuration.size(), lateReturnsDuration), calcDistribution(lateReturnsDuration), reference);
+	}
+	
 	public static ReportData calculateLoanReportStatistic(String sqlQuery, reportReference reference) throws SQLException {
-		ArrayList<Integer> loanDurationsArray = new ArrayList<Integer>();
+		ArrayList<Integer> dataArray = new ArrayList<Integer>();
 		st = mysqlConnection.conn.createStatement();
 		ResultSet dataResult = st.executeQuery(sqlQuery);
 		
@@ -35,14 +40,8 @@ public class ReportQueries {
 			LocalDate sDate = dataResult.getDate("StartDate").toLocalDate();
 			LocalDate eDate = dataResult.getDate("ReturnDate").toLocalDate();
 			Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
-			loanDurationsArray.add((int) diff.toDays());
+			dataArray.add((int) diff.toDays());
 		}
-		Collections.sort(loanDurationsArray);
-		return reportStatistics(loanDurationsArray, reference);
-	}
-	
-	public static ReportData reportStatistics(ArrayList<Integer> dataArray, reportReference reference) {
-		
 		return new ReportData(calcAvg(dataArray), calcMedian(dataArray.size(), dataArray), calcDistribution(dataArray), reference);
 	}
 	
@@ -54,12 +53,14 @@ public class ReportQueries {
 	}
 	
 	public static double calcMedian(int dataAmount, ArrayList<Integer> dataArray) {
+		Collections.sort(dataArray);
 		if (dataAmount%2!=0)
 			return dataArray.get((dataAmount+1)/2);
 		else return((dataArray.get(dataAmount/2)+dataArray.get((dataAmount/2)+1))/2);
 	}
 	
 	public static ArrayList<Object> calcDistribution(ArrayList<Integer> dataArray){
+		Collections.sort(dataArray);
 		ArrayList<Object> distribution= new ArrayList<Object>();
 		distribution.add(dataArray);
 		int rangeSize=((int)Math.ceil((dataArray.get(dataArray.size())-dataArray.get(0))/10));

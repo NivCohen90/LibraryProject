@@ -260,7 +260,14 @@ public class EchoServer extends AbstractServer {
 			break;
 			
 		case createLateReturnsReport:
-			
+			ReportData generalBooksCount= ReportQueries.generalAmountLateReturnsReportStat(reportReference.GeneralLatesAmount);
+			ReportData generalBooksDuration= ReportQueries.generalDurationLateReturnsReportStat(reportReference.GeneralLatesDuration);
+			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration);
+			try {
+				client.sendToClient(msgToClient);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			break;
 			
 		case AddBook:

@@ -220,4 +220,16 @@ public class BookQueries {
 		}
 		return 0;
 	}
+
+	public static String bookName(String catalogNumber) {
+		sqlQuery=String.format("SELECT BookName FROM obl.book WHERE BookCatlogNumber=%s;", catalogNumber);
+		try {
+			s = mysqlConnection.conn.createStatement();
+			ResultSet rs = s.executeQuery(sqlQuery);
+				return rs.getString("BookName");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
