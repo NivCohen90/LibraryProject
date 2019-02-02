@@ -12,7 +12,6 @@ import java.util.Date;
 import Interfaces.IAlert;
 import SystemObjects.GeneralData.*;
 import SystemObjects.ServerData;
-import Users.Subscriber;
 import SystemObjects.*;
 
 public class SubscriberQueries {
@@ -70,15 +69,21 @@ public class SubscriberQueries {
 		String queryUpBook = String.format(
 				"UPDATE book SET NumberOfOrders = NumberOfOrders + 1 where CatalogNumber = '%s';",
 				orderToAdd.getBookCatalogNumber());
+		String queryCheckOrder = String.format(
+				"SELECT * FROM obl.order where bookCatalogNumber = '%s' and SubscriberID='%s';",
+				orderToAdd.getBookCatalogNumber(),orderToAdd.getSubscriberID());
 		// System.out.println(query);
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			if (stmt.executeQuery(queryCheck).next()) {
-				count = stmt.executeUpdate(queryUpBook);
-				// System.out.println(queryUpBook);
-				count = stmt.executeUpdate(query);
-				// System.out.println(query);
-				result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+				if (!stmt.executeQuery(queryCheckOrder).next()){
+					count = stmt.executeUpdate(queryUpBook);
+					count = stmt.executeUpdate(query);
+					result = new ServerData(operationsReturn.returnSuccessMsg, "order added to queue");
+				}
+				else
+					result = new ServerData(operationsReturn.returnError,
+							"order for this book already exist");
 			} else
 				result = new ServerData(operationsReturn.returnError, "order queue is full");
 		} catch (SQLException e) {

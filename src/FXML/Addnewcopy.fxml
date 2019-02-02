@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.AddBookCopyController">
    <children>
       <Label layoutX="24.0" layoutY="24.0" text="Add new Book copy ">
@@ -23,7 +22,7 @@
       <TextField fx:id="NumberOfCopiesTextField" editable="false" layoutX="125.0" layoutY="146.0" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" />
       <Button layoutX="285.0" layoutY="219.0" mnemonicParsing="false" onAction="#AddCopiesAction" prefHeight="38.0" prefWidth="114.0" text="Add copies" />
       <Label fx:id="CatalogLabel" layoutX="430.0" layoutY="82.0" prefHeight="25.0" prefWidth="267.0" textFill="RED" />
-      <Label fx:id="RetriveMSG" layoutX="221.0" layoutY="257.0" prefHeight="25.0" prefWidth="267.0" textFill="RED" />
+      <Label fx:id="RetriveMSG" layoutX="150.0" layoutY="257.0" prefHeight="25.0" prefWidth="492.0" textFill="RED" />
       <Label fx:id="NumberOfCopiesTitle1" layoutX="25.0" layoutY="186.0" prefHeight="18.0" prefWidth="97.0" text="Copies to add:" />
       <TextField fx:id="AddcopiesTextField" layoutX="127.0" layoutY="181.0" onKeyTyped="#NumberOfaddedCopiesCheck" prefHeight="26.0" prefWidth="127.0" promptText="Number Of Copies" />
       <Label fx:id="AddCopiesLabel" layoutX="254.0" layoutY="182.0" prefHeight="25.0" prefWidth="267.0" textFill="RED" />

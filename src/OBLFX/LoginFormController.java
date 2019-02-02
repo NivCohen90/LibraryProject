@@ -2,10 +2,6 @@ package OBLFX;
 
 import Users.Librarian;
 import Users.Subscriber;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 import Client.CommonHandler;
 import Client.Main;
 import Client.SideMenu;
@@ -13,22 +9,15 @@ import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
-import SystemObjects.Loan;
-import SystemObjects.Order;
 import SystemObjects.GeneralData.Menuicons;
 import SystemObjects.GeneralData.operationsReturn;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 /**
  * @author Matan,Niv
@@ -99,6 +88,7 @@ public class LoginFormController implements IGUIcontroller {
 		SideMenu sideMenu;
 		switch (op) {
 		case returnSubscriber:
+			GeneralData.userSubscriber = ((Subscriber) msg);
 			sideMenu = new SideMenu(GeneralData.MenuType.SubscriberMenu);
 			Main.root.setLeft(sideMenu.getVBox());
 			SideMenu.APReaderCardFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
@@ -112,10 +102,10 @@ public class LoginFormController implements IGUIcontroller {
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);
 			
-			GeneralData.userSubscriber = ((Subscriber) msg);
 
 			break;
 		case returnLibrarian:
+			GeneralData.userLibrarian = ((Librarian) msg);
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
 			Main.root.setLeft(sideMenu.getVBox());	
 			SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
@@ -125,10 +115,10 @@ public class LoginFormController implements IGUIcontroller {
 			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			CardLibrarianController librarianCon = new CardLibrarianController();
 			librarianCon.setLibrarianToDisplay((Librarian) msg);
-			GeneralData.userLibrarian = ((Librarian) msg);
 			
 			break;
 		case returnLibrarianManager:
+			GeneralData.userLibrarian = ((Librarian) msg);
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 			Main.root.setLeft(sideMenu.getVBox());	
 			SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
@@ -138,7 +128,6 @@ public class LoginFormController implements IGUIcontroller {
 			((Label) Main.topMenu.lookup("#UserName")).setText(((Librarian) msg).getFullName());
 			((Button) Main.topMenu.lookup("#Logout")).setVisible(true);
 			librarianManCon.setLibrarianToDisplay((Librarian) msg);
-			GeneralData.userLibrarian = ((Librarian) msg);
 			break;
 		case returnError:
 			((Label) SideMenu.APLoginFXML.lookup("#WrongData")).setText((String) msg);

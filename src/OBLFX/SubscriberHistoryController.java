@@ -1,8 +1,6 @@
 package OBLFX;
 
 import java.util.ArrayList;
-
-import Client.Main;
 import Client.SideMenu;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
@@ -39,7 +37,7 @@ public class SubscriberHistoryController implements IGUIcontroller{
 		tblLoanHistory.setPlaceholder(new Label("No loan history"));
 		//no book name and author in Loan object
 		tblLoanColBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-		tblLoanColAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthor"));
+		tblLoanColAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
 		tblLoanColStartDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
 		tblLoanColReturnedDate.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
 
@@ -47,7 +45,7 @@ public class SubscriberHistoryController implements IGUIcontroller{
 		tblOrderHistory.setPlaceholder(new Label("No order history"));
 		//no book name and author in Order object
 		tblOrderColBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-		tblOrderColAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthor"));
+		tblOrderColAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
 		tblOrderColOrderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
 		tblOrderColOrderStatus.setCellValueFactory(new PropertyValueFactory<>("BookArrivedTime"));
 		if(GeneralData.userSubscriber!=null)

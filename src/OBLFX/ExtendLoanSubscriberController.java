@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -104,9 +105,23 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		switch(op)
 		{
-		case returnSuccessMsg:
+		/*case returnSuccessMsg:
 			RetriveMSG.setVisible(true);
 			RetriveMSG.setText((String) msg);
+			RetriveMSG.setTextFill(Color.GREEN);
+			break;*/
+		case returnLoanArray:
+			GeneralData.userSubscriber.setActiveLoans((ArrayList<Loan>) msg);
+			SubscriberCardController subCon = new SubscriberCardController();
+			subCon.setSubscriberCard(GeneralData.userSubscriber);
+			for(Loan iLoan : (ArrayList<Loan>) msg)
+			{
+				if(iLoan.getLoanID().equals(displayedLoan.getLoanID()))
+					displayedLoan.setReturnDate(iLoan.getReturnDate());
+			}
+			setLoanDetails(displayedLoan);
+			RetriveMSG.setVisible(true);
+			RetriveMSG.setText("Extension was Approved");
 			RetriveMSG.setTextFill(Color.GREEN);
 			break;
 		case returnError:

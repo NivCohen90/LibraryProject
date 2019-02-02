@@ -31,6 +31,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -42,7 +43,7 @@ public class SubscriberCardController implements IGUIcontroller {
 	static ObservableList<Loan> ObservableLoansList;
 	static ObservableList<OrdersTable> ObservableOrdersList;
 	private CommonHandler commonClient;
-	//private static
+	// private static
 	private static ObservableList<String> List;
 
 	@FXML
@@ -140,15 +141,31 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	private Label PhoneNumber;
+    
+	@FXML
+    void CheckEmail(KeyEvent event) {
+		IGUIcontroller.CheckIfUserPutInput(EmailField,EmailLabel);
+    }
+    @FXML
+    void CheckFirstName(KeyEvent event) {
+    	IGUIcontroller.CheckIfUserPutInput(FirstNameField,FirstNameLabel);
+    }
 
-
+    @FXML
+    void CheckLastName(KeyEvent event) {
+    	IGUIcontroller.CheckIfUserPutInput(LastNameField,LastNameLabel);
+    }
+    @FXML
+    void CheckPhone(KeyEvent event) {
+    	IGUIcontroller.CheckOnlyNumbers(PhoneNumberField, PhoneNumber, 7, PhoneNumberErrorDigits);
+    }
 	@FXML
 	void CancelAllChanges(ActionEvent event) {
 		((Text) SideMenu.APReaderCardFXML.lookup("#TitleLabel")).setText("Reader Card");
-//		FirstNameLabel.setText("");
-//		LastNameLabel.setText("");
-//		PhoneNumber.setText("");
-//		EmailLabel.setText("");
+		FirstNameLabel.setText("");
+		LastNameLabel.setText("");
+		PhoneNumber.setText("");
+		EmailLabel.setText("");
 
 		ActiveLoansTable.setVisible(true);
 		ActiveLoansTXT.setVisible(true);
@@ -210,8 +227,8 @@ public class SubscriberCardController implements IGUIcontroller {
 	}
 
 	public void setSubscriberCard(Subscriber sub) {
-		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length()); 
-		String areaCode= sub.getPhoneNumber().substring(0, 3);
+		String phoneNumber = sub.getPhoneNumber().substring(3, sub.getPhoneNumber().length());
+		String areaCode = sub.getPhoneNumber().substring(0, 3);
 		((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).setText(sub.getFirstName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).setText(sub.getLastName());
 		((TextField) SideMenu.APReaderCardFXML.lookup("#AreaCodeTXT")).setText(areaCode);
@@ -232,9 +249,10 @@ public class SubscriberCardController implements IGUIcontroller {
 			SubscriberNumberField.setText(sub.getSubscriberNumber());
 		}
 
-		ObservableOrdersList.clear();
+		ObservableLoansList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
-			//LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(), iloan.getStartDate(), iloan.getReturnDate());
+			// LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(),
+			// iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(iloan);
 		}
 		ObservableOrdersList.clear();
@@ -242,6 +260,13 @@ public class SubscriberCardController implements IGUIcontroller {
 			OrdersTable Order = new OrdersTable(iorder.getBookName(), iorder.getBookAuthors(), iorder.getOrderDate(),
 					iorder.getBookArrivedTime());
 			ObservableOrdersList.add(Order);
+		}
+		if (GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
+			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(true);
+			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status", "For more information, Please contect the libararian.",
+					"Click ok to close message");
+		} else {
+			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(false);
 		}
 	}
 
@@ -302,7 +327,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@FXML
 	public void saveSubscriberUpdate(ActionEvent event) {
-		 Subscriber Sub = new Subscriber();
+		Subscriber Sub = new Subscriber();
 		int counter = 0;
 		if (IGUIcontroller.CheckIfUserPutInput(FirstNameField, FirstNameLabel)) {
 			counter++;
@@ -340,63 +365,10 @@ public class SubscriberCardController implements IGUIcontroller {
 				commonClient.changeSubscriberDetails(Sub);
 			}
 
-			
 		}
 	}
 
-	@FXML
-	public void initialize() {
-		ObservableLoansList = FXCollections.observableArrayList();
-		ObservableOrdersList = FXCollections.observableArrayList();
-		ActiveLoansTable.setItems(ObservableLoansList);
-		ActiveLoansTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
-		ALoansBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
-		ALoansStartLoanDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
-		ActiveOrdersTable.setItems(ObservableOrdersList);
-		ActiveOrdersTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
-		AOrdersBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
-		AOrdersAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
-		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
-		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
 
-		List = FXCollections.observableArrayList();
-		List.add("Active");
-		List.add("Freezed");
-		List.add("Locked");
-		StatusCombo.setItems(List);
-		List.clear();
-
-		List.add("050");
-		List.add("052");
-		List.add("054");
-		List.add("055");
-		List.add("058");
-		AreaCodeCombo.setItems(List);
-		if (GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
-			UpdateDetailsbutton.setDisable(true);
-			IAlert.setandShowAlert(AlertType.ERROR, "Wrong Status", "Please contect the libararian",
-					"Click ok to close message");
-		}
-		else {
-			UpdateDetailsbutton.setDisable(false);
-		}
-		
-		ActiveLoansTable.setRowFactory(tv -> {
-			TableRow<Loan> row = new TableRow<>();
-			row.setOnMouseClicked(event -> {
-				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-
-					Loan clickedRow = row.getItem();
-					openLoanDetails(clickedRow);
-				}
-			});
-			return (TableRow<Loan>) row;
-		});
-
-	}
-	
 	/**
 	 * open window with loan details with option to extend loan
 	 * 
@@ -409,7 +381,8 @@ public class SubscriberCardController implements IGUIcontroller {
 		Scene scene = null;
 		try {
 
-			root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
+			root = (AnchorPane) fxmlLoader
+					.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
 			scene = new Scene(root);
 			ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
 			Controller.setLoanDetails(choosenResult);
@@ -425,7 +398,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		 Subscriber Sub = new Subscriber();
+		Subscriber Sub = new Subscriber();
 		TextMSG.setVisible(true);
 
 		switch (op) {
@@ -479,6 +452,60 @@ public class SubscriberCardController implements IGUIcontroller {
 	public void closeConnection() {
 		if (commonClient != null)
 			commonClient.quit();
+	}
+	
+	
+	/**
+	 * Initialized subscraiber card.
+	 */
+	@FXML
+	public void initialize() {
+		ObservableLoansList = FXCollections.observableArrayList();
+		ObservableOrdersList = FXCollections.observableArrayList();
+		ActiveLoansTable.setItems(ObservableLoansList);
+		ActiveLoansTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
+		ALoansBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
+		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
+		ALoansStartLoanDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
+		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
+		ActiveOrdersTable.setItems(ObservableOrdersList);
+		ActiveOrdersTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
+		AOrdersBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));
+		AOrdersAuthor.setCellValueFactory(new PropertyValueFactory<>("Authors"));
+		AOrdersOderDate.setCellValueFactory(new PropertyValueFactory<>("OrderDate"));
+		AOrdersArrivedDate.setCellValueFactory(new PropertyValueFactory<>("ArrivedDate"));
+
+		List = FXCollections.observableArrayList();
+		List.add("Active");
+		List.add("Freezed");
+		List.add("Locked");
+		StatusCombo.setItems(List);
+		List.clear();
+
+		List.add("050");
+		List.add("052");
+		List.add("054");
+		List.add("055");
+		List.add("058");
+		AreaCodeCombo.setItems(List);
+		if (GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
+			UpdateDetailsbutton.setDisable(true);
+		} else {
+			UpdateDetailsbutton.setDisable(false);
+		}
+
+		ActiveLoansTable.setRowFactory(tv -> {
+			TableRow<Loan> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+
+					Loan clickedRow = row.getItem();
+					openLoanDetails(clickedRow);
+				}
+			});
+			return (TableRow<Loan>) row;
+		});
+
 	}
 
 }

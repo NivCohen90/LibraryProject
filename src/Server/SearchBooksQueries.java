@@ -75,14 +75,7 @@ public class SearchBooksQueries {
 					newBook.setContextTableByteArray(mybytearray);
 				}
 			}
-			if (books.get(0) instanceof Book) {
-				Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
-			} else {
-				String Error = "Canno't get the book Details for that CatalogNumber";
-				ArrayList<Object> list = new ArrayList<>();
-				list.add(Error);
-				Result = new ServerData(list, GeneralData.operationsReturn.returnError);
-			}
+			Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
 			return Result;
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
