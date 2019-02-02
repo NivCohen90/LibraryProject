@@ -244,6 +244,16 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+		case AddBookCopy:
+			try {
+				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();
+				msgToClient = CatalogQueries.addBookCopyToDB((String)(getBook.get(0)),(String)(getBook.get(1)));
+				client.sendToClient(msgToClient);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+			break;
 		case updateBook:
 			try {
 				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();

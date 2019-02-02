@@ -171,7 +171,7 @@ public class LibrarianHandler extends IHandler{
     	List.add(Catalog);
     	List.add(numberToAdd);
     	List.add(librarian);
-		ServerData loginInfo = new ServerData(List, GeneralData.operations.AddBook);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.AddBookCopy);
 		try
 		{
 			sendToServer(loginInfo);

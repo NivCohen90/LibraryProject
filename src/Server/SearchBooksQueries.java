@@ -36,6 +36,7 @@ public class SearchBooksQueries {
 
 	/**
 	 * Return Book by specific search.
+	 * 
 	 * @param SearchString
 	 * @param colName
 	 * @return Server Data with the book(s) details or Error or Exception.
@@ -44,13 +45,12 @@ public class SearchBooksQueries {
 		ServerData Result;
 		try {
 			String query;
-			if(colName.equals(Cols.CatalogNumber)) {
+			if (colName.equals(Cols.CatalogNumber)) {
 				query = StartSearchquery + colName + "` LIKE + '" + SearchString + "'";
-			}
-			else {
+			} else {
 				query = StartSearchquery + colName + MiddleSearchquery + SearchString + EndSearchquery;
 			}
-			
+
 			ArrayList<Object> books = new ArrayList<Object>();
 			Statement s;
 			s = mysqlConnection.conn.createStatement();
@@ -75,7 +75,14 @@ public class SearchBooksQueries {
 					newBook.setContextTableByteArray(mybytearray);
 				}
 			}
-			Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
+			if (books.get(0) instanceof Book) {
+				Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
+			} else {
+				String Error = "Canno't get the book Details for that CatalogNumber";
+				ArrayList<Object> list = new ArrayList<>();
+				list.add(Error);
+				Result = new ServerData(list, GeneralData.operationsReturn.returnError);
+			}
 			return Result;
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();
@@ -87,6 +94,7 @@ public class SearchBooksQueries {
 
 	/**
 	 * search book by FreeText.
+	 * 
 	 * @param SearchString
 	 * @return
 	 */

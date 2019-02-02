@@ -1,7 +1,10 @@
 package OBLFX;
 
+import java.util.ArrayList;
+
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -13,8 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
- * @author Matan
- * AddBookCopyController controls AddnewcopyFXML
+ * @author Matan AddBookCopyController controls AddnewcopyFXML
  */
 public class AddBookCopyController implements IGUIcontroller {
 	@SuppressWarnings("unused")
@@ -56,7 +58,8 @@ public class AddBookCopyController implements IGUIcontroller {
 				&& IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel)) {
 			if (IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogLabel, OnlyNumbers, UserNameErrorNumebrs)
 					&& IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogLabel)) {
-				librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),GeneralData.userLibrarian);	
+				librarianClient.addBookCopyToCatalog(CatalogTextField.getText(), AddcopiesTextField.getText(),
+						GeneralData.userLibrarian);
 			}
 		}
 
@@ -96,7 +99,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	void NumberOfaddedCopiesCheck(KeyEvent event) {
 		IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel);
 		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
-		
+
 	}
 
 	/**
@@ -106,14 +109,24 @@ public class AddBookCopyController implements IGUIcontroller {
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
-		case returnBook:
-			 BookNameTextField.setText(((Book)msg).getBookName());
-			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));
-			 
-			break;
-
-		case returnError:
+		case returnSuccessMsg:
+//			BookNameTextField.setText(((Book) msg).getBookName());
+//			NumberOfCopiesTextField.setText(Integer.toString(((Book) msg).getNumberOfLibraryCopies()));
 			RetriveMSG.setText((String) msg);
+			break;
+		case returnBookArray:
+			if (msg instanceof ArrayList<?>) {
+				BookNameTextField.setText(((ArrayList<Book>) msg).get(0).getBookName());
+				NumberOfCopiesTextField
+						.setText(Integer.toString(((ArrayList<Book>) msg).get(0).getNumberOfLibraryCopies()));
+			}
+			break;
+		case returnError:
+			RetriveMSG.setText("There is no such CatalogNumber");
+			break;
+		case returnException:
+			RetriveMSG.setText(((Exception) msg).getMessage());
+			IAlert.ExceptionAlert((Exception) msg);
 			break;
 		}
 	}
@@ -121,13 +134,16 @@ public class AddBookCopyController implements IGUIcontroller {
 	@Override
 	public void setConnection() {
 		librarianClient = new LibrarianHandler(this);
+		commonClient = new CommonHandler(this);
 
 	}
 
 	@Override
 	public void closeConnection() {
-		if(librarianClient!=null)
+		if (librarianClient != null) {
 			librarianClient.quit();
+			commonClient.quit();
+		}
 	}
 
 }

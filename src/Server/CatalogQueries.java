@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -13,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import SystemObjects.ServerData;
@@ -52,15 +54,16 @@ public class CatalogQueries {
 				"INSERT INTO `obl`.`book` (`CatalogNumber`, `BookName`, `AuthorName`, `Subject`, `NumberOfCopies`, `AvailableCopies`, `NumberOfOrders`, `ShelfLocation`, `EditionNumber`, `purchesDate`, `isWanted`, `Description`, `ContextTable`,`BookCopyIndex`)"
 						+ "VALUES (%s);",
 				bookDetailsQuery(bookToAdd, queryType.Insert));
-		
+
 		String checkCatalogNumber = String.format(
-				"SELECT `CatalogNumber` FROM `obl`.`book` WHERE obl.book.CatalogNumber='%s';",bookToAdd.getCatalogNumber());
+				"SELECT `CatalogNumber` FROM `obl`.`book` WHERE obl.book.CatalogNumber='%s';",
+				bookToAdd.getCatalogNumber());
 
 		// System.out.println(query);
 		try {
 			stmt = con.createStatement();
 			ResultSet catalogNumber = stmt.executeQuery(checkCatalogNumber);
-			while(catalogNumber.next()) {
+			while (catalogNumber.next()) {
 				throw new SQLException("This book with this catalog number is already in database.");
 			}
 			File pdfoutFile;
@@ -72,17 +75,18 @@ public class CatalogQueries {
 			stmt.executeUpdate(query);
 			fos = new FileOutputStream(pdfoutFile);
 			bos = new BufferedOutputStream(fos);
-			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read from file to byte array
+			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read
+																												// from
+																												// file
+																												// to
+																												// byte
+																												// array
 			bos.flush();
 			fos.flush();
 			fos.close();
 			for (int i = 1; i <= bookToAdd.getNumberOfLibraryCopies(); i++) {
-				String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + 
-						"(`CopyID`,\r\n" + 
-						"`CatalogNumber`)\r\n" + 
-						"VALUES\r\n" + 
-						"(" + i + ",\r\n" + 
-						bookToAdd.getCatalogNumber() + ");";
+				String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + "(`CopyID`,\r\n" + "`CatalogNumber`)\r\n"
+						+ "VALUES\r\n" + "(" + i + ",\r\n" + bookToAdd.getCatalogNumber() + ");";
 				stmt.executeUpdate(queryCopies);
 			}
 			String queryCopiesAdded = String.format("SELECT * FROM obl.bookcopy where CatalogNumber='%s';",
@@ -95,13 +99,71 @@ public class CatalogQueries {
 			copiesIDs = copiesIDs + ".";
 			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg + "\n" + copiesIDs);
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			result = new ServerData(operationsReturn.returnException, new Exception ("Catalog number already exist"));
+			result = new ServerData(operationsReturn.returnException, new Exception("Catalog number already exist"));
 		} catch (FileAlreadyExistsException e) {
 			result = new ServerData(operationsReturn.returnError, e.getMessage());
 		} catch (SQLException | IOException e) {
 			result = new ServerData(operationsReturn.returnException, e);
 		}
 		return result;
+	}
+
+	public static ServerData addBookCopyToDB(String catalog, String numberToAdd) {
+		String successMsg = "Book copies added";
+		ServerData result;
+		Statement stmt;
+		int bookCopyIndex = -1;
+		int AddNumber = -1;
+		int AvailibaleCopy = -1;
+		int NumberOfCopy = -1;
+
+		AddNumber = Integer.valueOf(numberToAdd);
+		String checkCatalogNumber = "SELECT obl.book.CatalogNumber,obl.book.BookCopyIndex,obl.book.NumberOfCopies,obl.book.AvailableCopies FROM `obl`.`book` WHERE obl.book.CatalogNumber='"
+				+ catalog + "';";
+		try {
+			stmt = con.createStatement();
+			ResultSet catalogNumber = stmt.executeQuery(checkCatalogNumber);
+			if (catalogNumber.getFetchSize() <= 0) {
+				throw new SQLException("Their is no book with this catalog number in database.");
+			} else {
+				while (catalogNumber.next()) {
+					System.out.println(catalogNumber.getString(1));
+					System.out.println(catalogNumber.getInt(2));
+					System.out.println(catalogNumber.getInt(3));
+					System.out.println(catalogNumber.getInt(4));
+					bookCopyIndex = catalogNumber.getInt(2);
+					NumberOfCopy = catalogNumber.getInt(3);
+					AvailibaleCopy = catalogNumber.getInt(4);
+					for (int i = bookCopyIndex + 1; i <= bookCopyIndex + AddNumber; i++) {
+						String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + "(`CopyID`,\r\n"
+								+ "`CatalogNumber`)\r\n" + "VALUES\r\n" + "(" + i + ",\r\n" + catalog + ");";
+						Statement stmt1 = con.createStatement();
+						stmt1.executeUpdate(queryCopies);
+					}
+					if (NumberOfCopy != -1 && AvailibaleCopy != -1 && bookCopyIndex != -1) {
+						PreparedStatement Pstmt = con.prepareStatement(
+								"UPDATE obl.book SET NumberOfCopies=?,AvailableCopies=?,BookCopyIndex=? WHERE CatalogNumber=?;");
+						Pstmt.setInt(1, NumberOfCopy + AddNumber);
+						Pstmt.setInt(2, AvailibaleCopy + AddNumber);
+						Pstmt.setInt(3, bookCopyIndex + AddNumber);
+						Pstmt.setString(4, catalog);
+						Pstmt.executeUpdate();
+					} else {
+						throw new SQLException("Cannot add book copy.");
+					}
+				}
+
+				ArrayList<Object> list = new ArrayList<Object>();
+				list.add(successMsg + "\n");
+				result = new ServerData(list, operationsReturn.returnSuccessMsg);
+			}
+		} catch (SQLException e) {
+			ArrayList<Object> list = new ArrayList<Object>();
+			list.add(e);
+			result = new ServerData(list, operationsReturn.returnException);
+		}
+		return result;
+
 	}
 
 	/**
