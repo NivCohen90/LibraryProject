@@ -17,7 +17,7 @@ import SystemObjects.GeneralData.reportReference;
 public class ReportQueries {
 	private static Statement st;
 	
-	public static ReportData
+	//public static ReportData
 	
 	public static ReportData generalAmountLateReturnsReportStat(reportReference reference) {
 		int lateReturnsAmount= lateReturnsAmount();
