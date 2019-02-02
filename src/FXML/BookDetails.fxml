@@ -45,5 +45,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <Label fx:id="OrderLabel" layoutX="110.0" layoutY="317.0" prefHeight="26.0" prefWidth="390.0" textFill="RED" />
    </children>
 </AnchorPane>

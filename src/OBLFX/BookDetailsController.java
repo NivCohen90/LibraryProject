@@ -81,6 +81,10 @@ public class BookDetailsController implements IGUIcontroller{
     @FXML
     private Label lblIsWanted;
     
+
+    @FXML
+    private Label OrderLabel;
+    
     /**
      * set fields in FXML with book details
      * @param BookToDisplay which book to display details of
@@ -92,11 +96,12 @@ public class BookDetailsController implements IGUIcontroller{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		if(GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			OrderBookBTN.setDisable(true);
-			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status", "For more information, Please contect the libararian.",
-					"Click ok to close message");
+			String status="Status is " + GeneralData.userSubscriber.getStatus().toString() + ". For more information,Please contect the Libararian";
+			OrderLabel.setText(status);
 		}
 		else {
 			OrderBookBTN.setDisable(false);
+			OrderLabel.setText("");
 		}
 	    if(BookToDisplay.getIsWanted())
 	    	lblIsWanted.setVisible(true);

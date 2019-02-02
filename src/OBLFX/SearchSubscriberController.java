@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -100,9 +101,28 @@ public class SearchSubscriberController implements IGUIcontroller {
 	
     @FXML
     private Label lblNoResult;
+    
+    
 
 	@SuppressWarnings("unused")
 	private TableView<Subscriber> tblResultsSubscriber = new TableView<>();
+	
+	@FXML
+	void CheckSearch(KeyEvent event) {
+		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+			if (type1.isSelected()) {
+				IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits);
+			}
+			if (type2.isSelected()) {
+				IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs);
+			}
+
+			if (type3.isSelected()) {
+				IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError);
+
+			}
+		}
+	}
     
 	/**
      * set labels for book subscriber in FXML

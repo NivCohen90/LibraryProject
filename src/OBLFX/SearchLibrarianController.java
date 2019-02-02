@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -104,6 +105,21 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	@SuppressWarnings("unused")
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
+	
+    @FXML
+	void CheckSearch(KeyEvent event) {
+		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+			if (type1.isSelected()) {
+				IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs);
+			}
+			if (type2.isSelected()) {
+				IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError);
+			}
+			if (type3.isSelected()) {
+				IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError);
+			}
+		}
+	}
 
     /**
      * set labels for librarian search in FXML
@@ -152,7 +168,8 @@ public class SearchLibrarianController implements IGUIcontroller {
 			}			
 			if (type4.isSelected()) {
 				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
-					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+				emptyMsg.setText("");
 				}
 				else 
 					emptyMsg.setText("Invalid Email");
