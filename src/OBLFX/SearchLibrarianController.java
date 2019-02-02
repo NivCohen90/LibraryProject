@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -104,6 +105,17 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	@SuppressWarnings("unused")
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
+	
+	/**
+	 * clear fields in search
+	 * @param event
+	 */
+    @FXML
+    void clearFields(MouseEvent event) {
+    	ObservableColumnData.clear();
+    	txtInput.setText("");
+    	lblNoResult.setVisible(false);
+    }
 
     /**
      * set labels for librarian search in FXML
