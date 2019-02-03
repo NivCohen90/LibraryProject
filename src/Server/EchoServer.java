@@ -372,8 +372,16 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 
-		case deleteBook:
-			break;
+		/*case deleteBook:
+			try {
+				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();
+				msgToClient = CatalogQueries.DeleteBookCopyInDB((String)(getBook.get(0)),(String)(getBook.get(1)));
+				client.sendToClient(msgToClient);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
+			break;*/
 		case getBookDetails:
 			break;
 		case searchByFreeText:
