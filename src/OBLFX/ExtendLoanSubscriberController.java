@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Client.CommonHandler;
+import Client.LibrarianHandler;
 import Client.SubscriberHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
@@ -30,6 +31,7 @@ import javafx.scene.paint.Color;
 public class ExtendLoanSubscriberController implements IGUIcontroller {
 
 	private SubscriberHandler subscriberClient;
+	private LibrarianHandler librarianClient;
 	private Loan displayedLoan;
 	
 	@FXML
@@ -53,6 +55,9 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 	@FXML
 	private TextField txtAuthor;
 
+    @FXML
+    private Label lblMsgExtend;
+	
     /**
      * set fields in FXML with loan details
      * @param loanToDisplay which loan to display details of
@@ -91,12 +96,26 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 
 	}
 
+	public void setLibrarianExtend()
+	{
+	   lblMsgExtend.setText("");
+	   dateReturn.setDisable(false);
+	   dateReturn.setOpacity(1);
+	}
 	
 	@FXML
 	void ExtandLoan(ActionEvent event) {
 		setConnection();
-		subscriberClient.extendLoan(displayedLoan.getSubscriberID(), displayedLoan.getLoanID());
+		if(GeneralData.userSubscriber != null)
+			subscriberClient.extendLoan(displayedLoan.getSubscriberID(), displayedLoan.getLoanID());
+		if(GeneralData.userLibrarian != null)
+		{
+			Date returnExtend = Date.from(dateReturn.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()); 
+			librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend);
+		}
 	}
+	
+	
 
 	/**
 	 * {@inheritDoc}}
@@ -143,6 +162,7 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 	@Override
 	public void setConnection() {
 		subscriberClient = new SubscriberHandler(this);
+		librarianClient = new LibrarianHandler(this);
 	}
 
 	/**
@@ -152,6 +172,8 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 	public void closeConnection() {
 		if (subscriberClient != null)
 			subscriberClient.quit();
+		if (librarianClient != null)
+			librarianClient.quit();
 	}
 
 }

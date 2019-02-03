@@ -180,4 +180,14 @@ public class LoanQueries {
 		}
 		return books;
 	}
+
+	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend) throws SQLException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		sqlQuery = String.format(
+				"UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
+				dateFormat.format(dateExtend), loanIDExtend, subIDExtend);
+		st = mysqlConnection.conn.createStatement();
+		st.executeUpdate(sqlQuery);
+		
+	}
 }

@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import Interfaces.IAlert;
 import OBLFX.NewLoanController;
@@ -201,6 +202,40 @@ public class EchoServer extends AbstractServer {
 		case viewActivityHistory:
 			break;
 		case updateReturnDateManualy:
+			String loanIDExtend = ((ServerData) msg).getDataMsg().get(1).toString();
+			String subIDExtend = ((ServerData) msg).getDataMsg().get(0).toString();
+			Date dateExtend = (Date) ((ServerData) msg).getDataMsg().get(2);
+			try {
+				String subStatus = SubscriberQueries.getSubscriberStatus(subIDExtend);
+				if (subStatus.equals("Active")) {
+					if (!BookQueries.checkOrdersForBook(loanIDExtend)) {
+						if (!BookQueries.isDemandedByLoanID(loanIDExtend)) {
+							LoanQueries.updateLoanReturnDateManualy(subIDExtend, loanIDExtend, dateExtend);
+							
+							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subIDExtend);
+							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
+							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+						 	
+						} else
+							msgToClient = new ServerData(operationsReturn.returnError,
+									"Book is demanded. Extension was declined");
+					}
+					else msgToClient = new ServerData(operationsReturn.returnError, "This book has been ordered. Extension was declined");
+				} else
+					msgToClient = new ServerData(operationsReturn.returnError,
+							"Subscriber status isn't 'Active'. Extension was declined");
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+				msgToClient = new ServerData(operationsReturn.returnException, e);
+			}
+			try {
+				client.sendToClient(msgToClient);
+			} catch (IOException e2) {
+				IAlert.ExceptionAlert(e2);
+				e2.printStackTrace();
+			}
+			
 			break;
 		case returnBook:
 			ArrayList<Object> arr =  ((ServerData) msg).getDataMsg();
