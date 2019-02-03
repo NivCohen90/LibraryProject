@@ -222,4 +222,17 @@ public class LoanQueries {
 		}
 		return lateReturnsDuration;
 	}
+	
+	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend, String librarianID) throws SQLException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		sqlQuery = String.format(
+				"UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
+				dateFormat.format(dateExtend), loanIDExtend, subIDExtend);
+		String queryManual = String.format(
+				"INSERT INTO `obl`.`manualupdateloan` (`LibrarianID`,`LoanID`,`ReturnDate`) VALUES('%s','%s','%s');",
+				librarianID, loanIDExtend, dateFormat.format(dateExtend));
+		st = mysqlConnection.conn.createStatement();
+		st.executeUpdate(sqlQuery);
+		st.executeUpdate(queryManual);
+	}
 }

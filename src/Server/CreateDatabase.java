@@ -107,5 +107,17 @@ public class CreateDatabase {
 			"  CONSTRAINT `lateSubID` FOREIGN KEY (`SubID`) REFERENCES `subscriber` (`subscriberid`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n" + 
 			"";
+	final static String manualUpdateTable = "CREATE TABLE IF NOT EXISTS `manualupdateloan` (\r\n" + 
+			"  `UpdateID` int(11) NOT NULL AUTO_INCREMENT,\r\n" + 
+			"  `LibrarianID` varchar(10) NOT NULL,\r\n" + 
+			"  `LoanID` int(11) NOT NULL,\r\n" + 
+			"  `ReturnDate` date NOT NULL,\r\n" + 
+			"  PRIMARY KEY (`UpdateID`),\r\n" + 
+			"  KEY `updateLibrarianID_idx` (`LibrarianID`),\r\n" + 
+			"  KEY `updateLoanID_idx` (`LoanID`),\r\n" + 
+			"  CONSTRAINT `updateLibrarianID` FOREIGN KEY (`LibrarianID`) REFERENCES `librarian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,\r\n" + 
+			"  CONSTRAINT `updateLoanID` FOREIGN KEY (`LoanID`) REFERENCES `loan` (`loanid`) ON DELETE CASCADE ON UPDATE CASCADE\r\n" + 
+			") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n" + 
+			"";
 
 }

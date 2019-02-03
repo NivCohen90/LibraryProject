@@ -24,7 +24,7 @@
       <TextField fx:id="txtAuthor" disable="true" editable="false" layoutX="117.0" layoutY="136.0" prefHeight="26.0" prefWidth="496.0" AnchorPane.topAnchor="136.0" />
       <Button fx:id="ExtendBtn" disable="true" layoutX="42.0" layoutY="263.0" mnemonicParsing="false" onAction="#ExtandLoan" prefHeight="35.0" prefWidth="107.0" text="Ask for extention" />
       <Label fx:id="RetriveMSG" layoutX="29.0" layoutY="311.0" text="recivedMSG" textFill="RED" visible="false" />
-      <Label layoutX="202.0" layoutY="42.0" text="* loan extension is available only one week or less before return date" />
+      <Label fx:id="lblMsgExtend" layoutX="202.0" layoutY="42.0" text="* loan extension is available only one week or less before return date" />
       <Label layoutX="43.0" layoutY="176.0" text="Start Date:" />
       <Label layoutX="42.0" layoutY="206.0" text="End Date:" />
    </children>
