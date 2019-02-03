@@ -3,6 +3,7 @@ package OBLFX;
 import java.time.LocalDate;
 
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
@@ -167,10 +168,11 @@ public class NewLoanController implements IGUIcontroller {
 
 		case returnError:
 			RetriveMSG.setText((String) msg);
+			RetriveMSG.setTextFill(Color.RED);
 			break;
 
 		case returnException:
-			System.out.println(msg);
+			IAlert.ExceptionAlert((Exception) msg);
 			break;
 		}
 	}

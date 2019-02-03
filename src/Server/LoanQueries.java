@@ -78,6 +78,9 @@ public class LoanQueries {
 				String queryUpCopy = String.format("UPDATE `obl`.`bookcopy` SET `isLoaned` = '1' WHERE CopyID='%s'",
 						newLoan.getCopyID());
 				st.executeUpdate(queryUpCopy);
+				String queryUpBook = String.format("UPDATE `obl`.`book` SET `AvailableCopies` = AvailableCopies-1 WHERE CatalogNumber='%s'",
+						newLoan.getBookCatalogNumber());
+				st.executeUpdate(queryUpBook);
 				sqlQuery = String.format(
 						"INSERT INTO obl.loan (SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus) VALUES "
 								+ "('%s', '%s', '%s', '%s', '%s', '%s')",
