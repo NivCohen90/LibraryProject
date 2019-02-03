@@ -56,20 +56,44 @@ public class LoanQueries {
 		return null;
 	}
 
-	public static void createNewLoan(Loan newLoan) {
+	public static ServerData createNewLoan(Loan newLoan) {
+		ServerData result = new ServerData(operationsReturn.returnError, "error in database");
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			sqlQuery = String.format(
-					"INSERT INTO obl.loan LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus VALUES "
-							+ "(%s, %s, %s, %s, %s, %s, %s)",
-					newLoan.getLoanID(), newLoan.getSubscriberID(), newLoan.getBookCatalogNumber(), newLoan.getCopyID(),
-					dateFormat.format(newLoan.getStartDate()), dateFormat.format(newLoan.getReturnDate()),
-					newLoan.getLoanStatus());
 			st = mysqlConnection.conn.createStatement();
-			st.executeUpdate(sqlQuery);
+			String queryCheckLoan = String.format(
+					"SELECT * FROM obl.loan where bookCatalogNumber = '%s' and SubscriberID='%s' and LoanStatus!='Finish';",
+					newLoan.getBookCatalogNumber(), newLoan.getSubscriberID());
+			if (!st.executeQuery(queryCheckLoan).next()) {
+				String queryCheckOrder = String.format(
+						"SELECT * FROM obl.order where bookCatalogNumber = '%s' and SubscriberID='%s';",
+						newLoan.getBookCatalogNumber(), newLoan.getSubscriberID());
+				ResultSet rs = st.executeQuery(queryCheckOrder);
+				if (rs.next()) {
+					String queryOrder = String.format(
+							"UPDATE `obl`.`order` SET `OrderStatus` = 'Finished' WHERE OrderID=%s",
+							rs.getString("OrderID"));
+					st.executeQuery(queryOrder);
+				}
+				String queryUpCopy = String.format("UPDATE `obl`.`bookcopy` SET `isLoaned` = '1' WHERE CopyID='%s'",
+						newLoan.getCopyID());
+				st.executeUpdate(queryUpCopy);
+				sqlQuery = String.format(
+						"INSERT INTO obl.loan (SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus) VALUES "
+								+ "('%s', '%s', '%s', '%s', '%s', '%s')",
+						newLoan.getSubscriberID(), newLoan.getBookCatalogNumber(),
+						newLoan.getCopyID(), dateFormat.format(newLoan.getStartDate()),
+						dateFormat.format(newLoan.getReturnDate()), newLoan.getLoanStatus());
+				st.executeUpdate(sqlQuery);
+				result = new ServerData(operationsReturn.returnSuccessMsg, "loan added to subscriber");
+			}
+			else
+				result = new ServerData(operationsReturn.returnError, "loan for book already exist");
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return result;
 	}
 
 	public static LocalDate calcNewReturnDate(LocalDate sDate, boolean demanded) {
@@ -182,19 +206,7 @@ public class LoanQueries {
 	}
 
 	public static int specificBookLateLoansAmount(String catalogNumber) {
-		sqlQuery=String.format("SELECT count(LoanID) FROM obl.loan WHERE BookCatalogNumber='%s'", catalogNumber);
-		try {
-			st = mysqlConnection.conn.createStatement();
-			ResultSet rs = st.executeQuery(sqlQuery);
-				return rs.getInt(0);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	public static int numberOfBooksWithLateLoans() {
-		sqlQuery= "SELECT COUNT(DISTINCT(BookCatalogNumber)) FROM obl.loan WHERE LoanStatus='Late';";
+		sqlQuery = String.format("SELECT count(LoanID) FROM obl.loan WHERE BookCatalogNumber='%s'", catalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
@@ -205,9 +217,23 @@ public class LoanQueries {
 		return 0;
 	}
 
-	public static ArrayList<Integer> specificBookLateLoansDuration(String bookCatalogNumber){
+	public static int numberOfBooksWithLateLoans() {
+		sqlQuery = "SELECT COUNT(DISTINCT(BookCatalogNumber)) FROM obl.loan WHERE LoanStatus='Late';";
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+			return rs.getInt(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public static ArrayList<Integer> specificBookLateLoansDuration(String bookCatalogNumber) {
 		ArrayList<Integer> lateReturnsDuration = new ArrayList<Integer>();
-		sqlQuery = String.format("SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late' AND BookCatalogNumber='%s';", bookCatalogNumber);
+		sqlQuery = String.format(
+				"SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late' AND BookCatalogNumber='%s';",
+				bookCatalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
@@ -222,11 +248,11 @@ public class LoanQueries {
 		}
 		return lateReturnsDuration;
 	}
-	
-	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend, String librarianID) throws SQLException {
+
+	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend,
+			String librarianID) throws SQLException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		sqlQuery = String.format(
-				"UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
+		sqlQuery = String.format("UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
 				dateFormat.format(dateExtend), loanIDExtend, subIDExtend);
 		String queryManual = String.format(
 				"INSERT INTO `obl`.`manualupdateloan` (`LibrarianID`,`LoanID`,`ReturnDate`) VALUES('%s','%s','%s');",
