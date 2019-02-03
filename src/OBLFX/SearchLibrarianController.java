@@ -22,6 +22,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -30,7 +31,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * FXML controller for  search librarian
+ * FXML controller for search librarian
+ * 
  * @author ofir
  *
  */
@@ -38,22 +40,22 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
 	private CommonHandler commonClient;
+
 	@FXML
 	public void initialize() {
 		setLabelsSearchLibrarian();
 		tblResults.setItems(ObservableColumnData);
-        tblResults.setRowFactory(tv -> {
-            TableRow<Object> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
-                     && event.getClickCount() == 2) {
+		tblResults.setRowFactory(tv -> {
+			TableRow<Object> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 
-                	Object clickedRow = row.getItem();
-                	openResultDetails(clickedRow);
-                }
-            });
-            return (TableRow<Object>) row ;
-        });
+					Object clickedRow = row.getItem();
+					openResultDetails(clickedRow);
+				}
+			});
+			return (TableRow<Object>) row;
+		});
 	}
 
 	@FXML
@@ -100,13 +102,14 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	@FXML
 	private Label emptyMsg;
-	
-    @FXML
-    private Label lblNoResult;
+
+	@FXML
+	private Label lblNoResult;
 
 	@SuppressWarnings("unused")
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
-    @FXML
+
+	@FXML
 	void CheckSearch(KeyEvent event) {
 		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected()) {
@@ -120,21 +123,23 @@ public class SearchLibrarianController implements IGUIcontroller {
 			}
 		}
 	}
+
 	/**
 	 * clear fields in search
+	 * 
 	 * @param event
 	 */
-    @FXML
-    void clearFields(MouseEvent event) {
-    	ObservableColumnData.clear();
-    	txtInput.setText("");
-    	emptyMsg.setText("");
-    	lblNoResult.setVisible(false);
-    }
+	@FXML
+	void clearFields(MouseEvent event) {
+		ObservableColumnData.clear();
+		txtInput.setText("");
+		emptyMsg.setText("");
+		lblNoResult.setVisible(false);
+	}
 
-    /**
-     * set labels for librarian search in FXML
-     */
+	/**
+	 * set labels for librarian search in FXML
+	 */
 	public void setLabelsSearchLibrarian() {
 		title.setText("Search Librarian");
 		type1.setText("Librarian ID");
@@ -154,63 +159,64 @@ public class SearchLibrarianController implements IGUIcontroller {
 		col4.setCellValueFactory(new PropertyValueFactory<>("Email"));
 	}
 
-    /**
-     * request search librarian from client
-     * @param event
-     */
+	/**
+	 * request search librarian from client
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
 		String searchInput = txtInput.getText();
-		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
+		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected()) {
-				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
 				}
 			}
 			if (type2.isSelected()) {
-				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
 				}
 			}
 			if (type3.isSelected()) {
-				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
+				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
 				}
-			}			
+			}
 			if (type4.isSelected()) {
-				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
-				commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
-				emptyMsg.setText("");
-				}
-				else 
+				if (txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+					emptyMsg.setText("");
+				} else
 					emptyMsg.setText("Invalid Email");
-			}					
-			}    
+			}
+		}
 	}
 
-    /**
-     * set data in FXML result table
-     * @param list ArrayList<T> with object list to add to table
-     */
+	/**
+	 * set data in FXML result table
+	 * 
+	 * @param list ArrayList<T> with object list to add to table
+	 */
 	private <T> void displayResults(ArrayList<T> list) {
 		ObservableColumnData.clear();
-		if(!list.isEmpty())
-		{
+		System.out.println("I'm Here Inside.");
+		if (!list.isEmpty()) {
+			System.out.println("I have Fucking Data.");
 			lblNoResult.setVisible(false);
 			for (T Ti : list)
 				ObservableColumnData.add(Ti);
-		}
-		else
-		{
+		} else {
 			lblNoResult.setVisible(true);
 			tblResults.setPlaceholder(new Label(""));
 		}
 		tblResults.setVisible(true);
 		lblResults.setVisible(true);
 	}
-	
+
 	/**
 	 * display error in FXML
+	 * 
 	 * @param msg error message
 	 */
 	@SuppressWarnings("unused")
@@ -218,61 +224,76 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 		lblResults.setText(msg.getMessage());
 		lblResults.setVisible(true);
-		
+
 	}
-	
+
 	/**
 	 * open window with book details
+	 * 
 	 * @param choosenResult chosen librarian to display details
 	 */
-	private void openResultDetails(Object choosenResult)
-	{
-    	Stage primaryStage = new Stage();
-    	FXMLLoader fxmlLoader = new FXMLLoader();
-    	AnchorPane root = null;
-    	Scene scene = null;
+	private void openResultDetails(Object choosenResult) {
+		Stage primaryStage = new Stage();
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		AnchorPane root = null;
+		Scene scene = null;
 		try {
-			
-			if(choosenResult instanceof Librarian)
-			{
+
+			if (choosenResult instanceof Librarian) {
 				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/CardLibrarian.fxml").openStream());
 				scene = new Scene(root);
 				CardLibrarianController Controller = (CardLibrarianController) fxmlLoader.getController();
-				Controller.setLibrarianToDisplay((Librarian)choosenResult);
-				primaryStage.setTitle(((Librarian)choosenResult).getFullName());
-			}		
-		
+				Controller.setLibrarianToDisplay((Librarian) choosenResult);
+				primaryStage.setTitle(((Librarian) choosenResult).getFullName());
+			}
+
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			IAlert.ExceptionAlert(e);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDoc}}
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		displayResults((ArrayList<T>) msg);
+		switch (op) {
+		case returnLibrarianArray:
+			System.out.println("I'm Here.");
+			if (msg != null) {
+				displayResults((ArrayList<T>) msg);
+			}
+			else System.out.println("I'm Fucking null!");
+			break;
+		case returnError:
+			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User", (String) msg, (String) msg);
+			break;
+		case returnException:
+			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		}
+
 	}
-	
+
 	/**
 	 * {@inheritDoc}}
 	 */
 	@Override
 	public void setConnection() {
-		commonClient = new CommonHandler(this);	
+		commonClient = new CommonHandler(this);
 	}
+
 	/**
 	 * {@inheritDoc}}
 	 */
 	@Override
 	public void closeConnection() {
-		if(commonClient!=null)
-			commonClient.quit();	
+		if (commonClient != null)
+			commonClient.quit();
 	}
 
 }

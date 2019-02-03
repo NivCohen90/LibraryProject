@@ -20,24 +20,24 @@
          </font>
       </Label>
       <TextField fx:id="CatalogNumberTextField" layoutX="181.0" layoutY="66.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
-      <Label layoutX="436.0" layoutY="69.0" text="Subscriber ID:">
+      <Label layoutX="436.0" layoutY="69.0" text="Student ID:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="SubscriberIDTextField" layoutX="532.0" layoutY="66.0" onKeyTyped="#CheckSubscriberID" prefHeight="26.0" prefWidth="138.0" />
-      <Label layoutX="26.0" layoutY="110.0" text="Start Date:">
+      <Label layoutX="26.0" layoutY="136.0" text="Start Date:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="StartDateDatePicker" disable="true" layoutX="181.0" layoutY="107.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
-      <Label layoutX="436.0" layoutY="110.0" text="Return Date:">
+      <DatePicker fx:id="StartDateDatePicker" disable="true" layoutX="181.0" layoutY="133.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
+      <Label layoutX="436.0" layoutY="136.0" text="Return Date:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="ReturnDateDatePicker" disable="true" editable="false" layoutX="532.0" layoutY="107.0" prefHeight="26.0" prefWidth="137.0" />
+      <DatePicker fx:id="ReturnDateDatePicker" disable="true" editable="false" layoutX="532.0" layoutY="133.0" prefHeight="26.0" prefWidth="137.0" />
       <Button fx:id="CreateLoanBTN" layoutX="323.0" layoutY="188.0" mnemonicParsing="false" onAction="#CheckLoan" text="Create Loan">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -51,5 +51,11 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
+      <Label layoutX="26.0" layoutY="100.0" text="Book Copy Number:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="CopuNumberTextField" layoutX="181.0" layoutY="97.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
    </children>
 </AnchorPane>

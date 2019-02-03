@@ -34,7 +34,7 @@ public class Subscriber extends User implements Serializable {
 
 	public Subscriber(String iD, String firstName, String lastName, String email, String phoneNumber, String password,
 			String subscriberNumber, String status, int fellonyNumber) {
-		super(iD, firstName, lastName, email, phoneNumber, password, 1);
+		super(iD, firstName, lastName, email, phoneNumber, password, 0);
 		ActiveLoans = new ArrayList<Loan>();
 		ActiveOrders = new ArrayList<Order>();
 		HistoryLoans = new ArrayList<Loan>();

@@ -20,87 +20,82 @@ import javafx.scene.control.TextField;
 public class ExtandLoanLibrarianController implements IGUIcontroller {
 
 	private LibrarianHandler librarianClient;
-	
+
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
-	//boolean NewReturnFlag = false;
-	
+	// boolean NewReturnFlag = false;
+
 	@FXML
 	public void initialize() {
-	//	tblLoans.setItems(ObservableLoansList);
+		// tblLoans.setItems(ObservableLoansList);
 	}
-    @FXML
-    private TableView<?> curentLoansTable;
 
-    @FXML
-    private TableColumn<?, ?> bookCatalogNumberCol;
+	@FXML
+	private TableView<?> curentLoansTable;
 
-    @FXML
-    private TableColumn<?, ?> startLoanDateCol;
+	@FXML
+	private TableColumn<?, ?> bookCatalogNumberCol;
 
-    @FXML
-    private TableColumn<?, ?> returnedDateCol;
+	@FXML
+	private TableColumn<?, ?> startLoanDateCol;
 
-    @FXML
-    private TextField LoanNumberTextField;
+	@FXML
+	private TableColumn<?, ?> returnedDateCol;
 
-    @FXML
-    private DatePicker newDatePicker;
+	@FXML
+	private TextField LoanNumberTextField;
 
-    @FXML
-    private Button applayButton;
+	@FXML
+	private DatePicker newDatePicker;
 
-    @FXML
-    private Label RetriveMSG;
+	@FXML
+	private Button applayButton;
 
-    @FXML
-    private Button CancelBTN;
+	@FXML
+	private Label RetriveMSG;
 
-    @FXML
-    private Label LoanNumberLabel;
+	@FXML
+	private Button CancelBTN;
 
-    @FXML
-    private Label DateLabel;
+	@FXML
+	private Label LoanNumberLabel;
 
-    @FXML
-    void CancelLoan(ActionEvent event) {
-    	newDatePicker.setValue(null);
-    	LoanNumberTextField.setText("");
-    }
+	@FXML
+	private Label DateLabel;
+
+	@FXML
+	void CancelLoan(ActionEvent event) {
+		newDatePicker.setValue(null);
+		LoanNumberTextField.setText("");
+	}
 
 	private <T> void displayLoans(ArrayList<T> list) {
 		ObservableColumnData.clear();
-		if(!list.isEmpty())
-		{
+		if (!list.isEmpty()) {
 			for (T Ti : list)
 				ObservableColumnData.add((Loan) Ti);
-		}
-		else
-		{
+		} else {
 			curentLoansTable.setPlaceholder(new Label(""));
 		}
 		curentLoansTable.setVisible(true);
 		curentLoansTable.setVisible(true);
-	}	
+	}
+
 	@FXML
-	void extendLoan(ActionEvent event){
-	if(IGUIcontroller.CheckIfUserPutInput(LoanNumberTextField, LoanNumberLabel)){
-		if(IGUIcontroller.CheckOnlyLetter(LoanNumberTextField, LoanNumberLabel, OnlyNumbers, UserNameErrorNumebrs)){
-			String bookCtalogNumber = LoanNumberTextField.getText();
-			Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
-			//librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
+	void extendLoan(ActionEvent event) {
+		if (IGUIcontroller.CheckIfUserPutInput(LoanNumberTextField, LoanNumberLabel)) {
+			if (IGUIcontroller.CheckOnlyLetter(LoanNumberTextField, LoanNumberLabel, OnlyNumbers,
+					UserNameErrorNumebrs)) {
+				String bookCtalogNumber = LoanNumberTextField.getText();
+				Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
+				// librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
+			}
 		}
 	}
-		
-	   
 
-	  
-	}
-	
-	
 	@Override
 	public void setConnection() {
 		// TODO Auto-generated method stub
-		librarianClient = new LibrarianHandler(this);	
+		librarianClient = new LibrarianHandler(this);
 
 	}
 
@@ -114,8 +109,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 	@Override
 	public <T> void receiveMassageFromServer(T msg, SystemObjects.GeneralData.operationsReturn op) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
 
 }

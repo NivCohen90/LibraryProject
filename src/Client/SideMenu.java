@@ -125,7 +125,7 @@ public class SideMenu {
 			vbox.getChildren().add(Item(Menuicons.Report));
 			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
 			vbox.getChildren().add(Item(Menuicons.catalog));
-			vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
+			//vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
 			vbox.getChildren().add(Item(Menuicons.Statistics));
 			vbox.getChildren().add(Item(Menuicons.Connection));
 			vbox.getChildren().add(Item(Menuicons.Exit));

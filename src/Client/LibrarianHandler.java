@@ -43,8 +43,8 @@ public class LibrarianHandler extends IHandler{
 
 	
 	
-	public void createNewLoan(String catalogNumber,String SubscriberID,Date Returndate,Date StartDate) {
-		Loan newLoan=new Loan(null, SubscriberID, catalogNumber, null, StartDate, Returndate, "Active", null, null);
+	public void createNewLoan(String catalogNumber,String SubscriberID,Date Returndate,Date StartDate, String copyID) {
+		Loan newLoan=new Loan(null, SubscriberID, catalogNumber, copyID, StartDate, Returndate, "Active", null, null);
 
 		ServerData loginInfo = new ServerData(GeneralData.operations.CreateNewLoan,newLoan);
 		try

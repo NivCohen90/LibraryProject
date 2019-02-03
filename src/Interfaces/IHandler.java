@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Client.SideMenu;
@@ -96,6 +97,10 @@ public abstract class IHandler extends AbstractClient {
 				// switch between different return massages from server
 				// convert data from server and send to GUI controller
 				switch (serverMsg.getOperationReturn()) {
+				case returnDate:
+					LocalDate dateMsg = convertMsgFromServer(arrayMsg.get(0), LocalDate.class);
+					currentControllerGUIobj.receiveMassageFromServer(dateMsg, operationsReturn.returnDate);
+					break;
 				case returnException:
 					Exception exceptionMsg = convertMsgFromServer(arrayMsg.get(0), Exception.class);
 					currentControllerGUIobj.receiveMassageFromServer(exceptionMsg, operationsReturn.returnException);

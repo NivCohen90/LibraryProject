@@ -36,7 +36,7 @@ public class GeneralData {
 		returnSubscriber, returnLibrarian, returnLibrarianManager, returnBook, returnBookCopy, returnLoan, returnOrder,
 		returnSubscriberArray, returnLibrarianArray, returnBookArray, returnBookCopyArray, returnLoanArray,
 		returnOrderArray, returnSuccessMsg, returnError, returnLoanReportData, returnLateReturnsReportData,
-		returnActivityReportData, returnException, returnReturnDate
+		returnActivityReportData, returnException, returnReturnDate, returnDate
 	};
 
 	public enum subscriberSearchFields {
