@@ -140,39 +140,48 @@ public class ReportDisplayController implements IGUIcontroller {
 
 	public void setReportDataToDisplay(ArrayList<Object> reportData, operationsReturn reportType) {
 		int prevValue=-1;
+		ReportData rd=null;
 		reportReference reference;
+		ArrayList<Integer> values=null;
+		int[] dist=null;
+		int rangeSize=0;
 		switch (reportType) {
 		case returnLoanReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
-				ReportData rd=(ReportData)reportData.get(i);
+				rd=(ReportData)reportData.get(i);
 				reference = rd.getReference();
-				int rangeSize=(int)rd.getDistribution().get(1);
-				int[] dist=(int[])rd.getDistribution().get(2);
+				if(rd.getAvg()!=0) {
+				values=(ArrayList<Integer>)rd.getDistribution().get(0);
+				rangeSize=(int)rd.getDistribution().get(1);
+				dist=(int[])rd.getDistribution().get(2);}
 				switch (reference) {
 
-				case Demanded: {
+				case Demanded: 
 					DemendedAVG.setText(rd.getAvg() + "");
 					DemendedMedian.setText(rd.getMedian() + "");
-
+					if(rd.getAvg()!=0) {
+					prevValue+=values.get(0);
 					for(int j=0;j<10;j++) {
 						ranges[i]=(prevValue+1)+"-"+(prevValue+rangeSize);
 						prevValue+=rangeSize;
 						series1.getData().add(new XYChart.Data(ranges[i], dist[i]));
 					}
-					
+					}
 					continue;
-				}
+				
 
-				case Regular: {
-					RegularAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
-					RegularMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
-//					for(int j=0;j<10;j++) {
-//						ranges[i]=(prevValue+1)+"-"+(prevValue+rangeSize);
-//						prevValue+=rangeSize;
-//						series1.getData().add(new XYChart.Data(ranges[i], dist[i]));
-//					}
+				case Regular: 
+					RegularAVG.setText("20");
+					RegularMedian.setText(rd.getMedian() + "");
+					if(rd.getAvg()!=0) {
+						prevValue+=values.get(0);
+					for(int j=0;j<10;j++) {
+						ranges[i]=(prevValue+1)+"-"+(prevValue+rangeSize);
+						prevValue+=rangeSize;
+						series1.getData().add(new XYChart.Data(ranges[i], dist[i]));
+					}}
 					continue;
-				}
+				
 
 				default:
 					continue;
@@ -183,10 +192,10 @@ public class ReportDisplayController implements IGUIcontroller {
 
 		case returnLateReturnsReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
-				ReportData rd=(ReportData)reportData.get(i);
+				rd=(ReportData)reportData.get(i);
 				reference = rd.getReference();
-				int rangeSize=(int)rd.getDistribution().get(1);
-				int[] dist=(int[])rd.getDistribution().get(2);
+				rangeSize=(int)rd.getDistribution().get(1);
+				dist=(int[])rd.getDistribution().get(2);
 				if (reportData.get(i) instanceof ReportData) {
 					reference = ((ReportData) reportData.get(i)).getReference();
 					switch (reference) {

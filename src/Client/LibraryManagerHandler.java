@@ -28,27 +28,35 @@ public class LibraryManagerHandler extends IHandler {
 
 	public void createReport(LocalDate startDate, LocalDate endDate, operations reportType) {
 
-		ServerData report;
+		ServerData report = null;
 
 		switch (reportType) {
-		case createActivityReport: {
-			report = new ServerData(reportType, startDate, endDate);
+		case createActivityReport:
+			try {
+				report = new ServerData(reportType, startDate, endDate);
+				sendToServer(report);
+			} catch (IOException e) {
+
+				Interfaces.IAlert.ExceptionAlert(e);
+
+				IAlert.ExceptionAlert(e);
+
+				e.printStackTrace();
+			}
 			break;
-		}
-		default: {
-			report = new ServerData(reportType, startDate);
-			break;
-		}
-		}
-		try {
-			sendToServer(report);
-		} catch (IOException e) {
+		case createLoansReport:
+		case createLateReturnsReport:
+			try {
+				report = new ServerData(reportType, startDate);
+				sendToServer(report);
+			} catch (IOException e) {
 
-			Interfaces.IAlert.ExceptionAlert(e);
+				Interfaces.IAlert.ExceptionAlert(e);
 
-			IAlert.ExceptionAlert(e);
+				IAlert.ExceptionAlert(e);
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
 	}
 }

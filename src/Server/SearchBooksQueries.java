@@ -55,27 +55,33 @@ public class SearchBooksQueries {
 			Statement s;
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(query);
-			while (rs.next()) {
-				books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
-						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
-						rs.getString(12), rs.getString(13)));
+			if (!rs.next()) {
+				Result = new ServerData(GeneralData.operationsReturn.returnError,
+						"The is no book with this " + colName + ".");
+				return Result;
+			} else {
+				do {
+					books.add(new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+							rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDate(10),
+							rs.getBoolean(11), rs.getString(12), rs.getString(13)));
 
-				/* get pdf file */
-				if (rs.getString("ContextTable").contains("pdf")) {
-					File pdfFile = new File("src/PDFBook/" + rs.getString("ContextTable"));
-					byte[] mybytearray = new byte[(int) pdfFile.length()]; // byte array of file
-					FileInputStream fis; // input from file
-					BufferedInputStream bis; // buffer input
-					fis = new FileInputStream(pdfFile);
-					bis = new BufferedInputStream(fis);
-					bis.read(mybytearray, 0, mybytearray.length); // read from file to byte array
-					bis.close();
-					fis.close();
-					Book newBook = (Book) books.get(books.size() - 1);
-					newBook.setContextTableByteArray(mybytearray);
-				}
+					/* get pdf file */
+					if (rs.getString("ContextTable").contains("pdf")) {
+						File pdfFile = new File("src/PDFBook/" + rs.getString("ContextTable"));
+						byte[] mybytearray = new byte[(int) pdfFile.length()]; // byte array of file
+						FileInputStream fis; // input from file
+						BufferedInputStream bis; // buffer input
+						fis = new FileInputStream(pdfFile);
+						bis = new BufferedInputStream(fis);
+						bis.read(mybytearray, 0, mybytearray.length); // read from file to byte array
+						bis.close();
+						fis.close();
+						Book newBook = (Book) books.get(books.size() - 1);
+						newBook.setContextTableByteArray(mybytearray);
+					}
+				} while (rs.next());
+				Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
 			}
-			Result = new ServerData(books, GeneralData.operationsReturn.returnBookArray);
 			return Result;
 		} catch (SQLException | IOException e) {
 			ArrayList<Object> ErrorMsgs = new ArrayList<>();

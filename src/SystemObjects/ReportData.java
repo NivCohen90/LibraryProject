@@ -1,10 +1,11 @@
 package SystemObjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import SystemObjects.GeneralData.reportReference;
 
-public class ReportData {
+public class ReportData implements Serializable {
 
 	private reportReference reference;
 	private double avg;

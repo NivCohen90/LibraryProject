@@ -109,11 +109,10 @@ public class AddBookCopyController implements IGUIcontroller {
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch (op) {
-		case returnBook:
-			 BookNameTextField.setText(((Book)msg).getBookName());
-			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));	 
-			break;
-
+//		case returnBook:
+//			 BookNameTextField.setText(((Book)msg).getBookName());
+//			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));	 
+//			break;
 		case returnError:
 			RetriveMSG.setText((String) msg);
 			break;
@@ -127,6 +126,9 @@ public class AddBookCopyController implements IGUIcontroller {
 		case returnException:
 			RetriveMSG.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		case returnSuccessMsg:
+			RetriveMSG.setText((String) msg);
 			break;
 		}
 	}

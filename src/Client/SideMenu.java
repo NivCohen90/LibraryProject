@@ -242,7 +242,7 @@ public class SideMenu {
 			fxmlLoader.setController(null);
 			APCreateReportFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CreateReportFXML).openStream());
-			controllerMap.put(Menuicons.Report, (CreatesReportController) fxmlLoader.getController());
+			controllerMap.put(Menuicons.Statistics, (CreatesReportController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);

@@ -61,13 +61,15 @@ public class ReportQueries {
 		ArrayList<Integer> dataArray = new ArrayList<Integer>();
 		st = mysqlConnection.conn.createStatement();
 		ResultSet dataResult = st.executeQuery(sqlQuery);
-		
+
 		while (dataResult.next()) {
 			LocalDate sDate = dataResult.getDate("StartDate").toLocalDate();
 			LocalDate eDate = dataResult.getDate("ReturnDate").toLocalDate();
 			Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
 			dataArray.add((int) diff.toDays());
 		}
+		if(dataArray.isEmpty())
+			return new ReportData(0,0,new ArrayList<Object>(), reference);
 		return new ReportData(calcAvg(dataArray), calcMedian(dataArray.size(), dataArray), calcDistribution(dataArray), reference);
 	}
 	
@@ -89,11 +91,11 @@ public class ReportQueries {
 		Collections.sort(dataArray);
 		ArrayList<Object> distribution= new ArrayList<Object>();
 		distribution.add(dataArray);
-		int rangeSize=((int)Math.ceil((dataArray.get(dataArray.size())-dataArray.get(0))/10));
+		int rangeSize=((int)((dataArray.get(dataArray.size()-1)-dataArray.get(0))/10)+1);
 		distribution.add(rangeSize);
 		int[] valuesAmount= {0,0,0,0,0,0,0,0,0,0};
-		for(int i=0; i<dataArray.size(); i++)
-			valuesAmount[dataArray.get(i)/rangeSize]++;
+		for(int i=0; i<dataArray.size(); i++) {
+			valuesAmount[dataArray.get(i)%rangeSize]++;}
 		distribution.add(valuesAmount);
 		return distribution;
 	}
