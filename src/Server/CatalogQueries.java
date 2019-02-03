@@ -180,6 +180,59 @@ public class CatalogQueries {
 		return result;
 	}
 
+//	public static ServerData DeleteBookCopyInDB(String catalog, String copyToDelete) {
+//		String successMsg = "Book Copy Delete";
+//		String ErrorMsg = "This copy not exist";
+//		String LoanMsg = "This copy has loan cant be deleted";
+//		int NumberOfCopy;
+//		int AvailibaleCopy;
+//		
+//		String checkCopyNumber = "SELECT obl.bookcopy.CopyID,obl.bookcopy.CatalogNumber, FROM `obl`.`book` WHERE obl.book.CatalogNumber='"
+//				+ catalog + "AND  obl.book.CopyID='" + copyToDelete + "';" ;
+//		String checkLoan = "SELECT obl.bookcopy.CopyID,obl.bookcopy.CatalogNumber,obl.bookcopy.isLoaned, FROM `obl`.`book` WHERE obl.book.CatalogNumber='"
+//				+ catalog + "AND  obl.book.CopyID='" + copyToDelete + "AND  obl.book.isLoaned='" + '0' +"';" ;
+//
+//		ServerData result;
+//		Statement stmt;
+//		String checkCatalogNumber = "SELECT obl.book.CatalogNumber,obl.book.NumberOfCopies,obl.book.AvailableCopies FROM `obl`.`book` WHERE obl.book.CatalogNumber='"
+//				+ catalog + "';";
+//		try {
+//			stmt = con.createStatement();
+//			ResultSet copyNumberResultSet = stmt.executeQuery(checkCopyNumber);
+//			if(!copyNumberResultSet.next()) {
+//				result = new ServerData(operationsReturn.returnError, ErrorMsg);	
+//				return result;
+//			}
+//			copyNumberResultSet = stmt.executeQuery(checkLoan);
+//			if(!copyNumberResultSet.next()) {
+//				result = new ServerData(operationsReturn.returnError, LoanMsg);	
+//				return result;
+//			}
+//			
+////			NumberOfCopy = copyNumberResultSet.getInt(1);
+////			AvailibaleCopy = copyNumberResultSet.getInt(2);
+////			 PreparedStatement st = con.prepareStatement("UPDATE isArchived FROM obl.bookcopy WHERE CatalogNumber=?,CopyID=?;");
+////			st.setString(1,catalog);
+////			st.setInt(2,Integer.valueOf(copyToDelete));
+////		        st.executeUpdate(); 
+//
+//			PreparedStatement Pstmt = con.prepareStatement(
+//			"UPDATE obl.book SET NumberOfCopies=?,AvailableCopies=? WHERE CatalogNumber=?;");
+//			Pstmt.setInt(1,NumberOfCopy-1);
+//			Pstmt.setInt(2,AvailibaleCopy-1);
+//			Pstmt.setString(3,catalog);
+//			Pstmt.executeUpdate();
+//			Pstmt.closeOnCompletion();
+//			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg);
+//			//Update book(is archive -1 availibale -1 copies)+book copy(is archive)
+//		}
+//		catch (SQLException e) {
+//			result = new ServerData(operationsReturn.returnException, e);
+//			return result;
+//		}
+//		result = new ServerData(operationsReturn.returnError, ErrorMsg);	
+//		return result;
+//	}
 	/**
 	 * create string with book details for sql query
 	 * 

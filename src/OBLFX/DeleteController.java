@@ -132,12 +132,32 @@ public class DeleteController implements IGUIcontroller {
 		}
 	}
     /**
+     * ResetAction is a method that clear page
+    */
+    @FXML
+    void ResetAction(ActionEvent event) {
+    	Reset();
+    	
+    }
+    private void Reset() {
+	   	CatalogNumberTextField.setDisable(false);
+    	CatalogNumberTextField.setText("");
+    	BookNameTextField.setText("");
+    	AuthorTextField.setText("");
+    	SubjectTextField.setText("");
+    	DescripitionAreaField.setText("");
+    	CopiesTextField.setText("");
+    	AvailiableCopiesTextField.setText("");
+    	CopyNumberTextField.setText(""); 
+   }
+    /**
      * Update User with the result
     */ 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch(op) {
 		case returnBookArray:
+			CatalogNumberTextField.setDisable(true);
 			book = ((ArrayList<Book>) msg).get(0);
 			CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
 		    BookNameTextField.setText(book.getBookName());
@@ -147,10 +167,12 @@ public class DeleteController implements IGUIcontroller {
 			DescripitionAreaField.setText(book.getDescription());
 			break;
 		case returnError:
+			Reset();
 			RetriveMSGLabel.setStyle("-fx-text-fill: red;");
 			RetriveMSGLabel.setText((String) msg);
 			break;
 		case returnException:
+			Reset();
 			RetriveMSGLabel.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
 			break;
