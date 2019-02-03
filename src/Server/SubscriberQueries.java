@@ -64,7 +64,7 @@ public class SubscriberQueries {
 	}
 
 	public static String getSubscriberStatus(String subID) throws SQLException {
-		String loanString = String.format("Select Status from obl.Subscriber s where SubscriberID=%s", subID);
+		String loanString = String.format("Select Status from obl.Subscriber s where ID=%s", subID);
 		Statement st;
 		st = mysqlConnection.conn.createStatement();
 		ResultSet rs = st.executeQuery(loanString);
@@ -182,6 +182,16 @@ public class SubscriberQueries {
 		} catch (SQLException e) {
 			IAlert.ExceptionAlert(e);
 		}
+	}
+
+	public static String getSubscriberID(String subscriberID) throws SQLException {
+		String loanString = String.format("Select SubscriberID from obl.Subscriber s where ID=%s", subscriberID);
+		Statement st;
+		st = mysqlConnection.conn.createStatement();
+		ResultSet rs = st.executeQuery(loanString);
+		if (rs.next())
+			return rs.getString("SubscriberID");
+		return "";
 	}
 
 }

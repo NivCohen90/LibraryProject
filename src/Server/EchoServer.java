@@ -355,15 +355,16 @@ public class EchoServer extends AbstractServer {
 			ArrayList<Object> newLoan = ((ServerData) msg).getDataMsg();
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(((Loan) newLoan.get(0)).getSubscriberID());
+				String subIDloan = SubscriberQueries.getSubscriberID(((Loan) newLoan.get(0)).getSubscriberID());
+				((Loan) newLoan.get(0)).setSubscriberID(subIDloan);
 				if (subStatus.equals("Active")) {
-					LoanQueries.createNewLoan((Loan) newLoan.get(0));
-					msgToClient = new ServerData(operationsReturn.returnSuccessMsg);
+					msgToClient = LoanQueries.createNewLoan((Loan) newLoan.get(0));
 				} else
-					msgToClient = new ServerData(operationsReturn.returnError);
+					msgToClient = new ServerData(operationsReturn.returnError, "Subscriber Status not Active");
 			} catch (SQLException e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
-				msgToClient = new ServerData(operationsReturn.returnException);
+				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
 			try {
 				client.sendToClient(msgToClient);
@@ -463,8 +464,9 @@ public class EchoServer extends AbstractServer {
 			ArrayList<Object> data = ((ServerData) msg).getDataMsg();
 			boolean answer = BookQueries.isDemanded((String) data.get(1));
 			LocalDate returnDate = LoanQueries.calcNewReturnDate((LocalDate) data.get(0), answer);
+			ServerData dateData = new ServerData(operationsReturn.returnDate, returnDate);
 			try {
-				client.sendToClient(returnDate);
+				client.sendToClient(dateData);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();

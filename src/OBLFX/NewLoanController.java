@@ -3,6 +3,7 @@ package OBLFX;
 import java.time.LocalDate;
 
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 /**
  * NewLoanController controls NewloanFXML
@@ -53,6 +55,9 @@ public class NewLoanController implements IGUIcontroller {
 
 	@FXML
 	private Label RetriveMSG;
+	
+    @FXML
+    private TextField CopuNumberTextField;
 
 	/**
 	 * CheckCatalog is a method that check if the user put input.,if he didn't gave
@@ -64,8 +69,8 @@ public class NewLoanController implements IGUIcontroller {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel))
 			if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
 					UserNameErrorNumebrs)) {
-				StartDateDatePicker.setDisable(false);
-				StartDateDatePicker.setStyle("-fx-opacity:0.1;");
+				//StartDateDatePicker.setDisable(false);
+				//StartDateDatePicker.setStyle("-fx-opacity:0.5;");
 			} else {
 				StartDateDatePicker.setDisable(true);
 				StartDateDatePicker.setStyle("-fx-opacity:0.5;");
@@ -95,33 +100,41 @@ public class NewLoanController implements IGUIcontroller {
 		} else {
 			StartDateLabel.setText(ChooseDate);
 		}
-		if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), ReturnDateDatePicker.getValue(),
+		/*if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), ReturnDateDatePicker.getValue(),
 				ReturnDateLabel)) {
 			counter++;
 		} else {
 			ReturnDateLabel.setText(ChooseDate);
-		}
-		if (counter == 4) {
-			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
-					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
-					java.sql.Date.valueOf(StartDateDatePicker.getValue()));
+		}*/
+		if (counter == 3) {
+			librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
 		}
 
 	}
-
+	
+	
 	/**
 	 * CheckStartDate is a method that check if the user choose a date an notice it
 	 * by a flag
 	 */
 	@FXML
 	void CheckStartDate(ActionEvent event) {
-		if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), StartDateDatePicker.getValue(),
+		/*if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), StartDateDatePicker.getValue(),
 				StartDateLabel)) {
 			StartFlag = true;
 			librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
-		}
+		}*/
 	}
+	
 
+	@FXML
+	public void initialize() {
+			StartDateDatePicker.setValue(java.time.LocalDate.now());
+			StartFlag = true;
+			//librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
+	}
+	
+	
 	/**
 	 * CheckSubscriberID is a method that check if the user put input and if he put
 	 * input that is length is exactly 9.,if he didn't gave input the method will
@@ -141,20 +154,25 @@ public class NewLoanController implements IGUIcontroller {
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 
 		switch (op) {
-		case returnReturnDate:
+		case returnDate:
 			ReturnDateDatePicker.setValue((LocalDate) msg);
+			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
+					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
+					java.sql.Date.valueOf(StartDateDatePicker.getValue()), CopuNumberTextField.getText());
 			break;
 
 		case returnSuccessMsg:
 			RetriveMSG.setText("New loan was added");
+			RetriveMSG.setTextFill(Color.GREEN);
 			break;
 
 		case returnError:
-			RetriveMSG.setText("Subscriber status isn't 'Active'");
+			RetriveMSG.setText((String) msg);
+			RetriveMSG.setTextFill(Color.RED);
 			break;
 
 		case returnException:
-			System.out.println(msg);
+			IAlert.ExceptionAlert((Exception) msg);
 			break;
 		}
 	}
