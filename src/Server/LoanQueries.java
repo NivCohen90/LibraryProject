@@ -86,7 +86,9 @@ public class LoanQueries {
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
-			return rs.getInt(0);
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -122,13 +124,17 @@ public class LoanQueries {
 	}
 
 	public static int totalBookLoansAmount(String catalogNumber) {
-		sqlQuery = String.format("SELECT count(LoanID) as loanCount FROM obl.loan where BookCatalogNumber= '%s';",
+		sqlQuery = String.format("SELECT count(LoanID) as loanCount FROM obl.loan where BookCatalogNumber= %s;",
 				catalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
-			return rs.getInt(0);
-		} catch (SQLException e) {
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
@@ -175,6 +181,7 @@ public class LoanQueries {
 			ResultSet rs = st.executeQuery(sqlQuery);
 			while (rs.next())
 				books.add(rs.getString("BookCatalogNumber"));
+			return books;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -182,11 +189,13 @@ public class LoanQueries {
 	}
 
 	public static int specificBookLateLoansAmount(String catalogNumber) {
-		sqlQuery=String.format("SELECT count(LoanID) FROM obl.loan WHERE BookCatalogNumber='%s'", catalogNumber);
+		sqlQuery = String.format("SELECT count(LoanID) FROM obl.loan WHERE BookCatalogNumber=%s And LoanStatus='Late'",
+				catalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
-				return rs.getInt(0);
+			if(rs.next()) {
+			return rs.getInt(1);}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -194,20 +203,23 @@ public class LoanQueries {
 	}
 
 	public static int numberOfBooksWithLateLoans() {
-		sqlQuery= "SELECT COUNT(DISTINCT(BookCatalogNumber)) FROM obl.loan WHERE LoanStatus='Late';";
+		sqlQuery = "SELECT COUNT(DISTINCT(BookCatalogNumber)) FROM obl.loan WHERE LoanStatus='Late';";
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
-			return rs.getInt(0);
+			if(rs.next()) {
+			return rs.getInt(1);}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 
-	public static ArrayList<Integer> specificBookLateLoansDuration(String bookCatalogNumber){
+	public static ArrayList<Integer> specificBookLateLoansDuration(String bookCatalogNumber) {
 		ArrayList<Integer> lateReturnsDuration = new ArrayList<Integer>();
-		sqlQuery = String.format("SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late' AND BookCatalogNumber='%s';", bookCatalogNumber);
+		sqlQuery = String.format(
+				"SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late' AND BookCatalogNumber='%s';",
+				bookCatalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
@@ -216,17 +228,18 @@ public class LoanQueries {
 				LocalDate eDate = rs.getDate("ReturnDate").toLocalDate();
 				Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
 				lateReturnsDuration.add((int) diff.toDays());
+				return lateReturnsDuration;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return lateReturnsDuration;
 	}
-	
-	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend, String librarianID) throws SQLException {
+
+	public static void updateLoanReturnDateManualy(String subIDExtend, String loanIDExtend, Date dateExtend,
+			String librarianID) throws SQLException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		sqlQuery = String.format(
-				"UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
+		sqlQuery = String.format("UPDATE obl.loan SET ReturnDate= '%s'  WHERE LoanID=%s AND SubscriberID= %s",
 				dateFormat.format(dateExtend), loanIDExtend, subIDExtend);
 		String queryManual = String.format(
 				"INSERT INTO `obl`.`manualupdateloan` (`LibrarianID`,`LoanID`,`ReturnDate`) VALUES('%s','%s','%s');",

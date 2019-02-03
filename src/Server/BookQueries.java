@@ -226,7 +226,8 @@ public class BookQueries {
 		try {
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(sqlQuery);
-				return rs.getString("BookName");
+			if(rs.next()) {
+				return rs.getString("BookName");}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.lateReturnReportDisplayController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -18,26 +18,20 @@
                </font>
             </Label>
             <Text layoutX="67.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage:" />
-            <TextField fx:id="GeneralAmountAVG" layoutX="138.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
-            <TextField fx:id="GeneralAmountDistribution" layoutX="138.0" layoutY="177.0" prefHeight="26.0" prefWidth="74.0" />
-            <TextField fx:id="GeneralAmountMedian" layoutX="138.0" layoutY="208.0" prefHeight="26.0" prefWidth="74.0" />
-            <Text layoutX="357.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage:" />
-            <TextField fx:id="GeneralDurationAVG" layoutX="427.0" layoutY="144.0" prefHeight="26.0" prefWidth="74.0" />
-            <TextField fx:id="GeneralDurationDistribution" layoutX="427.0" layoutY="176.0" prefHeight="26.0" prefWidth="74.0" />
-            <TextField fx:id="GeneralDurationMedian" layoutX="427.0" layoutY="208.0" prefHeight="26.0" prefWidth="74.0" />
-            <Text layoutX="357.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution:" />
-            <Text layoutX="357.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median:" />
-            <Text layoutX="67.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution:" />
-            <Text layoutX="67.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median:" />
-            <TableView fx:id="BookData" layoutX="15.0" layoutY="344.0" prefHeight="200.0" prefWidth="766.0">
+            <TextField fx:id="GeneralAmountAVG" editable="false" layoutX="120.0" layoutY="144.0" prefHeight="26.0" prefWidth="74.0" />
+            <TextField fx:id="GeneralAmountMedian" editable="false" layoutX="120.0" layoutY="175.0" prefHeight="26.0" prefWidth="74.0" />
+            <Text layoutX="458.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage:" />
+            <TextField fx:id="GeneralDurationAVG" editable="false" layoutX="506.0" layoutY="144.0" prefHeight="26.0" prefWidth="74.0" />
+            <TextField fx:id="GeneralDurationMedian" editable="false" layoutX="507.0" layoutY="175.0" prefHeight="26.0" prefWidth="74.0" />
+            <Text layoutX="458.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median:" />
+            <Text layoutX="65.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median:" />
+            <TableView fx:id="BookData" layoutX="43.0" layoutY="344.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
-                <TableColumn fx:id="BookName" editable="false" prefWidth="79.20001220703125" text="Book Name" />
-                <TableColumn fx:id="BookAmountAVG" editable="false" prefWidth="108.79998779296875" text="Amount Avarage" />
-                  <TableColumn fx:id="BookAmountDistribution" editable="false" prefWidth="124.79998779296875" text="Amount Distribution" />
-                  <TableColumn fx:id="BookAmountMedian" editable="false" prefWidth="103.199951171875" text="Amount Median" />
-                  <TableColumn fx:id="BookDurationAVG" editable="false" prefWidth="110.4000244140625" text="Duration Avarage" />
-                  <TableColumn fx:id="BookDurationDistribution" editable="false" prefWidth="127.20001220703125" text="Duration Distribution" />
-                  <TableColumn fx:id="BookDurationMedian" editable="false" prefWidth="116.0" text="Duration Median" />
+                <TableColumn fx:id="BookName" editable="false" prefWidth="160.79998779296875" text="Book Name" />
+                <TableColumn fx:id="BookAmountAVG" editable="false" prefWidth="147.20001220703125" text="Amount Avarage" />
+                  <TableColumn fx:id="BookAmountMedian" editable="false" prefWidth="122.39996337890625" text="Amount Median" />
+                  <TableColumn fx:id="BookDurationAVG" editable="false" prefWidth="123.99993896484375" text="Duration Avarage" />
+                  <TableColumn fx:id="BookDurationMedian" editable="false" prefWidth="133.60009765625" text="Duration Median" />
               </columns>
             </TableView>
             <Label layoutX="43.0" layoutY="300.0" text="Books Statistics:">
@@ -45,14 +39,14 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
+            <Label layoutX="445.0" layoutY="118.0" text="General Late returns Duration:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Label layoutX="53.0" layoutY="116.0" text="General Late Returns Amount:">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="343.0" layoutY="116.0" text="General Late returns Duration:">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

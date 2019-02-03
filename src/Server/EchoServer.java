@@ -25,6 +25,7 @@ import SystemObjects.ReportData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
+import SystemObjects.LateReturnReportData;
 import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Loan;
 import Users.Subscriber;
@@ -70,7 +71,7 @@ public class EchoServer extends AbstractServer {
 	 *
 	 * @param msg    The message received from the client.
 	 * @param client The connection from which the message originated.
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		ServerController.updateLog("Request from:\n" + client.getInetAddress().getHostName() + "\nCommand: "
@@ -141,7 +142,8 @@ public class EchoServer extends AbstractServer {
 			break;
 		case updateSubscriberDetails:
 			try {
-				ServerData result = SubscriberQueries.UpdateSubscriberInformation((((Subscriber) ((ServerData) msg).getDataMsg().get(0))));
+				ServerData result = SubscriberQueries
+						.UpdateSubscriberInformation((((Subscriber) ((ServerData) msg).getDataMsg().get(0))));
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -150,7 +152,7 @@ public class EchoServer extends AbstractServer {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
 			}
-			
+
 			break;
 		case orderBook:
 			try {
@@ -173,16 +175,18 @@ public class EchoServer extends AbstractServer {
 					if (!BookQueries.checkOrdersForBook(loanID)) {
 						if (!BookQueries.isDemandedByLoanID(loanID)) {
 							LoanQueries.updateLoanReturnDate(subID, loanID);
-							
+
 							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subID);
 							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
-							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
-							
+							// msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension
+							// was Approved");
+
 						} else
 							msgToClient = new ServerData(operationsReturn.returnError,
 									"Book is demanded. Extension was declined");
-					}
-					else msgToClient = new ServerData(operationsReturn.returnError, "This book has been ordered. Extension was declined");
+					} else
+						msgToClient = new ServerData(operationsReturn.returnError,
+								"This book has been ordered. Extension was declined");
 				} else
 					msgToClient = new ServerData(operationsReturn.returnError,
 							"Subscriber status isn't 'Active'. Extension was declined");
@@ -197,7 +201,7 @@ public class EchoServer extends AbstractServer {
 				IAlert.ExceptionAlert(e2);
 				e2.printStackTrace();
 			}
-			
+
 			break;
 
 		case viewActiveLoans:
@@ -215,16 +219,18 @@ public class EchoServer extends AbstractServer {
 					if (!BookQueries.checkOrdersForBook(loanIDExtend)) {
 						if (!BookQueries.isDemandedByLoanID(loanIDExtend)) {
 							LoanQueries.updateLoanReturnDateManualy(subIDExtend, loanIDExtend, dateExtend, libIDExtend);
-							
+
 							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subIDExtend);
 							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
-							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
-						 	
+							// msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension
+							// was Approved");
+
 						} else
 							msgToClient = new ServerData(operationsReturn.returnError,
 									"Book is demanded. Extension was declined");
-					}
-					else msgToClient = new ServerData(operationsReturn.returnError, "This book has been ordered. Extension was declined");
+					} else
+						msgToClient = new ServerData(operationsReturn.returnError,
+								"This book has been ordered. Extension was declined");
 				} else
 					msgToClient = new ServerData(operationsReturn.returnError,
 							"Subscriber status isn't 'Active'. Extension was declined");
@@ -239,23 +245,23 @@ public class EchoServer extends AbstractServer {
 				IAlert.ExceptionAlert(e2);
 				e2.printStackTrace();
 			}
-			
+
 			break;
 		case returnBook:
-			ArrayList<Object> arr =  ((ServerData) msg).getDataMsg();
+			ArrayList<Object> arr = ((ServerData) msg).getDataMsg();
 			String catalog = (String) arr.get(0);
 			String subscriberID = (String) arr.get(1);
-			//LocalDate returnDate = (LocalDate) arr.get(2);
-			
+			// LocalDate returnDate = (LocalDate) arr.get(2);
+
 			msgToClient = BookQueries.returnBook(subscriberID, catalog);
-			
+
 			try {
 				client.sendToClient(msgToClient);
 			} catch (IOException e2) {
 				IAlert.ExceptionAlert(e2);
 				e2.printStackTrace();
 			}
-			
+
 			break;
 
 		case watchReadersCard:
@@ -278,7 +284,7 @@ public class EchoServer extends AbstractServer {
 				s.executeUpdate(subscriberSQL);
 				msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "");
 			} catch (SQLException e) {
-				SQLException  ex = new SQLException("Failed to create New Subscriber with ID: " + sub.getID()); 
+				SQLException ex = new SQLException("Failed to create New Subscriber with ID: " + sub.getID());
 				msgToClient = new ServerData(operationsReturn.returnException, ex);
 			}
 			try {
@@ -297,9 +303,12 @@ public class EchoServer extends AbstractServer {
 		case createLoansReport:
 
 			try {
-				ReportData demandedBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL(), reportReference.Demanded);
-				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL(), reportReference.Regular);
-				msgToClient = new ServerData(operationsReturn.returnLoanReportData, regularBooksStat,demandedBooksStat );
+				ReportData demandedBooksStat = ReportQueries
+						.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL(), reportReference.Demanded);
+				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL(),
+						reportReference.Regular);
+				msgToClient = new ServerData(operationsReturn.returnLoanReportData, regularBooksStat,
+						demandedBooksStat);
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
@@ -309,16 +318,25 @@ public class EchoServer extends AbstractServer {
 				e1.printStackTrace();
 			}
 			break;
-			
+
 		case createLateReturnsReport:
-			ArrayList<LateReturnsReportBookData> booksData=ReportQueries.allBooksLateReturnData();
-			ReportData generalBooksCount= ReportQueries.generalAmountLateReturnsReportStat(reportReference.GeneralLatesAmount);
-			ReportData generalBooksDuration= ReportQueries.generalDurationLateReturnsReportStat(reportReference.GeneralLatesDuration);
-			msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, generalBooksCount, generalBooksDuration, booksData);
+
 			try {
+				ArrayList<LateReturnsReportBookData> booksData = ReportQueries.allBooksLateReturnData();
+				ReportData generalBooksCount = ReportQueries
+						.generalAmountLateReturnsReportStat(reportReference.GeneralLatesAmount);
+				ReportData generalBooksDuration = ReportQueries
+						.generalDurationLateReturnsReportStat(reportReference.GeneralLatesDuration);
+				LateReturnReportData Data = null;
+				Data.setBookData(booksData);
+				Data.setGeneralAmount(generalBooksCount);
+				Data.setGeneralDuration(generalBooksDuration);
+				System.out.println("I'm not null");
+				msgToClient = new ServerData(operationsReturn.returnLateReturnsReportData, Data);
 				client.sendToClient(msgToClient);
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
 			}
 			break;
 		case AddBook:
@@ -334,7 +352,7 @@ public class EchoServer extends AbstractServer {
 		case AddBookCopy:
 			try {
 				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();
-				msgToClient = CatalogQueries.addBookCopyToDB((String)(getBook.get(0)),(String)(getBook.get(1)));
+				msgToClient = CatalogQueries.addBookCopyToDB((String) (getBook.get(0)), (String) (getBook.get(1)));
 				client.sendToClient(msgToClient);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
@@ -400,7 +418,8 @@ public class EchoServer extends AbstractServer {
 			break;
 		case searchBySubscriberName:
 			try {
-				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.SubscriberbyName);
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))),
+						searchtype.SubscriberbyName);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);

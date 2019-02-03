@@ -1,7 +1,9 @@
 package OBLFX;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import Client.LibraryManagerHandler;
@@ -74,69 +76,105 @@ public class CreatesReportController implements IGUIcontroller {
 	void createReport(ActionEvent event) {
 
 		LocalDate currentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+		Stage primaryStage = new Stage();
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		AnchorPane root = null;
+		Scene scene = null;
+		
 		if (ActivityReport.isSelected()) {
-			LocalDate sDate = startDateCombo.getValue();
-			LocalDate eDate = EndDateCombo.getValue();
+			ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
 
-			commonClient.createReport(sDate, eDate, GeneralData.operations.createActivityReport);
+			dates.add(startDateCombo.getValue());
+			dates.add(EndDateCombo.getValue());
+			try {
+				root = (AnchorPane) fxmlLoader
+						.load(getClass().getResource("../FXML/ActivityReportDisplay.fxml").openStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			scene = new Scene(root);
+			activityReportDisplayController Controller = (activityReportDisplayController) fxmlLoader
+					.getController();
+			Controller.DataToDisplay(dates);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+//			commonClient.createReport(sDate, eDate, GeneralData.operations.createActivityReport);
 		}
 
 		else if (loansReport.isSelected())
 			commonClient.createReport(currentDate, null, GeneralData.operations.createLoansReport);
 
-		else if (lateReturnReport.isSelected())
-			commonClient.createReport(currentDate, null, GeneralData.operations.createLateReturnsReport);
-
-	}
+		
+		else if (lateReturnReport.isSelected()) {
+			try {
+				root = (AnchorPane) fxmlLoader
+						.load(getClass().getResource("../FXML/LateReturnReportDisplay.fxml").openStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			scene = new Scene(root);
+			lateReturnReportDisplayController Controller = (lateReturnReportDisplayController) fxmlLoader
+					.getController();
+			Controller.setReportDataToDisplay(null);
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.show();
+	}}
 
 	private void openResultDetails(Object reportData, operationsReturn reportType) {
-		Stage primaryStage = new Stage();
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		AnchorPane root = null;
-		Scene scene = null;
 		try {
-
+			Stage primaryStage = new Stage();
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			AnchorPane root = null;
+			Scene scene = null;
+			System.out.println(reportType);
 			switch (reportType) {
 
 			case returnLoanReportData: {
 				root = (AnchorPane) fxmlLoader
-						.load(getClass().getResource("../FXML/LoanReportDiaplay.fxml").openStream());
+						.load(getClass().getResource("../FXML/LoanReportDisplay.fxml").openStream());
 				scene = new Scene(root);
-
-				primaryStage.setScene(scene);
-				primaryStage.setResizable(false);
-				primaryStage.show();
-				break;
-				}
-			case returnLateReturnsReportData: {
-				root = (AnchorPane) fxmlLoader
-						.load(getClass().getResource("../FXML/LateReturnReportDiaplay.fxml").openStream());
-				scene = new Scene(root);
-
+				loanReportDisplayController Controller = (loanReportDisplayController) fxmlLoader.getController();
+				Controller.setReportDataToDisplay((ArrayList<Object>) reportData);
 				primaryStage.setScene(scene);
 				primaryStage.setResizable(false);
 				primaryStage.show();
 				break;
 			}
-			case returnActivityReportData: {
-				root = (AnchorPane) fxmlLoader
-						.load(getClass().getResource("../FXML/ActivityReportDiaplay.fxml").openStream());
-				scene = new Scene(root);
-
-				primaryStage.setScene(scene);
-				primaryStage.setResizable(false);
-				primaryStage.show();
-				break;
-			}
+//			case returnLateReturnsReportData: {
+//				System.out.println("I'm here you mother fucker!");
+//				root = (AnchorPane) fxmlLoader
+//						.load(getClass().getResource("../FXML/LateReturnReportDisplay.fxml").openStream());
+//				scene = new Scene(root);
+//				lateReturnReportDisplayController Controller = (lateReturnReportDisplayController) fxmlLoader
+//						.getController();
+//				Controller.setReportDataToDisplay((ArrayList<Object>) reportData);
+//				primaryStage.setScene(scene);
+//				primaryStage.setResizable(false);
+//				primaryStage.show();
+//				break;
+//			}
+//			case returnActivityReportData: {
+//				root = (AnchorPane) fxmlLoader
+//						.load(getClass().getResource("../FXML/ActivityReportDisplay.fxml").openStream());
+//				scene = new Scene(root);
+//				activityReportDisplayController Controller = (activityReportDisplayController) fxmlLoader
+//						.getController();
+//				Controller.DataToDisplay((ArrayList<Object>) reportData);
+//				primaryStage.setScene(scene);
+//				primaryStage.setResizable(false);
+//				primaryStage.show();
+//				break;
+//			}
 			default:
 				break;
 			}
-			ReportDisplayController Controller = new ReportDisplayController();
-			Controller.setReportDataToDisplay((ArrayList<Object>)reportData, reportType);
-			
+
 		}
-		
+
 		catch (Exception e) {
 			Interfaces.IAlert.ExceptionAlert(e);
 			e.printStackTrace();
@@ -156,7 +194,8 @@ public class CreatesReportController implements IGUIcontroller {
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		System.out.println(op);
 		openResultDetails(msg, op);
-		
+
 	}
 }

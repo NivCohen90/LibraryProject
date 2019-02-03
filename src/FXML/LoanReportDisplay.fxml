@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.loanReportDisplayController">
+   <children>
+      <Text layoutX="57.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage Loan Duration:" />
+      <Label layoutX="43.0" layoutY="106.0" text="Demended Books:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="ReportTypeLable" layoutX="43.0" layoutY="33.0" text="Loans Report:">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Text layoutX="57.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median Loan Duration:" />
+      <Text layoutX="347.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avarage Loan Duration:" />
+      <Text layoutX="347.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Median Loan Duration:" />
+      <Label layoutX="333.0" layoutY="106.0" text="Regular Books:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="DemendedAVG" editable="false" layoutX="188.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="DemendedMedian" editable="false" layoutX="188.0" layoutY="184.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="RegularAVG" editable="false" layoutX="478.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="RegularMedian" editable="false" layoutX="478.0" layoutY="184.0" prefHeight="26.0" prefWidth="74.0" />
+      <BarChart fx:id="histogramChart" layoutX="14.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
+        <xAxis>
+          <CategoryAxis fx:id="chartRange" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="chartNumberOfValues" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <BarChart fx:id="histogramChart1" layoutX="400.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
+         <xAxis>
+            <CategoryAxis fx:id="chartRange1" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="chartNumberOfValues1" side="LEFT" />
+         </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

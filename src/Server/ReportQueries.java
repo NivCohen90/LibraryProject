@@ -21,8 +21,9 @@ public class ReportQueries {
 	public static ArrayList<LateReturnsReportBookData> allBooksLateReturnData(){
 		ArrayList<String> booksWithLoans=LoanQueries.booksWithLoans();
 		ArrayList<LateReturnsReportBookData> booksData= new ArrayList<LateReturnsReportBookData>();
-		for(int i=0;i<LoanQueries.numberOfBooksWithLateLoans();i++) 
-			booksData.add(specificBookLateReturnReportData(booksWithLoans.get(i)));
+		//for(int i=0;i<LoanQueries.numberOfBooksWithLateLoans();i++) 
+		for(int i=0;i<booksWithLoans.size();i++) 
+		booksData.add(specificBookLateReturnReportData(booksWithLoans.get(i)));
 		return booksData;
 	}
 	
@@ -35,8 +36,11 @@ public class ReportQueries {
 	public static ReportData bookAmountLateReturnReportStat(String bookCatalogNumber) {
 		int latesAmount= LoanQueries.specificBookLateLoansAmount(bookCatalogNumber);
 		int loansAmount=LoanQueries.totalBookLoansAmount(bookCatalogNumber);
+		ArrayList<Object> distribution= null;
 		
-		return new ReportData(latesAmount/loansAmount, 0, new ArrayList<Object>(), reportReference.BookLatesAmount);
+		if(latesAmount==0||loansAmount==0)
+			return new ReportData(0, 0, distribution, reportReference.BookLatesAmount);
+		return new ReportData(latesAmount/loansAmount, 0, distribution, reportReference.BookLatesAmount);
 	}
 	
 	public static ReportData bookDurationLateReturnReportStat(String bookCatalogNumber) {

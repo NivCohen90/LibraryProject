@@ -18,6 +18,7 @@ import javafx.scene.control.TextArea;
 import ocsf.client.AbstractClient;
 import Users.Librarian;
 import SystemObjects.GeneralData.operationsReturn;
+import SystemObjects.LateReturnReportData;
 
 /**
  * interface class for clients, has method to parse massage from server to objects
@@ -184,7 +185,8 @@ public abstract class IHandler extends AbstractClient {
 					break;
 				}
 				case returnLateReturnsReportData:{
-					currentControllerGUIobj.receiveMassageFromServer(serverMsg.getDataMsg(), serverMsg.getOperationReturn());
+					ArrayList<LateReturnReportData> reporLatetList = convertArrayMsgFromServer(arrayMsg, LateReturnReportData.class);
+					currentControllerGUIobj.receiveMassageFromServer(reporLatetList, serverMsg.getOperationReturn());
 					break;
 				}
 				
