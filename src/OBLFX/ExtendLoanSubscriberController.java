@@ -111,7 +111,7 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 		if(GeneralData.userLibrarian != null)
 		{
 			Date returnExtend = Date.from(dateReturn.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()); 
-			librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend);
+			librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend, GeneralData.userLibrarian.getID());
 		}
 	}
 	

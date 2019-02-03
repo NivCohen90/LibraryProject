@@ -205,12 +205,13 @@ public class EchoServer extends AbstractServer {
 			String loanIDExtend = ((ServerData) msg).getDataMsg().get(1).toString();
 			String subIDExtend = ((ServerData) msg).getDataMsg().get(0).toString();
 			Date dateExtend = (Date) ((ServerData) msg).getDataMsg().get(2);
+			String libIDExtend = ((ServerData) msg).getDataMsg().get(3).toString();
 			try {
 				String subStatus = SubscriberQueries.getSubscriberStatus(subIDExtend);
 				if (subStatus.equals("Active")) {
 					if (!BookQueries.checkOrdersForBook(loanIDExtend)) {
 						if (!BookQueries.isDemandedByLoanID(loanIDExtend)) {
-							LoanQueries.updateLoanReturnDateManualy(subIDExtend, loanIDExtend, dateExtend);
+							LoanQueries.updateLoanReturnDateManualy(subIDExtend, loanIDExtend, dateExtend, libIDExtend);
 							
 							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subIDExtend);
 							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);

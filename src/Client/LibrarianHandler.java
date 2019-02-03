@@ -58,11 +58,12 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
-	public void extendLoanByLibrarian(String subID,String loanID, Date newReturnDate) {
+	public void extendLoanByLibrarian(String subID,String loanID, Date newReturnDate, String librarianID) {
 		ArrayList<Object> List = new ArrayList<Object>();
     	List.add(subID);
     	List.add(loanID);
     	List.add(newReturnDate);
+    	List.add(librarianID);
 		ServerData loginInfo = new ServerData(List, GeneralData.operations.updateReturnDateManualy);
 		try
 		{
