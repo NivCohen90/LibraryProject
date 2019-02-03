@@ -1,7 +1,10 @@
 package OBLFX;
 
+import java.util.ArrayList;
+
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -64,6 +67,9 @@ public class DeleteController implements IGUIcontroller {
 
 	@FXML
 	private Label CopyNumberLabel;
+	
+    @FXML
+    private Label RetriveMSGLabel;
     /**
      * CheckCatalogNumber is a method that check if the user put input.,if he didn't gave input the method will alert the user.
      * this method also check that all this field only contains this letters[0-9].
@@ -93,20 +99,22 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void DeleteAction(ActionEvent event) {
-		if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
-				UserNameErrorNumebrs)
-				&& IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)) {
-			if (IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CatalogNumberLabel, OnlyNumbers,
+		CopyNumberLabel.setText("");
+		if ( IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel)
+				&& IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,UserNameErrorNumebrs))
+				  {
+			if (IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CatalogNumberLabel) && IGUIcontroller.CheckOnlyLetter(CopyNumberTextField, CatalogNumberLabel, OnlyNumbers,
 					UserNameErrorNumebrs)
-					&& IGUIcontroller.CheckIfUserPutInput(CopyNumberTextField, CatalogNumberLabel)) {
-				if (book.getNumberOfLibraryCopies() <= Integer.parseInt(CopyNumberTextField.getText())) {
-
-				} else {
+					 ) {
+				if (book.getNumberOfLibraryCopies() < Integer.parseInt(CopyNumberTextField.getText())) {
 					CopyNumberLabel.setText("No such copy");
+				}
+				else {
+					librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),GeneralData.userLibrarian);
 				}
 			}
 
-			librarianClient.removeBookFromCatalog(catalogNumberSearch, CopyNumberTextField.getText(),GeneralData.userLibrarian);
+			
 		}
 	}
     /**
@@ -114,6 +122,7 @@ public class DeleteController implements IGUIcontroller {
     */
 	@FXML
 	void GetBookDetailsAction(ActionEvent event) {
+		RetriveMSGLabel.setText("");
 		CopyNumberLabel.setText("");
 		if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
 				UserNameErrorNumebrs)
@@ -128,21 +137,27 @@ public class DeleteController implements IGUIcontroller {
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch(op) {
-		case returnBook:
-			CopyNumberLabel.setText((String) msg);
+		case returnBookArray:
+			book = ((ArrayList<Book>) msg).get(0);
+			CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
 		    BookNameTextField.setText(book.getBookName());
 			AuthorTextField.setText(book.getAuthorName());
 			SubjectTextField.setText(book.getSubject());
-			CopiesTextField.setText(Integer.toString(book.getNumberOfLibraryCopies()));
 			AvailiableCopiesTextField.setText(Integer.toString(book.getAvailableCopies()));
 			DescripitionAreaField.setText(book.getDescription());
 			break;
 		case returnError:
-			
+			RetriveMSGLabel.setStyle("-fx-text-fill: red;");
+			RetriveMSGLabel.setText((String) msg);
 			break;
-			
+		case returnException:
+			RetriveMSGLabel.setText(((Exception) msg).getMessage());
+			IAlert.ExceptionAlert((Exception) msg);
+			break;
+
 		case returnSuccessMsg:
-			CopyNumberLabel.setText("Delete succses");
+			RetriveMSGLabel.setStyle("-fx-text-fill: green;");
+			RetriveMSGLabel.setText((String) msg);
 			break;
 		default:
 			break;
@@ -154,6 +169,7 @@ public class DeleteController implements IGUIcontroller {
 	@Override
 	public void setConnection() {
 		librarianClient = new LibrarianHandler(this);
+		commonClient = new CommonHandler(this);
 
 	}
 

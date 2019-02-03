@@ -18,11 +18,11 @@ public interface IGUIcontroller {
 	final static String UserNameErrorNumebrs = "Only numbers allowed.";
 	final static String UserNameErrorDigits = "ID contains 9 digits.";
 	final static String OnlyNumbers = "^[0-9]*$";
-	final static String OnlyLetters = "^[a-zA-Z]*$";
+	final static String OnlyLetters = "^[a-zA-Z' ']*$";
 	final static String OnlyLetterError = "Only Letters allowed";
 	final static String OnlyThisLetterError = "Only Letters(a-Z) and (,.) allowed";
 	final static String fillThisArea = " Fill this Area";
-	final static String OnlyThisLetters = "^[a-zA-Z,.]*$";
+	final static String OnlyThisLetters = "^[a-zA-Z,.' ']*$";
 	final static String ChooseDate = "Select a future Date";
 	public static CommonHandler commonClient = null;
 	

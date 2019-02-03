@@ -17,6 +17,8 @@
       </Label>
       <Group layoutX="14.0" layoutY="-44.0">
          <children>
+            <TextField fx:id="CatalogTextField" layoutX="105.0" layoutY="88.0" onKeyTyped="#CheckCatalogNumber" promptText="Fill Catalog Number" />
+            <Button fx:id="GetBookDetailsBTN" layoutX="265.0" layoutY="88.0" mnemonicParsing="false" onAction="#GetBookDetailsAction" text="Get Book Details" />
             <Label layoutY="120.0" text="Book Name :" />
             <TextField fx:id="BookNameTextField" editable="false" layoutX="105.0" layoutY="116.0" onKeyTyped="#FlagBookName" prefHeight="25.0" prefWidth="460.0" promptText="Fill Book Name" />
             <Label layoutY="151.0" text="Author :" />
@@ -30,9 +32,7 @@
             <TextField fx:id="EditionNumberTextField" editable="false" layoutX="416.0" layoutY="208.0" onKeyTyped="#CheckEditionNumber" promptText="Fill Edition" />
             <TextArea fx:id="DescriptionTextField" editable="false" layoutY="258.0" prefHeight="139.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
             <Label layoutY="92.0" text="Catalog Number:" />
-            <TextField fx:id="CatalogTextField" layoutX="105.0" layoutY="88.0" onKeyTyped="#CheckCatalogNumber" promptText="Fill Catalog Number" />
-            <Button fx:id="GetBookDetailsBTN" layoutX="265.0" layoutY="88.0" mnemonicParsing="false" onAction="#GetBookDetailsAction" text="Get Book Details" />
-            <Label fx:id="CatalogNumberLabel" layoutX="369.0" layoutY="90.0" prefHeight="25.0" prefWidth="124.0" textFill="RED" />
+            <Label fx:id="CatalogNumberLabel" layoutX="369.0" layoutY="90.0" prefHeight="25.0" prefWidth="158.0" text="Enter catalog number first" textFill="RED" />
             <Label fx:id="PlaceOnShelfLabel" layoutX="222.0" layoutY="208.0" prefHeight="25.0" prefWidth="78.0" textFill="RED" />
             <Label fx:id="BookNameLabel" layoutX="570.0" layoutY="116.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
             <Label fx:id="AuthorLabel" layoutX="570.0" layoutY="145.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />

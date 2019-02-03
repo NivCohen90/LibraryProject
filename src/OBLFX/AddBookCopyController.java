@@ -102,7 +102,6 @@ public class AddBookCopyController implements IGUIcontroller {
 	void NumberOfaddedCopiesCheck(KeyEvent event) {
 		IGUIcontroller.CheckIfUserPutInput(AddcopiesTextField, AddCopiesLabel);
 		IGUIcontroller.CheckOnlyLetter(AddcopiesTextField, AddCopiesLabel, OnlyNumbers, UserNameErrorNumebrs);
-
 	}
 
 	/**
@@ -117,8 +116,8 @@ public class AddBookCopyController implements IGUIcontroller {
 		AddcopiesTextField.setText("");
 		switch (op) {
 		case returnBook:
-			 BookNameTextField.setText(((Book)msg).getBookName());
-			 NumberOfCopiesTextField.setText(Integer.toString(((Book)msg).getNumberOfLibraryCopies()));	 
+			BookNameTextField.setText(((Book) msg).getBookName());
+			NumberOfCopiesTextField.setText(Integer.toString(((Book) msg).getNumberOfLibraryCopies()));
 			break;
 
 		case returnError:
@@ -135,6 +134,9 @@ public class AddBookCopyController implements IGUIcontroller {
 		case returnException:
 			RetriveMSG.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		case returnSuccessMsg:
+			RetriveMSG.setText((String) msg);
 			break;
 		}
 	}

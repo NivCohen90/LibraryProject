@@ -39,14 +39,14 @@ public class LoanQueries {
 	public static void updateLoanReturnDate(String subID, String loanID) throws SQLException {
 		LocalDate newReturnDate = loanReturnDate(subID, loanID);
 		sqlQuery = String.format(
-				"UPDATE obl.loan SET ReturnDate= DATE_ADD('%s', INTERVAL 7 DAY)  WHERE LoanID=%s AND SubscriberID= %s",
+				"UPDATE obl.loan SET ReturnDate= DATE_ADD('%s', INTERVAL 7 DAY)  WHERE LoanID='%s' AND SubscriberID= '%s'",
 				newReturnDate.toString(), loanID, subID);
 		st = mysqlConnection.conn.createStatement();
 		st.executeUpdate(sqlQuery);
 	}
 
 	public static LocalDate loanReturnDate(String subID, String loanID) throws SQLException {
-		sqlQuery = String.format("Select ReturnDate from obl.loan l where LoanID=%s AND SubscriberID= %s", loanID,
+		sqlQuery = String.format("Select ReturnDate from obl.loan l where LoanID='%s' AND SubscriberID= '%s'", loanID,
 				subID);
 		st = mysqlConnection.conn.createStatement();
 		ResultSet rs = st.executeQuery(sqlQuery);
@@ -96,7 +96,7 @@ public class LoanQueries {
 	public static ArrayList<Object> getSubscriberActiveLoans(String subID) throws SQLException {
 
 		String sqlQuery = String.format(
-				"Select l.*, b.BookName, b.AuthorName from obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where l.SubscriberID=%s and l.LoanStatus='Active';",
+				"Select l.*, b.BookName, b.AuthorName from obl.loan l inner join obl.book b on b.CatalogNumber=l.BookCatalogNumber where l.SubscriberID='%s' and l.LoanStatus='Active';",
 				subID);
 		Statement stmt = mysqlConnection.conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sqlQuery);
@@ -122,7 +122,7 @@ public class LoanQueries {
 	}
 
 	public static int totalBookLoansAmount(String catalogNumber) {
-		sqlQuery = String.format("SELECT count(LoanID) as loanCount FROM obl.loan where BookCatalogNumber= %s;",
+		sqlQuery = String.format("SELECT count(LoanID) as loanCount FROM obl.loan where BookCatalogNumber= '%s';",
 				catalogNumber);
 		try {
 			st = mysqlConnection.conn.createStatement();
@@ -134,7 +134,7 @@ public class LoanQueries {
 		return 0;
 	}
 
-	public static ArrayList<Integer> bookLateLoansAmount() {
+	public static ArrayList<Integer> totalBooksLateLoansAmount() {
 		ArrayList<Integer> bookLateCount = new ArrayList<Integer>();
 		sqlQuery = "SELECT count(BookCatalogNumber) as countLate FROM obl.loan where LoanStatus='Late' group by BookCatalogNumber;";
 		try {
@@ -149,9 +149,9 @@ public class LoanQueries {
 		return bookLateCount;
 	}
 
-	public static ArrayList<Integer> lateReturnsDuration() {
+	public static ArrayList<Integer> totalLateReturnsDuration() {
 		ArrayList<Integer> lateReturnsDuration = new ArrayList<Integer>();
-		sqlQuery = "SELECT count(LoanID) FROM obl.loan WHERE LoanStatus='late';";
+		sqlQuery = "SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late';";
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
@@ -179,5 +179,47 @@ public class LoanQueries {
 			e.printStackTrace();
 		}
 		return books;
+	}
+
+	public static int specificBookLateLoansAmount(String catalogNumber) {
+		sqlQuery=String.format("SELECT count(LoanID) FROM obl.loan WHERE BookCatalogNumber='%s'", catalogNumber);
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+				return rs.getInt(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public static int numberOfBooksWithLateLoans() {
+		sqlQuery= "SELECT COUNT(DISTINCT(BookCatalogNumber)) FROM obl.loan WHERE LoanStatus='Late';";
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+			return rs.getInt(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public static ArrayList<Integer> specificBookLateLoansDuration(String bookCatalogNumber){
+		ArrayList<Integer> lateReturnsDuration = new ArrayList<Integer>();
+		sqlQuery = String.format("SELECT StartDate, ReturnDate FROM obl.loan WHERE LoanStatus='late' AND BookCatalogNumber='%s';", bookCatalogNumber);
+		try {
+			st = mysqlConnection.conn.createStatement();
+			ResultSet rs = st.executeQuery(sqlQuery);
+			while (rs.next()) {
+				LocalDate sDate = rs.getDate("StartDate").toLocalDate();
+				LocalDate eDate = rs.getDate("ReturnDate").toLocalDate();
+				Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
+				lateReturnsDuration.add((int) diff.toDays());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lateReturnsDuration;
 	}
 }

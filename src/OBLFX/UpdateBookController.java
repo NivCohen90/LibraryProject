@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
@@ -17,8 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 /**
- * @author Matan
- * UpdateBookController controls UpdateBookFXML
+ * @author Matan UpdateBookController controls UpdateBookFXML
  * 
  * @param all the booleans parameters are flags to notice if the user trying to
  *            change some data in his side.
@@ -62,9 +62,9 @@ public class UpdateBookController implements IGUIcontroller {
 	@FXML
 	private Label PlaceOnShelfLabel;
 
-    @FXML
-    private Label DescriptionLabel;
-    
+	@FXML
+	private Label DescriptionLabel;
+
 	@FXML
 	private Button UpdateBookBTN;
 
@@ -102,6 +102,7 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckCatalogNumber(KeyEvent event) {
+		RetriveMSGLabel.setText("");
 		IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel);
 		IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs);
 		catalog = true;
@@ -149,8 +150,15 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void GetBookDetailsAction(ActionEvent event) {
-		if ( IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel) && IGUIcontroller.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs))
-				 {
+		RetriveMSGLabel.setText("");
+		BookNameLabel.setText("");
+		AuthorLabel.setText("");
+		SubjectLabel.setText("");
+		EditionNumberLabel.setText("");
+		PlaceOnShelfLabel.setText("");
+		DescriptionLabel.setText("");
+		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel) && IGUIcontroller
+				.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 			catalogNumberSearch = CatalogTextField.getText();
 
 			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
@@ -175,8 +183,8 @@ public class UpdateBookController implements IGUIcontroller {
 				}
 			}
 
-			if (IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel) && IGUIcontroller.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError))
-					 {
+			if (IGUIcontroller.CheckIfUserPutInput(AuthorTextField, AuthorLabel) && IGUIcontroller
+					.CheckOnlyLetter(AuthorTextField, AuthorLabel, OnlyThisLetters, OnlyThisLetterError)) {
 				counter++;
 				if (author) {
 					book.setAuthorName(AuthorTextField.getText());
@@ -190,8 +198,8 @@ public class UpdateBookController implements IGUIcontroller {
 
 				}
 			}
-			if (IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel) &&  IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError))
-					 {
+			if (IGUIcontroller.CheckIfUserPutInput(SubjectTextField, SubjectLabel) && IGUIcontroller
+					.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError)) {
 				counter++;
 				if (subject) {
 					book.setSubject(SubjectTextField.getText());
@@ -205,14 +213,14 @@ public class UpdateBookController implements IGUIcontroller {
 				}
 
 			}
-			if (!DescriptionTextField.getText().trim().isEmpty()){
+			if (!DescriptionTextField.getText().trim().isEmpty()) {
 				counter++;
 				book.setDescription(DescriptionTextField.getText());
 				DescriptionLabel.setText("");
-			}
-			else DescriptionLabel.setText("Fill this Area");
+			} else
+				DescriptionLabel.setText("Fill this Area");
 			if (counter == 6) {
-				librarianClient.updateBookinCatalog(book,GeneralData.userLibrarian);
+				librarianClient.updateBookinCatalog(book, GeneralData.userLibrarian);
 			}
 
 		}
@@ -223,27 +231,41 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		SetAllUnEditable();
+		BookNameTextField.setText("");
+		AuthorTextField.setText("");
+		SubjectTextField.setText("");
+		PlaceOnShelfTextField.setText("");
+		EditionNumberTextField.setText("");
+		DescriptionTextField.setText("");
 		switch (op) {
 		case returnBookArray:
-			
-			book = ((ArrayList<Book>)msg).get(0);
+			book = ((ArrayList<Book>) msg).get(0);
 			SetAllEditable();
 			SetAllFlagFalse();
 
-			 BookNameTextField.setText(book.getBookName());
-			 AuthorTextField.setText(book.getAuthorName());
-			 SubjectTextField.setText(book.getSubject());
-			 PlaceOnShelfTextField.setText(book.getShelfLoaction());
-			 EditionNumberTextField.setText(book.getEditionNumber());
-			 DescriptionTextField.setText(book.getDescription());
-			 allFlagStatus=true;
-
+			BookNameTextField.setText(book.getBookName());
+			AuthorTextField.setText(book.getAuthorName());
+			SubjectTextField.setText(book.getSubject());
+			PlaceOnShelfTextField.setText(book.getShelfLoaction());
+			EditionNumberTextField.setText(book.getEditionNumber());
+			DescriptionTextField.setText(book.getDescription());
+			allFlagStatus = true;
 			break;
-		default:
+		case returnError:
+			RetriveMSGLabel.setStyle("-fx-text-fill: red;");
 			RetriveMSGLabel.setText((String) msg);
-			SetAllUnEditable();
-		}
+			break;
+		case returnException:
+			RetriveMSGLabel.setText(((Exception) msg).getMessage());
+			IAlert.ExceptionAlert((Exception) msg);
+			break;
 
+		case returnSuccessMsg:
+			RetriveMSGLabel.setStyle("-fx-text-fill: green;");
+			RetriveMSGLabel.setText((String) msg);
+			break;
+		}
 	}
 
 	/**
@@ -296,7 +318,7 @@ public class UpdateBookController implements IGUIcontroller {
 
 	@Override
 	public void closeConnection() {
-		if(librarianClient!=null)
+		if (librarianClient != null)
 			librarianClient.quit();
 	}
 
