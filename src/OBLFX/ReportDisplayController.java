@@ -185,7 +185,7 @@ public class ReportDisplayController implements IGUIcontroller {
 
 				default:
 					continue;
-				}
+				}//
 			}
 			break;
 		}
