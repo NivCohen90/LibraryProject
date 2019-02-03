@@ -387,16 +387,58 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 		case searchByLibrarianAffiliation:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.LibrarianbyAffiliation);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchByLibrarianEmail:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.LibrarianbyEmail);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchByLibrarianID:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.LibrarianbyID);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchByLibrarianName:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.LibrarianbyName);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchBySubscriberEmail:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.SubscriberbyEmail);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchBySubscriberID:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.SubscriberbyNumber);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 		case searchBySubscriberName:
 			try {
@@ -408,6 +450,13 @@ public class EchoServer extends AbstractServer {
 			}
 			break;
 		case searchBySubscriberStudentID:
+			try {
+				ServerData result = SearchUserQueries.searchUser((((String) ((ServerData) msg).getDataMsg().get(0))), searchtype.SubscriberbyID);
+				client.sendToClient(result);
+			} catch (IOException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+			}
 			break;
 
 		case calcReturnDate:

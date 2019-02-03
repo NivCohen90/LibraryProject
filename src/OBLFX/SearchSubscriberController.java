@@ -271,9 +271,8 @@ public class SearchSubscriberController implements IGUIcontroller {
 		case returnException:
 			IAlert.ExceptionAlert((Exception)msg); 
 			break;
-		case returnLibrarian:
-			break;
 		case returnLibrarianArray:
+			displayResults((ArrayList<T>) msg);
 			break;
 		case returnSubscriberArray:
 			displayResults((ArrayList<T>) msg);
