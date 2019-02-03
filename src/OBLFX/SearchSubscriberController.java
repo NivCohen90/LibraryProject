@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -262,7 +263,24 @@ public class SearchSubscriberController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		displayResults((ArrayList<T>) msg);
+		switch(op) {
+		case returnError:
+			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);
+			break;
+		case returnException:
+			IAlert.ExceptionAlert((Exception)msg); 
+			break;
+		case returnLibrarian:
+			break;
+		case returnLibrarianArray:
+			break;
+		case returnSubscriberArray:
+			displayResults((ArrayList<T>) msg);
+			break;
+		default:
+			break;
+		
+		}
 	}
 
 	/**

@@ -114,8 +114,8 @@ public class BookQueries {
 		Connection con = mysqlConnection.conn;
 
 		// check book and subscriber exist
-		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber=%s", bookCatalogNumber);
-		String queryCheckSub = String.format("SELECT * FROM obl.user u inner join obl.subscriber s on u.ID=s.ID where u.ID=%s;", StudentID);
+		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber='%s'", bookCatalogNumber);
+		String queryCheckSub = String.format("SELECT * FROM obl.user u inner join obl.subscriber s on u.ID=s.ID where u.ID='%s';", StudentID);
 
 		try {
 			s = con.createStatement();
@@ -222,7 +222,7 @@ public class BookQueries {
 	}
 
 	public static String bookName(String catalogNumber) {
-		sqlQuery=String.format("SELECT BookName FROM obl.book WHERE BookCatlogNumber=%s;", catalogNumber);
+		sqlQuery=String.format("SELECT BookName FROM obl.book WHERE CatalogNumber=%s;", catalogNumber);
 		try {
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(sqlQuery);
