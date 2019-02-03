@@ -87,7 +87,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 		if(IGUIcontroller.CheckOnlyLetter(LoanNumberTextField, LoanNumberLabel, OnlyNumbers, UserNameErrorNumebrs)){
 			String bookCtalogNumber = LoanNumberTextField.getText();
 			Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
-			librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
+			//librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
 		}
 	}
 		

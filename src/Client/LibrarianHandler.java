@@ -58,11 +58,13 @@ public class LibrarianHandler extends IHandler{
 		
 	}
 	
-	public void extendLoanByLibrarian(String bookCtalogNumber,Date newReturnDate) {
+	public void extendLoanByLibrarian(String subID,String loanID, Date newReturnDate, String librarianID) {
 		ArrayList<Object> List = new ArrayList<Object>();
-    	List.add(bookCtalogNumber);
+    	List.add(subID);
+    	List.add(loanID);
     	List.add(newReturnDate);
-		ServerData loginInfo = new ServerData(GeneralData.operations.extandLoan,List);
+    	List.add(librarianID);
+		ServerData loginInfo = new ServerData(List, GeneralData.operations.updateReturnDateManualy);
 		try
 		{
 			sendToServer(loginInfo);
@@ -185,5 +187,6 @@ public class LibrarianHandler extends IHandler{
 	public void removeBookCopyFromCatalog() {}
 	
 	public void updateBookCopyinCatalog() {}
+
 
 }

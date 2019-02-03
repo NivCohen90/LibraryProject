@@ -265,16 +265,6 @@ public class SearchSubscriberController implements IGUIcontroller {
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		switch(op) {
-		case returnActivityReportData:
-			break;
-		case returnBook:
-			break;
-		case returnBookArray:
-			break;
-		case returnBookCopy:
-			break;
-		case returnBookCopyArray:
-			break;
 		case returnError:
 			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);
 			break;
@@ -284,6 +274,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 		case returnLibrarian:
 			break;
 		case returnLibrarianArray:
+			break;
 		case returnSubscriberArray:
 			displayResults((ArrayList<T>) msg);
 			break;

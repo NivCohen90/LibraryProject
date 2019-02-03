@@ -117,7 +117,9 @@ public class ReportDisplayController implements IGUIcontroller {
 
 	static ObservableList<Object> ObservableColumnData = FXCollections.observableArrayList();
 	ArrayList<String> chartRanges;
-	
+	XYChart.Series series1;
+	 static String[] ranges = new String[10];
+	 
 	public void initialize() {
 		BookData.setItems(ObservableColumnData);
 
@@ -132,45 +134,68 @@ public class ReportDisplayController implements IGUIcontroller {
 		histogramChart.setTitle("Histogram:");
 		chartRange.setLabel("Range:");      
 		chartNumberOfValues.setLabel("Number Of Loaners");
-		XYChart.Series series1 = new XYChart.Series();
+		series1 = new XYChart.Series();
         series1.setName("Amount");       
 	}
 
 	public void setReportDataToDisplay(ArrayList<Object> reportData, operationsReturn reportType) {
-
+		int prevValue=-1;
+		ReportData rd=null;
 		reportReference reference;
-
+		ArrayList<Integer> values=null;
+		int[] dist=null;
+		int rangeSize=0;
 		switch (reportType) {
 		case returnLoanReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
-				reference = ((ReportData) reportData.get(i)).getReference();
+				rd=(ReportData)reportData.get(i);
+				reference = rd.getReference();
+				if(rd.getAvg()!=0) {
+				values=(ArrayList<Integer>)rd.getDistribution().get(0);
+				rangeSize=(int)rd.getDistribution().get(1);
+				dist=(int[])rd.getDistribution().get(2);}
 				switch (reference) {
 
-				case Demanded: {
-					DemendedAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
-					DemendedMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
-					DemendedDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
-
+				case Demanded: 
+					DemendedAVG.setText(rd.getAvg() + "");
+					DemendedMedian.setText(rd.getMedian() + "");
+					if(rd.getAvg()!=0) {
+					prevValue+=values.get(0);
+					for(int j=0;j<10;j++) {
+						ranges[i]=(prevValue+1)+"-"+(prevValue+rangeSize);
+						prevValue+=rangeSize;
+						series1.getData().add(new XYChart.Data(ranges[i], dist[i]));
+					}
+					}
 					continue;
-				}
+				
 
-				case Regular: {
-					RegularAVG.setText((((ReportData) reportData.get(i)).getAvg()) + "");
-					RegularDistribution.setText((((ReportData) reportData.get(i)).getDistribution()) + "");
-					RegularMedian.setText((((ReportData) reportData.get(i)).getMedian()) + "");
+				case Regular: 
+					RegularAVG.setText("20");
+					RegularMedian.setText(rd.getMedian() + "");
+					if(rd.getAvg()!=0) {
+						prevValue+=values.get(0);
+					for(int j=0;j<10;j++) {
+						ranges[i]=(prevValue+1)+"-"+(prevValue+rangeSize);
+						prevValue+=rangeSize;
+						series1.getData().add(new XYChart.Data(ranges[i], dist[i]));
+					}}
 					continue;
-				}
+				
 
 				default:
 					continue;
-				}
+				}//
 			}
 			break;
 		}
 
 		case returnLateReturnsReportData: {
 			for (int i = 0; i < reportData.size(); i++) {
-
+				rd=(ReportData)reportData.get(i);
+				reference = rd.getReference();
+				rangeSize=(int)rd.getDistribution().get(1);
+				dist=(int[])rd.getDistribution().get(2);
 				if (reportData.get(i) instanceof ReportData) {
 					reference = ((ReportData) reportData.get(i)).getReference();
 					switch (reference) {
@@ -218,8 +243,7 @@ public class ReportDisplayController implements IGUIcontroller {
 
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

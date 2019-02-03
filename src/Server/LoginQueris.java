@@ -27,10 +27,9 @@ public class LoginQueris {
 	private static final String getSubscriberInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.subscriber.SubscriberID, obl.subscriber.Status, obl.subscriber.FelonyNumber\r\n"
 			+ "FROM obl.user\r\n" + "INNER JOIN obl.subscriber ON obl.user.ID=subscriber.ID\r\n"
 			+ "WHERE obl.user.ID = '";
-	private static final String getLibrarianInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.librarian.Affiliation  \r\n" + 
-			"FROM obl.user\r\n" + 
-			"INNER JOIN obl.librarian ON obl.user.ID=obl.librarian.ID\r\n" + 
-			"WHERE obl.user.ID = '";
+	private static final String getLibrarianInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.librarian.Affiliation  \r\n"
+			+ "FROM obl.user\r\n" + "INNER JOIN obl.librarian ON obl.user.ID=obl.librarian.ID\r\n"
+			+ "WHERE obl.user.ID = '";
 	private static final String ANDPassword = "' AND obl.user.Password = '";
 	private static final String getUserLoans = "SELECT * FROM obl.loan WHERE SubscriberID = '";
 	private static final String getUserOrders = "SELECT * FROM obl.order WHERE SubscriberID = '";
@@ -70,7 +69,7 @@ public class LoginQueris {
 							String BookCatalogNumber = Res.getString(3);
 							String CopyID = Res.getString(4);
 							Date StartDate = Res.getDate(5);
-							Date ReturnDate = Res.getDate(6); 
+							Date ReturnDate = Res.getDate(6);
 							String LoanStatus = Res.getString(7);
 							String BookName = "Coul'd not load this data.";
 							String BookAuthors = "Coul'd not load this data.";
@@ -80,7 +79,8 @@ public class LoginQueris {
 								BookName = bookInfo.getString(1);
 								BookAuthors = bookInfo.getString(2);
 							}
-							Loan a = new Loan(LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate, LoanStatus, BookName, BookAuthors);
+							Loan a = new Loan(LoanID, SubscriberID, BookCatalogNumber, CopyID, StartDate, ReturnDate,
+									LoanStatus, BookName, BookAuthors);
 							if (LoanStatus.equals("Finish")) {
 								LoansActivityHistory.add(a);
 							} else {
@@ -105,12 +105,13 @@ public class LoginQueris {
 								BookName = bookInfo.getString(1);
 								BookAuthors = bookInfo.getString(2);
 							}
-							Order a = new Order(OrderID, SubscriberID, BookCatalogNumber, OrderDate, BookArrivedTime, OrderStatus, BookName, BookAuthors);
-							Orders.add(a);
-//						if (a..equals("Finish")) {
-//							OrdersActivityHistory.add(a);
-//						} else {
-//						}
+							Order a = new Order(OrderID, SubscriberID, BookCatalogNumber, OrderDate, BookArrivedTime,
+									OrderStatus, BookName, BookAuthors);
+							if (a.equals("Finish")) {
+								OrdersActivityHistory.add(a);
+							} else {
+								Orders.add(a);
+							}
 						}
 						Sub.setActiveLoans(Loans);
 						Sub.setHistoryLoans(LoansActivityHistory);

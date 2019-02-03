@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import Interfaces.IAlert;
 import OBLFX.NewLoanController;
@@ -15,6 +16,7 @@ import Server.LoginQueris;
 import Server.SearchUserQueries.searchtype;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
+import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Order;
 import SystemObjects.ReportData;
 // This file contains material supporting section 3.7 of the textbook:
@@ -203,6 +205,41 @@ public class EchoServer extends AbstractServer {
 		case viewActivityHistory:
 			break;
 		case updateReturnDateManualy:
+			String loanIDExtend = ((ServerData) msg).getDataMsg().get(1).toString();
+			String subIDExtend = ((ServerData) msg).getDataMsg().get(0).toString();
+			Date dateExtend = (Date) ((ServerData) msg).getDataMsg().get(2);
+			String libIDExtend = ((ServerData) msg).getDataMsg().get(3).toString();
+			try {
+				String subStatus = SubscriberQueries.getSubscriberStatus(subIDExtend);
+				if (subStatus.equals("Active")) {
+					if (!BookQueries.checkOrdersForBook(loanIDExtend)) {
+						if (!BookQueries.isDemandedByLoanID(loanIDExtend)) {
+							LoanQueries.updateLoanReturnDateManualy(subIDExtend, loanIDExtend, dateExtend, libIDExtend);
+							
+							ArrayList<Object> loans = LoanQueries.getSubscriberActiveLoans(subIDExtend);
+							msgToClient = new ServerData(loans, operationsReturn.returnLoanArray);
+							//msgToClient = new ServerData(operationsReturn.returnSuccessMsg, "Extension was Approved");
+						 	
+						} else
+							msgToClient = new ServerData(operationsReturn.returnError,
+									"Book is demanded. Extension was declined");
+					}
+					else msgToClient = new ServerData(operationsReturn.returnError, "This book has been ordered. Extension was declined");
+				} else
+					msgToClient = new ServerData(operationsReturn.returnError,
+							"Subscriber status isn't 'Active'. Extension was declined");
+			} catch (SQLException e) {
+				IAlert.ExceptionAlert(e);
+				e.printStackTrace();
+				msgToClient = new ServerData(operationsReturn.returnException, e);
+			}
+			try {
+				client.sendToClient(msgToClient);
+			} catch (IOException e2) {
+				IAlert.ExceptionAlert(e2);
+				e2.printStackTrace();
+			}
+			
 			break;
 		case returnBook:
 			ArrayList<Object> arr =  ((ServerData) msg).getDataMsg();
@@ -262,7 +299,7 @@ public class EchoServer extends AbstractServer {
 			try {
 				ReportData demandedBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.demandedBooksSQL(), reportReference.Demanded);
 				ReportData regularBooksStat = ReportQueries.calculateLoanReportStatistic(ReportQueries.regularBookSQL(), reportReference.Regular);
-				msgToClient = new ServerData(operationsReturn.returnLoanReportData, demandedBooksStat, regularBooksStat);
+				msgToClient = new ServerData(operationsReturn.returnLoanReportData, regularBooksStat,demandedBooksStat );
 			} catch (SQLException e) {
 				msgToClient = new ServerData(operationsReturn.returnException, e);
 			}
@@ -284,7 +321,6 @@ public class EchoServer extends AbstractServer {
 				e1.printStackTrace();
 			}
 			break;
-			
 		case AddBook:
 			try {
 				ArrayList<Object> getBook = ((ServerData) msg).getDataMsg();

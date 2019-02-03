@@ -152,22 +152,32 @@ public class SubscriberQueries {
 		LocalDate twoDaysAgo = LocalDate.now().minusDays(2);
 		Date twoDaysDate = Date.from(twoDaysAgo.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		String query = String.format(
-				"SELECT * FROM obl.order WHERE OrderDate <= '%s' and OrderDate >= '%s' and OrderStatus='Active' and BookArrivedTime != 'null';",
-				dateFormat.format(today), dateFormat.format(twoDaysDate));
+				"SELECT * FROM obl.order WHERE BookArrivedTime >= '%s' and OrderStatus='Active';",
+				dateFormat.format(twoDaysDate));
 		// System.out.println(query);
 		Statement stmt = null;
 		String queryUpdate = "";
 		try {
 			stmt = mysqlConnection.conn.createStatement();
 			ResultSet missedOrders = stmt.executeQuery(query);
+			ArrayList<String> books = new ArrayList<>();
 			while (missedOrders.next()) {
 				queryUpdate += String.format(
 						"UPDATE `obl`.`order` SET `OrderStatus` = 'Finished' WHERE SubscriberID=%s and bookCatalogNumber=%s;-",
 						missedOrders.getString("SubscriberID"), missedOrders.getString("bookCatalogNumber"));
+				if(!books.contains(missedOrders.getString("bookCatalogNumber")))
+					books.add(missedOrders.getString("bookCatalogNumber"));
 			}
 			String[] queryUpdateArray = queryUpdate.split("-");
-			for (String s : queryUpdateArray) {
-				stmt.executeUpdate(s);
+			if(queryUpdateArray.length != 0)
+			{
+				for (String s : queryUpdateArray) {
+					stmt.executeUpdate(s);
+				}
+				for(String iBook: books)
+				{
+					BookQueries.checkOrdersForBookAndNotice(iBook);
+				}
 			}
 		} catch (SQLException e) {
 			IAlert.ExceptionAlert(e);

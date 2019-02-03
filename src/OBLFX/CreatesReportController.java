@@ -95,7 +95,6 @@ public class CreatesReportController implements IGUIcontroller {
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		AnchorPane root = null;
 		Scene scene = null;
-		ReportDisplayController Controller = (ReportDisplayController) fxmlLoader.getController();
 		try {
 
 			switch (reportType) {
@@ -133,7 +132,7 @@ public class CreatesReportController implements IGUIcontroller {
 			default:
 				break;
 			}
-			
+			ReportDisplayController Controller = new ReportDisplayController();
 			Controller.setReportDataToDisplay((ArrayList<Object>)reportData, reportType);
 			
 		}
