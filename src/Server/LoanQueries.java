@@ -109,12 +109,12 @@ public class LoanQueries {
 	}
 
 	public static int totalLoansAmount() {
-		sqlQuery = ("SELECT count(LoanID) FROM obl.loan;");
+		sqlQuery = ("SELECT count(LoanID) as count FROM obl.loan;");
 		try {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
 			if (rs.next()) {
-				return rs.getInt(1);
+				return rs.getInt("count");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,7 +157,7 @@ public class LoanQueries {
 			st = mysqlConnection.conn.createStatement();
 			ResultSet rs = st.executeQuery(sqlQuery);
 			if (rs.next()) {
-				return rs.getInt(1);
+				return rs.getInt("loanCount");
 			}
 		} catch (
 

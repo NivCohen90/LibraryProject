@@ -31,7 +31,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="StartDateDatePicker" disable="true" layoutX="181.0" layoutY="133.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
+      <DatePicker fx:id="StartDateDatePicker" editable="false" layoutX="181.0" layoutY="133.0" onAction="#CheckStartDate" prefHeight="26.0" prefWidth="137.0" />
       <Label layoutX="436.0" layoutY="136.0" text="Return Date:">
          <font>
             <Font name="System Bold" size="14.0" />

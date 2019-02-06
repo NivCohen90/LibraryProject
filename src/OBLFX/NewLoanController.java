@@ -69,8 +69,8 @@ public class NewLoanController implements IGUIcontroller {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogNumberTextField, CatalogNumberLabel))
 			if (IGUIcontroller.CheckOnlyLetter(CatalogNumberTextField, CatalogNumberLabel, OnlyNumbers,
 					UserNameErrorNumebrs)) {
-				//StartDateDatePicker.setDisable(false);
-				//StartDateDatePicker.setStyle("-fx-opacity:0.5;");
+				StartDateDatePicker.setDisable(false);
+				StartDateDatePicker.setStyle("-fx-opacity:1.0;");
 			} else {
 				StartDateDatePicker.setDisable(true);
 				StartDateDatePicker.setStyle("-fx-opacity:0.5;");
@@ -107,7 +107,10 @@ public class NewLoanController implements IGUIcontroller {
 			ReturnDateLabel.setText(ChooseDate);
 		}*/
 		if (counter == 3) {
-			librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
+		//	librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
+			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
+					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
+					java.sql.Date.valueOf(StartDateDatePicker.getValue()), CopuNumberTextField.getText());
 		}
 
 	}
@@ -119,17 +122,17 @@ public class NewLoanController implements IGUIcontroller {
 	 */
 	@FXML
 	void CheckStartDate(ActionEvent event) {
-		/*if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), StartDateDatePicker.getValue(),
-				StartDateLabel)) {
+//		if (IGUIcontroller.CheckIfDateIsValid(java.time.LocalDate.now(), StartDateDatePicker.getValue(),
+//				StartDateLabel)) {
 			StartFlag = true;
 			librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
-		}*/
-	}
+		}
+	
 	
 
 	@FXML
 	public void initialize() {
-			StartDateDatePicker.setValue(java.time.LocalDate.now());
+			//StartDateDatePicker.setValue(java.time.LocalDate.now());
 			StartFlag = true;
 			//librarianClient.calcReturnDate(StartDateDatePicker.getValue(), CatalogNumberTextField.getText());
 	}
@@ -156,9 +159,6 @@ public class NewLoanController implements IGUIcontroller {
 		switch (op) {
 		case returnDate:
 			ReturnDateDatePicker.setValue((LocalDate) msg);
-			librarianClient.createNewLoan(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),
-					java.sql.Date.valueOf(ReturnDateDatePicker.getValue()),
-					java.sql.Date.valueOf(StartDateDatePicker.getValue()), CopuNumberTextField.getText());
 			break;
 
 		case returnSuccessMsg:
