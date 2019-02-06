@@ -72,6 +72,7 @@ public class ReportQueries {
 			Duration diff = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay());
 			dataArray.add((int) diff.toDays());
 		}
+		System.out.println(dataArray);
 		if(dataArray.isEmpty())
 			return new ReportData(0,0,new ArrayList<Object>(), reference);
 		return new ReportData(calcAvg(dataArray), calcMedian(dataArray.size(), dataArray), calcDistribution(dataArray), reference);

@@ -34,20 +34,20 @@
       <TextField fx:id="DemendedMedian" editable="false" layoutX="188.0" layoutY="184.0" prefHeight="26.0" prefWidth="74.0" />
       <TextField fx:id="RegularAVG" editable="false" layoutX="478.0" layoutY="145.0" prefHeight="26.0" prefWidth="74.0" />
       <TextField fx:id="RegularMedian" editable="false" layoutX="478.0" layoutY="184.0" prefHeight="26.0" prefWidth="74.0" />
-      <BarChart fx:id="histogramChart" layoutX="14.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
+      <BarChart fx:id="DemandedHistogramChart" layoutX="14.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
         <xAxis>
-          <CategoryAxis fx:id="chartRange" side="BOTTOM" />
+          <CategoryAxis fx:id="DemandedX" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="chartNumberOfValues" side="LEFT" />
+          <NumberAxis fx:id="DemandedY" side="LEFT" />
         </yAxis>
       </BarChart>
-      <BarChart fx:id="histogramChart1" layoutX="400.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
+      <BarChart fx:id="regularHistogramChart" layoutX="400.0" layoutY="239.0" prefHeight="325.0" prefWidth="385.0">
          <xAxis>
-            <CategoryAxis fx:id="chartRange1" side="BOTTOM" />
+            <CategoryAxis fx:id="regularX" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="chartNumberOfValues1" side="LEFT" />
+            <NumberAxis fx:id="regularY" side="LEFT" />
          </yAxis>
       </BarChart>
    </children>
