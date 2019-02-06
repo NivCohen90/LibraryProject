@@ -83,14 +83,14 @@ public class lateReturnReportDisplayController implements IGUIcontroller{
 //				switch (reference) {
 //
 //				case GeneralLatesAmount: {
-					GeneralAmountAVG.setText("1");
+					GeneralAmountAVG.setText("5");
 					GeneralAmountMedian.setText("1");
 //					break;
 //				}
 
 //				case GeneralLatesDuration: {
-					GeneralDurationAVG.setText("20");
-					GeneralDurationMedian.setText("18");
+					GeneralDurationAVG.setText("5.6");
+					GeneralDurationMedian.setText("3");
 //					break;
 //				}
 //
@@ -100,29 +100,25 @@ public class lateReturnReportDisplayController implements IGUIcontroller{
 		//	}
 
 	//		else
-					ReportData amount1= new ReportData(4,2, null, reportReference.BookLatesAmount);
+					ReportData amount1= new ReportData(0.5,1, null, reportReference.BookLatesAmount);
 					ReportData duration1=new ReportData(3,1,null, reportReference.BookLatesDuration);
-					LateReturnsReportBookData book1=new LateReturnsReportBookData(amount1, duration1, "The art of software testing");
+					LateReturnsReportBookData book1=new LateReturnsReportBookData(amount1, duration1, "Introduction to discrete mathematics");
 					ObservableColumnData.add(book1);
 					ReportData amount2= new ReportData(6,2, null, reportReference.BookLatesAmount);
 					ReportData duration2=new ReportData(16,10,null, reportReference.BookLatesDuration);
-					LateReturnsReportBookData book2=new LateReturnsReportBookData(amount2, duration2, "Management information systems : managing the digital firm");
+					LateReturnsReportBookData book2=new LateReturnsReportBookData(amount2, duration2, "Fundamental university physics");
 					ObservableColumnData.add(book2);
 					ReportData amount3= new ReportData(3,1, null, reportReference.BookLatesAmount);
 					ReportData duration3=new ReportData(20,17,null, reportReference.BookLatesDuration);
-					LateReturnsReportBookData book3=new LateReturnsReportBookData(amount3, duration3, "Modern operating systems");
+					LateReturnsReportBookData book3=new LateReturnsReportBookData(amount3, duration3, "Elementary differential equations");
 					ObservableColumnData.add(book3);
-					ReportData amount4= new ReportData(7,3, null, reportReference.BookLatesAmount);
-					ReportData duration4=new ReportData(15,12,null, reportReference.BookLatesDuration);
-					LateReturnsReportBookData book4=new LateReturnsReportBookData(amount4, duration4, "IBM PC assembly language and programming");
-					ObservableColumnData.add(book4);
 					ReportData amount5= new ReportData(3,2, null, reportReference.BookLatesAmount);
 					ReportData duration5=new ReportData(13,15,null, reportReference.BookLatesDuration);
 					LateReturnsReportBookData book5=new LateReturnsReportBookData(amount5, duration5, "Software engineering");
 					ObservableColumnData.add(book5);
 					ReportData amount6= new ReportData(10,12, null, reportReference.BookLatesAmount);
 					ReportData duration6=new ReportData(7,6,null, reportReference.BookLatesDuration);
-					LateReturnsReportBookData book6=new LateReturnsReportBookData(amount6, duration6, "Electric and magnetic interactions");
+					LateReturnsReportBookData book6=new LateReturnsReportBookData(amount6, duration6, "Digital design");
 					ObservableColumnData.add(book6);
 		}
 	
