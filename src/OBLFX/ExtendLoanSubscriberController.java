@@ -69,7 +69,7 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 		txtAuthor.setText(loanToDisplay.getBookAuthors());
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+		//
 		try {
 			dateLoanStart.setValue(dateFormat.parse(loanToDisplay.getStartDate().toString()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			dateReturn.setValue(dateFormat.parse(loanToDisplay.getReturnDate().toString()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
