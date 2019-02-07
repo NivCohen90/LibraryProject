@@ -74,7 +74,7 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 			dateLoanStart.setValue(dateFormat.parse(loanToDisplay.getStartDate().toString()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			dateReturn.setValue(dateFormat.parse(loanToDisplay.getReturnDate().toString()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-			LocalDateTime current = LocalDateTime.now(); // now
+			LocalDateTime current = dateFormat.parse(loanToDisplay.getReturnDate().toString()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();//LocalDateTime.now(); // now
 			LocalDateTime weekBefore = current.minusDays(7); // week before
 			Date checkDate = dateFormat.parse(loanToDisplay.getReturnDate().toString());
 
@@ -82,12 +82,12 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 			LocalDate to = checkDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 			if (ChronoUnit.DAYS.between(from, to) <= 7 && ChronoUnit.DAYS.between(from, to) >= 0) {
-				if (GeneralData.userSubscriber.getStatus().equals("Active")) {
+				//if (GeneralData.userSubscriber.getStatus().equals("Active")) 
 					ExtendBtn.setDisable(false);
 					ExtendBtn.setOpacity(1);
-				}
-				else
-					RetriveMSG.setText("Your subscriber user is frozen, can not extend loan. Please contect the libararian.");
+				
+//				else
+//					RetriveMSG.setText("Your subscriber user is frozen, can not extend loan. Please contect the libararian.");
 			}
 		} catch (ParseException e) {
 			IAlert.ExceptionAlert(e);

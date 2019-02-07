@@ -28,7 +28,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Text fx:id="PeriodDates" layoutX="161.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.79999542236328">
+      <Text fx:id="PeriodDates" layoutX="158.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="276.00000762939453">
          <font>
             <Font size="14.0" />
          </font>

@@ -170,7 +170,7 @@ public class EchoServer extends AbstractServer {
 			String loanID = ((ServerData) msg).getDataMsg().get(1).toString();
 			String subID = ((ServerData) msg).getDataMsg().get(0).toString();
 			try {
-				String subStatus = SubscriberQueries.getSubscriberStatus(subID);
+				String subStatus = SubscriberQueries.getSubscriberStatusSubID(subID);
 				if (subStatus.equals("Active")) {
 					if (!BookQueries.checkOrdersForBook(loanID)) {
 						if (!BookQueries.isDemandedByLoanID(loanID)) {

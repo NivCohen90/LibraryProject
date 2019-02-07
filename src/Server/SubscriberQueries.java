@@ -72,6 +72,16 @@ public class SubscriberQueries {
 			return rs.getString("Status");
 		return "";
 	}
+	
+	public static String getSubscriberStatusSubID(String subID) throws SQLException {
+		String loanString = String.format("Select Status from obl.Subscriber s where SubscriberID=%s", subID);
+		Statement st;
+		st = mysqlConnection.conn.createStatement();
+		ResultSet rs = st.executeQuery(loanString);
+		if (rs.next())
+			return rs.getString("Status");
+		return "";
+	}
 
 	/**
 	 * add order by subscriber to database, subscriberID, book catalog in order
