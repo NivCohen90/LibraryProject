@@ -13,6 +13,7 @@ public class GeneralData {
 	 */
 
 	public static Subscriber userSubscriber = null;
+	public static Subscriber searchedSubscriber = null;
 	public static Librarian userLibrarian = null;
 
 	public enum operations {

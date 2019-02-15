@@ -64,7 +64,7 @@ public class SubscriberQueries {
 	}
 
 	public static String getSubscriberStatus(String subID) throws SQLException {
-		String loanString = String.format("Select Status from obl.Subscriber s where subscriberID=%s", subID);
+		String loanString = String.format("Select Status from obl.Subscriber s where ID=%s", subID);
 		Statement st;
 		st = mysqlConnection.conn.createStatement();
 		ResultSet rs = st.executeQuery(loanString);

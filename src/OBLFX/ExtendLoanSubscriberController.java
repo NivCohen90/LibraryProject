@@ -20,6 +20,7 @@ import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.Loan;
 import SystemObjects.LoansTable;
+import Users.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -83,8 +84,36 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 
 			if (ChronoUnit.DAYS.between(from, to) <= 7 && ChronoUnit.DAYS.between(from, to) >= 0) {
 				//if (GeneralData.userSubscriber.getStatus().equals("Active")) 
-					ExtendBtn.setDisable(false);
-					ExtendBtn.setOpacity(1);
+				if (GeneralData.userSubscriber!=null) 
+				{
+					if(GeneralData.userSubscriber.getStatus().equals("Active"))
+					{
+						ExtendBtn.setDisable(false);
+						ExtendBtn.setOpacity(1);
+					}
+					else
+					{
+						RetriveMSG.setVisible(true);
+						RetriveMSG.setText("Subscriber status is 'Freeze', cannot use loan extension.");
+						RetriveMSG.setTextFill(Color.RED);
+					}
+				}
+				else if (GeneralData.userLibrarian!=null) 
+				{
+					if(GeneralData.searchedSubscriber != null && GeneralData.searchedSubscriber.getStatus().equals("Active"))
+					{
+						ExtendBtn.setDisable(false);
+						ExtendBtn.setOpacity(1);
+						dateReturn.setDisable(false);
+						dateReturn.setOpacity(1);
+					}
+					else
+					{
+						RetriveMSG.setVisible(true);
+						RetriveMSG.setText("Subscriber status is 'Freeze', cannot use loan extension.");
+						RetriveMSG.setTextFill(Color.RED);
+					}
+				}
 				
 //				else
 //					RetriveMSG.setText("Your subscriber user is frozen, can not extend loan. Please contect the libararian.");
@@ -111,7 +140,15 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 		if(GeneralData.userLibrarian != null)
 		{
 			Date returnExtend = Date.from(dateReturn.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()); 
-			librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend, GeneralData.userLibrarian.getID());
+			if(displayedLoan.getReturnDate().before(returnExtend)||displayedLoan.getReturnDate().equals(returnExtend))
+				librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend, GeneralData.userLibrarian.getEmail());
+			else
+			{
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				RetriveMSG.setVisible(true);
+				RetriveMSG.setText("new date : "+dateFormat.format(returnExtend)+" is before previous return date : "+displayedLoan.getReturnDate());
+				RetriveMSG.setTextFill(Color.RED);
+			}
 		}
 	}
 	
@@ -130,9 +167,19 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 			RetriveMSG.setTextFill(Color.GREEN);
 			break;*/
 		case returnLoanArray:
-			GeneralData.userSubscriber.setActiveLoans((ArrayList<Loan>) msg);
+			Subscriber sub = null;
+			if(GeneralData.userSubscriber!=null)
+			{
+				GeneralData.userSubscriber.setActiveLoans((ArrayList<Loan>) msg);
+				sub = GeneralData.userSubscriber;
+			}
+			else if(GeneralData.searchedSubscriber!=null)
+			{
+				GeneralData.searchedSubscriber.setActiveLoans((ArrayList<Loan>) msg);
+				sub = GeneralData.searchedSubscriber;
+			}
 			SubscriberCardController subCon = new SubscriberCardController();
-			subCon.setSubscriberCard(GeneralData.userSubscriber);
+			subCon.setSubscriberCard(sub);
 			for(Loan iLoan : (ArrayList<Loan>) msg)
 			{
 				if(iLoan.getLoanID().equals(displayedLoan.getLoanID()))

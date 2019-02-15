@@ -7,6 +7,7 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -243,6 +244,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 			
 			if(choosenResult instanceof Subscriber)
 			{
+				GeneralData.searchedSubscriber = (Subscriber) choosenResult;
 				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ReaderCard.fxml").openStream());
 				scene = new Scene(root);
 				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
@@ -250,6 +252,9 @@ public class SearchSubscriberController implements IGUIcontroller {
 				primaryStage.setTitle(((Subscriber)choosenResult).getFullName());
 			}		
 		
+			primaryStage.setOnCloseRequest(e -> {
+				GeneralData.searchedSubscriber=null;
+		    });
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();

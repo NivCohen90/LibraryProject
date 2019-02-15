@@ -7,25 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ExtendLoanSubscriberController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ExtendLoanSubscriberController">
    <children>
-      <Label layoutX="42.0" layoutY="33.0" text="Extend Loan">
+      <Label layoutX="44.0" layoutY="33.0" text="Extend Loan">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="104.0" prefHeight="18.0" prefWidth="83.0" text="Book Name:" />
+      <Label layoutX="44.0" layoutY="112.0" prefHeight="18.0" prefWidth="83.0" text="Book Name:" />
       <Label layoutX="36.0" layoutY="172.0" prefHeight="18.0" prefWidth="74.0" text="Loan Date:" AnchorPane.bottomAnchor="409.6" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="172.0" />
-      <Label layoutX="42.0" layoutY="140.0" prefHeight="18.0" prefWidth="47.0" text="Author:" />
-      <DatePicker fx:id="dateLoanStart" disable="true" editable="false" layoutX="117.0" layoutY="168.0" prefHeight="26.0" prefWidth="138.0" AnchorPane.leftAnchor="117.0" AnchorPane.topAnchor="168.0" />
-      <DatePicker fx:id="dateReturn" disable="true" editable="false" layoutX="117.0" layoutY="202.0" prefHeight="26.0" prefWidth="138.0" AnchorPane.leftAnchor="117.0" AnchorPane.topAnchor="202.0" />
+      <Label layoutX="44.0" layoutY="148.0" prefHeight="18.0" prefWidth="47.0" text="Author:" />
+      <DatePicker fx:id="dateLoanStart" disable="true" editable="false" layoutX="119.0" layoutY="176.0" prefHeight="26.0" prefWidth="138.0" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="176.0" />
+      <DatePicker fx:id="dateReturn" disable="true" editable="false" layoutX="119.0" layoutY="210.0" prefHeight="26.0" prefWidth="138.0" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="210.0" />
       <Label layoutX="29.0" layoutY="206.0" prefHeight="18.0" prefWidth="73.0" text="Return Date:" AnchorPane.bottomAnchor="375.6" AnchorPane.topAnchor="206.0" />
-      <TextField fx:id="txtBookName" disable="true" editable="false" layoutX="117.0" layoutY="101.0" prefHeight="26.0" prefWidth="496.0" />
-      <TextField fx:id="txtAuthor" disable="true" editable="false" layoutX="117.0" layoutY="136.0" prefHeight="26.0" prefWidth="496.0" AnchorPane.topAnchor="136.0" />
-      <Button fx:id="ExtendBtn" disable="true" layoutX="42.0" layoutY="263.0" mnemonicParsing="false" onAction="#ExtandLoan" prefHeight="35.0" prefWidth="107.0" text="Ask for extention" />
-      <Label fx:id="RetriveMSG" layoutX="29.0" layoutY="311.0" text="recivedMSG" textFill="RED" visible="false" />
-      <Label fx:id="lblMsgExtend" layoutX="202.0" layoutY="42.0" text="* loan extension is available only one week or less before return date" />
-      <Label layoutX="43.0" layoutY="176.0" text="Start Date:" />
-      <Label layoutX="42.0" layoutY="206.0" text="End Date:" />
+      <TextField fx:id="txtBookName" disable="true" editable="false" layoutX="119.0" layoutY="109.0" prefHeight="26.0" prefWidth="496.0" />
+      <TextField fx:id="txtAuthor" disable="true" editable="false" layoutX="119.0" layoutY="144.0" prefHeight="26.0" prefWidth="496.0" AnchorPane.topAnchor="144.0" />
+      <Button fx:id="ExtendBtn" disable="true" layoutX="44.0" layoutY="263.0" mnemonicParsing="false" onAction="#ExtandLoan" prefHeight="35.0" prefWidth="107.0" text="Ask for extention" />
+      <Label fx:id="lblMsgExtend" layoutX="44.0" layoutY="68.0" text="loan extension is available only one week or less before return date">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="184.0" text="Start Date:" />
+      <Label layoutX="44.0" layoutY="214.0" text="End Date:" />
+      <Label fx:id="RetriveMSG" layoutX="44.0" layoutY="311.0" text="recivedMSG" textFill="RED" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>

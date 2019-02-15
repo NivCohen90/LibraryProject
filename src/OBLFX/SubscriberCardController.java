@@ -285,8 +285,9 @@ public class SubscriberCardController implements IGUIcontroller {
 		}
 		if (GeneralData.userSubscriber != null && !GeneralData.userSubscriber.getStatus().equals("Active")) {
 			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(true);
+			String msg = String.format("Your subscriber status is Frozen.\nBecause you have %d books in late return.\n\nSome options will be disabled.\nFor more information, Please contect the libararian.",GeneralData.userSubscriber.getFellonyNumber());
 			IAlert.setandShowAlert(AlertType.ERROR, GeneralData.userSubscriber.getStatus() + " Status",
-					"For more information, Please contect the libararian.", "Click ok to close message");
+					msg, "Click ok to close message");
 		} else {
 			((Button) SideMenu.APReaderCardFXML.lookup("#UpdateDetailsbutton")).setDisable(false);
 		}

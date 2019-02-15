@@ -214,7 +214,7 @@ public class EchoServer extends AbstractServer {
 			Date dateExtend = (Date) ((ServerData) msg).getDataMsg().get(2);
 			String libIDExtend = ((ServerData) msg).getDataMsg().get(3).toString();
 			try {
-				String subStatus = SubscriberQueries.getSubscriberStatus(subIDExtend);
+				String subStatus = SubscriberQueries.getSubscriberStatusSubID(subIDExtend);
 				if (subStatus.equals("Active")) {
 					if (!BookQueries.checkOrdersForBook(loanIDExtend)) {
 						if (!BookQueries.isDemandedByLoanID(loanIDExtend)) {
