@@ -30,7 +30,7 @@ public interface IFXMLpathAndStyle {
 	final static String WelcomeScreenCSS = "../CSS/WelcomeScreen.css";
 	
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
-	final static String ClickedBackgroundStyle = "-fx-background-color:#F0FFFF";
+	final static String ClickedBackgroundStyle = "-fx-background-color:#8FBCE9";
 	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";
 	
 }

@@ -22,6 +22,12 @@ public class UserWelcomeController implements IGUIcontroller {
 
     @FXML
     private Button Logout;
+    
+    @FXML
+    private Label txt2;
+
+    @FXML
+    private Label txt1;
 
     @FXML
     void Logout(ActionEvent event) {
@@ -47,6 +53,12 @@ public class UserWelcomeController implements IGUIcontroller {
     
 	@FXML
 	public void initialize() {
+	}
+	
+	public void setCatalog()
+	{
+		txt1.setVisible(false);
+		txt2.setText("Manage Catalog");
 	}
 
 	@Override

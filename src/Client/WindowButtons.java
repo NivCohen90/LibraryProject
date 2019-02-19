@@ -15,6 +15,10 @@ import javafx.stage.Stage;
 
 public class WindowButtons extends HBox {
 
+	final static String CloseIcon2 = "/MenuIcons/close4.png";
+	final static String minimizeIcon2 = "/MenuIcons/minimize2.png";
+	final static String CloseIcon3 = "/MenuIcons/close2.png";
+	final static String minimizeIcon3 = "/MenuIcons/minimize3.png";
 	final static String CloseIcon = "/MenuIcons/Close.png";
 	final static String minimizeIcon = "/MenuIcons/Minimize.png";
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
@@ -27,16 +31,37 @@ public class WindowButtons extends HBox {
     	toolbar.setMaxHeight(height);
     	toolbar.setStyle("-fx-background-color:#F0F8FF");
         Button closeBtn = new Button();
-        createNewButton(closeBtn, CloseIcon, toolbar);
+        createNewButton(closeBtn, CloseIcon2, toolbar);
         setCloseOnAction(closeBtn, toolbar, primaryStage);
+        closeBtn.setOnMouseEntered(value -> {
+    		Image image = new Image(getClass().getResource(CloseIcon3).toExternalForm());
+    		ImageView imageView = new ImageView(image);
+    		closeBtn.setGraphic(imageView);
+		});
+        closeBtn.setOnMouseExited(value -> {
+    		Image image = new Image(getClass().getResource(CloseIcon2).toExternalForm());
+    		ImageView imageView = new ImageView(image);
+    		closeBtn.setGraphic(imageView);
+		});
+        
         Button minimizeBtn = new Button();
-        createNewButton(minimizeBtn, minimizeIcon, toolbar);
+        createNewButton(minimizeBtn, minimizeIcon2, toolbar);
         setMinimizeOnAction(minimizeBtn, primaryStage);
+        minimizeBtn.setOnMouseEntered(value -> {
+    		Image image = new Image(getClass().getResource(minimizeIcon3).toExternalForm());
+    		ImageView imageView = new ImageView(image);
+    		minimizeBtn.setGraphic(imageView);
+		});
+        minimizeBtn.setOnMouseExited(value -> {
+    		Image image = new Image(getClass().getResource(minimizeIcon2).toExternalForm());
+    		ImageView imageView = new ImageView(image);
+    		minimizeBtn.setGraphic(imageView);
+		});
     }
     private void createNewButton(Button btn, String IconPath, ToolBar toolbar) {
     	btn.setStyle(BackgroundStyle);
     	btn.setAlignment(Pos.CENTER_LEFT);
-        btndecoration(btn);
+        //btndecoration(btn);
 		Image image = new Image(getClass().getResource(IconPath).toExternalForm());
 		ImageView imageView = new ImageView(image);
 		btn.setGraphic(imageView);
@@ -85,6 +110,7 @@ public class WindowButtons extends HBox {
         });
    
     }
+    /*
 	private void btndecoration(Button btn) {
 		btn.setOnMouseEntered(value -> {
 			btn.setStyle(ClickedBackgroundStyle);
@@ -93,4 +119,5 @@ public class WindowButtons extends HBox {
 			btn.setStyle(BackgroundStyle);
 		});
 	}
+	*/
 }

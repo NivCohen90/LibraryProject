@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ExtendLoanSubscriberController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ExtendLoanSubscriberController">
    <children>
       <Label layoutX="44.0" layoutY="33.0" text="Extend Loan">
          <font>
@@ -23,7 +23,7 @@
       <TextField fx:id="txtBookName" disable="true" editable="false" layoutX="119.0" layoutY="109.0" prefHeight="26.0" prefWidth="496.0" />
       <TextField fx:id="txtAuthor" disable="true" editable="false" layoutX="119.0" layoutY="144.0" prefHeight="26.0" prefWidth="496.0" AnchorPane.topAnchor="144.0" />
       <Button fx:id="ExtendBtn" disable="true" layoutX="44.0" layoutY="263.0" mnemonicParsing="false" onAction="#ExtandLoan" prefHeight="35.0" prefWidth="107.0" text="Ask for extention" />
-      <Label fx:id="lblMsgExtend" layoutX="44.0" layoutY="68.0" text="loan extension is available only one week or less before return date">
+      <Label fx:id="lblMsgExtend" layoutX="44.0" layoutY="68.0" text="loan extension is available only one week or less before end date">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -33,5 +33,10 @@
          <font>
             <Font size="14.0" />
          </font></Label>
+      <Label fx:id="lblMsgExtend1" layoutX="167.0" layoutY="271.0" text="*will extend loan for 1 more week">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

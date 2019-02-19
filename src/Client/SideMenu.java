@@ -3,6 +3,7 @@ package Client;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,7 @@ import OBLFX.SearchSubscriberController;
 import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
+import OBLFX.UserWelcomeController;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.MenuType;
 import SystemObjects.GeneralData.Menuicons;
@@ -98,6 +100,7 @@ public class SideMenu {
 			break;
 		case SubscriberMenu:
 			vbox.getChildren().add(Item(Menuicons.SubscriberCard));
+			selectMenu(sideMenuButtons.get(Menuicons.SubscriberCard));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.History));
 			vbox.getChildren().add(Item(Menuicons.Connection));
@@ -105,6 +108,7 @@ public class SideMenu {
 			break;
 		case LibrarianMenu:
 			vbox.getChildren().add(Item(Menuicons.LibrarianCard));
+			selectMenu(sideMenuButtons.get(Menuicons.LibrarianCard));
 			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.CreateLoan));
@@ -117,6 +121,7 @@ public class SideMenu {
 			break;
 		case LibrarianManagerMenu:
 			vbox.getChildren().add(Item(Menuicons.ManagerCard));
+			selectMenu(sideMenuButtons.get(Menuicons.ManagerCard));
 			vbox.getChildren().add(Item(Menuicons.SearchLibrarian));
 			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
@@ -159,19 +164,20 @@ public class SideMenu {
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
+		btn.getStylesheets().add(getClass().getResource("../CSS/general.css").toExternalForm());
 		if (icon == Menuicons.catalog) {
-			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+			//btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
 		} else {
-			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+			//btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		}
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
 		paneIndicator.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		if (icon == Menuicons.catalog) {
-			catalogDecorator(btn, paneIndicator);
+			//catalogDecorator(btn, paneIndicator);
 		} else {
-			menuDecorator(btn, paneIndicator);
+			//menuDecorator(btn, paneIndicator);
 		}
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
@@ -324,6 +330,7 @@ public class SideMenu {
 	 * @param btn
 	 * @param pane
 	 */
+	/*
 	private void menuDecorator(Button btn, Pane pane) {
 
 		btn.setOnMouseEntered(value -> {
@@ -335,6 +342,7 @@ public class SideMenu {
 			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 		});
 	}
+	*/
 
 	private void catalogDecorator(Button btn, Pane pane) {
 		btn.setOnMouseEntered(value -> {
@@ -357,6 +365,21 @@ public class SideMenu {
 		});
 
 	}
+	
+	private void selectMenu(Button btn)
+	{
+		for(Menuicons icon : Menuicons.values()) {
+			if(sideMenuButtons.get(icon) != null)
+				if(sideMenuButtons.get(icon).equals(btn))
+					btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+				else
+				{
+					sideMenuButtons.get(icon).setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					sideMenuButtons.get(icon).setStyle("");
+					sideMenuButtons.get(icon).getStylesheets().add(getClass().getResource("../CSS/general.css").toExternalForm());
+				}
+		}
+	}
 
 	/**
 	 * set handler to menu button which page to show when clicked (Pop Error Alert
@@ -371,11 +394,15 @@ public class SideMenu {
 		btn.setOnMouseClicked(search -> {
 			try {
 				if(sideMenuButtons.get(IconName) != null) {
-					sideMenuButtons.get(IconName).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+					selectMenu(sideMenuButtons.get(IconName));
+					/*
+					 sideMenuButtons.get(IconName).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+					 
 					for(Menuicons icon : Menuicons.values()) {
 						if(IconName != icon && sideMenuButtons.get(icon) != null)
 							sideMenuButtons.get(icon).setStyle(IFXMLpathAndStyle.BackgroundStyle);
 					}
+					*/
 				}
 				if (controllerMap.get(IconName) != null) {
 					controllerMap.get(IconName).setConnection();
@@ -388,6 +415,7 @@ public class SideMenu {
 					anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 					Main.root.setRight(anchorPane);
 				} else {
+					selectMenu(sideMenuButtons.get(Menuicons.Connection));
 					APConnectionSettingsFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 					Main.root.setRight(APConnectionSettingsFXML);
 				}
@@ -405,6 +433,12 @@ public class SideMenu {
 				SubMenu = true;
 				SideMenu sideMenu = new SideMenu(GeneralData.MenuType.SubMenu);
 				Main.root.setLeft(sideMenu.getVBox());
+				
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				AnchorPane pane = (AnchorPane) fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen).openStream());
+				((UserWelcomeController) fxmlLoader.getController()).setCatalog();;
+				pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+				Main.root.setRight(pane);
 			} catch (Exception e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
@@ -420,9 +454,13 @@ public class SideMenu {
 				if (SystemObjects.GeneralData.userLibrarian.getLevel() == 1) {
 					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
 					Main.root.setLeft(sideMenu.getVBox());
+					SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(SideMenu.APCardLibrarianFXML);
 				} else {
 					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 					Main.root.setLeft(sideMenu.getVBox());
+					SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
 				}
 			} catch (Exception e) {
 				IAlert.ExceptionAlert(e);
@@ -483,10 +521,10 @@ public class SideMenu {
 			break;
 		case catalog:
 			if (SubMenu) {
-				btn.setText("Manage Catalog <<");
+				btn.setText("Back to Librarian Menu");
 				SubMenuBtnTrueHandler(btn);
 			} else {
-				btn.setText("Manage Catalog >>");
+				btn.setText("Manage Catalog Menu");
 				SubMenuBtnFalseHandler(btn);
 			}
 

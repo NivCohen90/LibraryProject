@@ -1,12 +1,28 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .button {
-    -fx-text-fill: white;
+    /*-fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-color: #D75A4A;*/
+	
+	-fx-background-color: 
+	    #D75A4A,
+        linear-gradient(#f7bdb7, #f2958a),
+        linear-gradient(#f2958a, #D75A4A);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-text-fill: black;
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    /*-fx-background-color: linear-gradient(#2A5058, #61a2b1);*/
+    	-fx-background-color: 
+	    #D75A4A,
+        linear-gradient(#f9cac5, #f7bdb7),
+        linear-gradient(#f7a59b, #e86e5f);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-text-fill: black;
 }

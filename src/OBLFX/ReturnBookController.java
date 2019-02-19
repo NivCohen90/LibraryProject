@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
@@ -71,8 +73,14 @@ public class ReturnBookController implements IGUIcontroller {
 			counter++;
 		}	
 		if(counter==3) {
-			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),GeneralData.userLibrarian);	
+			librarianClient.returnBook(CatalogNumberTextField.getText(), SubscriberIDTextField.getText(),GeneralData.userLibrarian);
+			Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
+			ImageView imageView = new ImageView(image);
+			RetriveMSG.setText("");
+			RetriveMSG.setVisible(true);
+			RetriveMSG.setGraphic(imageView);
 		}
+		
 	}	
 	
 
@@ -92,6 +100,7 @@ public class ReturnBookController implements IGUIcontroller {
 	 */
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
+		RetriveMSG.setGraphic(null);
 		switch(op)
 		{
 		case returnSuccessMsg:

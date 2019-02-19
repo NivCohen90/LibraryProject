@@ -6,6 +6,7 @@ import java.util.Date;
 import Client.CommonHandler;
 import Client.SideMenu;
 import Interfaces.IAlert;
+import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
 
 import SystemObjects.Loan;
@@ -70,16 +71,19 @@ public class SubscriberCardController implements IGUIcontroller {
 	private TableView<Loan> ActiveLoansTable;
 
 	@FXML
-	private TableColumn<LoansTable, String> ALoansBookName;
+	private TableColumn<Loan, String> ALoansBookName;
 
 	@FXML
-	private TableColumn<LoansTable, String> ALoansAuthor;
+	private TableColumn<Loan, String> ALoansAuthor;
 
 	@FXML
-	private TableColumn<LoansTable, Date> ALoansStartLoanDate;
+	private TableColumn<Loan, Date> ALoansStartLoanDate;
 
 	@FXML
-	private TableColumn<LoansTable, Date> ALoansEndLoanDate;
+	private TableColumn<Loan, Date> ALoansEndLoanDate;
+
+	@FXML
+	private TableColumn<Loan, Date> ALoansStatus;
 
 	@FXML
 	private TableView<OrdersTable> ActiveOrdersTable;
@@ -421,8 +425,9 @@ public class SubscriberCardController implements IGUIcontroller {
 			scene = new Scene(root);
 			ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
 			Controller.setLoanDetails(choosenResult);
+			root.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+			
 			primaryStage.setTitle(choosenResult.getBookName());
-
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
@@ -496,6 +501,7 @@ public class SubscriberCardController implements IGUIcontroller {
 	 */
 	@FXML
 	public void initialize() {
+		
 		ObservableLoansList = FXCollections.observableArrayList();
 		ObservableOrdersList = FXCollections.observableArrayList();
 		ActiveLoansTable.setItems(ObservableLoansList);
@@ -504,6 +510,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		ALoansAuthor.setCellValueFactory(new PropertyValueFactory<>("BookAuthors"));
 		ALoansStartLoanDate.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
 		ALoansEndLoanDate.setCellValueFactory(new PropertyValueFactory<>("ReturnDate"));
+		ALoansStatus.setCellValueFactory(new PropertyValueFactory<>("LoanStatus"));
 		ActiveOrdersTable.setItems(ObservableOrdersList);
 		ActiveOrdersTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
 		AOrdersBookName.setCellValueFactory(new PropertyValueFactory<>("BookName"));

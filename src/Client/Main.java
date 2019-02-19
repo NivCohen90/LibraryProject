@@ -50,11 +50,10 @@ public class Main extends Application {
 			fadeIn.setToValue(1);
 			fadeIn.setCycleCount(1);
 			fadeIn.play();
-			FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), pane);
+			/*FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), pane);
 			fadeOut.setFromValue(1);
 			fadeOut.setToValue(0);
 			fadeOut.setCycleCount(1);
-
 			fadeIn.setOnFinished((e) -> {
 				fadeOut.play();
 			});
@@ -62,6 +61,7 @@ public class Main extends Application {
 //				Main.root.setRight(SideMenu.APLoginFXML);
 //				SideMenu.sideMenuButtons.get(Menuicons.Login).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
 			});
+			*/
 			Scene scene = new Scene(root);
 			// scene.getStylesheets().add(getClass().getResource(IFXMLpathAndStyle.WelcomeScreenCSS).toExternalForm());
 			toolBar = new ToolBar();

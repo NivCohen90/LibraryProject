@@ -3,6 +3,7 @@ package OBLFX;
 import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IAlert;
+import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
@@ -24,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -167,32 +170,46 @@ public class SearchSubscriberController implements IGUIcontroller {
 	void searchInLibrary(ActionEvent event) {
 
 		String searchInput = txtInput.getText();
+		boolean flag = false;
 		
 		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected()) {
 				if(IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
+					flag = true;
 				}}
-					if (type2.isSelected()) {
-						if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
-							commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
-						}
-					}
+			if (type2.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
+					flag = true;
+				}
+			}
 
 			if (type3.isSelected()) {
 				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
+					flag = true;
 				}
 			}			
 			if (type4.isSelected()) {
 				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
-					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);	
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);
+					flag = true;
 				}
 				else {
 					emptyMsg.setText("Invalid Email");
 				}
 				
-			}	
+			}
+			
+			if(flag)
+			{
+				Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
+				ImageView imageView = new ImageView(image);
+				emptyMsg.setText("");
+				emptyMsg.setVisible(true);
+				emptyMsg.setGraphic(imageView);
+			}
 		}
 
 	}
@@ -249,6 +266,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 				scene = new Scene(root);
 				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
 				Controller.setSubscriberCard((Subscriber)choosenResult);
+				root.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 				primaryStage.setTitle(((Subscriber)choosenResult).getFullName());
 			}		
 		
@@ -269,6 +287,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		emptyMsg.setGraphic(null);
 		switch(op) {
 		case returnError:
 			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);
