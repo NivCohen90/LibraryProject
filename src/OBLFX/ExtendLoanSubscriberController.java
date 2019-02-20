@@ -129,10 +129,30 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 						RetriveMSG.setTextFill(Color.RED);
 					}
 				}
-				
 //				else
 //					RetriveMSG.setText("Your subscriber user is frozen, can not extend loan. Please contect the libararian.");
 			}
+			
+			if (GeneralData.userSubscriber!=null) 
+			{
+				if(!GeneralData.userSubscriber.getStatus().equals("Active"))
+				{
+					RetriveMSG.setVisible(true);
+					RetriveMSG.setText("Subscriber status is 'Freeze', cannot use loan extension.");
+					RetriveMSG.setTextFill(Color.RED);
+				}
+			}
+			else if (GeneralData.userLibrarian!=null) 
+			{
+				lblMsgExtend1.setVisible(false);
+				if(GeneralData.searchedSubscriber != null && !GeneralData.searchedSubscriber.getStatus().equals("Active"))
+				{
+					RetriveMSG.setVisible(true);
+					RetriveMSG.setText("Subscriber status is 'Freeze', cannot use loan extension.");
+					RetriveMSG.setTextFill(Color.RED);
+				}
+			}
+			
 		} catch (ParseException e) {
 			IAlert.ExceptionAlert(e);
 		}
@@ -163,7 +183,7 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 			Date returnExtend = Date.from(dateReturn.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()); 
 			if(displayedLoan.getReturnDate().before(returnExtend)||displayedLoan.getReturnDate().equals(returnExtend))
 			{
-				librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend, GeneralData.userLibrarian.getEmail());
+				librarianClient.extendLoanByLibrarian(displayedLoan.getSubscriberID(), displayedLoan.getLoanID(), returnExtend, GeneralData.userLibrarian.getID());
 				flag = true;
 			}
 			else
