@@ -421,7 +421,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		try {
 
 			root = (AnchorPane) fxmlLoader
-					.load(getClass().getResource("../FXML/ExtendLoanSubscriber.fxml").openStream());
+					.load(getClass().getResource("/FXML/ExtendLoanSubscriber.fxml").openStream());
 			scene = new Scene(root);
 			ExtendLoanSubscriberController Controller = (ExtendLoanSubscriberController) fxmlLoader.getController();
 			Controller.setLoanDetails(choosenResult);
