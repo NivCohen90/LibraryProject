@@ -278,7 +278,7 @@ public class SearchBookController implements IGUIcontroller {
 		try {
 
 			if (choosenResult instanceof Book) {
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("/FXML/BookDetails.fxml").openStream());
 				scene = new Scene(root);
 				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
 				Controller.setBookToDisplay((Book) choosenResult);

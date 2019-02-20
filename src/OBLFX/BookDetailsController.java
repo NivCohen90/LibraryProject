@@ -1,8 +1,10 @@
 package OBLFX;
 
 import java.awt.Desktop;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -151,6 +153,7 @@ public class BookDetailsController implements IGUIcontroller{
 		BufferedOutputStream bos;		//buffer input		  
 		  
 		try {
+			
 			pdfoutFile = File.createTempFile("BookCN-"+displayedBook.getCatalogNumber()+"_temp", ".pdf");//File.createTempFile("outTemp", ".pdf");
 			fos = new FileOutputStream(pdfoutFile);
 			bos = new BufferedOutputStream(fos);

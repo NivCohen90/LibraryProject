@@ -102,7 +102,6 @@ public class LoginFormController implements IGUIcontroller {
 			SubscriberHistoryController subHistoryCon = new SubscriberHistoryController();
 			subHistoryCon.setSubscriberHistory((Subscriber) msg);
 			
-
 			break;
 		case returnLibrarian:
 			GeneralData.userLibrarian = ((Librarian) msg);

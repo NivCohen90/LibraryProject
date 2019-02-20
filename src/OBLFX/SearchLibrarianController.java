@@ -239,7 +239,7 @@ public class SearchLibrarianController implements IGUIcontroller {
 		try {
 
 			if (choosenResult instanceof Librarian) {
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/CardLibrarian.fxml").openStream());
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("/FXML/CardLibrarian.fxml").openStream());
 				scene = new Scene(root);
 				CardLibrarianController Controller = (CardLibrarianController) fxmlLoader.getController();
 				Controller.setLibrarianToDisplay((Librarian) choosenResult);

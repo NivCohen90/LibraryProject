@@ -79,18 +79,6 @@ public class ConnectionSettingsController implements IGUIcontroller {
 
 	@FXML
 	public void initialize() {
-		if(IPAddress.equals("")) {
-			IPAddress = getServerIPAddress();
-		}
-		else {
-			setServerIPAddress(IPAddress);
-		}
-		if(PortNumber == 0) {
-			PortNumber = getPort();
-		}
-		else {
-			setPort(PortNumber);
-		}
 	}
 
 }

@@ -11,7 +11,6 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -61,8 +60,8 @@ public class UserWelcomeController implements IGUIcontroller {
 	@FXML
 	void MouseDragged(MouseEvent event) {
 		if (event.getButton() != MouseButton.MIDDLE) {
-			Main.toolBar.getScene().getWindow().setX(event.getScreenX() - dragDelta.getX());
-			Main.toolBar.getScene().getWindow().setY(event.getScreenY() - dragDelta.getY());
+			Main.PrimaryStage.getScene().getWindow().setX(event.getScreenX() - dragDelta.getX());
+			Main.PrimaryStage.getScene().getWindow().setY(event.getScreenY() - dragDelta.getY());
 		}
 	}
 

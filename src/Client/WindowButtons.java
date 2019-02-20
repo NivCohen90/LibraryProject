@@ -62,7 +62,6 @@ public class WindowButtons extends HBox {
 	private void createNewButton(Button btn, String IconPath, ToolBar toolbar) {
 		btn.setStyle(BackgroundStyle);
 		btn.setAlignment(Pos.CENTER_LEFT);
-		// btndecoration(btn);
 		Image image = new Image(getClass().getResource(IconPath).toExternalForm());
 		ImageView imageView = new ImageView(image);
 		btn.setGraphic(imageView);
@@ -112,9 +111,4 @@ public class WindowButtons extends HBox {
 		});
 
 	}
-	/*
-	 * private void btndecoration(Button btn) { btn.setOnMouseEntered(value -> {
-	 * btn.setStyle(ClickedBackgroundStyle); }); btn.setOnMouseExited(value -> {
-	 * btn.setStyle(BackgroundStyle); }); }
-	 */
 }

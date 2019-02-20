@@ -262,7 +262,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 			if(choosenResult instanceof Subscriber)
 			{
 				GeneralData.searchedSubscriber = (Subscriber) choosenResult;
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ReaderCard.fxml").openStream());
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("/FXML/ReaderCard.fxml").openStream());
 				scene = new Scene(root);
 				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
 				Controller.setSubscriberCard((Subscriber)choosenResult);
