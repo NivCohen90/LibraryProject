@@ -59,7 +59,7 @@ public class BookQueries {
 	{
 		String bookCatalogNumber= BookQueries.bookCatalogNumber(loanID);
 		String queryCheckOrder = String.format(
-				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime=null;", bookCatalogNumber);
+				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime is null;", bookCatalogNumber);
 		try {
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(queryCheckOrder);

@@ -72,20 +72,32 @@ public class SearchBooksQueries {
 					/* get pdf file */
 					if (ContextTable.contains("pdf")) {
 						
-						InputStream is = SearchBooksQueries.class.getResourceAsStream("/PDFBook/" + ContextTable);
-			            byte[] data = new byte[is.available()];
-			            is.read(data);
-			            is.close();
-			            String tempFile[] = ContextTable.split("\\.");
-			            File temp = File.createTempFile(tempFile[0], ".pdf");
-			            FileInputStream fis = new FileInputStream(temp);
-			            BufferedInputStream bis; // buffer input
-			            bis = new BufferedInputStream(fis);
-						bis.read(data, 0, data.length); // read from file to byte array
+						InputStream fis; // input from file
+						BufferedInputStream bis; // buffer input
+						fis = rs.getClass().getResourceAsStream("/PDFBook/" + rs.getString("ContextTable"));
+						byte[] mybytearray = new byte[fis.available()];
+						bis = new BufferedInputStream(fis);
+						bis.read(mybytearray, 0, fis.available()); // read from file to byte array
 						bis.close();
 						fis.close();
 						Book newBook = (Book) books.get(books.size() - 1);
-						newBook.setContextTableByteArray(data);
+						newBook.setContextTableByteArray(mybytearray);
+						
+//						InputStream is = SearchBooksQueries.class.getResourceAsStream("/PDFBook/" + ContextTable);
+//			            byte[] data = new byte[is.available()];
+//			            is.read(data);
+//			            is.close();
+//			            String tempFile[] = ContextTable.split("\\.");
+//			            File temp = File.createTempFile(tempFile[0], ".pdf");
+//			            FileInputStream fis = new FileInputStream(temp);
+//			            BufferedInputStream bis; // buffer input
+//			            bis = new BufferedInputStream(fis);
+//						bis.read(data, 0, data.length); // read from file to byte array
+//						bis.close();
+//						fis.close();
+//						Book newBook = (Book) books.get(books.size() - 1);
+//						newBook.setContextTableByteArray(data);
+						
 //						File pdfFile = new File("/PDFBook/" + ContextTable);
 //						byte[] mybytearray = new byte[(int) pdfFile.length()]; // byte array of file
 //						FileInputStream fis; // input from file
@@ -132,20 +144,34 @@ public class SearchBooksQueries {
 						rs.getString(12), ContextTable));
 				/* get pdf file */
 				if (ContextTable.contains("pdf")) {
-					InputStream is = SearchBooksQueries.class.getResourceAsStream("/PDFBook/" + ContextTable);
-		            byte[] data = new byte[is.available()];
-		            is.read(data);
-		            is.close();
-		            String tempFile[] = ContextTable.split("\\.");
-		            File temp = File.createTempFile(tempFile[0], ".pdf");
-		            FileInputStream fis = new FileInputStream(temp);
-		            BufferedInputStream bis; // buffer input
-		            bis = new BufferedInputStream(fis);
-					bis.read(data, 0, data.length); // read from file to byte array
+					
+					File pdfFile;
+					InputStream fis; // input from file
+					BufferedInputStream bis; // buffer input
+					fis = rs.getClass().getResourceAsStream("/PDFBook/" + rs.getString("ContextTable"));
+					byte[] mybytearray = new byte[fis.available()];
+					bis = new BufferedInputStream(fis);
+					bis.read(mybytearray, 0, fis.available()); // read from file to byte array
 					bis.close();
 					fis.close();
 					Book newBook = (Book) books.get(books.size() - 1);
-					newBook.setContextTableByteArray(data);
+					newBook.setContextTableByteArray(mybytearray);
+					
+//					InputStream is = SearchBooksQueries.class.getResourceAsStream("/PDFBook/" + ContextTable);
+//		            byte[] data = new byte[is.available()];
+//		            is.read(data);
+//		            is.close();
+//		            String tempFile[] = ContextTable.split("\\.");
+//		            File temp = File.createTempFile(tempFile[0], ".pdf");
+//		            FileInputStream fis = new FileInputStream(temp);
+//		            BufferedInputStream bis; // buffer input
+//		            bis = new BufferedInputStream(fis);
+//					bis.read(data, 0, data.length); // read from file to byte array
+//					bis.close();
+//					fis.close();
+//					Book newBook = (Book) books.get(books.size() - 1);
+//					newBook.setContextTableByteArray(data);
+					
 //					File pdfFile = new File("/PDFBook/" + ContextTable);
 //					byte[] mybytearray = new byte[(int) pdfFile.length()]; // byte array of file
 //					FileInputStream fis = null; // input from file
