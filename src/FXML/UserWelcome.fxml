@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: F0F8FF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UserWelcomeController">
+<AnchorPane prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: F0F8FF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UserWelcomeController">
    <children>
-      <ImageView fitHeight="200.0" fitWidth="810.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="200.0" fitWidth="810.0" onMouseDragged="#MouseDragged" onMousePressed="#MousePressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../MenuIcons/Logo.png" />
          </image>

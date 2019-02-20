@@ -3,7 +3,6 @@ package Client;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -11,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -191,7 +191,6 @@ public class SideMenu {
 	private void loadAllFXMLAnchorPanes() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			// FooController fooController = (FooController) fxmlLoader.getController();
 			APSearchFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.SearchFXML).openStream());
 			controllerMap.put(Menuicons.SearchBook, (SearchBookController) fxmlLoader.getController());

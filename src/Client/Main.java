@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef.HWND;
+import com.sun.jna.platform.win32.WinUser;
+import static com.sun.jna.platform.win32.WinUser.GWL_STYLE;
 
 public class Main extends Application {
 
@@ -50,29 +58,32 @@ public class Main extends Application {
 			fadeIn.setToValue(1);
 			fadeIn.setCycleCount(1);
 			fadeIn.play();
-			/*FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), pane);
-			fadeOut.setFromValue(1);
-			fadeOut.setToValue(0);
-			fadeOut.setCycleCount(1);
-			fadeIn.setOnFinished((e) -> {
-				fadeOut.play();
-			});
-			fadeOut.setOnFinished((e) -> {
-//				Main.root.setRight(SideMenu.APLoginFXML);
-//				SideMenu.sideMenuButtons.get(Menuicons.Login).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
-			});
-			*/
 			Scene scene = new Scene(root);
-			// scene.getStylesheets().add(getClass().getResource(IFXMLpathAndStyle.WelcomeScreenCSS).toExternalForm());
 			toolBar = new ToolBar();
 			new WindowButtons(toolBar, PrimaryStage);
 			topMenu.setTop(toolBar);
 			topMenu.setBottom(topPane);
 			root.setTop(topMenu);
-			// root.setTop(topPane);
+			Image image = new Image(getClass().getResource("/MenuIcons/LibraryAppIcon.png").toExternalForm());
+			PrimaryStage.getIcons().add(image);
 			PrimaryStage.setScene(scene);
 			PrimaryStage.setResizable(false);
 			PrimaryStage.show();
+			
+			/*
+			 * Configure the taskBar Icon to minimize and Maximize the Application. 
+			 */
+	        long lhwnd = com.sun.glass.ui.Window.getWindows().get(0).getNativeWindow();
+	        Pointer lpVoid = new Pointer(lhwnd);
+	        HWND hwnd = new HWND(lpVoid);
+	        final User32 user32 = User32.INSTANCE;
+	        int oldStyle = user32.GetWindowLong(hwnd, GWL_STYLE);
+	        int newStyle = oldStyle | 0x00020000;//WS_MINIMIZEBOX
+	        user32.SetWindowLong(hwnd, GWL_STYLE, newStyle);
+	        
+	        /*
+	         *  Set the Close Request.
+	         */
 			PrimaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent t) {
 					t.consume();
@@ -96,4 +107,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }

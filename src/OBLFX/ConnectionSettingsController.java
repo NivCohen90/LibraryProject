@@ -10,7 +10,8 @@ import javafx.scene.control.TextArea;
 public class ConnectionSettingsController implements IGUIcontroller {
 	final static String GREEN_COLOR = "-fx-control-inner-background: #1AFE01";
 	final static String RED_COLOR = "-fx-control-inner-background: RED";
-
+	static String IPAddress = "";
+	static int PortNumber = 0;
 	public boolean ConnectedFLAG = false;
 
 	@FXML
@@ -52,6 +53,23 @@ public class ConnectionSettingsController implements IGUIcontroller {
 		TextField Port = (TextField) SideMenu.APConnectionSettingsFXML.lookup("#Port");
 		return Integer.parseInt(Port.getText());
 	}
+	
+	public void setServerIPAddress(String IP) {
+		TextField ServerIPAddress = (TextField) SideMenu.APConnectionSettingsFXML.lookup("#ServerIPAddress");
+		ServerIPAddress.setText(IP);
+	}
+	
+	public void setPort(int PortNumber) {
+		TextField Port = (TextField) SideMenu.APConnectionSettingsFXML.lookup("#Port");
+		Port.setText(Integer.toString(PortNumber));
+	}
+	
+	public String getIPAddress() {
+		return IPAddress;
+	}
+	public int getPortNumber() {
+		return PortNumber;
+	}
 
 	@Override
 	public void closeConnection() {
@@ -61,6 +79,18 @@ public class ConnectionSettingsController implements IGUIcontroller {
 
 	@FXML
 	public void initialize() {
+		if(IPAddress.equals("")) {
+			IPAddress = getServerIPAddress();
+		}
+		else {
+			setServerIPAddress(IPAddress);
+		}
+		if(PortNumber == 0) {
+			PortNumber = getPort();
+		}
+		else {
+			setPort(PortNumber);
+		}
 	}
 
 }

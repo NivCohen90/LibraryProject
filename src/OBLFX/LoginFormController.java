@@ -122,7 +122,7 @@ public class LoginFormController implements IGUIcontroller {
 			sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 			Main.root.setLeft(sideMenu.getVBox());	
 			SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);	
+			Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
 			CardLibrarianManagerController librarianManCon = new CardLibrarianManagerController();
 			SideMenu.controllerMap.get(Menuicons.ManagerCard).setConnection();
 			((Label) Main.topMenu.lookup("#UserName")).setText(((Librarian) msg).getFullName());

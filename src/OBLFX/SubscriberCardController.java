@@ -392,7 +392,7 @@ public class SubscriberCardController implements IGUIcontroller {
 				Sub.setID(((TextField) SideMenu.APReaderCardFXML.lookup("#IDField")).getText());
 				Sub.setFirstName(((TextField) SideMenu.APReaderCardFXML.lookup("#FirstNameField")).getText());
 				Sub.setLastName(((TextField) SideMenu.APReaderCardFXML.lookup("#LastNameField")).getText());
-				Sub.setPhoneNumber(((ComboBox) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getSelectionModel()
+				Sub.setPhoneNumber(((ComboBox<?>) SideMenu.APReaderCardFXML.lookup("#AreaCodeCombo")).getSelectionModel()
 						.getSelectedItem().toString()
 						+ ((TextField) SideMenu.APReaderCardFXML.lookup("#PhoneNumberField")).getText());
 				Sub.setEmail(((TextField) SideMenu.APReaderCardFXML.lookup("#EmailField")).getText());
