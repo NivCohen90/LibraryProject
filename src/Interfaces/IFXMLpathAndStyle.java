@@ -15,7 +15,6 @@ public interface IFXMLpathAndStyle {
 	final static String ReportFaultFXML = "../FXML/ReportFault.fxml";
 	final static String ReturnBookFXML = "../FXML/ReturnBook.fxml";
 	final static String NewLoanFXML = "../FXML/NewLoan.fxml";
-//	final static String UpdateSubscriberStatusFXML = "../FXML/UpdateSubscriberStatus.fxml";
 	final static String StatisticsFXML = "../FXML/CreateReport.fxml";
 	final static String ConnectionSettingsFXML = "../FXML/ConnectionSettings.fxml";
 	final static String WelcomeScreen = "../FXML/WelcomeScreen.fxml";

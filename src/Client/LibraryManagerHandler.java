@@ -57,6 +57,8 @@ public class LibraryManagerHandler extends IHandler {
 
 				e.printStackTrace();
 			}
+		default:
+			break;
 		}
 	}
 }

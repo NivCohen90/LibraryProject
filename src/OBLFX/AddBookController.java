@@ -340,6 +340,8 @@ public class AddBookController implements IGUIcontroller {
 				//RetriveMSG.setText(((Exception) msg).getMessage());
 				IAlert.ExceptionAlert((Exception)msg);
 				break;
+		default:
+			break;
 		}
 			
 	}

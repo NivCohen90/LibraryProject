@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import Client.CommonHandler;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
-import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.Librarian;
@@ -274,6 +273,8 @@ public class SearchLibrarianController implements IGUIcontroller {
 			break;
 		case returnException:
 			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		default:
 			break;
 		}
 

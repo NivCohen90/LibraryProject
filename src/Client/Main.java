@@ -43,7 +43,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			PrimaryStage = primaryStage;
-			PrimaryStage.initStyle(StageStyle.UNDECORATED);
+			//PrimaryStage.initStyle(StageStyle.UNDECORATED);
 			sideMenu = new SideMenu(GeneralData.MenuType.MainMenu);
 			root = new BorderPane();
 			topMenu = new BorderPane();
@@ -58,10 +58,17 @@ public class Main extends Application {
 			fadeIn.setToValue(1);
 			fadeIn.setCycleCount(1);
 			fadeIn.play();
+			FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), pane);
+			fadeOut.setFromValue(1);
+			fadeOut.setToValue(0);
+			fadeOut.setCycleCount(1);
+			fadeIn.setOnFinished((e) -> {
+				fadeOut.play();
+			});
+			fadeOut.setOnFinished((e) -> {
+			});
 			Scene scene = new Scene(root);
 			toolBar = new ToolBar();
-			new WindowButtons(toolBar, PrimaryStage);
-			topMenu.setTop(toolBar);
 			topMenu.setBottom(topPane);
 			root.setTop(topMenu);
 			Image image = new Image(getClass().getResource("/MenuIcons/LibraryAppIcon.png").toExternalForm());

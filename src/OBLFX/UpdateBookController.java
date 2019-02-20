@@ -229,6 +229,7 @@ public class UpdateBookController implements IGUIcontroller {
 	/**
 	 * Update User with the result
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		SetAllUnEditable();
@@ -264,6 +265,8 @@ public class UpdateBookController implements IGUIcontroller {
 		case returnSuccessMsg:
 			RetriveMSGLabel.setStyle("-fx-text-fill: green;");
 			RetriveMSGLabel.setText((String) msg);
+			break;
+		default:
 			break;
 		}
 	}

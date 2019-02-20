@@ -8,11 +8,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import Client.CommonHandler;
 import Client.LibrarianHandler;
 import Client.SubscriberHandler;
 import Interfaces.IAlert;
@@ -186,21 +185,22 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 		}
 	}
 	
+    @FXML
+    void CancelAction(ActionEvent event) {
+
+    }
+	
 	
 
 	/**
 	 * {@inheritDoc}}
 	 */
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		RetriveMSG.setGraphic(null);
 		switch(op)
 		{
-		/*case returnSuccessMsg:
-			RetriveMSG.setVisible(true);
-			RetriveMSG.setText((String) msg);
-			RetriveMSG.setTextFill(Color.GREEN);
-			break;*/
 		case returnLoanArray:
 			Subscriber sub = null;
 			if(GeneralData.userSubscriber!=null)
@@ -232,6 +232,8 @@ public class ExtendLoanSubscriberController implements IGUIcontroller {
 			break;
 		case returnException:
 			IAlert.ExceptionAlert((Exception) msg);
+			break;
+		default:
 			break;
 		}
 		closeConnection();

@@ -1,6 +1,5 @@
 package OBLFX;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import Client.CommonHandler;
@@ -14,7 +13,6 @@ import SystemObjects.LoansTable;
 import SystemObjects.Order;
 import SystemObjects.OrdersTable;
 import Users.Subscriber;
-import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.collections.FXCollections;
@@ -277,6 +275,7 @@ public class SubscriberCardController implements IGUIcontroller {
 
 		ObservableLoansList.clear();
 		for (Loan iloan : sub.getActiveLoans()) {
+			@SuppressWarnings("unused")
 			LoansTable loan = new LoansTable(iloan.getBookName(), iloan.getBookAuthors(),
 			iloan.getStartDate(), iloan.getReturnDate());
 			ObservableLoansList.add(iloan);
@@ -353,6 +352,7 @@ public class SubscriberCardController implements IGUIcontroller {
 		AreaCodeCombo.setValue(AreaCodeTXT.getText());
 	}
 
+	@SuppressWarnings("rawtypes")
 	@FXML
 	public void saveSubscriberUpdate(ActionEvent event) {
 		Subscriber Sub = new Subscriber();

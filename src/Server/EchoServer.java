@@ -1,21 +1,16 @@
 package Server;
 
 import java.io.IOException;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-
 import Interfaces.IAlert;
-import OBLFX.NewLoanController;
 import Server.LoginQueris;
 import Server.SearchUserQueries.searchtype;
 import SystemObjects.Book;
-import SystemObjects.GeneralData;
 import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Order;
 import SystemObjects.ReportData;
@@ -26,7 +21,6 @@ import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operationsReturn;
 import SystemObjects.GeneralData.reportReference;
 import SystemObjects.LateReturnReportData;
-import SystemObjects.LateReturnsReportBookData;
 import SystemObjects.Loan;
 import Users.Subscriber;
 import ocsf.server.*;
@@ -73,6 +67,7 @@ public class EchoServer extends AbstractServer {
 	 * @param client The connection from which the message originated.
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("null")
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		ServerController.updateLog("Request from:\n" + client.getInetAddress().getHostName() + "\nCommand: "
 				+ ((ServerData) msg).getOperation());

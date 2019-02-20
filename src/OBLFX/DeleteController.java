@@ -9,7 +9,6 @@ import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
-import Users.Librarian;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -153,6 +152,7 @@ public class DeleteController implements IGUIcontroller {
     /**
      * Update User with the result
     */ 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		switch(op) {

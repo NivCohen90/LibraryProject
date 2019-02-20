@@ -107,7 +107,7 @@ public class AddBookCopyController implements IGUIcontroller {
 	/**
 	 * Update User with the result
 	 */
-	@SuppressWarnings("incomplete-switch")
+	@SuppressWarnings({ "incomplete-switch", "unchecked" })
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		CatalogTextField.setText("");

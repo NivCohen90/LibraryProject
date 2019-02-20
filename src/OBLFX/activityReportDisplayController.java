@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Interfaces.IGUIcontroller;
-import SystemObjects.ActivityReportData;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -36,13 +35,6 @@ public class activityReportDisplayController implements IGUIcontroller {
 		String formattedString = reportData.get(0).format(formatter);
 		String formattedString2 = reportData.get(1).format(formatter);
 		PeriodDates.setText(formattedString+"-"+formattedString2);
-//		PeriodDates.setText(((((ActivityReportData) reportData.get(0)).getStartDate()) + "")
-//				+ ((((ActivityReportData) reportData.get(0)).getEndDate()) + ""));
-//		ActiveSubAmount.setText((((ActivityReportData) reportData.get(0)).getActiveSubscribersAmount()) + "");
-//		FreezedSubAmount.setText((((ActivityReportData) reportData.get(0)).getFreezedSubscribersAmount()) + "");
-//		UnActiveSubAmount.setText((((ActivityReportData) reportData.get(0)).getNotActiveSubscribersAmount()) + "");
-//		LoanedBooksAmount.setText((((ActivityReportData) reportData.get(0)).getLoanedBooksAmount()) + "");
-//		LateReturnsSubAmount.setText((((ActivityReportData) reportData.get(0)).getLateReturnsSubAmount()) + "");
 		
 		ActiveSubAmount.setText("19");
 		FreezedSubAmount.setText("4");

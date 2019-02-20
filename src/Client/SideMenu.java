@@ -92,7 +92,7 @@ public class SideMenu {
 		vbox.setPrefWidth(200);
 		loadAllFXMLAnchorPanes();
 		switch (menuType) {
-		case MainMenu:	
+		case MainMenu:
 			vbox.getChildren().add(Item(Menuicons.Login));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.Connection));
@@ -130,7 +130,6 @@ public class SideMenu {
 			vbox.getChildren().add(Item(Menuicons.Report));
 			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
 			vbox.getChildren().add(Item(Menuicons.catalog));
-			//vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
 			vbox.getChildren().add(Item(Menuicons.Statistics));
 			vbox.getChildren().add(Item(Menuicons.Connection));
 			vbox.getChildren().add(Item(Menuicons.Exit));
@@ -267,18 +266,6 @@ public class SideMenu {
 					.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML).openStream());
 			controllerMap.put(Menuicons.CreateLoan, (NewLoanController) fxmlLoader.getController());
 
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APUpdateSubscriberStatusFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberDetailsFXML).openStream());
-//			controllerMap.put(Menuicons.ChangeSubscriberStatus,
-//					(UpdateSubscriberDetailsController) fxmlLoader.getController());
-
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APStatisticsFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
-//			controllerMap.put(Menuicons.Statistics, (CreateReportController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
