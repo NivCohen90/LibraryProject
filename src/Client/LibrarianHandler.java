@@ -26,7 +26,7 @@ public class LibrarianHandler extends IHandler{
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	
 	public LibrarianHandler(IGUIcontroller guiController){
-		super(conn.getServerIPAddress(), conn.getPort());
+		super(conn.getIPAddress(), conn.getPortNumber());
 		currentControllerGUIobj = guiController;
 	}
 

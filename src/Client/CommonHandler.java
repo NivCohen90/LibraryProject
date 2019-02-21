@@ -23,7 +23,7 @@ public class CommonHandler extends IHandler{
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 	public CommonHandler(IGUIcontroller guiController){
 		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
-		super(conn.getServerIPAddress(), conn.getPort());
+		super(conn.getIPAddress(), conn.getPortNumber());
 		currentControllerGUIobj = guiController;	 
 	}
 

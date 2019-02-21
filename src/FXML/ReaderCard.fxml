@@ -21,26 +21,26 @@
             <Point3D />
          </rotationAxis>
       </Text>
-      <Text layoutX="40.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
-      <TextField fx:id="FirstNameField" disable="true" editable="false" layoutX="107.0" layoutY="62.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="165.0" />
-      <Text layoutX="40.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" />
-      <TextField fx:id="LastNameField" disable="true" editable="false" layoutX="107.0" layoutY="94.0" onKeyTyped="#CheckLastName" prefWidth="165.0" />
-      <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="480.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
-      <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="540.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
-      <TextField fx:id="EmailField" disable="true" editable="false" layoutX="107.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" />
-      <Text layoutX="40.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
-      <TextField fx:id="IDField" disable="true" editable="false" layoutX="107.0" layoutY="125.0" prefWidth="165.0" />
-      <Text layoutX="40.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
-      <Text layoutX="370.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Number:" />
-      <TextField fx:id="SubscriberNumberField" disable="true" editable="false" layoutX="480.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
-      <Text layoutX="370.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :" />
+      <Text layoutX="23.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
+      <TextField fx:id="FirstNameField" disable="true" editable="false" layoutX="90.0" layoutY="62.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <Text layoutX="23.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" />
+      <TextField fx:id="LastNameField" disable="true" editable="false" layoutX="90.0" layoutY="94.0" onKeyTyped="#CheckLastName" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="481.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
+      <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="541.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
+      <TextField fx:id="EmailField" disable="true" editable="false" layoutX="90.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <Text layoutX="23.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
+      <TextField fx:id="IDField" disable="true" editable="false" layoutX="90.0" layoutY="125.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <Text layoutX="23.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
+      <Text layoutX="371.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Number:" />
+      <TextField fx:id="SubscriberNumberField" disable="true" editable="false" layoutX="481.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
+      <Text layoutX="371.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :" />
       <ComboBox fx:id="AreaCodeCombo" layoutX="479.0" layoutY="93.0" prefHeight="26.0" prefWidth="60.0" visible="false" />
-      <Text layoutX="370.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
-      <TextField fx:id="StatusField" disable="true" editable="false" layoutX="480.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
+      <Text layoutX="371.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
+      <TextField fx:id="StatusField" disable="true" editable="false" layoutX="481.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
       <ComboBox fx:id="StatusCombo" layoutX="469.0" layoutY="122.0" prefHeight="25.0" prefWidth="160.0" promptText="Choose Status" visible="false" />
       <Button fx:id="UpdateDetailsbutton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#updateSubscriberDetails" text="Update Details" />
       <Button fx:id="SaveButton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#saveSubscriberUpdate" prefHeight="26.0" prefWidth="94.0" text="Save Changes" visible="false" />
-      <TableView fx:id="ActiveLoansTable" layoutX="12.0" layoutY="263.0" prefHeight="140.0" prefWidth="570.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="18.0">
+      <TableView fx:id="ActiveLoansTable" layoutX="12.0" layoutY="263.0" prefHeight="140.0" prefWidth="775.0" stylesheets="@/CSS/TableView.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="13.0">
          <columns>
             <TableColumn fx:id="ALoansBookName" minWidth="200.0" prefWidth="200.0" text="Book Name" />
             <TableColumn fx:id="ALoansAuthor" minWidth="200.0" prefWidth="200.0" text="Author" />
@@ -57,7 +57,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TableView fx:id="ActiveOrdersTable" layoutX="12.0" layoutY="446.0" prefHeight="140.0" prefWidth="770.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="18.0">
+      <TableView fx:id="ActiveOrdersTable" layoutX="12.0" layoutY="440.0" prefHeight="140.0" prefWidth="775.0" stylesheets="@/CSS/TableView.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="13.0">
          <columns>
             <TableColumn fx:id="AOrdersBookName" prefWidth="152.0" text="Book Name" />
             <TableColumn fx:id="AOrdersAuthor" prefWidth="159.0" text="Author" />
@@ -74,10 +74,10 @@
          </font>
       </Text>
       <Button fx:id="CancelBTN" layoutX="291.0" layoutY="196.0" mnemonicParsing="false" onAction="#CancelAllChanges" prefHeight="26.0" prefWidth="94.0" text="Cancel" visible="false" />
-      <Label fx:id="FirstNameLabel" layoutX="272.0" layoutY="62.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
-      <Label fx:id="LastNameLabel" layoutX="272.0" layoutY="93.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
+      <Label fx:id="FirstNameLabel" layoutX="276.0" layoutY="62.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" AnchorPane.rightAnchor="430.0" />
+      <Label fx:id="LastNameLabel" layoutX="276.0" layoutY="93.0" prefHeight="26.0" prefWidth="94.0" textFill="RED" />
       <Label fx:id="EmailLabel" layoutX="280.0" layoutY="156.0" prefHeight="26.0" prefWidth="212.0" textFill="RED" />
-      <Label fx:id="PhoneNumber" layoutX="618.0" layoutY="92.0" prefHeight="26.0" prefWidth="180.0" textFill="RED" />
+      <Label fx:id="PhoneNumber" layoutX="619.0" layoutY="92.0" prefHeight="26.0" prefWidth="180.0" textFill="RED" />
       <Label fx:id="TextMSG" layoutX="386.0" layoutY="196.0" prefHeight="26.0" prefWidth="406.0" />
       <Label layoutX="150.0" layoutY="233.0" text="Double click on the row to see loan extension details">
          <font>

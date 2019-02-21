@@ -26,8 +26,11 @@ public interface IFXMLpathAndStyle {
 	final static String LateReturnReportDisplayFXML= "/FXML/LateReturnReportDisplay.fxml";
 	final static String ActivityReportDisplayFXML= "/FXML/ActivityReportDisplay.fxml";
 	final static String UserWelcomeFXML= "/FXML/UserWelcome.fxml";
-	final static String WelcomeScreenCSS = "/CSS/WelcomeScreen.css";
 	
+	final static String WelcomeScreenCSS = "/CSS/WelcomeScreen.css";
+	final static String LoginFormCSS = "/CSS/LoginForm.css";
+	final static String TableViewCSS = "/CSS/TableView.css";
+	 
 	final static String BackgroundStyle = "-fx-background-color:#F0F8FF";
 	final static String ClickedBackgroundStyle = "-fx-background-color:#8FBCE9";
 	final static String BlueBackgroundStyle = "-fx-background-color:#00FFFF";

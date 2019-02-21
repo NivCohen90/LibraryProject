@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SearchBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SearchBookController">
    <children>
       <Label fx:id="title" layoutX="17.0" layoutY="14.0" text="Title">
          <font>
@@ -22,15 +22,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <RadioButton fx:id="type1" layoutX="100.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" selected="true" text="type 1">
+      <RadioButton fx:id="type1" layoutX="100.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" selected="true" text="type 1" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="65.0">
          <toggleGroup>
             <ToggleGroup fx:id="searchType" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="type2" layoutX="200.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 2" toggleGroup="$searchType" />
-      <RadioButton fx:id="type3" layoutX="300.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 3" toggleGroup="$searchType" />
-      <RadioButton fx:id="type4" layoutX="400.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 4" toggleGroup="$searchType" />
-      <RadioButton fx:id="type5" layoutX="500.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 5" toggleGroup="$searchType" />
+      <RadioButton fx:id="type2" layoutX="200.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 2" toggleGroup="$searchType" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="65.0" />
+      <RadioButton fx:id="type3" layoutX="300.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 3" toggleGroup="$searchType" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="65.0" />
+      <RadioButton fx:id="type4" layoutX="400.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 4" toggleGroup="$searchType" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="65.0" />
+      <RadioButton fx:id="type5" layoutX="500.0" layoutY="63.0" mnemonicParsing="false" onMousePressed="#clearFields" text="type 5" toggleGroup="$searchType" AnchorPane.leftAnchor="425.0" AnchorPane.topAnchor="65.0" />
       <TextField fx:id="txtInput" layoutX="17.0" layoutY="97.0" onKeyTyped="#CheckSearch" prefHeight="30.0" prefWidth="350.0" />
       <Button fx:id="btnSearch" layoutX="367.0" layoutY="97.0" mnemonicParsing="false" onAction="#searchInLibrary" prefHeight="30.0" prefWidth="100.0" text="Search" />
       <Label fx:id="emptyMsg" layoutX="494.0" layoutY="102.0" text="Fill search field" textFill="#cd0000" visible="false">
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="tblResults" layoutX="14.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="400.0" prefWidth="760.0">
+      <TableView fx:id="tblResults" layoutX="14.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="400.0" prefWidth="760.0" stylesheets="@/CSS/TableView.css">
          <columns>
             <TableColumn fx:id="col1" maxWidth="-Infinity" minWidth="186.0" prefWidth="185.0" resizable="false" text="col1" />
             <TableColumn fx:id="col2" maxWidth="-Infinity" minWidth="186.0" prefWidth="185.0" resizable="false" text="col2" />

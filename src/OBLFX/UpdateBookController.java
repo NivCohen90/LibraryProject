@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 /**
  * @author Matan UpdateBookController controls UpdateBookFXML
@@ -82,6 +84,24 @@ public class UpdateBookController implements IGUIcontroller {
 
 	@FXML
 	private Label RetriveMSGLabel;
+	
+    @FXML
+    private Button CancelBTN;
+
+    @FXML
+    void CancelAction(ActionEvent event) {
+		UpdateBookBTN.setVisible(false);
+		CancelBTN.setVisible(false);
+		GetBookDetailsBTN.setVisible(true);
+		CatalogNumberLabel.setText("Enter catalog number first");
+		SetAllUnEditable();
+		BookNameTextField.setText("");
+		AuthorTextField.setText("");
+		SubjectTextField.setText("");
+		PlaceOnShelfTextField.setText("");
+		EditionNumberTextField.setText("");
+		DescriptionTextField.setText("");
+    }
 
 	/**
 	 * CheckAuthorName is a method that check if the user put input.,if he didn't
@@ -160,8 +180,10 @@ public class UpdateBookController implements IGUIcontroller {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel) && IGUIcontroller
 				.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 			catalogNumberSearch = CatalogTextField.getText();
-
 			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
+			UpdateBookBTN.setVisible(true);
+			CancelBTN.setVisible(true);
+			GetBookDetailsBTN.setVisible(false);
 		}
 	}
 
@@ -221,6 +243,10 @@ public class UpdateBookController implements IGUIcontroller {
 				DescriptionLabel.setText("Fill this Area");
 			if (counter == 6) {
 				librarianClient.updateBookinCatalog(book, GeneralData.userLibrarian);
+				CatalogNumberLabel.setText("Enter catalog number first");
+				UpdateBookBTN.setVisible(false);
+				CancelBTN.setVisible(false);
+				GetBookDetailsBTN.setVisible(true);
 			}
 
 		}
@@ -254,16 +280,29 @@ public class UpdateBookController implements IGUIcontroller {
 			allFlagStatus = true;
 			break;
 		case returnError:
-			RetriveMSGLabel.setStyle("-fx-text-fill: red;");
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.RED);
 			RetriveMSGLabel.setText((String) msg);
 			break;
 		case returnException:
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.RED);
 			RetriveMSGLabel.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
 			break;
 
 		case returnSuccessMsg:
-			RetriveMSGLabel.setStyle("-fx-text-fill: green;");
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.GREEN);
 			RetriveMSGLabel.setText((String) msg);
 			break;
 		default:
@@ -292,6 +331,7 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	private void SetAllUnEditable() {
 		SetAllFlagFalse();
+		CatalogTextField.setEditable(true);
 		BookNameTextField.setEditable(false);
 		AuthorTextField.setEditable(false);
 		SubjectTextField.setEditable(false);

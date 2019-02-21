@@ -20,7 +20,7 @@ public class SubscriberHandler extends IHandler {
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 
 	public SubscriberHandler(IGUIcontroller guiController) {
-		super(conn.getServerIPAddress(), conn.getPort());
+		super(conn.getIPAddress(), conn.getPortNumber());
 		currentControllerGUIobj = guiController;
 	}
 

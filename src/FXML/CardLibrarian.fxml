@@ -33,7 +33,7 @@
                   <Text fx:id="lbl6" layoutX="346.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="label6" />
                </children>
             </Group>
-            <TableView fx:id="tbl1" focusTraversable="false" layoutX="15.0" layoutY="215.0" prefHeight="150.0" prefWidth="770.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <TableView fx:id="tbl1" focusTraversable="false" layoutX="15.0" layoutY="215.0" prefHeight="150.0" prefWidth="770.0" stylesheets="@/CSS/TableView.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <columns>
                   <TableColumn fx:id="tbl1col1" maxWidth="189.0" minWidth="-Infinity" prefWidth="189.0" resizable="false" text="col1" />
                   <TableColumn fx:id="tbl1col2" maxWidth="189.0" minWidth="-Infinity" prefWidth="189.0" resizable="false" text="col2" />
@@ -49,7 +49,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TableView fx:id="tbl2" focusTraversable="false" layoutX="15.0" layoutY="423.0" prefHeight="150.0" prefWidth="770.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <TableView fx:id="tbl2" focusTraversable="false" layoutX="15.0" layoutY="423.0" prefHeight="150.0" prefWidth="770.0" stylesheets="@/CSS/TableView.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <columns>
                   <TableColumn fx:id="tbl2col1" maxWidth="189.0" minWidth="-Infinity" prefWidth="189.0" resizable="false" text="col1" />
                   <TableColumn fx:id="tbl2col2" maxWidth="189.0" minWidth="-Infinity" prefWidth="189.0" resizable="false" text="col2" />

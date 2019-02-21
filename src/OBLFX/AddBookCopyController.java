@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 /**
  * @author Matan AddBookCopyController controls AddnewcopyFXML
@@ -110,7 +111,6 @@ public class AddBookCopyController implements IGUIcontroller {
 	@SuppressWarnings({ "incomplete-switch", "unchecked" })
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		CatalogTextField.setText("");
 		BookNameTextField.setText("");
 		NumberOfCopiesTextField.setText("");
 		AddcopiesTextField.setText("");
@@ -121,7 +121,7 @@ public class AddBookCopyController implements IGUIcontroller {
 			break;
 
 		case returnError:
-			RetriveMSG.setStyle("-fx-text-fill: red;");
+			RetriveMSG.setTextFill(Color.RED);
 			RetriveMSG.setText((String) msg);
 			break;
 		case returnBookArray:
@@ -132,10 +132,13 @@ public class AddBookCopyController implements IGUIcontroller {
 			}
 			break;
 		case returnException:
+			RetriveMSG.setTextFill(Color.RED);
 			RetriveMSG.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
 			break;
 		case returnSuccessMsg:
+			CatalogTextField.setText("");
+			RetriveMSG.setTextFill(Color.GREEN);
 			RetriveMSG.setText((String) msg);
 			break;
 		}

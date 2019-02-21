@@ -30,9 +30,9 @@
             <Label layoutX="2.0" layoutY="241.0" text="Description:" />
             <Label layoutX="298.0" layoutY="212.0" text="Edition Number:" />
             <TextField fx:id="EditionNumberTextField" editable="false" layoutX="416.0" layoutY="208.0" onKeyTyped="#CheckEditionNumber" promptText="Fill Edition" />
-            <TextArea fx:id="DescriptionTextField" editable="false" layoutY="258.0" prefHeight="139.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
+            <TextArea fx:id="DescriptionTextField" editable="false" layoutY="260.0" prefHeight="139.0" prefWidth="565.0" promptText="Fill Description" wrapText="true" />
             <Label layoutY="92.0" text="Catalog Number:" />
-            <Label fx:id="CatalogNumberLabel" layoutX="369.0" layoutY="90.0" prefHeight="25.0" prefWidth="158.0" text="Enter catalog number first" textFill="RED" />
+            <Label fx:id="CatalogNumberLabel" layoutX="372.0" layoutY="90.0" prefHeight="25.0" prefWidth="158.0" text="Enter catalog number first" textFill="RED" />
             <Label fx:id="PlaceOnShelfLabel" layoutX="222.0" layoutY="208.0" prefHeight="25.0" prefWidth="78.0" textFill="RED" />
             <Label fx:id="BookNameLabel" layoutX="570.0" layoutY="116.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
             <Label fx:id="AuthorLabel" layoutX="570.0" layoutY="145.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
@@ -41,7 +41,8 @@
             <Label fx:id="DescriptionLabel" layoutX="565.0" layoutY="303.0" prefHeight="25.0" prefWidth="100.0" textFill="RED" />
          </children>
       </Group>
-      <Button fx:id="UpdateBookBTN" layoutX="14.0" layoutY="371.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Update Book" />
+      <Button fx:id="UpdateBookBTN" layoutX="23.0" layoutY="371.0" mnemonicParsing="false" onAction="#UpdateBookAction" text="Save Changes" visible="false" />
       <Label fx:id="RetriveMSGLabel" layoutX="105.0" layoutY="370.0" prefHeight="26.0" textFill="RED" />
+      <Button fx:id="CancelBTN" layoutX="120.0" layoutY="371.0" mnemonicParsing="false" onAction="#CancelAction" prefHeight="25.0" prefWidth="63.0" text="Cancel" visible="false" />
    </children>
 </AnchorPane>
