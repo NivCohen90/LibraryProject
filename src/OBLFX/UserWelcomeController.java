@@ -45,10 +45,8 @@ public class UserWelcomeController implements IGUIcontroller {
 			pane = (AnchorPane) FXMLLoader.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen));
 			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 			Main.root.setRight(pane);
-			if (GeneralData.userSubscriber != null)
-				GeneralData.userSubscriber = null;
-			if (GeneralData.userLibrarian != null)
-				GeneralData.userLibrarian = null;
+			GeneralData.userSubscriber = null;
+			GeneralData.userLibrarian = null;
 		} catch (IOException e) {
 			IAlert.ExceptionAlert(e);
 		}

@@ -22,21 +22,21 @@
          </rotationAxis>
       </Text>
       <Text layoutX="23.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:" />
-      <TextField fx:id="FirstNameField" disable="true" editable="false" layoutX="90.0" layoutY="62.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <TextField fx:id="FirstNameField" editable="false" layoutX="90.0" layoutY="62.0" onKeyTyped="#CheckFirstName" prefHeight="26.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
       <Text layoutX="23.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:" />
-      <TextField fx:id="LastNameField" disable="true" editable="false" layoutX="90.0" layoutY="94.0" onKeyTyped="#CheckLastName" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
-      <TextField fx:id="AreaCodeTXT" disable="true" editable="false" layoutX="481.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
-      <TextField fx:id="PhoneNumberField" disable="true" editable="false" layoutX="541.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
-      <TextField fx:id="EmailField" disable="true" editable="false" layoutX="90.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <TextField fx:id="LastNameField" editable="false" layoutX="90.0" layoutY="94.0" onKeyTyped="#CheckLastName" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <TextField fx:id="AreaCodeTXT" editable="false" layoutX="481.0" layoutY="93.0" prefHeight="26.0" prefWidth="58.0" />
+      <TextField fx:id="PhoneNumberField" editable="false" layoutX="541.0" layoutY="93.0" onKeyTyped="#CheckPhone" prefHeight="26.0" prefWidth="77.0" />
+      <TextField fx:id="EmailField" editable="false" layoutX="90.0" layoutY="156.0" onKeyTyped="#CheckEmail" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
       <Text layoutX="23.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID:" />
-      <TextField fx:id="IDField" disable="true" editable="false" layoutX="90.0" layoutY="125.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
+      <TextField fx:id="IDField" editable="false" layoutX="90.0" layoutY="125.0" prefWidth="165.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="525.0" />
       <Text layoutX="23.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
       <Text layoutX="371.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Number:" />
-      <TextField fx:id="SubscriberNumberField" disable="true" editable="false" layoutX="481.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
+      <TextField fx:id="SubscriberNumberField" editable="false" layoutX="481.0" layoutY="62.0" prefHeight="26.0" prefWidth="136.0" />
       <Text layoutX="371.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number :" />
       <ComboBox fx:id="AreaCodeCombo" layoutX="479.0" layoutY="93.0" prefHeight="26.0" prefWidth="60.0" visible="false" />
       <Text layoutX="371.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status :" />
-      <TextField fx:id="StatusField" disable="true" editable="false" layoutX="481.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
+      <TextField fx:id="StatusField" editable="false" layoutX="481.0" layoutY="122.0" prefHeight="26.0" prefWidth="136.0" />
       <ComboBox fx:id="StatusCombo" layoutX="469.0" layoutY="122.0" prefHeight="25.0" prefWidth="160.0" promptText="Choose Status" visible="false" />
       <Button fx:id="UpdateDetailsbutton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#updateSubscriberDetails" text="Update Details" />
       <Button fx:id="SaveButton" layoutX="178.0" layoutY="196.0" mnemonicParsing="false" onAction="#saveSubscriberUpdate" prefHeight="26.0" prefWidth="94.0" text="Save Changes" visible="false" />

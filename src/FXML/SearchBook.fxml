@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.SearchBookController">
@@ -38,6 +39,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <StackPane fx:id="Indicator" layoutX="14.0" layoutY="202.0" prefHeight="377.0" prefWidth="760.0" />
       <TableView fx:id="tblResults" layoutX="14.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="400.0" prefWidth="760.0" stylesheets="@/CSS/TableView.css">
          <columns>
             <TableColumn fx:id="col1" maxWidth="-Infinity" minWidth="186.0" prefWidth="185.0" resizable="false" text="col1" />
@@ -59,6 +61,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="ResultMSGLabel" layoutX="471.0" layoutY="98.0" prefHeight="27.0" prefWidth="270.0" textFill="RED" />
+      <Label fx:id="ResultMSGLabel" alignment="BOTTOM_LEFT" layoutX="469.0" layoutY="92.0" prefHeight="38.0" prefWidth="270.0" textFill="RED" />
    </children>
 </AnchorPane>

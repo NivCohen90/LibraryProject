@@ -2,6 +2,7 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Indicator.RingProgressIndicator;
 import Interfaces.IAlert;
 import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
@@ -31,6 +32,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -44,6 +46,11 @@ public class SearchSubscriberController implements IGUIcontroller {
 	private CommonHandler commonClient;
 	@FXML
 	public void initialize() {
+		RingProgressIndicator ringProgressIndicator = new RingProgressIndicator();
+		ringProgressIndicator.makeIndeterminate();
+		ringProgressIndicator.setRingWidth(400);
+		Indicator.getChildren().add(ringProgressIndicator);
+		Indicator.setVisible(false);
 		setLabelsSearchSubscriber();
 		tblResults.setItems(ObservableColumnData);
         tblResults.setRowFactory(tv -> {
@@ -108,7 +115,8 @@ public class SearchSubscriberController implements IGUIcontroller {
     @FXML
     private Label lblNoResult;
     
-    
+    @FXML
+    private StackPane Indicator;
 
 	@SuppressWarnings("unused")
 	private TableView<Subscriber> tblResultsSubscriber = new TableView<>();
@@ -168,7 +176,7 @@ public class SearchSubscriberController implements IGUIcontroller {
      */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
-
+		ObservableColumnData.clear();
 		String searchInput = txtInput.getText();
 		boolean flag = false;
 		
@@ -204,6 +212,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 			
 			if(flag)
 			{
+				Indicator.setVisible(true);
 				Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
 				ImageView imageView = new ImageView(image);
 				emptyMsg.setText("");
@@ -288,6 +297,7 @@ public class SearchSubscriberController implements IGUIcontroller {
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
 		emptyMsg.setGraphic(null);
+		Indicator.setVisible(false);
 		switch(op) {
 		case returnError:
 			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);

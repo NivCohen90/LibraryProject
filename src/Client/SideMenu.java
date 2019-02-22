@@ -184,6 +184,12 @@ public class SideMenu {
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
+			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML).openStream());
+			controllerMap.put(Menuicons.Connection, (ConnectionSettingsController) fxmlLoader.getController());
+
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
 			APLoginFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.LoginFXML).openStream());
 			controllerMap.put(Menuicons.Login, (LoginFormController) fxmlLoader.getController());
@@ -193,18 +199,6 @@ public class SideMenu {
 			APCreateNewSubscriberFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML).openStream());
 			controllerMap.put(Menuicons.CreateSubscriber, (AddNewSubscriberController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APSubscriberHistoryFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML).openStream());
-			controllerMap.put(Menuicons.History, (SubscriberHistoryController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APReaderCardFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML).openStream());
-			controllerMap.put(Menuicons.SubscriberCard, (SubscriberCardController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
@@ -256,12 +250,6 @@ public class SideMenu {
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
-			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML).openStream());
-			controllerMap.put(Menuicons.Connection, (ConnectionSettingsController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
 			APAddBookFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.AddBookFXML).openStream());
 			controllerMap.put(Menuicons.AddBook, (AddBookController) fxmlLoader.getController());
@@ -284,12 +272,21 @@ public class SideMenu {
 					.load(getClass().getResource(IFXMLpathAndStyle.DeleteBookFXML).openStream());
 			controllerMap.put(Menuicons.DeleteBook, (DeleteController) fxmlLoader.getController());
 
-//			 fxmlLoader.setRoot(null);
-//			 fxmlLoader.setController(null);
-//			 APUserWelcomeFXML = (AnchorPane)
-//			 fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.UserWelcomeFXML).openStream());
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
+			APSubscriberHistoryFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML).openStream());
+			controllerMap.put(Menuicons.History, (SubscriberHistoryController) fxmlLoader.getController());
 
-		} catch (IOException e) {
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
+			APReaderCardFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML).openStream());
+			controllerMap.put(Menuicons.SubscriberCard, (SubscriberCardController) fxmlLoader.getController());
+
+		} catch (
+
+		IOException e) {
 			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}

@@ -5,9 +5,10 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.LoginFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: F0F8FF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.LoginFormController">
    <children>
       <Label layoutX="17.0" layoutY="68.0" text="User Name:">
          <font>
@@ -38,6 +39,7 @@
             <Font name="System Italic" size="18.0" />
          </font>
       </Label>
+      <StackPane fx:id="Indicator" layoutX="81.0" layoutY="142.0" maxHeight="191.0" maxWidth="254.0" minHeight="46.0" minWidth="50.0" prefHeight="46.0" prefWidth="55.0" style="-fx-background-color: F0F8FF;" />
 
    </children>
 </AnchorPane>

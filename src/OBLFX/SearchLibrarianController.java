@@ -2,6 +2,7 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Indicator.RingProgressIndicator;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
@@ -23,10 +24,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -42,6 +46,11 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	@FXML
 	public void initialize() {
+		RingProgressIndicator ringProgressIndicator = new RingProgressIndicator();
+		ringProgressIndicator.makeIndeterminate();
+		ringProgressIndicator.setRingWidth(400);
+		Indicator.getChildren().add(ringProgressIndicator);
+		Indicator.setVisible(false);
 		setLabelsSearchLibrarian();
 		tblResults.setItems(ObservableColumnData);
 		tblResults.setRowFactory(tv -> {
@@ -104,6 +113,9 @@ public class SearchLibrarianController implements IGUIcontroller {
 
 	@FXML
 	private Label lblNoResult;
+	
+    @FXML
+    private StackPane Indicator;
 
 	@SuppressWarnings("unused")
 	private TableView<Librarian> tblResultsLibrarian = new TableView<>();
@@ -165,30 +177,44 @@ public class SearchLibrarianController implements IGUIcontroller {
 	 */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
+		boolean flag = false;
+		ObservableColumnData.clear();
 		String searchInput = txtInput.getText();
 		if (IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected()) {
 				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianID);
+					flag = true;
 				}
 			}
 			if (type2.isSelected()) {
 				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianAffiliation);
+					flag = true;
 				}
 			}
 			if (type3.isSelected()) {
 				if (IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianName);
+					flag = true;
 				}
 			}
 			if (type4.isSelected()) {
 				if (txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchByLibrarianEmail);
+					flag = true;
 					emptyMsg.setText("");
 				} else
 					emptyMsg.setText("Invalid Email");
 			}
+		}
+		if(flag) {
+			Indicator.setVisible(true);
+			Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
+			ImageView imageView = new ImageView(image);
+			emptyMsg.setText("");
+			emptyMsg.setVisible(true);
+			emptyMsg.setGraphic(imageView);
 		}
 	}
 
@@ -199,9 +225,7 @@ public class SearchLibrarianController implements IGUIcontroller {
 	 */
 	private <T> void displayResults(ArrayList<T> list) {
 		ObservableColumnData.clear();
-		System.out.println("I'm Here Inside.");
 		if (!list.isEmpty()) {
-			System.out.println("I have Fucking Data.");
 			lblNoResult.setVisible(false);
 			for (T Ti : list)
 				ObservableColumnData.add(Ti);
@@ -260,13 +284,13 @@ public class SearchLibrarianController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		emptyMsg.setGraphic(null);
+		Indicator.setVisible(false);
 		switch (op) {
 		case returnLibrarianArray:
-			System.out.println("I'm Here.");
 			if (msg != null) {
 				displayResults((ArrayList<T>) msg);
 			}
-			else System.out.println("I'm Fucking null!");
 			break;
 		case returnError:
 			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User", (String) msg, (String) msg);
