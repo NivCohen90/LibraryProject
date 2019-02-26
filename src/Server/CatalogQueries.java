@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,7 +53,7 @@ public class CatalogQueries {
 		Statement stmt;
 		bookToAdd.setContextTable(bookToAdd.getCatalogNumber() + ".pdf");
 		String query = String.format(
-				"INSERT INTO `obl`.`book` (`CatalogNumber`, `BookName`, `AuthorName`, `Subject`, `NumberOfCopies`, `AvailableCopies`, `NumberOfOrders`, `ShelfLocation`, `EditionNumber`, `purchesDate`, `isWanted`, `Description`, `ContextTable`,`BookCopyIndex`)"
+				"INSERT INTO `obl`.`book` (`CatalogNumber`, `BookName`, `AuthorName`, `Subject`, `NumberOfCopies`, `AvailableCopies`, `NumberOfOrders`, `ShelfLocation`, `EditionNumber`, `purchesDate`, `isWanted`, `Description`,`BookCopyIndex`)"
 						+ "VALUES (%s);",
 				bookDetailsQuery(bookToAdd, queryType.Insert));
 
@@ -73,17 +75,24 @@ public class CatalogQueries {
 			if (pdfoutFile.exists())
 				throw new FileAlreadyExistsException("pdf file with this name already exist");
 			stmt.executeUpdate(query);
-			fos = new FileOutputStream(pdfoutFile);
-			bos = new BufferedOutputStream(fos);
-			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read
-																												// from
-																												// file
-																												// to
-																												// byte
-																												// array
-			bos.flush();
-			fos.flush();
-			fos.close();
+//			fos = new FileOutputStream(pdfoutFile);
+//			bos = new BufferedOutputStream(fos);
+//			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read from file to byte array
+//			bos.flush();
+//			fos.flush();
+//			fos.close();
+			
+			String sql = String.format("UPDATE book Set ContextTable=? where CatalogNumber='%s';",bookToAdd.getCatalogNumber());
+			try {
+				PreparedStatement statement = con.prepareStatement(sql);
+				InputStream is = new ByteArrayInputStream(bookToAdd.getContextTableByteArray());
+				statement.setBlob(1, is);
+				//System.out.println(statement.toString());
+				statement.executeUpdate();
+			} catch (SQLException e) {
+				result = new ServerData(operationsReturn.returnException, e);
+			}
+			
 			for (int i = 1; i <= bookToAdd.getNumberOfLibraryCopies(); i++) {
 				String queryCopies = "INSERT INTO `obl`.`bookcopy`\r\n" + "(`CopyID`,\r\n" + "`CatalogNumber`)\r\n"
 						+ "VALUES\r\n" + "(" + i + ",\r\n" + bookToAdd.getCatalogNumber() + ");";
@@ -173,6 +182,18 @@ public class CatalogQueries {
 		try {
 			stmt = con.createStatement();
 			stmt.executeUpdate(query);
+			
+			String sql = String.format("UPDATE book Set ContextTable=? where CatalogNumber='%s';",bookToUpdate.getCatalogNumber());
+			try {
+				PreparedStatement statement = con.prepareStatement(sql);
+				InputStream is = new ByteArrayInputStream(bookToUpdate.getContextTableByteArray());
+				statement.setBlob(1, is);
+				//System.out.println(statement.toString());
+				statement.executeUpdate();
+			} catch (SQLException e) {
+				result = new ServerData(operationsReturn.returnException, e);
+			}
+			
 			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg);
 		} catch (SQLException e) {
 			result = new ServerData(operationsReturn.returnException, e);
@@ -244,23 +265,22 @@ public class CatalogQueries {
 		String query = "";
 		switch (queryType) {
 		case Insert:
-			query = String.format("'%s', '%s', '%s', '%s', %d, %d, 0, '%s', '%s', '%s', '%s', '%s', '%s', %d",
+			query = String.format("'%s', '%s', '%s', '%s', %d, %d, 0, '%s', '%s', '%s', '%s', '%s', %d",
 					bookWithDetails.getCatalogNumber(), bookWithDetails.getBookName(), bookWithDetails.getAuthorName(),
 					bookWithDetails.getSubject(), bookWithDetails.getNumberOfLibraryCopies(),
 					bookWithDetails.getAvailableCopies(), bookWithDetails.getShelfLoaction(),
 					bookWithDetails.getEditionNumber(), dateFormat.format(bookWithDetails.getPurchesDate()),
 					bookWithDetails.getIsWanted() ? 1 : 0, bookWithDetails.getDescription(),
-					bookWithDetails.getContextTable(), bookWithDetails.getNumberOfLibraryCopies());
+					bookWithDetails.getNumberOfLibraryCopies());
 			break;
 		case Update:
 			query = String.format(
-					"`BookName` = '%s', `AuthorName` = '%s', `Subject` = '%s', `NumberOfCopies` = %d, `AvailableCopies` = %d, `NumberOfOrders` = %d, `ShelfLocation` = '%s', `EditionNumber` = '%s', `purchesDate` = '%s', `isWanted` = '%s', `Description` = '%s', `ContextTable` = '%s'",
+					"`BookName` = '%s', `AuthorName` = '%s', `Subject` = '%s', `NumberOfCopies` = %d, `AvailableCopies` = %d, `NumberOfOrders` = %d, `ShelfLocation` = '%s', `EditionNumber` = '%s', `purchesDate` = '%s', `isWanted` = '%s', `Description` = '%s' ",
 					bookWithDetails.getBookName(), bookWithDetails.getAuthorName(), bookWithDetails.getSubject(),
 					bookWithDetails.getNumberOfLibraryCopies(), bookWithDetails.getAvailableCopies(),
 					bookWithDetails.getNumberOfOrders(), bookWithDetails.getShelfLoaction(),
 					bookWithDetails.getEditionNumber(), dateFormat.format(bookWithDetails.getPurchesDate()),
-					bookWithDetails.getIsWanted() ? 1 : 0, bookWithDetails.getDescription(),
-					bookWithDetails.getContextTable());
+					bookWithDetails.getIsWanted() ? 1 : 0, bookWithDetails.getDescription());
 			break;
 		}
 		return query;

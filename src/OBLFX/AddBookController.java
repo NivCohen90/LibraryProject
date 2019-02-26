@@ -262,22 +262,24 @@ public class AddBookController implements IGUIcontroller {
     	fileChooser.setTitle("Choose Book Context Table");
     	fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*.pdf pdf file", "*.pdf"));
     	File pdfFile = fileChooser.showOpenDialog(stage);
-		byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
-		FileInputStream fis;			//input from file
-		BufferedInputStream bis;		//buffer input		  
-		  
-		try {
-			fis = new FileInputStream(pdfFile);
-			bis = new BufferedInputStream(fis);
-			bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
-			fis.close();
-			bis.close();
-			contexTableByteArray = mybytearray;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}					
-		  
+    	byte [] mybytearray = null;
+
         if (pdfFile != null) {
+        	mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+    		FileInputStream fis;			//input from file
+    		BufferedInputStream bis;		//buffer input		  
+    		  
+    		try {
+    			fis = new FileInputStream(pdfFile);
+    			bis = new BufferedInputStream(fis);
+    			bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+    			fis.close();
+    			bis.close();
+    			contexTableByteArray = mybytearray;
+    		} catch (IOException e) {
+    			IAlert.ExceptionAlert(e);
+    		}	
+        	
         	ContextTabeTextField.setText(pdfFile.getName());
 
         }
@@ -314,18 +316,19 @@ public class AddBookController implements IGUIcontroller {
 
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
-		BookNameTextField.setText("");
-		AuthorTextField.setText("");
-		SubjectTextField.setText("");
-		PlaceOnShelfTextField.setText("");
-		EditionNumberTextField.setText("");
-		CatalogTextField.setText("");
-		NumberOfCopiesTextField.setText("");
-		DescriptionTextField.setText("");
-		PurchaseDatePicker.setValue(null);
-		ContextTabeTextField.setText("");
-		Dates = false;
-		OpenFile = false;
+//		BookNameTextField.setText("");
+//		AuthorTextField.setText("");
+//		SubjectTextField.setText("");
+//		PlaceOnShelfTextField.setText("");
+//		EditionNumberTextField.setText("");
+//		CatalogTextField.setText("");
+//		NumberOfCopiesTextField.setText("");
+//		DescriptionTextField.setText("");
+//		PurchaseDatePicker.setValue(null);
+//		ContextTabeTextField.setText("");
+//		Dates = false;
+//		OpenFile = false;
+		
 		switch(op)
 		{
 			case returnSuccessMsg:
