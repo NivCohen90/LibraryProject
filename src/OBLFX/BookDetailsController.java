@@ -157,13 +157,21 @@ public class BookDetailsController implements IGUIcontroller{
 			pdfoutFile = File.createTempFile("BookCN-"+displayedBook.getCatalogNumber()+"_temp", ".pdf");//File.createTempFile("outTemp", ".pdf");
 			fos = new FileOutputStream(pdfoutFile);
 			bos = new BufferedOutputStream(fos);
-			bos.write(displayedBook.getContextTableByteArray(),0,displayedBook.getContextTableByteArray().length);				//read from file to byte array
-			bos.flush();
-			fos.flush();
-			fos.close();
-	    	if (Desktop.isDesktopSupported()) {
-    	        Desktop.getDesktop().open(pdfoutFile);
-	    	}
+			if(displayedBook.getContextTableByteArray() != null)
+			{
+				/*read from file to byte array*/
+				bos.write(displayedBook.getContextTableByteArray(),0,displayedBook.getContextTableByteArray().length);
+				bos.flush();
+				fos.flush();
+				fos.close();
+		    	if (Desktop.isDesktopSupported()) {
+	    	        Desktop.getDesktop().open(pdfoutFile);
+		    	}
+			}
+			else {
+				IAlert.ExceptionAlert(new Exception("There is no ContextTable for this book."));
+			}
+
 		} catch (IOException e) {
 			IAlert.ExceptionAlert(e);
 			e.printStackTrace();

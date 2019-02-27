@@ -1,16 +1,16 @@
 "CatalogNumber","BookName","AuthorName","Subject","NumberOfCopies","AvailableCopies","NumberOfOrders","ShelfLocation","EditionNumber","purchesDate","isWanted","Description","ContextTable","BookCopyIndex","isArchived"
-"119202486","The art of software testing","Myers Glenford J.","Computer software, Testing,",3,3,0,"235",NULL,"2018-05-05",0,"The art of software testing",NULL,3,0
+"119202486","The art of software testing","Myers Glenford J.","Computer software, Testing,",3,3,0,"235",1,"2018-05-05",0,"The art of software testing",NULL,3,0
 "130330663","Management information systems : managing the digital firm","Laudon Jane P., Laudon Kenneth C.","Management information systems, Information systems, Computer security",4,4,0,"403","7th ed.","2018-05-05",0,"Management information systems : managing the digital firm",NULL,4,0
 "130926418","Modern operating systems","Tanenbaum Andrew S.,","Computer operating systems",2,2,0,"543","Second edition.","2018-05-05",0,"Modern operating systems",NULL,2,0
 "131989243","Digital design","Mano M. Morris, Ciletti Michael D.","Logic design, Logic circuits",3,0,0,"395","4th ed., international ed.","2018-05-05",0,"Digital design",NULL,3,0
 "137566107","IBM PC assembly language and programming"," Abel Peter","Computer programming, Assembler language",6,6,0,"133","4th ed","2018-05-05",0,"IBM PC assembly language and programming",NULL,6,0
-"1558600698","Computer architecture : a quantitative approach","John Hennessy, David Patterson","Computer architecture",6,6,0,"400",NULL,"2018-05-05",0,"Computer architecture : a quantitative approach",NULL,6,0
-"1584886412","Probability and statistics for computer scientists","Baron Michael","Probabilities, Statistics",4,4,0,"519",NULL,"2018-05-05",0,"Probability and statistics for computer scientists",NULL,4,0
+"1558600698","Computer architecture : a quantitative approach","John Hennessy, David Patterson","Computer architecture",6,6,0,"400",1,"2018-05-05",0,"Computer architecture : a quantitative approach",NULL,6,0
+"1584886412","Probability and statistics for computer scientists","Baron Michael","Probabilities, Statistics",4,4,0,"519",1,"2018-05-05",0,"Probability and statistics for computer scientists",NULL,4,0
 "201001624","Fundamental university physics","Alonso Marcelo, Finn Edward J","Physics",2,0,1,"530","2nd ed.","2018-05-05",0,"Fundamental university physics",NULL,2,0
 "201870738","Elementary number theory and its applications","Kenneth H. Rosen","Number theory",3,3,0,"512","4th ed.","2018-05-05",0,"Elementary number theory and its applications",NULL,3,0
 "321210298","Introduction to automata theory, languages, and computation","John E. Hopcroft, Rajeev Motwani, Jeffrey D. Ullman","Machine theory, Computer programming, Formal languages",2,2,0,"513","2nd ed., international ed.","2018-05-05",0,"Introduction to automata theory",NULL,2,0
 "321313798","Software engineering","Ian Sommerville","Software engineering",3,0,0,"510","8th ed.","2018-05-05",0,"Software engineering",NULL,3,0
-"471078476","Electric and magnetic interactions","Chabay Ruth W., Sherwood Bruce A.","Physics",2,2,0,"538",NULL,"2018-05-05",0,"Electric and magnetic interactions",NULL,2,0
+"471078476","Electric and magnetic interactions","Chabay Ruth W., Sherwood Bruce A.","Physics",2,2,0,"538",1,"2018-05-05",0,"Electric and magnetic interactions",NULL,2,0
 "471509973","Elementary differential equations","Boyce William E.","Differential equations",3,0,0,"515","5th ed.","2018-05-05",0,"Elementary differential equations",NULL,3,0
 "475723557","Mathematical Logic","Flum Thomas, Springer-Verlag","Mathematics, Logic",2,2,0,"435","Second Edition","2018-05-05",0,"Mathematical Logic",NULL,2,0
 "534950973","Introduction to the theory of computation","Sipser Michael","Machine theory, Computational complexity",4,4,0,"511","2nd ed., international ed.","2018-05-05",0,"Introduction to the theory of computation",NULL,4,0

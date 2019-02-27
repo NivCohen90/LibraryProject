@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import Client.CommonHandler;
 import SystemObjects.GeneralData.operationsReturn;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -63,6 +64,26 @@ public interface IGUIcontroller {
 	}
 	public static boolean CheckIfUserPutInput(TextField ID, Label Alert) {
 		if (ID.getText().length() == 0){
+			Alert.setText(fillThisArea);
+			return false;
+		} else {
+			Alert.setText("");		
+			return true;
+		}
+	}
+	
+	public static boolean CheckIfUserPutInput(TextArea ID, Label Alert) {
+		if (ID.getText().length() == 0){
+			Alert.setText(fillThisArea);
+			return false;
+		} else {
+			Alert.setText("");		
+			return true;
+		}
+	}
+	
+	public static boolean CheckIfUserPutInput(String ID, Label Alert) {
+		if (ID.length() == 0){
 			Alert.setText(fillThisArea);
 			return false;
 		} else {
