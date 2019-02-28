@@ -279,7 +279,10 @@ public class AddBookController implements IGUIcontroller {
 			AddPathBTN.setText(pathOK);
 			filePathFlag = false;
 			ContextTableTextField.setEditable(true);
+			OpenFileBTN.setDisable(true);
+			ContextTableTextField.setText("");
 		} else {
+			OpenFileBTN.setDisable(false);
 			ContextTableTextField.setEditable(false);
 			filePathFlag = true;
 			AddPathBTN.setText(pathAdd);
@@ -308,6 +311,7 @@ public class AddBookController implements IGUIcontroller {
 
 	@FXML
 	void OpenFileAction(ActionEvent event) {
+		AddPathBTN.setDisable(true);
 		ContextTableTextField.setEditable(false);
 		RetriveMSG.setText("");
 		Stage stage = new Stage();
@@ -331,10 +335,11 @@ public class AddBookController implements IGUIcontroller {
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);
 			}
-
+			AddPathBTN.setDisable(false);
 			ContextTableTextField.setText(pdfFile.getName());
 
 		}
+		AddPathBTN.setDisable(false);
 		OpenFile = true;
 		ContextTabelLabel.setText("");
 	}
@@ -374,6 +379,9 @@ public class AddBookController implements IGUIcontroller {
 
 	@FXML
 	void clearAllFields(ActionEvent event) {
+		contexTableByteArray = null;
+		AddPathBTN.setDisable(false);
+		OpenFileBTN.setDisable(false);
 		RetriveMSG.setText("");
 		BookNameTextField.setText("");
 		AuthorTextField.setText("");
