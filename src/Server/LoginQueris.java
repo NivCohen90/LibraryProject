@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Interfaces.ILoginQueris;
 import SystemObjects.Loan;
 import SystemObjects.Order;
 import SystemObjects.ServerData;
@@ -18,7 +19,7 @@ import Users.Subscriber;
  * @author NivPC
  *
  */
-public class LoginQueris {
+public class LoginQueris implements ILoginQueris {
 	private String userName;
 	private String Password;
 
@@ -47,7 +48,7 @@ public class LoginQueris {
 	 * @return Server Data with the user information or Error or Exception.
 	 */
 	@SuppressWarnings("resource")
-	public static ServerData Login(LoginQueris Login) {
+	public ServerData Login(LoginQueris Login) {
 
 		try {
 			Statement s = mysqlConnection.conn.createStatement();
@@ -173,6 +174,12 @@ public class LoginQueris {
 
 	public void setPassword(String password) {
 		Password = password;
+	}
+
+	@Override
+	public ServerData Login(ILoginQueris Login) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

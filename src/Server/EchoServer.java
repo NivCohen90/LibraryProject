@@ -37,7 +37,7 @@ import ocsf.server.*;
  * @param <Student>
  */
 
-public class EchoServer extends AbstractServer {
+public class EchoServer extends AbstractServer implements IAbstractServer {
 
 	// Class variables *************************************************
 
@@ -78,7 +78,7 @@ public class EchoServer extends AbstractServer {
 			try {
 				LoginQueris login = new LoginQueris(((String) ((ServerData) msg).getDataMsg().get(0)),
 						((String) ((ServerData) msg).getDataMsg().get(1)));
-				ServerData result = LoginQueris.Login(login);
+				ServerData result = login.Login(login);
 				client.sendToClient(result);
 			} catch (IOException e) {
 				IAlert.ExceptionAlert(e);

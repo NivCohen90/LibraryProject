@@ -41,46 +41,49 @@ public abstract class IHandler extends AbstractClient {
 	 * @param port	port number
 	 */
 	public IHandler(String IPAddress, int port){
-		super(IPAddress, port);
+		super(conn.getIPAddress(), conn.getPortNumber());
 		String Error;
-		TextArea ExceptionMsg = (TextArea) SideMenu.APConnectionSettingsFXML.lookup("#ExceptionMsg");
-		ExceptionMsg.setEditable(false);
-		try {
-			openConnection();
-			conn.setConnectedFlag(true);
-			conn.setConnection();
-			SideMenu.refuseConnection = false;
-			String Connected = "";
-			Connected += "Succesfuly Connected to the Server.\n";
-			Connected += "Server IP Address: " + IPAddress;
-			Connected += "\nServer Port: " + port;
-			Connected += "\nEnjoy :)";
-			ExceptionMsg.setText(Connected);
-		} catch (IOException e) {
-			Error = "Could not Connect to the server With: ";
-			Error = Error + "\n";
-			Error = Error + "IP Address: " + IPAddress;
-			Error = Error + "\n";
-			Error = Error + "Port: " + port;
-			Error = Error + "\n";
-			Error = Error + "\n";
-			Error = Error + "The Exception is:";
-			Error = Error + "\n";
-			Error = Error + e.getClass().getName();
-			Error = Error + "\n";
-			Error = Error + e.getMessage();
-			Error = Error + "\n";
-			Error = Error + "\n";
-			Error = Error + "Check if the server is listening..";
-			Error = Error + "\n";
-			Error = Error + "if the Server is Listening and IPAddress + Port are correct,";
-			Error = Error + "\n";
-			Error = Error + "Restart the server and the client.";
-			ExceptionMsg.setText(Error);
-			conn.setConnectedFlag(false);
-			conn.setConnection();
-			SideMenu.refuseConnection = true;
-			IAlert.ExceptionAlert("Connection Failed.", new Exception (Error));
+		if(SideMenu.APConnectionSettingsFXML!=null)
+		{
+			TextArea ExceptionMsg = (TextArea) SideMenu.APConnectionSettingsFXML.lookup("#ExceptionMsg");
+			ExceptionMsg.setEditable(false);
+			try {
+				openConnection();
+				conn.setConnectedFlag(true);
+				conn.setConnection();
+				SideMenu.refuseConnection = false;
+				String Connected = "";
+				Connected += "Succesfuly Connected to the Server.\n";
+				Connected += "Server IP Address: " + IPAddress;
+				Connected += "\nServer Port: " + port;
+				Connected += "\nEnjoy :)";
+				ExceptionMsg.setText(Connected);
+			} catch (IOException e) {
+				Error = "Could not Connect to the server With: ";
+				Error = Error + "\n";
+				Error = Error + "IP Address: " + IPAddress;
+				Error = Error + "\n";
+				Error = Error + "Port: " + port;
+				Error = Error + "\n";
+				Error = Error + "\n";
+				Error = Error + "The Exception is:";
+				Error = Error + "\n";
+				Error = Error + e.getClass().getName();
+				Error = Error + "\n";
+				Error = Error + e.getMessage();
+				Error = Error + "\n";
+				Error = Error + "\n";
+				Error = Error + "Check if the server is listening..";
+				Error = Error + "\n";
+				Error = Error + "if the Server is Listening and IPAddress + Port are correct,";
+				Error = Error + "\n";
+				Error = Error + "Restart the server and the client.";
+				ExceptionMsg.setText(Error);
+				conn.setConnectedFlag(false);
+				conn.setConnection();
+				SideMenu.refuseConnection = true;
+				IAlert.ExceptionAlert("Connection Failed.", new Exception (Error));
+			}
 		}
 	}
 
@@ -92,7 +95,7 @@ public abstract class IHandler extends AbstractClient {
 	 *	@param msg message recived from server
 	 */
 	@Override
-	protected void handleMessageFromServer(Object msg) {
+	public void handleMessageFromServer(Object msg) {
 		ServerData serverMsg = (ServerData) msg;
 		ArrayList<Object> arrayMsg = serverMsg.getDataMsg();
 		Platform.runLater(new Runnable() {

@@ -11,6 +11,8 @@ import SystemObjects.GeneralData;
 import SystemObjects.ServerData;
 import SystemObjects.GeneralData.operations;
 import Users.Subscriber;
+import javafx.application.Platform;
+import ocsf.client.IAbstractClient;
 
 /**
  * class client for common methods for librarian and subscriber
@@ -21,10 +23,19 @@ import Users.Subscriber;
 public class CommonHandler extends IHandler{
 	
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
+	IAbstractClient abstractClient=null;
+	
 	public CommonHandler(IGUIcontroller guiController){
 		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
 		super(conn.getIPAddress(), conn.getPortNumber());
 		currentControllerGUIobj = guiController;	 
+	}
+	
+	public CommonHandler(IGUIcontroller guiController,IAbstractClient abstractClient){
+		super(conn.getIPAddress(), conn.getPortNumber());
+		currentControllerGUIobj = guiController;	 
+		conn=null;
+		this.abstractClient = abstractClient;
 	}
 
 	/**
@@ -35,7 +46,7 @@ public class CommonHandler extends IHandler{
 	public void searchInServer(String searchInput, operations searchType) {
 		ServerData serverData = new ServerData(searchType, searchInput);
 		try {
-			sendToServer(serverData);
+				sendToServer(serverData);
 		} catch (IOException e) {
 			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
@@ -55,7 +66,13 @@ public class CommonHandler extends IHandler{
 		ServerData loginInfo = new ServerData(GeneralData.operations.Login, ID, Password);
 		try
 		{
-			sendToServer(loginInfo);
+			if(abstractClient==null)
+				sendToServer(loginInfo);
+			else
+			{
+				abstractClient.sendToServer(loginInfo);
+				Platform.exit();
+			}
 		}
 		catch (Exception e) {
 			IAlert.ExceptionAlert(e);

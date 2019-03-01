@@ -66,4 +66,20 @@ public class ServerData implements Serializable{
 		this.operationReturn = operationReturn;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof ServerData)
+		{
+			ServerData eq = (ServerData)obj;
+			if(this.dataMsg.equals(eq.getDataMsg()))
+			{
+				if(this.operation!=null)
+					return this.operation.equals(eq.getOperation());
+				if(this.operationReturn!=null)
+					return this.operationReturn.equals(eq.getOperationReturn());
+			}
+		}
+		return false;
+	}
+	
 }
