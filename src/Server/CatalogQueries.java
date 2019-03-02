@@ -101,7 +101,7 @@ public class CatalogQueries {
 				copiesIDs += String.format("%d, ", copies.getInt(1));
 			copiesIDs = copiesIDs.substring(0, copiesIDs.length() - 2);
 			copiesIDs = copiesIDs + ".";
-			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg + "\n" + copiesIDs);
+			result = new ServerData(operationsReturn.returnSuccessMsg, successMsg + " " + copiesIDs);
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			result = new ServerData(operationsReturn.returnException, new Exception("Catalog number already exist"));
 		} catch (FileAlreadyExistsException e) {
