@@ -66,6 +66,7 @@ public class CommonHandlerTest {
         assertNull(guiStub.loggedinLibrarian); 		//didn't add info for librarian
 		assertEquals(expectedResult, actualResult);
     }
+	
 	@Test
     public void loginWrongIdRightPasswordTest() {
 
@@ -74,6 +75,18 @@ public class CommonHandlerTest {
         String expectedResult = "Can't Login - the Username/Password are wrong.";
         
         assertNull(guiStub.loggedinLibrarian); 		//didn't add info for librarian
+		assertEquals(expectedResult, actualResult);
+    }
+	
+	@Test
+    public void loginNotExistUserTest() {
+
+		testCommonHandler.loginUser("0", "0");
+		String actualResult = guiStub.errorMessage;
+        String expectedResult = "Can't Login - the Username/Password are wrong.";
+        
+        assertNull(guiStub.loggedinLibrarian); 		//didn't add info for librarian
+        assertNull(guiStub.loggedinSubscriber); 	//didn't add info for subscriber
 		assertEquals(expectedResult, actualResult);
     }
 
