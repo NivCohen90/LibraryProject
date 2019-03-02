@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ID,Status,FelonyNumber
 999999995,Active,0
 999999996,Active,1
@@ -24,3 +25,31 @@ ID,Status,FelonyNumber
 999999927,Active,0
 999999928,Lock,3
 999999929,Active,0
+=======
+"ID","Status","FelonyNumber"
+"999999995","Active",0
+"999999996","Freeze",1
+"999999997","Active",0
+"999999998","Freeze",1
+"999999999","Active",0
+"999999910","Freeze",1
+"999999911","Active",0
+"999999912","Active",0
+"999999913","Active",0
+"999999914","Active",0
+"999999915","Freeze",1
+"999999916","Active",0
+"999999917","Freeze",1
+"999999918","Active",0
+"999999919","Active",0
+"999999920","Lock",0
+"999999921","Active",0
+"999999922","Freeze",2
+"999999923","Active",0
+"999999924","Active",0
+"999999925","Active",0
+"999999926","Active",0
+"999999927","Active",0
+"999999928","Lock",0
+"999999929","Active",0
+>>>>>>> refs/remotes/origin/master

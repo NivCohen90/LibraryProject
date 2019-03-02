@@ -5,39 +5,41 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.LoginFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: F0F8FF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.LoginFormController">
    <children>
-      <Label layoutX="208.0" layoutY="173.0" text="User Name:">
+      <TextField fx:id="UserNameText" layoutX="108.0" layoutY="66.0" onKeyTyped="#CheckUserNameInput" AnchorPane.leftAnchor="108.0" />
+      <PasswordField fx:id="PasswordText" layoutX="108.0" layoutY="104.0" />
+      <Label layoutX="17.0" layoutY="68.0" text="User Name:">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="214.0" layoutY="220.0" text="Password:">
+      <Label layoutX="17.0" layoutY="106.0" text="Password:">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="UserNameText" layoutX="299.0" layoutY="171.0" onKeyTyped="#CheckUserNameInput" AnchorPane.leftAnchor="299.0" />
-      <PasswordField fx:id="PasswordText" layoutX="299.0" layoutY="218.0" />
-      <Button fx:id="LoginButton" layoutX="344.0" layoutY="269.0" mnemonicParsing="false" onAction="#Login" text="Login">
+      <Button fx:id="LoginButton" layoutX="17.0" layoutY="150.0" mnemonicParsing="false" onAction="#Login" text="Login">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="338.0" layoutY="56.0" text="Login" textFill="#dd3e3e">
+      <Label layoutX="17.0" layoutY="14.0" text="Login">
          <font>
-            <Font name="System Bold Italic" size="48.0" />
+            <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
 
-      <Label fx:id="UserNameAlertLabel" layoutX="458.0" layoutY="171.0" prefHeight="25.0" prefWidth="336.0" textFill="RED" AnchorPane.leftAnchor="458.0" AnchorPane.rightAnchor="6.0" />
-      <Label fx:id="WrongData" alignment="CENTER" layoutX="4.0" layoutY="313.0" prefHeight="36.0" prefWidth="788.0" textFill="RED" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="8.0">
+      <Label fx:id="UserNameAlertLabel" layoutX="265.0" layoutY="70.0" textFill="RED" />
+      <Label fx:id="WrongData" alignment="CENTER" layoutX="17.0" layoutY="198.0" textFill="RED">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Label>
+      <StackPane fx:id="Indicator" layoutX="81.0" layoutY="142.0" maxHeight="191.0" maxWidth="254.0" minHeight="46.0" minWidth="50.0" prefHeight="46.0" prefWidth="55.0" style="-fx-background-color: F0F8FF;" />
 
    </children>
 </AnchorPane>

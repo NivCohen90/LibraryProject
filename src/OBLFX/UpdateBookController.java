@@ -1,9 +1,17 @@
 package OBLFX;
 
+import java.awt.Desktop;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Client.CommonHandler;
 import Client.LibrarianHandler;
+import Client.SideMenu;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
@@ -16,6 +24,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * @author Matan UpdateBookController controls UpdateBookFXML
@@ -31,7 +42,9 @@ public class UpdateBookController implements IGUIcontroller {
 	private final static String Search = "Search for a book first";
 	private static String catalogNumberSearch;
 	private static Book book = new Book();
-
+	private byte [] contexTableByteArray;
+	private boolean OpenFile = false;
+	
 	@FXML
 	private TextField BookNameTextField;
 
@@ -82,6 +95,92 @@ public class UpdateBookController implements IGUIcontroller {
 
 	@FXML
 	private Label RetriveMSGLabel;
+	
+    @FXML
+    private Button CancelBTN;
+    
+    @FXML
+    private Button btnFileOpen;
+
+    @FXML
+    private Button btnFileCheck;
+    
+    @FXML
+    private TextField ContextTabeTextField;
+
+    
+	@FXML
+	void OpenFileAction(ActionEvent event) {
+		RetriveMSGLabel.setText("");
+    	Stage stage = new Stage();
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Choose Book Context Table");
+    	fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*.pdf pdf file", "*.pdf"));
+    	File pdfFile = fileChooser.showOpenDialog(stage);
+		byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+		FileInputStream fis;			//input from file
+		BufferedInputStream bis;		//buffer input		  
+		  
+		try {
+			fis = new FileInputStream(pdfFile);
+			bis = new BufferedInputStream(fis);
+			bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+			fis.close();
+			bis.close();
+			contexTableByteArray = mybytearray;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}					
+		  
+        if (pdfFile != null) {
+        	ContextTabeTextField.setText(pdfFile.getName());
+
+        }
+		OpenFile = true;
+		//ContextTabelLabel.setText("");
+	}
+
+    
+    @FXML
+    void CheckFileAction(ActionEvent event) {
+    	File pdfoutFile;
+		FileOutputStream fos;			//input from file
+		BufferedOutputStream bos;		//buffer input		  
+		  
+		try {
+			
+			pdfoutFile = File.createTempFile("BookCN-"+CatalogTextField.getText()+"_temp", ".pdf");//File.createTempFile("outTemp", ".pdf");
+			fos = new FileOutputStream(pdfoutFile);
+			bos = new BufferedOutputStream(fos);
+			bos.write(contexTableByteArray,0,contexTableByteArray.length);				//read from file to byte array
+			bos.flush();
+			fos.flush();
+			fos.close();
+	    	if (Desktop.isDesktopSupported()) {
+    	        Desktop.getDesktop().open(pdfoutFile);
+	    	}
+		} catch (IOException e) {
+			IAlert.ExceptionAlert(e);
+			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    void CancelAction(ActionEvent event) {
+		UpdateBookBTN.setVisible(false);
+		CancelBTN.setVisible(false);
+		GetBookDetailsBTN.setVisible(true);
+		CatalogNumberLabel.setText("Enter catalog number first");
+		SetAllUnEditable();
+		BookNameTextField.setText("");
+		AuthorTextField.setText("");
+		SubjectTextField.setText("");
+		PlaceOnShelfTextField.setText("");
+		EditionNumberTextField.setText("");
+		DescriptionTextField.setText("");
+		ContextTabeTextField.setText("");
+		CatalogTextField.setText("");
+    }
 
 	/**
 	 * CheckAuthorName is a method that check if the user put input.,if he didn't
@@ -160,8 +259,10 @@ public class UpdateBookController implements IGUIcontroller {
 		if (IGUIcontroller.CheckIfUserPutInput(CatalogTextField, CatalogNumberLabel) && IGUIcontroller
 				.CheckOnlyLetter(CatalogTextField, CatalogNumberLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 			catalogNumberSearch = CatalogTextField.getText();
-
 			commonClient.searchInServer(catalogNumberSearch, GeneralData.operations.searchByCatalogNumber);
+			UpdateBookBTN.setVisible(true);
+			CancelBTN.setVisible(true);
+			GetBookDetailsBTN.setVisible(false);
 		}
 	}
 
@@ -220,7 +321,12 @@ public class UpdateBookController implements IGUIcontroller {
 			} else
 				DescriptionLabel.setText("Fill this Area");
 			if (counter == 6) {
+				book.setContextTableByteArray(contexTableByteArray);
 				librarianClient.updateBookinCatalog(book, GeneralData.userLibrarian);
+				CatalogNumberLabel.setText("Enter catalog number first");
+				UpdateBookBTN.setVisible(false);
+				CancelBTN.setVisible(false);
+				GetBookDetailsBTN.setVisible(true);
 			}
 
 		}
@@ -229,6 +335,7 @@ public class UpdateBookController implements IGUIcontroller {
 	/**
 	 * Update User with the result
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void receiveMassageFromServer(Object msg, operationsReturn op) {
 		SetAllUnEditable();
@@ -238,6 +345,8 @@ public class UpdateBookController implements IGUIcontroller {
 		PlaceOnShelfTextField.setText("");
 		EditionNumberTextField.setText("");
 		DescriptionTextField.setText("");
+		ContextTabeTextField.setText("");
+		CatalogTextField.setText("");
 		switch (op) {
 		case returnBookArray:
 			book = ((ArrayList<Book>) msg).get(0);
@@ -250,20 +359,38 @@ public class UpdateBookController implements IGUIcontroller {
 			PlaceOnShelfTextField.setText(book.getShelfLoaction());
 			EditionNumberTextField.setText(book.getEditionNumber());
 			DescriptionTextField.setText(book.getDescription());
+			ContextTabeTextField.setText(book.getContextTable());
+			contexTableByteArray = book.getContextTableByteArray();
+			CatalogTextField.setText(book.getCatalogNumber());
 			allFlagStatus = true;
 			break;
 		case returnError:
-			RetriveMSGLabel.setStyle("-fx-text-fill: red;");
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.RED);
 			RetriveMSGLabel.setText((String) msg);
 			break;
 		case returnException:
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.RED);
 			RetriveMSGLabel.setText(((Exception) msg).getMessage());
 			IAlert.ExceptionAlert((Exception) msg);
 			break;
 
 		case returnSuccessMsg:
-			RetriveMSGLabel.setStyle("-fx-text-fill: green;");
+			UpdateBookBTN.setVisible(false);
+			CancelBTN.setVisible(false);
+			GetBookDetailsBTN.setVisible(true);
+			CatalogNumberLabel.setText("Enter catalog number first");
+			RetriveMSGLabel.setTextFill(Color.GREEN);
 			RetriveMSGLabel.setText((String) msg);
+			break;
+		default:
 			break;
 		}
 	}
@@ -289,6 +416,7 @@ public class UpdateBookController implements IGUIcontroller {
 	 */
 	private void SetAllUnEditable() {
 		SetAllFlagFalse();
+		CatalogTextField.setEditable(true);
 		BookNameTextField.setEditable(false);
 		AuthorTextField.setEditable(false);
 		SubjectTextField.setEditable(false);

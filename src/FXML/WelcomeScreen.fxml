@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UserWelcomeController">
    <children>
-      <ImageView fitHeight="569.0" fitWidth="721.0">
-         <image>
-            <Image url="@WelcomePic.jpg" />
-         </image>
-      </ImageView>
-      <Label layoutX="99.0" layoutY="203.0" text="Ort Braude Library" textAlignment="JUSTIFY" textFill="#da1641">
+      <Label fx:id="txt2" layoutX="123.0" layoutY="218.0" text="Ort Braude Library" textAlignment="JUSTIFY" textFill="#d75a4a">
+         <font>
+            <Font name="Calibri Bold" size="72.0" />
+         </font>
+      </Label>
+      <Label layoutX="296.0" layoutY="300.0" text="Choose option from menu">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt1" layoutX="213.0" layoutY="136.0" text="Welcome To" textAlignment="JUSTIFY" textFill="#d75a4a">
          <font>
             <Font name="Calibri Bold" size="72.0" />
          </font>

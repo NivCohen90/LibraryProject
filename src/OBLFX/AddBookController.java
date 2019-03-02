@@ -4,6 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import Client.LibrarianHandler;
 import Interfaces.IAlert;
@@ -14,6 +18,7 @@ import SystemObjects.GeneralData.operationsReturn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -30,8 +35,8 @@ import javafx.stage.Stage;
  *              Buttons
  */
 public class AddBookController implements IGUIcontroller {
-	private boolean Dates = false;
-	private boolean OpenFile = false;
+	private static boolean Dates = true;
+	private static boolean OpenFile = false;
 	final static String Datepicker = "Pick a Date";
 	final static String addPDF = "Add PDf File ";
 	private byte [] contexTableByteArray;
@@ -143,13 +148,16 @@ public class AddBookController implements IGUIcontroller {
 			if(IGUIcontroller.CheckOnlyLetter(NumberOfCopiesTextField, NumberOfCopiesLabel, OnlyNumbers, UserNameErrorNumebrs)) {
 				counter++;
 			}	
+			
 		}
-
-		if (DescriptionTextField.getText().length() == 0) {
-			DescriptionLabel.setText(fillThisArea);
-		} else {
-			counter++;
-		}
+		if(IGUIcontroller.CheckIfUserPutInput(DescriptionTextField, DescriptionLabel)) {
+				counter++;
+		}	
+//		if (DescriptionTextField.getText().length() == 0) {
+//			DescriptionLabel.setText(fillThisArea);
+//		} else {
+//			counter++;
+//		}
 		if (Dates == false) {
 			PurchaseDateLabel.setText(Datepicker);
 		}
@@ -199,7 +207,7 @@ public class AddBookController implements IGUIcontroller {
     @FXML
     void CheckDescripition(KeyEvent event) {
     	RetriveMSG.setText("");
-    	DescriptionLabel.setText("");
+    	IGUIcontroller.CheckIfUserPutInput(DescriptionTextField, DescriptionLabel);
     }
 	/**
 	 * AuthorCheck is a method that check if the user put input.,if he didn't gave
@@ -262,22 +270,23 @@ public class AddBookController implements IGUIcontroller {
     	fileChooser.setTitle("Choose Book Context Table");
     	fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*.pdf pdf file", "*.pdf"));
     	File pdfFile = fileChooser.showOpenDialog(stage);
-		byte [] mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
-		FileInputStream fis;			//input from file
-		BufferedInputStream bis;		//buffer input		  
-		  
-		try {
-			fis = new FileInputStream(pdfFile);
-			bis = new BufferedInputStream(fis);
-			bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
-			fis.close();
-			bis.close();
-			contexTableByteArray = mybytearray;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}					
-		  
+    	byte [] mybytearray = null;
         if (pdfFile != null) {
+        	mybytearray  = new byte [(int)pdfFile.length()];	//byte array of file
+    		FileInputStream fis;			//input from file
+    		BufferedInputStream bis;		//buffer input		  
+    		  
+    		try {
+    			fis = new FileInputStream(pdfFile);
+    			bis = new BufferedInputStream(fis);
+    			bis.read(mybytearray,0,mybytearray.length);				//read from file to byte array
+    			fis.close();
+    			bis.close();
+    			contexTableByteArray = mybytearray;
+    		} catch (IOException e) {
+    			IAlert.ExceptionAlert(e);
+    		}	
+        	
         	ContextTabeTextField.setText(pdfFile.getName());
 
         }
@@ -290,11 +299,21 @@ public class AddBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void PurchaceDateAction(ActionEvent event) {
-		
-		RetriveMSG.setText("");
-		Dates = true;
-		PurchaseDateLabel.setText("");
+		if(!PurchaseDatePicker.getEditor().getText().equals("")) {
+			RetriveMSG.setText("");
+			Dates = true;
+			PurchaseDateLabel.setText("");
+		}
 	}
+	
+    @FXML
+    void PurchaceDateKeyTyped(KeyEvent event) {
+		if(PurchaseDatePicker.getEditor().getText().length() > 0) {
+			RetriveMSG.setText("");
+			Dates = true;
+			PurchaseDateLabel.setText("");
+		}
+    }
 
 	/**
 	 * SubjectCheck is a method that check if the user put input.,if he didn't gave
@@ -307,6 +326,32 @@ public class AddBookController implements IGUIcontroller {
 		IGUIcontroller.CheckOnlyLetter(SubjectTextField, SubjectLabel, OnlyThisLetters, OnlyThisLetterError);
 		
 	}
+	
+    @FXML
+    void clearAllFields(ActionEvent event) {
+		BookNameTextField.setText("");
+		AuthorTextField.setText("");
+		SubjectTextField.setText("");
+		PlaceOnShelfTextField.setText("");
+		EditionNumberTextField.setText("");
+		CatalogTextField.setText("");
+		NumberOfCopiesTextField.setText("");
+		DescriptionTextField.setText("");
+		PurchaseDatePicker.setValue(NOW_LOCAL_DATE());
+		ContextTabeTextField.setText("");
+		Dates = true;
+		OpenFile = false;
+		BookNameLabel.setText("");
+		AuthorLabel.setText("");
+		SubjectLabel.setText("");
+		PlaceOnShelfLabel.setText("");
+		EditionNumberLabel.setText("");
+		CatalogLabel.setText("");
+		NumberOfCopiesLabel.setText("");
+		DescriptionLabel.setText("");
+		PurchaseDateLabel.setText("");
+		ContextTabelLabel.setText("");
+    }
 
 	/**
 	 * Update User with the result
@@ -322,10 +367,11 @@ public class AddBookController implements IGUIcontroller {
 		CatalogTextField.setText("");
 		NumberOfCopiesTextField.setText("");
 		DescriptionTextField.setText("");
-		PurchaseDatePicker.setValue(null);
+		PurchaseDatePicker.setValue(NOW_LOCAL_DATE());
 		ContextTabeTextField.setText("");
-		Dates = false;
+		Dates = true;
 		OpenFile = false;
+		
 		switch(op)
 		{
 			case returnSuccessMsg:
@@ -337,12 +383,21 @@ public class AddBookController implements IGUIcontroller {
 				RetriveMSG.setStyle("-fx-text-fill: red;");
 				break;
 			case returnException:
-				//RetriveMSG.setText(((Exception) msg).getMessage());
 				IAlert.ExceptionAlert((Exception)msg);
 				break;
+		default:
+			break;
 		}
 			
 	}
+	
+	// Date Now  ### "To Date Picker"
+    public static final LocalDate NOW_LOCAL_DATE (){
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse(date , formatter);
+        return localDate;
+    }
 
 	@Override
 	public void setConnection() {
@@ -353,6 +408,17 @@ public class AddBookController implements IGUIcontroller {
 	public void closeConnection() {
 		if (librarianClient != null)
 			librarianClient.quit();
+	}
+	@FXML
+	public void initialize() {
+		PurchaseDatePicker.setValue(NOW_LOCAL_DATE());
+		PurchaseDatePicker.setDayCellFactory(picker -> new DateCell() {
+	        public void updateItem(LocalDate date, boolean empty) {
+	            super.updateItem(date, empty);
+	            LocalDate today = LocalDate.now();
+	            setDisable(empty || date.compareTo(today) > 0 );
+	        }
+	    });
 	}
 
 }

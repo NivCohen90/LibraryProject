@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -27,6 +26,7 @@ import OBLFX.SearchSubscriberController;
 import OBLFX.SubscriberCardController;
 import OBLFX.SubscriberHistoryController;
 import OBLFX.UpdateBookController;
+import OBLFX.UserWelcomeController;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.MenuType;
 import SystemObjects.GeneralData.Menuicons;
@@ -90,7 +90,7 @@ public class SideMenu {
 		vbox.setPrefWidth(200);
 		loadAllFXMLAnchorPanes();
 		switch (menuType) {
-		case MainMenu:	
+		case MainMenu:
 			vbox.getChildren().add(Item(Menuicons.Login));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.Connection));
@@ -98,6 +98,7 @@ public class SideMenu {
 			break;
 		case SubscriberMenu:
 			vbox.getChildren().add(Item(Menuicons.SubscriberCard));
+			selectMenu(sideMenuButtons.get(Menuicons.SubscriberCard));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.History));
 			vbox.getChildren().add(Item(Menuicons.Connection));
@@ -105,6 +106,7 @@ public class SideMenu {
 			break;
 		case LibrarianMenu:
 			vbox.getChildren().add(Item(Menuicons.LibrarianCard));
+			selectMenu(sideMenuButtons.get(Menuicons.LibrarianCard));
 			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
 			vbox.getChildren().add(Item(Menuicons.CreateLoan));
@@ -117,6 +119,7 @@ public class SideMenu {
 			break;
 		case LibrarianManagerMenu:
 			vbox.getChildren().add(Item(Menuicons.ManagerCard));
+			selectMenu(sideMenuButtons.get(Menuicons.ManagerCard));
 			vbox.getChildren().add(Item(Menuicons.SearchLibrarian));
 			vbox.getChildren().add(Item(Menuicons.SearchSubscriber));
 			vbox.getChildren().add(Item(Menuicons.SearchBook));
@@ -125,7 +128,6 @@ public class SideMenu {
 			vbox.getChildren().add(Item(Menuicons.Report));
 			vbox.getChildren().add(Item(Menuicons.CreateSubscriber));
 			vbox.getChildren().add(Item(Menuicons.catalog));
-			//vbox.getChildren().add(Item(Menuicons.ChangeSubscriberStatus));
 			vbox.getChildren().add(Item(Menuicons.Statistics));
 			vbox.getChildren().add(Item(Menuicons.Connection));
 			vbox.getChildren().add(Item(Menuicons.Exit));
@@ -159,20 +161,11 @@ public class SideMenu {
 		btn.setGraphic(imageView);
 		btn.setAlignment(Pos.CENTER_LEFT);
 		btn.setPrefSize(195, 50);
-		if (icon == Menuicons.catalog) {
-			btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
-		} else {
-			btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-		}
+		btn.getStylesheets().add(getClass().getResource("/CSS/general.css").toExternalForm());
 		buttonHandler(icon, btn);
 		Pane paneIndicator = new Pane();
 		paneIndicator.setPrefSize(5, 50);
 		paneIndicator.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-		if (icon == Menuicons.catalog) {
-			catalogDecorator(btn, paneIndicator);
-		} else {
-			menuDecorator(btn, paneIndicator);
-		}
 		HBox hbox = new HBox(paneIndicator, btn);
 		return hbox;
 	}
@@ -185,10 +178,15 @@ public class SideMenu {
 	private void loadAllFXMLAnchorPanes() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			// FooController fooController = (FooController) fxmlLoader.getController();
 			APSearchFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.SearchFXML).openStream());
 			controllerMap.put(Menuicons.SearchBook, (SearchBookController) fxmlLoader.getController());
+
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
+			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML).openStream());
+			controllerMap.put(Menuicons.Connection, (ConnectionSettingsController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
@@ -201,18 +199,6 @@ public class SideMenu {
 			APCreateNewSubscriberFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.CreateNewSubscriberFXML).openStream());
 			controllerMap.put(Menuicons.CreateSubscriber, (AddNewSubscriberController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APSubscriberHistoryFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML).openStream());
-			controllerMap.put(Menuicons.History, (SubscriberHistoryController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APReaderCardFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML).openStream());
-			controllerMap.put(Menuicons.SubscriberCard, (SubscriberCardController) fxmlLoader.getController());
 
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
@@ -262,25 +248,6 @@ public class SideMenu {
 					.load(getClass().getResource(IFXMLpathAndStyle.NewLoanFXML).openStream());
 			controllerMap.put(Menuicons.CreateLoan, (NewLoanController) fxmlLoader.getController());
 
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APUpdateSubscriberStatusFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.UpdateSubscriberDetailsFXML).openStream());
-//			controllerMap.put(Menuicons.ChangeSubscriberStatus,
-//					(UpdateSubscriberDetailsController) fxmlLoader.getController());
-
-//			fxmlLoader.setRoot(null);
-//			fxmlLoader.setController(null);
-//			APStatisticsFXML = (AnchorPane) fxmlLoader
-//					.load(getClass().getResource(IFXMLpathAndStyle.StatisticsFXML).openStream());
-//			controllerMap.put(Menuicons.Statistics, (CreateReportController) fxmlLoader.getController());
-
-			fxmlLoader.setRoot(null);
-			fxmlLoader.setController(null);
-			APConnectionSettingsFXML = (AnchorPane) fxmlLoader
-					.load(getClass().getResource(IFXMLpathAndStyle.ConnectionSettingsFXML).openStream());
-			controllerMap.put(Menuicons.Connection, (ConnectionSettingsController) fxmlLoader.getController());
-
 			fxmlLoader.setRoot(null);
 			fxmlLoader.setController(null);
 			APAddBookFXML = (AnchorPane) fxmlLoader
@@ -304,14 +271,22 @@ public class SideMenu {
 			APDeleteBookFXML = (AnchorPane) fxmlLoader
 					.load(getClass().getResource(IFXMLpathAndStyle.DeleteBookFXML).openStream());
 			controllerMap.put(Menuicons.DeleteBook, (DeleteController) fxmlLoader.getController());
-			
 
-//			 fxmlLoader.setRoot(null);
-//			 fxmlLoader.setController(null);
-//			 APUserWelcomeFXML = (AnchorPane)
-//			 fxmlLoader.load(getClass().getResource(IFXMLpathAndStyle.UserWelcomeFXML).openStream());
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
+			APSubscriberHistoryFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.SubscriberHistoryFXML).openStream());
+			controllerMap.put(Menuicons.History, (SubscriberHistoryController) fxmlLoader.getController());
 
-		} catch (IOException e) {
+			fxmlLoader.setRoot(null);
+			fxmlLoader.setController(null);
+			APReaderCardFXML = (AnchorPane) fxmlLoader
+					.load(getClass().getResource(IFXMLpathAndStyle.ReaderCardFXML).openStream());
+			controllerMap.put(Menuicons.SubscriberCard, (SubscriberCardController) fxmlLoader.getController());
+
+		} catch (
+
+		IOException e) {
 			IAlert.ExceptionAlert(e);
 			e.printStackTrace();
 		}
@@ -324,26 +299,26 @@ public class SideMenu {
 	 * @param btn
 	 * @param pane
 	 */
-	private void menuDecorator(Button btn, Pane pane) {
-
-		btn.setOnMouseEntered(value -> {
-			//btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
-			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
-		});
-		btn.setOnMouseExited(value -> {
-			//btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-		});
-	}
-
-	private void catalogDecorator(Button btn, Pane pane) {
-		btn.setOnMouseEntered(value -> {
-			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
-		});
-		btn.setOnMouseExited(value -> {
-			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
-		});
-	}
+//	private void menuDecorator(Button btn, Pane pane) {
+//
+//		btn.setOnMouseEntered(value -> {
+//			// btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+//			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
+//		});
+//		btn.setOnMouseExited(value -> {
+//			// btn.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+//			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+//		});
+//	}
+//
+//	private void catalogDecorator(Button btn, Pane pane) {
+//		btn.setOnMouseEntered(value -> {
+//			pane.setStyle(IFXMLpathAndStyle.BlueBackgroundStyle);
+//		});
+//		btn.setOnMouseExited(value -> {
+//			pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+//		});
+//	}
 
 	/**
 	 * set power button Alert Handler.
@@ -358,6 +333,20 @@ public class SideMenu {
 
 	}
 
+	private void selectMenu(Button btn) {
+		for (Menuicons icon : Menuicons.values()) {
+			if (sideMenuButtons.get(icon) != null)
+				if (sideMenuButtons.get(icon).equals(btn))
+					btn.setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
+				else {
+					sideMenuButtons.get(icon).setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					sideMenuButtons.get(icon).setStyle("");
+					sideMenuButtons.get(icon).getStylesheets()
+							.add(getClass().getResource("/CSS/general.css").toExternalForm());
+				}
+		}
+	}
+
 	/**
 	 * set handler to menu button which page to show when clicked (Pop Error Alert
 	 * when failed).
@@ -370,12 +359,8 @@ public class SideMenu {
 	private void RightSideBtnHandler(Button btn, AnchorPane anchorPane, Menuicons IconName) {
 		btn.setOnMouseClicked(search -> {
 			try {
-				if(sideMenuButtons.get(IconName) != null) {
-					sideMenuButtons.get(IconName).setStyle(IFXMLpathAndStyle.ClickedBackgroundStyle);
-					for(Menuicons icon : Menuicons.values()) {
-						if(IconName != icon && sideMenuButtons.get(icon) != null)
-							sideMenuButtons.get(icon).setStyle(IFXMLpathAndStyle.BackgroundStyle);
-					}
+				if (sideMenuButtons.get(IconName) != null) {
+					selectMenu(sideMenuButtons.get(IconName));
 				}
 				if (controllerMap.get(IconName) != null) {
 					controllerMap.get(IconName).setConnection();
@@ -388,6 +373,7 @@ public class SideMenu {
 					anchorPane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 					Main.root.setRight(anchorPane);
 				} else {
+					selectMenu(sideMenuButtons.get(Menuicons.Connection));
 					APConnectionSettingsFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 					Main.root.setRight(APConnectionSettingsFXML);
 				}
@@ -405,6 +391,14 @@ public class SideMenu {
 				SubMenu = true;
 				SideMenu sideMenu = new SideMenu(GeneralData.MenuType.SubMenu);
 				Main.root.setLeft(sideMenu.getVBox());
+
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				AnchorPane pane = (AnchorPane) fxmlLoader
+						.load(getClass().getResource(IFXMLpathAndStyle.WelcomeScreen).openStream());
+				((UserWelcomeController) fxmlLoader.getController()).setCatalog();
+				;
+				pane.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+				Main.root.setRight(pane);
 			} catch (Exception e) {
 				IAlert.ExceptionAlert(e);
 				e.printStackTrace();
@@ -420,9 +414,13 @@ public class SideMenu {
 				if (SystemObjects.GeneralData.userLibrarian.getLevel() == 1) {
 					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianMenu);
 					Main.root.setLeft(sideMenu.getVBox());
+					SideMenu.APCardLibrarianFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(SideMenu.APCardLibrarianFXML);
 				} else {
 					SideMenu sideMenu = new SideMenu(GeneralData.MenuType.LibrarianManagerMenu);
 					Main.root.setLeft(sideMenu.getVBox());
+					SideMenu.APCardLibrarianManagerFXML.setStyle(IFXMLpathAndStyle.BackgroundStyle);
+					Main.root.setRight(SideMenu.APCardLibrarianManagerFXML);
 				}
 			} catch (Exception e) {
 				IAlert.ExceptionAlert(e);
@@ -483,10 +481,10 @@ public class SideMenu {
 			break;
 		case catalog:
 			if (SubMenu) {
-				btn.setText("Manage Catalog <<");
+				btn.setText("Back to Librarian Menu");
 				SubMenuBtnTrueHandler(btn);
 			} else {
-				btn.setText("Manage Catalog >>");
+				btn.setText("Manage Catalog Menu");
 				SubMenuBtnFalseHandler(btn);
 			}
 

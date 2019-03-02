@@ -3,7 +3,6 @@ package OBLFX;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import Client.LibraryManagerHandler;
@@ -124,6 +123,7 @@ public class CreatesReportController implements IGUIcontroller {
 			primaryStage.show();
 	}}
 
+	@SuppressWarnings("unchecked")
 	private void openResultDetails(Object reportData, operationsReturn reportType) {
 		try {
 			Stage primaryStage = new Stage();
@@ -144,31 +144,6 @@ public class CreatesReportController implements IGUIcontroller {
 				primaryStage.show();
 				break;
 			}
-//			case returnLateReturnsReportData: {
-//				System.out.println("I'm here you mother fucker!");
-//				root = (AnchorPane) fxmlLoader
-//						.load(getClass().getResource("../FXML/LateReturnReportDisplay.fxml").openStream());
-//				scene = new Scene(root);
-//				lateReturnReportDisplayController Controller = (lateReturnReportDisplayController) fxmlLoader
-//						.getController();
-//				Controller.setReportDataToDisplay((ArrayList<Object>) reportData);
-//				primaryStage.setScene(scene);
-//				primaryStage.setResizable(false);
-//				primaryStage.show();
-//				break;
-//			}
-//			case returnActivityReportData: {
-//				root = (AnchorPane) fxmlLoader
-//						.load(getClass().getResource("../FXML/ActivityReportDisplay.fxml").openStream());
-//				scene = new Scene(root);
-//				activityReportDisplayController Controller = (activityReportDisplayController) fxmlLoader
-//						.getController();
-//				Controller.DataToDisplay((ArrayList<Object>) reportData);
-//				primaryStage.setScene(scene);
-//				primaryStage.setResizable(false);
-//				primaryStage.show();
-//				break;
-//			}
 			default:
 				break;
 			}

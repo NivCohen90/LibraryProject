@@ -174,6 +174,8 @@ public class NewLoanController implements IGUIcontroller {
 		case returnException:
 			IAlert.ExceptionAlert((Exception) msg);
 			break;
+		default:
+			break;
 		}
 	}
 

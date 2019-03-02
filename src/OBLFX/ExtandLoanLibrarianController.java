@@ -1,6 +1,5 @@
 package OBLFX;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import Client.LibrarianHandler;
@@ -68,6 +67,7 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 		LoanNumberTextField.setText("");
 	}
 
+	@SuppressWarnings("unused")
 	private <T> void displayLoans(ArrayList<T> list) {
 		ObservableColumnData.clear();
 		if (!list.isEmpty()) {
@@ -85,9 +85,6 @@ public class ExtandLoanLibrarianController implements IGUIcontroller {
 		if (IGUIcontroller.CheckIfUserPutInput(LoanNumberTextField, LoanNumberLabel)) {
 			if (IGUIcontroller.CheckOnlyLetter(LoanNumberTextField, LoanNumberLabel, OnlyNumbers,
 					UserNameErrorNumebrs)) {
-				String bookCtalogNumber = LoanNumberTextField.getText();
-				Date newReturnDate = java.sql.Date.valueOf(newDatePicker.getValue());
-				// librarianClient.extendLoanByLibrarian(bookCtalogNumber, newReturnDate);
 			}
 		}
 	}

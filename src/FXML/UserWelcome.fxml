@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: F0F8FF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.UserWelcomeController">
    <children>
-      <ImageView fitHeight="200.0" fitWidth="810.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="200.0" fitWidth="810.0" onMouseDragged="#MouseDragged" onMousePressed="#MousePressed" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../MenuIcons/Logo.png" />
          </image>
@@ -19,11 +19,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="UserName" layoutX="853.0" layoutY="34.0" prefHeight="30.0" prefWidth="130.0" text="User">
+      <Label fx:id="UserName" layoutX="853.0" layoutY="34.0" prefHeight="30.0" prefWidth="130.0" text="Guest">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="Logout" layoutX="814.0" layoutY="100.0" mnemonicParsing="false" onAction="#Logout" stylesheets="@../CSS/WelcomeScreen.css" text="Logout" visible="false" />
+      <Button fx:id="Logout" layoutX="833.0" layoutY="70.0" mnemonicParsing="false" onAction="#Logout" stylesheets="@../CSS/WelcomeScreen.css" text="Logout" visible="false" />
       <ImageView fitHeight="30.0" fitWidth="27.0" layoutX="766.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../MenuIcons/user.png" />

@@ -59,7 +59,7 @@ public class BookQueries {
 	{
 		String bookCatalogNumber= BookQueries.bookCatalogNumber(loanID);
 		String queryCheckOrder = String.format(
-				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime=null;", bookCatalogNumber);
+				"SELECT * FROM obl.`order` where bookCatalogNumber='%s' and OrderStatus='Active' and BookArrivedTime is null;", bookCatalogNumber);
 		try {
 			s = mysqlConnection.conn.createStatement();
 			ResultSet rs = s.executeQuery(queryCheckOrder);
@@ -71,10 +71,11 @@ public class BookQueries {
 	return false;
 	}
 
-	public static String checkOrdersForBookAndNotice(String bookCatalogNumber) {
+	public static String[] checkOrdersForBookAndNotice(String bookCatalogNumber) {
 		Connection con = mysqlConnection.conn;
 		Statement stmt = null;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String[] sub = new String[3];
 		
 		String queryCheckOrder = String.format(
 				"SELECT b.BookName, ordDetail.* FROM obl.`book` b inner join \r\n" + 
@@ -92,13 +93,17 @@ public class BookQueries {
 				//System.out.println(orderNotice);
 				ServerController.updateLog(orderNotice);
 				
+				sub[0]=subscriberID;
+				sub[1]=rs.getString("FirstName");
+				sub[2]=rs.getString("LastName");
+				
 				String queryUpdateOrder = String.format(
 						"UPDATE `obl`.`order` SET `BookArrivedTime` = '%s' WHERE `OrderID` = %s;",
 						todayDate, rs.getString("OrderID"));
 				stmt.executeUpdate(queryUpdateOrder);
 				//System.out.println(queryUpdateOrder);			
 				
-				return subscriberID;
+				return sub;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,7 +117,8 @@ public class BookQueries {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Connection con = mysqlConnection.conn;
-
+		String successMsg="book returned to library.\n";
+		
 		// check book and subscriber exist
 		String queryCheckBook = String.format("SELECT * FROM obl.book where CatalogNumber='%s'", bookCatalogNumber);
 		String queryCheckSub = String.format("SELECT * FROM obl.user u inner join obl.subscriber s on u.ID=s.ID where u.ID='%s';", StudentID);
@@ -143,7 +149,7 @@ public class BookQueries {
 			String returnedDate = dateFormat.format(new Date());
 
 			if (rs.getString("LoanStatus").equals("Late")) {					
-				
+				successMsg+="\nBook was in late return. ";
 				//insert to late return table
 				String queryLateReturn = String.format("INSERT INTO `obl`.`latereturns` (`LoanID`, `SubID`, `FaultKind`, `ExpectedReturnDate`, `OriginalReturnDate`) VALUES('%s','%s','LateReturn','%s','%s');", loanID, SubscriberID, rs.getString("ReturnDate"), returnedDate);
 				//System.out.println(queryLateReturn);
@@ -156,23 +162,27 @@ public class BookQueries {
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Active', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
 					//System.out.println("status freeze to active,decrease felony");
+					successMsg+="\nfelony decresed from subscriber, status is now 'Active'.";
 					break;
 				case 2: // decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
 					//System.out.println("status freeze to active,decrease felony");
+					successMsg+="\nfelony decresed from subscriber, status is now 'Freeze', has 1 more late return.";
 					break;
 				case 3: // status from lock to freeze and decrease felony
 					querySubStatus = String.format(
 							"UPDATE `obl`.`subscriber` SET `Status` = 'Freeze', FelonyNumber = FelonyNumber-1 WHERE `SubscriberID` = %s;",
 							SubscriberID);
 					//System.out.println("status lock to freeze,decrease felony");
+					successMsg+="\nfelony decresed from subscriber, status is now 'Freeze', has 2 more late return.";
 					break;
 				}
 
 				s.executeUpdate(querySubStatus);
 				s.executeUpdate(queryLateReturn);
+				
 			}
 			
 			// update loan status to finish
@@ -182,16 +192,17 @@ public class BookQueries {
 			s.executeUpdate(queryLoanStatus);
 
 			// check is order exist, and notice subscriber
-			String noticeSubscribeID = checkOrdersForBookAndNotice(bookCatalogNumber);
-			if (noticeSubscribeID == null) {
+			String[] noticeSubscriber = checkOrdersForBookAndNotice(bookCatalogNumber);
+			if (noticeSubscriber == null) {
 				// update available copies
 				String queryBookCopiesUp = String.format(
 						"UPDATE `obl`.`book` SET `AvailableCopies` = AvailableCopies+1 WHERE `CatalogNumber` = %s;",
 						bookCatalogNumber);
 
 				s.executeUpdate(queryBookCopiesUp);
-
 			}
+			else
+				successMsg+="\n\nBook had an order. sent message to subscriber : "+noticeSubscriber[1]+" "+noticeSubscriber[2]+".";
 
 			// update isLoaned in bookcopy
 			String queryBookCopy = String.format(
@@ -201,7 +212,7 @@ public class BookQueries {
 			s.executeUpdate(queryBookCopy);
 			
 			// send success message
-			return new ServerData(operationsReturn.returnSuccessMsg, "book returned to library");
+			return new ServerData(operationsReturn.returnSuccessMsg, successMsg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

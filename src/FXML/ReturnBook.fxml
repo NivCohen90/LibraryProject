@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ReturnBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ReturnBookController">
    <children>
-      <Label layoutX="26.0" layoutY="23.0" text="Return Book">
+      <Group layoutX="17.0" layoutY="14.0">
+         <children>
+            <Label text="Return Book">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutY="54.0" text="Book Catalog Number:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="CatalogNumberTextField" layoutX="157.0" layoutY="51.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
+            <TextField fx:id="SubscriberIDTextField" layoutX="520.0" layoutY="52.0" onKeyTyped="#CheckSubscriberID" prefHeight="26.0" prefWidth="138.0" />
+            <Button fx:id="ReturnBookBTN" layoutY="101.0" mnemonicParsing="false" onAction="#CheckReturnBook" text="Return Book">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="424.0" layoutY="55.0" prefHeight="20.0" prefWidth="96.0" text="Student ID:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="CatalogNumberLabel" layoutX="295.0" layoutY="51.0" prefHeight="26.0" prefWidth="124.0" textFill="RED" />
+            <Label fx:id="SubscriberIDLabel" layoutX="658.0" layoutY="52.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
+         </children>
+      </Group>
+      <Label fx:id="RetriveMSG" layoutX="17.0" layoutY="150.0" textFill="RED">
          <font>
-            <Font name="System Bold Italic" size="24.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="26.0" layoutY="77.0" text="Book Catalog Number:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="CatalogNumberTextField" layoutX="183.0" layoutY="74.0" onKeyTyped="#CheckCatalog" prefHeight="26.0" prefWidth="138.0" />
-      <TextField fx:id="SubscriberIDTextField" layoutX="546.0" layoutY="75.0" onKeyTyped="#CheckSubscriberID" prefHeight="26.0" prefWidth="138.0" />
-      <Button fx:id="ReturnBookBTN" layoutX="26.0" layoutY="124.0" mnemonicParsing="false" onAction="#CheckReturnBook" text="Return Book">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <Label layoutX="450.0" layoutY="78.0" prefHeight="20.0" prefWidth="96.0" text="Student ID:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="RetriveMSG" layoutX="139.0" layoutY="126.0" textFill="RED" />
-      <Label fx:id="CatalogNumberLabel" layoutX="321.0" layoutY="74.0" prefHeight="26.0" prefWidth="124.0" textFill="RED" />
-      <Label fx:id="SubscriberIDLabel" layoutX="684.0" layoutY="75.0" prefHeight="26.0" prefWidth="113.0" textFill="RED" />
    </children>
 </AnchorPane>

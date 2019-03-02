@@ -22,7 +22,7 @@ public class LibraryManagerHandler extends IHandler {
 	public static ConnectionSettingsController conn = new ConnectionSettingsController();
 
 	public LibraryManagerHandler(IGUIcontroller guiController) {
-		super(conn.getServerIPAddress(), conn.getPort());
+		super(conn.getIPAddress(), conn.getPortNumber());
 		currentControllerGUIobj = guiController;
 	}
 
@@ -57,6 +57,8 @@ public class LibraryManagerHandler extends IHandler {
 
 				e.printStackTrace();
 			}
+		default:
+			break;
 		}
 	}
 }

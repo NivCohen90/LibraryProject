@@ -49,7 +49,7 @@ public class CreateDatabase {
 			"  `purchesDate` date DEFAULT NULL,\r\n" + 
 			"  `isWanted` tinyint(4) DEFAULT '0',\r\n" + 
 			"  `Description` varchar(500) DEFAULT NULL,\r\n" + 
-			"  `ContextTable` varchar(45) DEFAULT NULL,\r\n" + 
+			"  `ContextTable` mediumblob DEFAULT NULL,\r\n" + 
 			"  `BookCopyIndex` int(11) DEFAULT '0',\r\n" + 
 			"  `isArchived` tinyint(4) DEFAULT '0',\r\n" + 
 			"  PRIMARY KEY (`CatalogNumber`),\r\n" + 

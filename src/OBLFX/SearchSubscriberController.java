@@ -2,11 +2,14 @@ package OBLFX;
 
 import java.util.ArrayList;
 import Client.CommonHandler;
+import Indicator.RingProgressIndicator;
 import Interfaces.IAlert;
+import Interfaces.IFXMLpathAndStyle;
 import Interfaces.IGUIcontroller;
 import SystemObjects.GeneralData;
 import SystemObjects.GeneralData.operationsReturn;
 import Users.Subscriber;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,10 +26,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +46,11 @@ public class SearchSubscriberController implements IGUIcontroller {
 	private CommonHandler commonClient;
 	@FXML
 	public void initialize() {
+		RingProgressIndicator ringProgressIndicator = new RingProgressIndicator();
+		ringProgressIndicator.makeIndeterminate();
+		ringProgressIndicator.setRingWidth(400);
+		Indicator.getChildren().add(ringProgressIndicator);
+		Indicator.setVisible(false);
 		setLabelsSearchSubscriber();
 		tblResults.setItems(ObservableColumnData);
         tblResults.setRowFactory(tv -> {
@@ -104,7 +115,8 @@ public class SearchSubscriberController implements IGUIcontroller {
     @FXML
     private Label lblNoResult;
     
-    
+    @FXML
+    private StackPane Indicator;
 
 	@SuppressWarnings("unused")
 	private TableView<Subscriber> tblResultsSubscriber = new TableView<>();
@@ -164,34 +176,49 @@ public class SearchSubscriberController implements IGUIcontroller {
      */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
-
+		ObservableColumnData.clear();
 		String searchInput = txtInput.getText();
+		boolean flag = false;
 		
 		if(IGUIcontroller.CheckIfUserPutInput(txtInput, emptyMsg)) {
 			if (type1.isSelected()) {
 				if(IGUIcontroller.CheckOnlyNumbers(txtInput, emptyMsg, 9, UserNameErrorDigits)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberStudentID);
+					flag = true;
 				}}
-					if (type2.isSelected()) {
-						if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
-							commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
-						}
-					}
+			if (type2.isSelected()) {
+				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyNumbers, UserNameErrorNumebrs)) {
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberID);
+					flag = true;
+				}
+			}
 
 			if (type3.isSelected()) {
 				if(IGUIcontroller.CheckOnlyLetter(txtInput, emptyMsg, OnlyLetters, OnlyLetterError)) {
 					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberName);
+					flag = true;
 				}
 			}			
 			if (type4.isSelected()) {
 				if(txtInput.getText().contains("@") && txtInput.getText().contains(".")) {
-					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);	
+					commonClient.searchInServer(searchInput, GeneralData.operations.searchBySubscriberEmail);
+					flag = true;
 				}
 				else {
 					emptyMsg.setText("Invalid Email");
 				}
 				
-			}	
+			}
+			
+			if(flag)
+			{
+				Indicator.setVisible(true);
+				Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
+				ImageView imageView = new ImageView(image);
+				emptyMsg.setText("");
+				emptyMsg.setVisible(true);
+				emptyMsg.setGraphic(imageView);
+			}
 		}
 
 	}
@@ -243,13 +270,18 @@ public class SearchSubscriberController implements IGUIcontroller {
 			
 			if(choosenResult instanceof Subscriber)
 			{
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/ReaderCard.fxml").openStream());
+				GeneralData.searchedSubscriber = (Subscriber) choosenResult;
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("/FXML/ReaderCard.fxml").openStream());
 				scene = new Scene(root);
 				SubscriberCardController Controller = (SubscriberCardController) fxmlLoader.getController();
 				Controller.setSubscriberCard((Subscriber)choosenResult);
+				root.setStyle(IFXMLpathAndStyle.BackgroundStyle);
 				primaryStage.setTitle(((Subscriber)choosenResult).getFullName());
 			}		
 		
+			primaryStage.setOnCloseRequest(e -> {
+				GeneralData.searchedSubscriber=null;
+		    });
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
@@ -264,6 +296,8 @@ public class SearchSubscriberController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
+		emptyMsg.setGraphic(null);
+		Indicator.setVisible(false);
 		switch(op) {
 		case returnError:
 			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);

@@ -27,7 +27,7 @@ public class LoginQueris {
 	private static final String getSubscriberInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.subscriber.SubscriberID, obl.subscriber.Status, obl.subscriber.FelonyNumber\r\n"
 			+ "FROM obl.user\r\n" + "INNER JOIN obl.subscriber ON obl.user.ID=subscriber.ID\r\n"
 			+ "WHERE obl.user.ID = '";
-	private static final String getLibrarianInformation = "SELECT obl.user.ID, obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.PhoneNumber,obl.user.Password, obl.user.Level, obl.librarian.Affiliation  \r\n"
+	private static final String getLibrarianInformation = "SELECT obl.user.FirstName, obl.user.LastName, obl.user.Email, obl.user.ID, obl.user.Password, obl.user.PhoneNumber, obl.user.Level, obl.librarian.Affiliation  \r\n"
 			+ "FROM obl.user\r\n" + "INNER JOIN obl.librarian ON obl.user.ID=obl.librarian.ID\r\n"
 			+ "WHERE obl.user.ID = '";
 	private static final String ANDPassword = "' AND obl.user.Password = '";
@@ -127,7 +127,7 @@ public class LoginQueris {
 					Res = s.executeQuery(
 							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
 					while (Res.next()) {
-						Librarian librarian = new Librarian(Res.getString(2), Res.getString(3), Res.getString(1),
+						Librarian librarian = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
 								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 1);
 						Librarian.add(librarian);
 					}
@@ -138,7 +138,7 @@ public class LoginQueris {
 					Res = s.executeQuery(
 							getLibrarianInformation + Login.userName + ANDPassword + Login.Password + Endquery);
 					while (Res.next()) {
-						Librarian librarianManager = new Librarian(Res.getString(2), Res.getString(3), Res.getString(1),
+						Librarian librarianManager = new Librarian(Res.getString(1), Res.getString(2), Res.getString(3),
 								Res.getString(4), Res.getString(5), Res.getString(6), Res.getString(8), 2);
 						LibrarianManager.add(librarianManager);
 					}

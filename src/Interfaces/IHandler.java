@@ -47,10 +47,15 @@ public abstract class IHandler extends AbstractClient {
 		ExceptionMsg.setEditable(false);
 		try {
 			openConnection();
-			conn.ConnectedFLAG = true;
+			conn.setConnectedFlag(true);
 			conn.setConnection();
 			SideMenu.refuseConnection = false;
-			ExceptionMsg.setText("Connected Succesfull");
+			String Connected = "";
+			Connected += "Succesfuly Connected to the Server.\n";
+			Connected += "Server IP Address: " + IPAddress;
+			Connected += "\nServer Port: " + port;
+			Connected += "\nEnjoy :)";
+			ExceptionMsg.setText(Connected);
 		} catch (IOException e) {
 			Error = "Could not Connect to the server With: ";
 			Error = Error + "\n";
@@ -72,7 +77,7 @@ public abstract class IHandler extends AbstractClient {
 			Error = Error + "\n";
 			Error = Error + "Restart the server and the client.";
 			ExceptionMsg.setText(Error);
-			conn.ConnectedFLAG = false;
+			conn.setConnectedFlag(false);
 			conn.setConnection();
 			SideMenu.refuseConnection = true;
 			IAlert.ExceptionAlert("Connection Failed.", new Exception (Error));

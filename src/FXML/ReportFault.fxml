@@ -12,12 +12,12 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OBLFX.ReportFaultController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Report Fault">
+      <Label layoutX="17.0" layoutY="14.0" text="Report Fault">
          <font>
-            <Font name="System Bold Italic" size="26.0" />
+            <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Group layoutX="14.0" layoutY="59.0">
+      <Group layoutX="17.0" layoutY="59.0">
          <children>
             <Label layoutY="4.0" text="Student ID:" />
             <TextField fx:id="IDTextField" layoutX="100.0" prefHeight="25.0" prefWidth="300.0" promptText="Fill Subscriber ID" />

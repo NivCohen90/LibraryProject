@@ -3,6 +3,7 @@ package OBLFX;
 import java.util.ArrayList;
 
 import Client.CommonHandler;
+import Indicator.RingProgressIndicator;
 import Interfaces.IAlert;
 import Interfaces.IGUIcontroller;
 import SystemObjects.Book;
@@ -24,10 +25,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -43,6 +47,11 @@ public class SearchBookController implements IGUIcontroller {
 
 	@FXML
 	public void initialize() {
+		RingProgressIndicator ringProgressIndicator = new RingProgressIndicator();
+		ringProgressIndicator.makeIndeterminate();
+		ringProgressIndicator.setRingWidth(400);
+		Indicator.getChildren().add(ringProgressIndicator);
+		Indicator.setVisible(false);
 		setLabelsSearchBook();
 		tblResults.setItems(ObservableColumnData);
 		tblResults.setRowFactory(tv -> {
@@ -111,6 +120,9 @@ public class SearchBookController implements IGUIcontroller {
 
 	@FXML
 	private Label ResultMSGLabel;
+	
+    @FXML
+    private StackPane Indicator;
 
 	@SuppressWarnings("unused")
 	private TableView<Book> tblResultsBook = new TableView<>();
@@ -178,16 +190,23 @@ public class SearchBookController implements IGUIcontroller {
 	 */
 	@FXML
 	void searchInLibrary(ActionEvent event) {
+		ObservableColumnData.clear();
 		ResultMSGLabel.setText("");
 		String searchInput = txtInput.getText();
+		boolean flag = false;
+		
 		if (IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
 			if (type1.isSelected())
+			{
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookName);
+				flag = true;
+			}
 			if (type2.isSelected()) {
 				if (IGUIcontroller.CheckIfUserPutInput(txtInput, ResultMSGLabel)) {
 					if (IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters,
 							OnlyThisLetterError)) {
 						commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookAuthor);
+						flag = true;
 					}
 				}
 			}
@@ -197,13 +216,30 @@ public class SearchBookController implements IGUIcontroller {
 					if (IGUIcontroller.CheckOnlyLetter(txtInput, ResultMSGLabel, OnlyThisLetters,
 							OnlyThisLetterError)) {
 						commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookSubject);
+						flag = true;
 					}
 				}
 			}
 			if (type4.isSelected())
+			{
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByBookDescription);
+				flag = true;
+			}
 			if (type5.isSelected())
+			{
 				commonClient.searchInServer(searchInput, GeneralData.operations.searchByFreeText);
+				flag = true;
+			}
+		}
+		
+		if(flag)
+		{
+			Indicator.setVisible(true);
+			Image image = new Image(getClass().getResource("/MenuIcons/loading.gif").toExternalForm());
+			ImageView imageView = new ImageView(image);
+			ResultMSGLabel.setText("");
+			ResultMSGLabel.setVisible(true);
+			ResultMSGLabel.setGraphic(imageView);
 		}
 
 	}
@@ -254,7 +290,7 @@ public class SearchBookController implements IGUIcontroller {
 		try {
 
 			if (choosenResult instanceof Book) {
-				root = (AnchorPane) fxmlLoader.load(getClass().getResource("../FXML/BookDetails.fxml").openStream());
+				root = (AnchorPane) fxmlLoader.load(getClass().getResource("/FXML/BookDetails.fxml").openStream());
 				scene = new Scene(root);
 				BookDetailsController Controller = (BookDetailsController) fxmlLoader.getController();
 				Controller.setBookToDisplay((Book) choosenResult);
@@ -275,10 +311,18 @@ public class SearchBookController implements IGUIcontroller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void receiveMassageFromServer(T msg, operationsReturn op) {
-		if (op != operationsReturn.returnException) {
+		Indicator.setVisible(false);
+		ResultMSGLabel.setGraphic(null);
+		switch(op) {
+		case returnError:
+			IAlert.setandShowAlert(AlertType.ERROR, "Cannot Find User" , (String)msg, (String)msg);
+			break;
+		case returnException:
+			IAlert.ExceptionAlert((Exception)msg); 
+			break;
+		default:
 			displayResults((ArrayList<T>) msg);
-		} else
-			IAlert.ExceptionAlert((Exception) msg);
+		}
 	}
 
 	/**
