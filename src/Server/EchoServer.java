@@ -37,7 +37,7 @@ import ocsf.server.*;
  * @param <Student>
  */
 
-public class EchoServer extends AbstractServer implements IAbstractServer {
+public class EchoServer extends AbstractServer{
 
 	// Class variables *************************************************
 

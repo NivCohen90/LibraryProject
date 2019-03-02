@@ -9,6 +9,7 @@ import Server.LoginQueris;
 import SystemObjects.ServerData;
 import ocsf.server.ConnectionToClient;
 import ocsf.server.IAbstractServer;
+import ocsf.server.IConnectionToClient;
 
 public class EchoServerStub implements IAbstractServer {
 
@@ -17,11 +18,15 @@ public class EchoServerStub implements IAbstractServer {
 	public EchoServerStub() {};
 	
 	@Override
-	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
+	public void handleMessageFromClient(Object msg, IConnectionToClient client) {
 		LoginQuerisStub login = new LoginQuerisStub(((String) ((ServerData) msg).getDataMsg().get(0)),
 				((String) ((ServerData) msg).getDataMsg().get(1)));
 		ServerData result = login.Login(login);
-		commonHandler.handleMessageFromServer(result);
+		try {
+			client.sendToClient(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//Property injection for testing class dependency

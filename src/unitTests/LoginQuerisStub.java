@@ -27,6 +27,8 @@ public class LoginQuerisStub implements ILoginQueris {
 		ServerData returnData=null;
 		dataArray.add(new Librarian("Sharon", "Mimar", "Sharonmimer@gmail.com", "999999993", "mynameisnotmimer",
 				"0541313326", "Staff", 1));
+		dataArray.add(new Librarian("Yankale", "Shahar", "FCMH1917@gmail.com", "999999992", "Eihhemakzooti",
+				"0500003031", "HR", 2));
 		dataArray.add(new Subscriber("999999996", "Arnst", "Setcus", "Sharkattack@gmail.com", "0549986757", "Gate5",
 				"2", "Freeze", 1));
 
@@ -39,7 +41,12 @@ public class LoginQuerisStub implements ILoginQueris {
 					if (obj instanceof Subscriber)
 						returnData = new ServerData(operationsReturn.returnSubscriber, obj);
 					if (obj instanceof Librarian)
-						returnData = new ServerData(operationsReturn.returnLibrarian, obj);
+					{
+						if(((User)obj).getID()=="999999993")
+							returnData = new ServerData(operationsReturn.returnLibrarian, obj);
+						if(((User)obj).getID()=="999999992")
+							returnData = new ServerData(operationsReturn.returnLibrarian, obj);
+					}
 				}
 			}
 		}

@@ -31,8 +31,9 @@ public class CommonHandler extends IHandler{
 		currentControllerGUIobj = guiController;	 
 	}
 	
+	//for testing
 	public CommonHandler(IGUIcontroller guiController,IAbstractClient abstractClient){
-		super(conn.getIPAddress(), conn.getPortNumber());
+		super("", 0);
 		currentControllerGUIobj = guiController;	 
 		conn=null;
 		this.abstractClient = abstractClient;
@@ -71,7 +72,6 @@ public class CommonHandler extends IHandler{
 			else
 			{
 				abstractClient.sendToServer(loginInfo);
-				Platform.exit();
 			}
 		}
 		catch (Exception e) {
