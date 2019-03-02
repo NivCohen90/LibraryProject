@@ -87,7 +87,7 @@ public abstract class IHandler extends AbstractClient {
 	 *	@param msg message recived from server
 	 */
 	@Override
-	protected void handleMessageFromServer(Object msg) {
+	public void handleMessageFromServer(Object msg) {
 		ServerData serverMsg = (ServerData) msg;
 		ArrayList<Object> arrayMsg = serverMsg.getDataMsg();
 		Platform.runLater(new Runnable() {

@@ -65,10 +65,11 @@ public class LoginFormController implements IGUIcontroller {
 	 */
 	@FXML
 	void Login(ActionEvent event) {
-		if (UserNameText.getText().length() != 9 || !UserNameText.getText().matches(OnlyNumbers)
-				|| PasswordText.getText().length() == 0) {
+		if(UserNameText.getText().length() != 9 || !UserNameText.getText().matches(OnlyNumbers)
+				|| PasswordText.getText().length() == 0)
 			WrongData.setText(WrongDataMsg);
-		} else {
+		else
+		{
 			UserName = UserNameText.getText();
 			Password = PasswordText.getText();
 			PasswordText.clear();
@@ -76,7 +77,6 @@ public class LoginFormController implements IGUIcontroller {
 			WrongData.setText("");
 			UserNameAlertLabel.setText("");
 			commonClient.loginUser(UserName, Password);
-
 		}
 	}
 

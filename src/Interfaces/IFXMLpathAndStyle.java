@@ -20,12 +20,12 @@ public interface IFXMLpathAndStyle {
 	final static String ConnectionSettingsFXML = "../FXML/ConnectionSettings.fxml";
 	final static String WelcomeScreen = "../FXML/WelcomeScreen.fxml";
 	final static String AddBookFXML = "../FXML/AddBook.fxml";
-	final static String AddBookCopyFXML = "../FXML/AddnewCopy.fxml";
+	final static String AddBookCopyFXML = "../FXML/Addnewcopy.fxml";
 	final static String UpdateBookFXML = "../FXML/UpdateBook.fxml";
 	final static String DeleteBookFXML = "../FXML/DeleteBook.fxml";
 	final static String LoanReportDiaplayFXML= "../FXML/LoanReportDiaplay.fxml";
-	final static String LateReturnReportDisplayFXML= "../FXML/LateReturnReportDiaplay.fxml";
-	final static String ActivityReportDisplayFXML= "../FXML/ActivityReportDiaplay.fxml";
+	final static String LateReturnReportDisplayFXML= "../FXML/LateReturnReportDisplay.fxml";
+	final static String ActivityReportDisplayFXML= "../FXML/ActivityReportDisplay.fxml";
 	final static String UserWelcomeFXML= "../FXML/UserWelcome.fxml";
 	final static String WelcomeScreenCSS = "../CSS/WelcomeScreen.css";
 	

@@ -26,7 +26,18 @@ public class CommonHandler extends IHandler{
 		super(conn.getServerIPAddress(), conn.getPort());
 		currentControllerGUIobj = guiController;	 
 	}
-
+	/**
+	 * 
+	 * 
+	 */
+	public CommonHandler(IGUIcontroller guiController,String ServerIp,int Port){
+		//currentControllerGUIobj defined in IHandler interface, will save the GUI controller input was sent from
+		
+		//for testing
+		super(ServerIp,Port);
+		currentControllerGUIobj = guiController;	
+	//	currentControllerGUIobj.setConnection();
+	}
 	/**
 	 * method to send search book request to server
 	 * @param fieldInput the input text in search
