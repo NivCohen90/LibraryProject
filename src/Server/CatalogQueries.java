@@ -66,7 +66,9 @@ public class CatalogQueries {
 			stmt = con.createStatement();
 			ResultSet catalogNumber = stmt.executeQuery(checkCatalogNumber);
 			while (catalogNumber.next()) {
-				throw new SQLException("This book with this catalog number is already in database.");
+				result = new ServerData(operationsReturn.returnError, "This book with this catalog number is already in database.");
+				return result;
+				//throw new SQLException("This book with this catalog number is already in database.");
 			}
 			File pdfoutFile;
 			FileOutputStream fos; // input from file
@@ -75,13 +77,6 @@ public class CatalogQueries {
 			if (pdfoutFile.exists())
 				throw new FileAlreadyExistsException("pdf file with this name already exist");
 			stmt.executeUpdate(query);
-//			fos = new FileOutputStream(pdfoutFile);
-//			bos = new BufferedOutputStream(fos);
-//			bos.write(bookToAdd.getContextTableByteArray(), 0, bookToAdd.getContextTableByteArray().length); // read from file to byte array
-//			bos.flush();
-//			fos.flush();
-//			fos.close();
-			
 			String sql = String.format("UPDATE book Set ContextTable=? where CatalogNumber='%s';",bookToAdd.getCatalogNumber());
 			try {
 				PreparedStatement statement = con.prepareStatement(sql);
