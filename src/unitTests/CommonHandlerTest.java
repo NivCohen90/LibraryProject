@@ -81,7 +81,7 @@ public class CommonHandlerTest {
 	@Test
     public void loginNotExistUserTest() {
 
-		testCommonHandler.loginUser("0", "0");
+		testCommonHandler.loginUser("999999991", "123456");
 		String actualResult = guiStub.errorMessage;
         String expectedResult = "Can't Login - the Username/Password are wrong.";
         
